@@ -1013,7 +1013,7 @@
                       <h3>Educación Familiar</h3>
                       <p>Estrategias del Programa de Educación Familiar: INCIDIR, CONVIVIR y Escuelas de Padres (APRENDER).</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/educaci%C3%B3n-familiar" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-educacion-familiar" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -2836,7 +2836,333 @@
 
                 </div>
             `,
+/* --- NUEVA SUBPÁGINA: EDUCACIÓN FAMILIAR --- */
+            'biblioteca-educacion-familiar': `
+                <style>
+                    /* DISEÑO CONSISTENTE: Contenedor gris y tarjetas blancas */
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+                    
+                    .alert-info-box { padding: 18px 20px; border-radius: 8px; border-left: 5px solid var(--secondary-blue); margin-bottom: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+                    .section-divider-title { font-size: 1.4rem; color: var(--primary-blue); border-bottom: 3px solid var(--accent-gold); padding-bottom: 10px; margin-bottom: 25px; font-weight: 800; }
 
+                    /* TARJETAS FLOTANTES BLANCAS */
+                    .binaes-grid { display: grid; gap: 20px; }
+                    .binaes-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); }
+                    .binaes-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(10, 37, 64, 0.1); }
+                    .card-highlight { border-top: 4px solid var(--accent-gold); }
+                    
+                    .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+                    .binaes-card h3 { color: var(--secondary-blue); font-size: 1.2rem; margin: 0 0 10px 0; font-weight: 700; line-height: 1.3; }
+                    .binaes-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0; flex-grow: 1; }
+                    .card-actions { display: flex; margin-top: auto; }
+
+                    /* BOTONERA DUAL PARA FORMATOS WORD/PDF */
+                    .dual-buttons { display: flex; gap: 10px; width: 100%; }
+                    
+                    .btn-primary-inner { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary-blue); color: var(--white); text-decoration: none; font-weight: 600; padding: 12px 16px; font-size: 0.9rem; border-radius: 6px; transition: all 0.2s ease-in-out; width: 100%; box-shadow: 0 2px 6px rgba(10, 37, 64, 0.15); border: 1px solid transparent; }
+                    .dual-buttons .btn-primary-inner { flex: 1; }
+                    .btn-primary-inner:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); color: var(--white); }
+
+                    /* NAVEGACIÓN INFERIOR */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 40px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: var(--accent-gold); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 10px; }
+                    
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; transition: all 0.3s ease; border: 2px solid; }
+                    .btn-indice-blanco { background-color: #ffffff; color: var(--primary-blue); border-color: var(--primary-blue); }
+                    .btn-indice-blanco:hover { background-color: var(--primary-blue); color: var(--white); }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
+
+                    .btn-alerta { color: var(--alert-red); border-color: var(--alert-red); background-color: #ffffff; }
+                    .btn-alerta:hover { background-color: var(--alert-red) !important; color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.2); }
+                    .btn-icon-arrow { font-size: 1.2rem; margin-right: 8px; transition: transform 0.2s ease; }
+                    .btn-alerta:hover .btn-icon-arrow { transform: scale(1.15); }
+
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; border: none; background: transparent; }
+                        .binaes-card { text-align: center; }
+                        .card-icon { margin-bottom: 15px !important; }
+                        .dual-buttons { flex-direction: row; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Programa de Educación Familiar</h2>
+                    <p>Estrategias, recursos, orientaciones y formatos para fortalecer el rol de las familias como el primer entorno protector en el desarrollo integral, emocional y académico de la población estudiantil.</p>
+                  </div>
+
+                  <div class="alert-info-box" style="background-color: #F0F7FF; color: var(--secondary-blue);">
+                    <strong>👨‍👩‍👧‍👦 La Familia como Factor Protector:</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem; line-height: 1.5;">
+                      El trabajo articulado entre la escuela y el hogar es vital para identificar a tiempo riesgos psicosociales. A través de las estrategias <strong>INCIDIR, CONVIVIR y APRENDER</strong>, dotamos a las madres, padres y responsables de herramientas prácticas para la escucha activa, la prevención de la violencia y la promoción de la salud mental de sus hijos.
+                    </p>
+                  </div>
+
+                  <h3 class="section-divider-title">Módulo I: Prevención y Apoyo Psicosocial</h3>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-bottom: 40px;">
+                    
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">🏡</div>
+                      <h3>1. Recomendaciones para la Familia</h3>
+                      <p>Pautas fundamentales para fomentar la comunicación sana, practicar la escucha activa, establecer límites con amor y prevenir conductas de riesgo desde el hogar.</p>
+                      <div class="card-actions">
+                        <a href="URL_INFO_1_RECOMENDACIONES" target="_blank" class="btn-primary-inner">Descargar Infografía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🛑</div>
+                      <h3>2. Señales de Acoso Escolar (Bullying)</h3>
+                      <p>Identificación de los roles dentro del acoso (Víctima, Agresor y Observador) y las señales de alarma físicas y conductuales para intervenir a tiempo.</p>
+                      <div class="card-actions">
+                        <a href="URL_INFO_2_ACOSO" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Descargar Infografía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🧠</div>
+                      <h3>3. Ansiedad y Depresión</h3>
+                      <p>Guía para identificar alteraciones en el estado de ánimo, cambios en el sueño o alimentación y manifestaciones de miedo o tristeza prolongada en adolescentes.</p>
+                      <div class="card-actions">
+                        <a href="URL_INFO_3_EMOCIONAL" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Descargar Infografía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card" style="border-left: 4px solid var(--alert-red);">
+                      <div class="card-icon">🛡️</div>
+                      <h3>4. Señales de Abuso Sexual</h3>
+                      <p>Indicadores críticos de alerta, como comportamientos sexualizados fuera de edad, desconfianza hacia personas específicas y alteraciones drásticas del comportamiento.</p>
+                      <div class="card-actions">
+                        <a href="URL_INFO_4_ABUSO" target="_blank" class="btn-primary-inner" style="background-color: var(--alert-red); color: white;">Descargar Infografía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🆘</div>
+                      <h3>5. Qué hacer y dónde buscar ayuda</h3>
+                      <p>Directorio de redes de apoyo especializado (MINED, MINSAL, PNC, CONAPINA) y los pasos inmediatos a seguir para proteger y asesorar legalmente a la víctima.</p>
+                      <div class="card-actions">
+                        <a href="URL_INFO_5_AYUDA" target="_blank" class="btn-primary-inner" style="background-color: var(--accent-gold); color: var(--primary-blue);">Descargar Infografía ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Módulo II: Manual Operativo y Planificación Anual</h3>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); margin-bottom: 40px;">
+                    
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">📘</div>
+                      <h3>Manual de Funcionamiento</h3>
+                      <p>Documento rector que contiene la base legal, los objetivos del programa y el desarrollo metodológico de las tres grandes estrategias de articulación:</p>
+                      <ul style="color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 15px; padding-left: 20px; line-height: 1.6;">
+                        <li><strong>Incidir:</strong> Comités de desarrollo y participación en el CDE.</li>
+                        <li><strong>Convivir:</strong> Actividades recreativas y convivencia en el hogar.</li>
+                        <li><strong>Aprender:</strong> Escuelas de padres y sesiones formativas.</li>
+                      </ul>
+                      <div class="card-actions">
+                        <a href="URL_MANUAL_FUNCIONAMIENTO" target="_blank" class="btn-primary-inner">Descargar Manual Oficial ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">📅</div>
+                      <h3>Propuesta de Calendario Anual</h3>
+                      <p>Matriz de planificación sugerida para distribuir las actividades del programa a lo largo del año escolar (de enero a octubre). Facilita a la dirección escolar la programación de:</p>
+                      <ul style="color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 15px; padding-left: 20px; line-height: 1.6;">
+                        <li>Sesiones formativas e intercambios (Escuela de Padres).</li>
+                        <li>Convivios escolares (Ej. Festival Comunicando con Amor).</li>
+                        <li>Salidas recreativas y cinefórums familiares.</li>
+                      </ul>
+                      <div class="card-actions">
+                        <a href="URL_CALENDARIO_FAMILIAS" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Descargar Calendario ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Módulo III: Estrategia "CONVIVIR" (Actividades Familiares)</h3>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 40px;">
+                    
+                    <div class="binaes-card">
+                      <div class="card-icon">🍳</div>
+                      <h3>Grupo 1: Actividades del Hogar</h3>
+                      <p>Orientaciones para transformar rutinas diarias en espacios de diálogo, conexión emocional y corresponsabilidad sin distinción de género.</p>
+                      <div class="card-actions">
+                        <a href="URL_CONVIVIO_GRUPO_1" target="_blank" class="btn-primary-inner">Descargar Guía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🌳</div>
+                      <h3>Grupo 2: Salidas Recreativas</h3>
+                      <p>Guía para organizar pícnics o paseos familiares que promuevan la escucha activa, el contacto con la naturaleza y la liberación de estrés.</p>
+                      <div class="card-actions">
+                        <a href="URL_CONVIVIO_GRUPO_2" target="_blank" class="btn-primary-inner">Descargar Guía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🎬</div>
+                      <h3>Grupo 3: Cinefórum Familiar</h3>
+                      <p>Recomendaciones de películas con mensajes de valor y preguntas guías para reflexionar sobre las emociones en familia.</p>
+                      <div class="card-actions">
+                        <a href="URL_CONVIVIO_GRUPO_3" target="_blank" class="btn-primary-inner">Descargar Guía ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">🎉</div>
+                      <h3>Festival: Comunicando con Amor</h3>
+                      <p>Metodología completa para organizar el festival escolar que fomenta la participación de las familias mediante dinámicas lúdicas.</p>
+                      <div class="card-actions">
+                        <a href="URL_FESTIVAL_FAMILIAR" target="_blank" class="btn-primary-inner" style="background-color: var(--accent-gold); color: var(--primary-blue);">Descargar Festival ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Módulo IV: Estrategia "APRENDER" (Escuelas de Familias)</h3>
+                  
+                  <h4 style="color: var(--secondary-blue); margin-bottom: 15px; font-weight: 600;">1. Guías de Intercambio (Sesiones Formativas):</h4>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); margin-bottom: 30px;">
+                    
+                    <div class="binaes-card">
+                      <div class="card-icon">🧘‍♀️</div>
+                      <h3>1. El Autocuidado</h3>
+                      <p>Sesión diseñada para enseñar a los responsables familiares a gestionar su estrés mediante técnicas de relajación y risoterapia.</p>
+                      <div class="card-actions">
+                        <a href="URL_INTERCAMBIO_1" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Descargar Intercambio ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🎲</div>
+                      <h3>2. El Juego en Familia</h3>
+                      <p>Dinámica formativa que expone la importancia del juego para entrenar el control emocional, fortalecer la autoestima y descubrir habilidades.</p>
+                      <div class="card-actions">
+                        <a href="URL_INTERCAMBIO_2" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Descargar Intercambio ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h4 style="color: var(--secondary-blue); margin-bottom: 15px; font-weight: 600;">2. Cartillas Didácticas para la Prevención y Apoyo:</h4>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 40px;">
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🛑</div>
+                      <h3>Cartilla 1: Acoso Escolar</h3>
+                      <p>Material sobre el "Bullying" y ciberacoso. Enseña a identificar roles para actuar de inmediato.</p>
+                      <div class="card-actions">
+                        <a href="URL_CARTILLA_1" target="_blank" class="btn-primary-inner">Descargar Cartilla ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🌧️</div>
+                      <h3>Cartilla 2: La Depresión</h3>
+                      <p>Primeros auxilios psicológicos y dinámicas para reconocer la tristeza profunda en adolescentes.</p>
+                      <div class="card-actions">
+                        <a href="URL_CARTILLA_2" target="_blank" class="btn-primary-inner">Descargar Cartilla ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card" style="background-color: #FFF5F5; border-left: 5px solid var(--alert-red);">
+                      <div class="card-icon">🆘</div>
+                      <h3 style="color: var(--alert-red);">Cartilla 3: Ideas Suicidas</h3>
+                      <p><strong>Material Sensible.</strong> Protocolo urgente para identificar señales graves de alarma y de contención vital.</p>
+                      <div class="card-actions">
+                        <a href="URL_CARTILLA_3" target="_blank" class="btn-primary-inner" style="background-color: var(--alert-red); color: white;">Descargar Protocolo ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">😰</div>
+                      <h3>Cartilla 4: La Ansiedad</h3>
+                      <p>Herramienta con cuentos ilustrados para comprender el miedo irracional y las crisis de pánico.</p>
+                      <div class="card-actions">
+                        <a href="URL_CARTILLA_4" target="_blank" class="btn-primary-inner">Descargar Cartilla ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🍃</div>
+                      <h3>Cartilla 5: Regulando el Estrés</h3>
+                      <p>Estrategias prácticas para el manejo de emociones y regulación del estrés en el entorno familiar.</p>
+                      <div class="card-actions">
+                        <a href="URL_CARTILLA_5" target="_blank" class="btn-primary-inner" style="background-color: var(--accent-gold); color: var(--primary-blue);">Descargar Cartilla ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Módulo V: Formatos y Registros Administrativos</h3>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 40px;">
+
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">📋</div>
+                      <h3>Registro de los Comités</h3>
+                      <p>Matriz oficial para asentar la conformación de los Comités de Desarrollo Educativo (Presidente, Secretario, Vocales).</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="URL_REGISTRO_COMITES_PDF" target="_blank" class="btn-primary-inner">PDF</a>
+                        <a href="URL_REGISTRO_COMITES_WORD" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🗓️</div>
+                      <h3>Plan de Trabajo de Comités</h3>
+                      <p>Formato para planificar cronológicamente las actividades, objetivos, recursos y responsables durante el año escolar.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="URL_PLAN_TRABAJO_PDF" target="_blank" class="btn-primary-inner">PDF</a>
+                        <a href="URL_PLAN_TRABAJO_WORD" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">👥</div>
+                      <h3>Listado de Asistencia</h3>
+                      <p>Control de firmas para validar la participación de madres, padres, estudiantes y docentes en las diferentes actividades y convivios.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="URL_LISTADO_ASISTENCIA_PDF" target="_blank" class="btn-primary-inner">PDF</a>
+                        <a href="URL_LISTADO_ASISTENCIA_WORD" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">📸</div>
+                      <h3>Memoria de Actividades</h3>
+                      <p>Plantilla para consolidar las evidencias de la ejecución de actividades, adjuntando el registro fotográfico y los resultados obtenidos.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="URL_MEMORIA_ACTIVIDADES_PDF" target="_blank" class="btn-primary-inner">PDF</a>
+                        <a href="URL_MEMORIA_ACTIVIDADES_WORD" target="_blank" class="btn-primary-inner" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="retorno-navigation-wrapper">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Sistema Nacional de Protección Integral</span>
+                      <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Identifica una situación de riesgo o vulneración?</h3>
+                      <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Ingrese al portal oficial para registrar el aviso de forma confidencial y activar las rutas del sistema SALVE.</p>
+                    </div>
+                    <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
+                      <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
+                        <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+            `,
             /* --- NUEVA SUBPÁGINA: CUENTAS CLASES --- */
             'biblioteca-cuentas': `
                 <style>
