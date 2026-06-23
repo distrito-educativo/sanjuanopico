@@ -872,7 +872,7 @@
                       <h3>Juegos Deportivos Estudiantiles Nacionales</h3>
                       <p>Bases de competencia por disciplina (JDEN), normativos de participación INDES y reglamentos U18.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/juegos-deportivos-estudiantiles" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-juegos-deportivos" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -3295,7 +3295,163 @@
 
                 </div>
             `,
+'biblioteca-juegos-deportivos': `
+                <style>
+                    /* DISEÑO CONSISTENTE: Contenedor gris y fondo blanco */
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 25px; }
+                    .binaes-header h2 { color: #0A2540; font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
+                    
+                    /* TABLA DE DEPORTES */
+                    .memorandos-table-wrapper { width: 100%; overflow-x: auto; border: 1px solid #cbd5e1; border-radius: 8px; -webkit-overflow-scrolling: touch; box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #ffffff; }
+                    .memorandos-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; min-width: 850px; }
+                    .memorandos-table th { background-color: #1C3D5A; color: #ffffff; padding: 14px 18px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+                    .memorandos-table td { padding: 14px 18px; border-bottom: 1px solid #e2e8f0; color: #2D3748; line-height: 1.5; vertical-align: middle; }
+                    .memorandos-table tbody tr:nth-child(even) { background-color: #f8fafc; }
+                    .memorandos-table tbody tr:hover { background-color: #f1f5f9; }
+                    
+                    .memo-date { color: #1C3D5A; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
+                    .memo-code { color: #0A2540; white-space: nowrap; font-size: 0.95rem; }
+                    .memo-subject { font-size: 0.9rem; text-align: justify; }
+                    
+                    /* BOTONES DE DESCARGA (BLINDADOS EN BLANCO) */
+                    .btn-memo-download { display: block; background-color: #0A2540; color: #ffffff !important; text-decoration: none; text-align: center; padding: 8px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; transition: background-color 0.2s, transform 0.2s; width: 90px; margin: 0 auto; box-shadow: 0 2px 4px rgba(10,37,64,0.1); }
+                    .btn-memo-download:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); }
+                    
+                    /* CAJA INFERIOR DE ENLACES (BLINDADA EN BLANCO) */
+                    .binaes-footer-links { background-color: #0A2540; color: #ffffff; border-radius: 8px; padding: 20px 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-top: 35px; }
+                    .binaes-footer-links h4 { margin: 0; font-size: 1.05rem; font-weight: 700; color: #ffffff; }
+                    .btn-group-links { display: flex; gap: 10px; flex-wrap: wrap; }
+                    .btn-group-links a { background-color: rgba(255, 255, 255, 0.15); color: #ffffff !important; padding: 10px 16px; font-size: 0.85rem; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s ease; border: 1px solid transparent; }
+                    .btn-group-links a:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-color: #D4AF37; }
+                    
+                    /* RETORNO A LA BIBLIOTECA */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 35px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: #D4AF37; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; background-color: #ffffff; color: #0A2540; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; border: 1px solid #0A2540; cursor: pointer; transition: all 0.2s ease-in-out; }
+                    .btn-retorno-indice:hover { background-color: #0A2540; color: #ffffff; }
 
+                    @media (max-width: 768px) { 
+                        .opico-binaes-container{ padding: 15px; border: none; background: transparent; }
+                        .binaes-footer-links { flex-direction: column; text-align: center; }
+                        .btn-group-links { justify-content: center; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Juegos Deportivos Estudiantiles Nacionales</h2>
+                  </div>
+
+                  <div class="memorandos-table-wrapper">
+                    <table class="memorandos-table">
+                      <thead>
+                        <tr>
+                          <th>Disciplina / Documento</th>
+                          <th>Categoría y Rangos</th>
+                          <th>Fases y Especificaciones Técnicas</th>
+                          <th style="text-align: center;">Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="row-highlight">
+                          <td class="memo-code">📜 <strong>Reglamento General</strong></td>
+                          <td class="memo-date">Institucional 2024</td>
+                          <td class="memo-subject">Marco normativo y disciplinario para centros escolares públicos y privados. Regula la elegibilidad de NNA, el 85% de asistencia escolar, el uso de barras y los Comités de Penas departamentales.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1--q2rPxAkYXrqIiOMge3XK2QT_OHVrE_/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🥋 <strong>Taekwondo (WT)</strong></td>
+                          <td class="memo-date">15 a 17 años (Rojo/Negro)</td>
+                          <td class="memo-subject">Reglamento oficial WT para Kyorugi (combate por asaltos) y Poomsae (formas individuales). Exige uso obligatorio de Dobok blanco homologado y kit completo de protecciones (casco, peto, guantes, bucal y espinilleras).</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1zJ4azlDMi3uyvqqz8LJCoym9qjs3ptOT/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🏃‍♂️ <strong>Atletismo</strong></td>
+                          <td class="memo-date">U18 (15 a 17 años)</td>
+                          <td class="memo-subject">Bases oficiales regidas bajo la World Athletics 2024-2025. Especificación de pruebas de pista/campo, pesos de implementos, sistema de cámara de llamadas y marcas para ranking nacional.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/140MwrcU17R_2anDXbJPuCtdrTR1VnQlR/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🤾‍♂️ <strong>Balonmano (Bases)</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Bases específicas de competencia para las modalidades masculina y femenina. Dimensiones de cancha (20x40m), sistema de acumulación de puntos (I.H.F.) y cuotas máximas de inscripción.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1zS4ERYji6PtkoZZXol8-W8sTxSYedwr-/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">📋 <strong>Balonmano (Normativo)</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Normativo final de participación JDEN. Distribución de cuotas por departamento, fase clasificatoria preliminar, sistema operativo de eliminación y asignación de responsabilidades de transporte e hidratación.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1kWypDOpObWqYFSjUkU5cwUzUVXjJ6VUZ/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🏐 <strong>Voleibol</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Reglamento técnico avalado por FESAVOL para las fases departamental, regional y nacional. Alturas oficiales de red (2.24m fem / 2.43m masc), formatos de juego a 2 de 3 sets y elegibilidad de refuerzos.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1rYfO07I9thHc_HbDsz0VvDnjdRymJeAP/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">⚽ <strong>Fútbol 11 (Bases)</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Especificaciones de juego bajo la International Football Association Board (IFAB). Balón número 5, dimensiones de portería reglamentaria, registro de capitanías y políticas de acumulación de tarjetas rojas/amarillas.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1gBkIgrGrU47RBU7BdGk4r51rh8a-gWfQ/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">📋 <strong>Fútbol 11 (Normativo)</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Normativo general de participación. Formato de eliminación simple departamental, llaves cruzadas para la fase regional-nacional (Ida y Vuelta) y uso obligatorio de espinilleras cubiertas.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1OnhyEUYQ53iZmHyV895iEJZAXnS-HCdy/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">♟️ <strong>Ajedrez</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Bases específicas JDEN de la Federación Salvadoreña de Ajedrez. Torneos individuales online vía Chess.com, requerimientos de FairPlay (cámara web y pantalla compartida) y sistemas de desempate Buchholz.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1RHZoPnWgYeXp6OVYXfgiKS1EimNbGbTm/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🥋 <strong>Karate-Do</strong></td>
+                          <td class="memo-date">15 a 17 años (Junior)</td>
+                          <td class="memo-subject">Reglamentación oficial bajo la Federación Mundial de Karate (WKF). Categorías de peso en Kumite, requisitos de grado mínimo (Cinturón Verde) en Kata, y tabla de puntuación regional para clasificación.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1m_fMAOZp_7X29QQ1Y7BGnNc9Oa1xSvC9/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">⚾ <strong>Béisbol</strong></td>
+                          <td class="memo-date">13 a 15 años</td>
+                          <td class="memo-subject">Reglamentación técnica para el torneo recreativo. Metodología de juego a "bola pasada" adaptada a canchas de fútbol 11, rosters de 12 a 15 jugadores, entradas limitadas a 3 outs o 5 carreras máximas.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1f8GLgOpAdTDxl3RzGu6qBx7y4qGHF9TU/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-code">🥎 <strong>Softbol</strong></td>
+                          <td class="memo-date">15 a 17 años</td>
+                          <td class="memo-subject">Normativo y bases específicas de la Federación Salvadoreña de Softbol. Sistema de eliminación de dos grupos, uso obligatorio de implementos de seguridad (careta, peto, chinfles) y especificación de pelota oficial de 12".</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1kuVRehhddLPJcnDDrm0-k-JsA2cs4UAu/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="binaes-footer-links">
+                    <h4>Portales e Inscripciones Oficiales:</h4>
+                    <div class="btn-group-links">
+                      <a href="https://juegosestudiantiles.gob.sv/" target="_blank">🌐 Sistema de Inscripción JDEN</a>
+                      <a href="https://drive.google.com/drive/folders/1WEWL-pcZUImIeaj0TQiS_ybcTKOltXV5?usp=drive_link" target="_blank">📂 Carpeta de Drive Compartida</a>
+                    </div>
+                  </div>
+
+                  <div class="retorno-navigation-wrapper">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: #0A2540; font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otra normativa?</h3>
+                    </div>
+                    <div class="retorno-action-side">
+                        <button data-target="biblioteca-home" class="btn-retorno-indice">← Volver al Índice</button>
+                    </div>
+                  </div>
+                </div>
+            `,
             'calendario-home': `<div class="page-header"><h1>Calendario Escolar</h1><p>Organización anual de actividades cívicas, evaluaciones y festividades locales.</p></div>`,
             'derechos-home': `<div class="page-header"><h1>Derechos Humanos</h1><p>Entidad encargada de velar por el bienestar, la equidad y la seguridad.</p></div>`,
             'derechos-denuncia': `<div class="page-header"><h1>Canales de Denuncia</h1></div>`,
