@@ -895,12 +895,12 @@
                       </div>
                     </div>
 
-                    <div class="binaes-card indice-item" data-title="modalidades flexibles de educación">
+                   <div class="binaes-card indice-item" data-title="modalidades flexibles de educación">
                       <div class="card-icon">🎒</div>
                       <h3>Modalidades Flexibles de Educación</h3>
                       <p>Estrategias de acreditación para jóvenes y adultos con sobreedad y planes de nivelación.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/modalidades-flexibles" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-modalidades-flexibles" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -3732,6 +3732,228 @@
                         <button data-target="biblioteca-home" class="btn-retorno-indice">← Volver al Índice</button>
                     </div>
                   </div>
+                </div>
+            `,
+'biblioteca-modalidades-flexibles': `
+                <style>
+                    /* DISEÑO CONSISTENTE: Contenedor gris y fondo blanco */
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 25px; }
+                    .binaes-header h2 { color: #0A2540; font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
+                    
+                    /* SISTEMA DE PESTAÑAS (TABS) */
+                    .suficiencia-tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; overflow-x: auto; }
+                    .tab-btn { background-color: #e2e8f0; color: #1C3D5A; border: 1px solid #cbd5e1; padding: 12px 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+                    .tab-btn:hover { background-color: #cbd5e1; }
+                    .tab-btn.active { background-color: #0A2540; color: #ffffff; border-color: #0A2540; }
+                    .tab-content { display: none; }
+                    .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+                    /* GRID PARA LA PESTAÑA 1 */
+                    .binaes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 20px; }
+                    .binaes-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); }
+                    .binaes-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1); }
+                    .card-highlight { border-top: 4px solid #D4AF37; }
+                    .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+                    .binaes-card h3 { color: #1C3D5A; font-size: 1.25rem; margin: 0 0 10px 0; font-weight: 700; line-height: 1.3;}
+                    .binaes-card p { color: #718096; font-size: 0.95rem; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1; text-align: justify;}
+                    
+                    /* BOTONES DE LA TARJETA BLINDADOS */
+                    .btn-primary-inner { display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; text-decoration: none; text-align: center; background-color: #0A2540; color: #ffffff !important; width: 100%; transition: all 0.2s; box-shadow: 0 2px 4px rgba(10,37,64,0.1);}
+                    .btn-primary-inner:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); }
+
+                    /* ALERTAS INFO */
+                    .alert-info-box { background-color: #FFFDF3; border-left: 4px solid #D4AF37; padding: 15px 20px; border-radius: 6px; font-size: 0.9rem; color: #744210; margin-bottom: 20px; line-height: 1.5; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+
+                    /* TABLA DE LA PESTAÑA 2 */
+                    .memorandos-table-wrapper { width: 100%; overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px; -webkit-overflow-scrolling: touch; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+                    .memorandos-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; min-width: 850px; }
+                    .memorandos-table th { background-color: #1C3D5A; color: #ffffff; padding: 14px 18px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+                    .memorandos-table td { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; color: #2D3748; line-height: 1.5; vertical-align: middle; }
+                    .memorandos-table tbody tr:nth-child(even) { background-color: #f8fafc; }
+                    .memorandos-table tbody tr:hover { background-color: #EDF2F7; }
+                    
+                    .memo-date { color: #1C3D5A; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
+                    .memo-code { color: #0A2540; white-space: nowrap; font-size: 0.95rem; font-weight: 700;}
+                    .memo-subject { font-size: 0.9rem; text-align: justify; }
+
+                    /* BOTÓN DE DESCARGA DE LA TABLA BLINDADO */
+                    .btn-memo-download { display: block; background-color: #0A2540; color: #ffffff !important; text-decoration: none; text-align: center; padding: 8px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; transition: background-color 0.2s, transform 0.2s; width: 90px; margin: 0 auto; box-shadow: 0 2px 4px rgba(10,37,64,0.1); }
+                    .btn-memo-download:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); }
+
+                    /* CAJA INFERIOR DE ENLACES (BLINDADA EN BLANCO) */
+                    .binaes-footer-links { background-color: #0A2540; color: #ffffff; border-radius: 8px; padding: 20px 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-top: 35px; }
+                    .binaes-footer-links h4 { margin: 0; font-size: 1.05rem; font-weight: 700; color: #ffffff; }
+                    .btn-group-links { display: flex; gap: 10px; flex-wrap: wrap; }
+                    .btn-group-links a { background-color: rgba(255, 255, 255, 0.15); color: #ffffff !important; padding: 10px 16px; font-size: 0.85rem; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s ease; border: 1px solid transparent; }
+                    .btn-group-links a:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-color: #D4AF37; }
+                    
+                    /* RETORNO AL ÍNDICE */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 35px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: #D4AF37; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; background-color: #ffffff; color: #0A2540; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; border: 1px solid #0A2540; cursor: pointer; transition: all 0.2s ease-in-out; }
+                    .btn-retorno-indice:hover { background-color: #0A2540; color: #ffffff; }
+
+                    @media (max-width: 768px) { 
+                        .suficiencia-tabs { flex-direction: column; } 
+                        .tab-btn { width: 100%; text-align: center; } 
+                        .opico-binaes-container{ padding: 15px; border: none; background: transparent; }
+                        .binaes-footer-links { flex-direction: column; text-align: center; }
+                        .btn-group-links { justify-content: center; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>MODALIDADES FLEXIBLES DE EDUCACIÓN</h2>
+                  </div>
+
+                  <div class="suficiencia-tabs">
+                    <button class="tab-btn active" onclick="window.switchTab(event, 'inscripcion-tab')">📋 Guías y Formularios</button>
+                    <button class="tab-btn" onclick="window.switchTab(event, 'temarios-tab')">📚 Temarios de Estudio Oficiales</button>
+                  </div>
+
+                  <div id="inscripcion-tab" class="tab-content active">
+                    <div class="binaes-grid">
+                      
+                      <div class="binaes-card card-highlight">
+                        <div class="card-icon">🚀</div>
+                        <h3>Guía de Inscripción Paso a Paso</h3>
+                        <p>Instrucciones detalladas del proceso. Regula la verificación de sobreedad, cierre obligatorio de matrícula previa en el SIGES y flujos de escaneo de expedientes en las DDE.</p>
+                        <div class="card-actions">
+                          <a href="https://docs.google.com/document/d/1Z2TxiHzyQBD1QmS2EdS_XjQ6L4NRZbSt/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-primary-inner">Ver Guía de Proceso</a>
+                        </div>
+                      </div>
+
+                      <div class="binaes-card">
+                        <div class="card-icon">📄</div>
+                        <h3>Solicitud de Inscripción 2025-A</h3>
+                        <p>Formato PDF oficial del Instituto Nacional de Modalidades Alternas para el registro formal de datos del solicitante, procedencia educativa y fotografía tamaño cédula.</p>
+                        <div class="card-actions">
+                          <a href="https://drive.google.com/file/d/1-SfNvfMKSNDtoR5782blYDMCmdLg4cIS/view?usp=drive_link" target="_blank" class="btn-primary-inner">Descargar PDF</a>
+                        </div>
+                      </div>
+
+                      <div class="binaes-card">
+                        <div class="card-icon">✍️</div>
+                        <h3>Solicitud e Historial de Registro</h3>
+                        <p>Formato editable (.doc) para los niveles de Educación Básica y Media. Incluye el acta de compromiso legal que certifica la no duplicidad de matrícula abierta.</p>
+                        <div class="card-actions">
+                          <a href="https://docs.google.com/document/d/1paClVM3bqd4XQxORXVs9xo683-bWuB_A/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-primary-inner">Descargar Word</a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="alert-info-box">
+                      <strong>⚠️ Nota del Departamento de Certificación y Suficiencia (DCS):</strong> Todos los documentos requeridos en original (Partida de Nacimiento, DUI/Carné de minoridad y certificados anteriores) serán revisados y devueltos de forma inmediata al postulante el mismo día del trámite.
+                    </div>
+                  </div>
+
+                  <div id="temarios-tab" class="tab-content">
+                    <div class="memorandos-table-wrapper">
+                      <table class="memorandos-table">
+                        <thead>
+                          <tr>
+                            <th>Nivel Educativo</th>
+                            <th>Grado Académico</th>
+                            <th>Ejes Temáticos y Contenidos Clave a Evaluar</th>
+                            <th style="text-align: center;">Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo I)</td>
+                            <td class="memo-date">Primer Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Uso de vocales, consonantes l/ll, signos de interrogación. <strong>Matemática:</strong> Números hasta 100, figuras geométricas, el dólar. <strong>Sociales:</strong> Oficios locales y símbolos patrios.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1Tiik7zR6RpjmVX3kXSl7epbfeIUuTYd_/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo I)</td>
+                            <td class="memo-date">Segundo Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Estructura de cartas, fábulas, sílabas tónicas/átonas. <strong>Matemática:</strong> Números hasta 1,000, multiplicación básica, longitud (m, dm, cm). <strong>Sociales:</strong> Paisaje geográfico y seguridad vial.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1uhYELdVcT21qQhai0hsosITzVOyjoHVX/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo I)</td>
+                            <td class="memo-date">Tercer Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Pronombres personales, sílaba tónica, la anécdota. <strong>Matemática:</strong> Números hasta 10,000, áreas/perímetros, gráficos de barras. <strong>Sociales:</strong> Autoridades civiles y patrimonio histórico local.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1hhPk4rhrxg6wUYkWzRbnIgeQPgCG2d_k/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo II)</td>
+                            <td class="memo-date">Cuarto Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Estructura de la noticia, metáfora, palabras agudas/graves. <strong>Matemática:</strong> Números hasta un millón, decimales. <strong>Sociales:</strong> Sectores económicos de El Salvador e hidrografía nacional.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1LndAUaMWhhywcYOmHF8JrwlJ61fE6YUC/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo II)</td>
+                            <td class="memo-date">Quinto Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Mito mesoamericano, ideas principales, tildación. <strong>Matemática:</strong> Criterios de divisibilidad, múltiplos y divisores comunes. <strong>Sociales:</strong> Descubrimiento y geografía de América Central.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1fL1Q7NwG8vkGgiAoM8UCiQZSvPpJQLoR/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎒 Primaria (Ciclo II)</td>
+                            <td class="memo-date">Sexto Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Textos argumentativos, clases de rimas, la crónica. <strong>Matemática:</strong> Operaciones con fracciones, razones y porcentajes. <strong>Sociales:</strong> Ley Crecer Juntos, derechos laborales e historia americana (1930-1970).</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1_2m8zsTU4WNXIICQ1Xp-2HzftwVELaat/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🏫 Tercer Ciclo</td>
+                            <td class="memo-date">Séptimo Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Cuentos de terror/ciencia ficción, verbos regulares. <strong>Matemática:</strong> Números enteros, monomios, regla de tres simple. <strong>Ciencias:</strong> Sustancias puras, mezclas y ecología básica. <strong>Sociales:</strong> Declaración de los DDHH.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1yCTUy7NBCb5FXVy_AKg7VufFGHEH4oB-/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🏫 Tercer Ciclo</td>
+                            <td class="memo-date">Octavo Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Novela gótica e histórica, sintagmas nominal/verbal. <strong>Matemática:</strong> Polinomios, productos notables, estadística descriptiva. <strong>Sociales:</strong> Órganos del Estado salvadoreño y civilizaciones prehispánicas.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1tX5mnfQCyq-lHjZMFxZ1_CLWBEpzrjhq/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🏫 Tercer Ciclo</td>
+                            <td class="memo-date">Noveno Grado</td>
+                            <td class="memo-subject"><strong>Lenguaje:</strong> Origen de la lengua española, oraciones compuestas, el ensayo. <strong>Matemática:</strong> Radicales, ecuaciones cuadráticas, permutaciones. <strong>Sociales:</strong> Segunda Guerra Mundial, Guerra Fría y rendición de cuentas.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1c--t46_utLx1fQ3DNSTdUvrAbbkj9T77/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎓 Educación Media</td>
+                            <td class="memo-date">1° Año Bachillerato</td>
+                            <td class="memo-subject"><strong>Literatura:</strong> Épica clásica (Homero), tragedia griega, Barroco español. <strong>Ciencias:</strong> Leyes de Newton, fluidos, termodinámica. <strong>Sociales:</strong> Conflicto armado en El Salvador y globalización económica.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1CcNJLg-oOyA1LTGQgIHwZWmo9QANs6Qy/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                          <tr>
+                            <td class="memo-code">🎓 Educación Media</td>
+                            <td class="memo-date">2° Año Bachillerato</td>
+                            <td class="memo-subject"><strong>Literatura:</strong> Precolombina (Popol Vuh), Romanticismo, Realismo Mágico. <strong>Ciencias:</strong> Ondas, electromagnetismo, química orgánica. <strong>Sociales:</strong> Educación financiera, ciudadanía en la era digital y TIC.</td>
+                            <td class="memo-action"><a href="https://docs.google.com/document/d/1-vUGBKuZoJy8s9k_8zhdtqsvtZjUKE8o/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-memo-download">Descargar</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="binaes-footer-links">
+                    <h4>Soporte Técnico de Certificación (MINEDUCYT):</h4>
+                    <div class="btn-group-links">
+                      <a href="mailto:evelin.reyes@mined.gob.sv">📧 Consultas de Inscripción</a>
+                      <a href="mailto:ana.lara@mined.gob.sv">📧 Seguimiento de Notas</a>
+                    </div>
+                  </div>
+
+                  <div class="retorno-navigation-wrapper">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: #0A2540; font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otro trámite?</h3>
+                    </div>
+                    <div class="retorno-action-side">
+                        <button data-target="biblioteca-home" class="btn-retorno-indice">← Volver al Índice</button>
+                    </div>
+                  </div>
+
                 </div>
             `,
             'calendario-home': `<div class="page-header"><h1>Calendario Escolar</h1><p>Organización anual de actividades cívicas, evaluaciones y festividades locales.</p></div>`,
