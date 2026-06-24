@@ -886,12 +886,12 @@
                       </div>
                     </div>
 
-                    <div class="binaes-card indice-item" data-title="memorandums ministeriales">
+                   <div class="binaes-card indice-item" data-title="memorandums ministeriales">
                       <div class="card-icon">📝</div>
                       <h3>Memorandums Ministeriales</h3>
                       <p>Compendio cronológico de directrices emitidas de forma interna por el Despacho Superior.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/memorandos-ministeriales" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-memorandos" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -3560,6 +3560,176 @@
                     </div>
                     <div class="retorno-action-side">
                         <a href="#" data-target="biblioteca-home" class="btn-retorno-indice">← Volver al Índice</a>
+                    </div>
+                  </div>
+                </div>
+            `,
+'biblioteca-memorandos': `
+                <style>
+                    /* DISEÑO CONSISTENTE: Contenedor gris y fondo blanco */
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 25px; }
+                    .binaes-header h2 { color: #0A2540; font-size: 2rem; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1rem; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+
+                    /* ESTILOS DE LA TABLA COMPACTA */
+                    .memorandos-table-wrapper { width: 100%; overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px; -webkit-overflow-scrolling: touch; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+                    .memorandos-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; min-width: 750px; }
+                    .memorandos-table th { background-color: #1C3D5A; color: #ffffff; padding: 14px 18px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+                    .memorandos-table td { padding: 14px 18px; border-bottom: 1px solid #E2E8F0; color: var(--text-dark); line-height: 1.5; vertical-align: middle; }
+                    .memorandos-table tbody tr:nth-child(even) { background-color: #f8fafc; }
+                    .memorandos-table tbody tr:hover { background-color: #EDF2F7; }
+
+                    .memo-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
+                    .memo-code { color: #0A2540; white-space: nowrap; }
+                    .memo-subject { font-size: 0.9rem; text-align: justify; }
+
+                    /* BOTÓN DE DESCARGA BLINDADO */
+                    .btn-memo-download { display: block; background-color: #0A2540; color: #ffffff !important; text-decoration: none; text-align: center; padding: 6px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; transition: background-color 0.2s, color 0.2s; width: 80px; margin: 0 auto; box-shadow: 0 2px 4px rgba(10,37,64,0.1); }
+                    .btn-memo-download:hover { background-color: #D4AF37; color: #0A2540 !important; }
+
+                    /* FOOTER CON ENLACES BLINDADO */
+                    .binaes-footer-links { background-color: #0A2540; color: #ffffff; border-radius: 8px; padding: 20px 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-top: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+                    .binaes-footer-links h4 { margin: 0; font-size: 1rem; font-weight: 500; color: #ffffff; }
+                    .btn-group-links { display: flex; gap: 10px; flex-wrap: wrap; }
+                    .btn-group-links a { background-color: rgba(255, 255, 255, 0.15); color: #ffffff !important; padding: 8px 14px; font-size: 0.85rem; font-weight: 500; text-decoration: none; border-radius: 4px; transition: background-color 0.2s, color 0.2s; border: 1px solid transparent; }
+                    .btn-group-links a:hover { background-color: #D4AF37; color: #0A2540 !important; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+                    /* RETORNO AL ÍNDICE */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 35px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: #D4AF37; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; background-color: #ffffff; color: #0A2540; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; border: 1px solid #0A2540; cursor: pointer; transition: all 0.2s; }
+                    .btn-retorno-indice:hover { background-color: #0A2540; color: #ffffff; }
+
+                    @media (max-width: 768px) { .binaes-footer-links, .retorno-navigation-wrapper { flex-direction: column; text-align: center; } .btn-group-links { justify-content: center; } .btn-retorno-indice { width: 100%; } }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>MEMORANDOS MINISTERIALES</h2>
+                    <p>Compendio cronológico de directrices emitidas de forma interna por el Despacho Superior.</p>
+                  </div>
+
+                  <div class="memorandos-table-wrapper">
+                    <table class="memorandos-table">
+                      <thead>
+                        <tr>
+                          <th>Fecha de Emisión</th>
+                          <th>Código Oficial</th>
+                          <th>Asunto / Directriz Institucional y Alcance</th>
+                          <th style="text-align: center;">Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="memo-date">03 Oct 2025</td>
+                          <td class="memo-code"><strong>MEMO-23-2025</strong></td>
+                          <td class="memo-subject">Convocatoria obligatoria de Protección Civil para el Simulacro Nacional de Evacuación ante Terremotos 2025. Define horarios fijos para turno matutino (10:00 a.m.), vespertino (2:00 p.m.) y distancia (sábado 18 de octubre). Exige fase previa de registro web del 10 al 15 de octubre.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1TVLFUNIYz5F1ol2EvTqkRvMOqno2GVqN/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">02 Oct 2025</td>
+                          <td class="memo-code"><strong>MEMO-22-2025</strong></td>
+                          <td class="memo-subject">Prohibición absoluta del uso de "lenguaje inclusivo" y deformaciones lingüísticas (ej. amigue, compañere, todos y todas, alumn@) asociadas a la ideología de género en documentos, circulares, correspondencia oficial, libros y materiales pedagógicos del MINEDUCYT.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1gyy8d4UjkZl8k7MhyYOMHJOsceqyGNds/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">23 Sep 2025</td>
+                          <td class="memo-code"><strong>MEMO-21-2025</strong></td>
+                          <td class="memo-subject">Remisión del Protocolo de Planificación, Organization y Ejecución de los Festivales del Juego Departamentales bajo la Política "Crecer Juntos". Ordena registrar la planificación en formulario web y convoca a reuniones de revisión y capacitaciones de voluntarios.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1q46lh_QUKXrAuSxYNhtFnZHy0GB7HrfI/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">23 Sep 2025</td>
+                          <td class="memo-code"><strong>MEMO-20-2025</strong></td>
+                          <td class="memo-subject">Orientaciones para el Mes de la Niñez y la "Semana del Juego" (Estrategia Juguemos Juntos). Establece retos familiares semanales en la primera hora escolar, promueve el uso estricto de materiales reciclados sin costo extra y fomenta visitas coordinadas con "Pijamadas" en BINAES.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1uL5fm2GsMkTVIstN9BlqjypnFizKsANf/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">04 Sep 2025</td>
+                          <td class="memo-code"><strong>MEMO-16-2025</strong></td>
+                          <td class="memo-subject">Directriz de Cero Tolerancia hacia la violencia contra niñas, adolescentes y mujeres en el sistema educativo. Habilita canal de la Unidad Institucional de la Mujer y activa comisiones específicas para combatir de forma inmediata el acoso sexual, acoso laboral y prácticas discriminatorias.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/14t4jAefBg5f1htkKjEWO78OynTffcnD3/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">02 Sep 2025</td>
+                          <td class="memo-code"><strong>MEMO-15-2025</strong></td>
+                          <td class="memo-subject">Obligación de reportar al Despacho Superior toda oferta o recepción de donaciones provenientes de ONGs, Embajadas y Cooperación Internacional para mejoras en infraestructura escolar.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1161_fCtoNIniabRtUpNyuuzkCoam3Hno/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">01 Sep 2025</td>
+                          <td class="memo-code"><strong>MEMO-13-2025</strong></td>
+                          <td class="memo-subject">Logística, seguridad y protocolo lúdico para el Desfile Cívico de la Primera Infancia (Inicial, Parvularia y 1° Grado). Exige consentimiento por escrito y establece enlace técnico.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1gqZerffCjCWInMC8t8D7GQJi7Tqn47sJ/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">29 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-12-2025</strong></td>
+                          <td class="memo-subject">Instrucciones obligatorias para la Certificación bajo la Norma ISO 37001:2016 del Sistema de Gestión Antisoborno Institucional (SGA) en Talento Humano, Registro Académico, Recursos y Finanzas.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1h3l7XdxoGfHXzYvIixqTJOQ2R_1zUTGJ/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">29 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-10-2025</strong></td>
+                          <td class="memo-subject">Disposiciones de ornamentación cívica en oficinas administrativas y convocatoria obligatoria al evento de inauguración del mes cívico en la Plaza de las Banderas del MINEDUCYT.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1YyvsXVXOu4p3ZS0-POWwpG6iSTBE-DNv/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">28 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-09-2025</strong></td>
+                          <td class="memo-subject">Autorización obligatoria de permisos para la asistencia de estudiantes y entrenadores a las finales de los Juegos Deportivos Estudiantiles (13-14 años) y el Selection Camp Jr. NBA.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1QcW7yRpXqeR3Se20GA7hxsTlajk3-KfA/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">25 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-07-2025</strong></td>
+                          <td class="memo-subject">Orden de liberación de permisos sin objeciones para los ensayos y asistencia de los estudiantes seleccionados para el Escalón Estudiantil de la Banda El Salvador.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1Ud3ed5ap0aSAeRnQr5JgJVJmo7C0T6U1/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">24 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-06-2025</strong></td>
+                          <td class="memo-subject">Creación, vigencia e implementación del "Reglamento para la Promoción de la Cortesía Escolar". Establece sistema formativo de deméritos y la escala de consecuencias académicas.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/10inWxpDPspi5AMmvKZni6Ay1MkuueDNS/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">21 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-05-2025</strong></td>
+                          <td class="memo-subject">Implementación obligatoria de los Lunes Cívicos durante todo el año escolar. Protocolo mínimo del acto, asignación de fondos distritales de $300.00 y organización logística previa.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1F5mYhVIuelH_juJf8tGupE0XMALIaxLE/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">19 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-02-2025</strong></td>
+                          <td class="memo-subject">Disposiciones imperativas para el orden, inventario de activos, limpieza, depuración de archivos de oficina y descargo de mobiliario dañado en los edificios del Nivel Central.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1XGMfJWIjlxR3S3PLL4Q-qlYFTDYyHonO/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                        <tr>
+                          <td class="memo-date">19 Ago 2025</td>
+                          <td class="memo-code"><strong>MEMO-01-2025</strong></td>
+                          <td class="memo-subject">Instrucción de carácter obligatorio para el registro, marcación diaria y control de asistencia de la totalidad del personal técnico, operativo y administrativo a nivel nacional.</td>
+                          <td class="memo-action"><a href="https://drive.google.com/file/d/1DmxW8rIsY7RxvhsM-st9gwceA-j_ppXN/view?usp=drive_link" target="_blank" class="btn-memo-download">Descargar</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="binaes-footer-links">
+                    <h4>Almacenamiento e Historiales del Distrito:</h4>
+                    <div class="btn-group-links">
+                      <a href="https://drive.google.com/drive/folders/1Gw4i7P9bbfCH16g7PGpCi9FHIBdWgPAO?usp=drive_link" target="_blank">📂 Carpeta de Drive Compartida</a>
+                    </div>
+                  </div>
+
+                  <div class="retorno-navigation-wrapper">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: #0A2540; font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otro documento?</h3>
+                    </div>
+                    <div class="retorno-action-side">
+                        <button data-target="biblioteca-home" class="btn-retorno-indice">← Volver al Índice</button>
                     </div>
                   </div>
                 </div>
