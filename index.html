@@ -918,7 +918,7 @@
                       <h3>Primera Infancia</h3>
                       <p>Modelos educativos lúdicos de Inicial y Parvularia asociados a la política nacional.</p>
                       <div class="card-actions">
-                        <a href="#" data-target="primera-infancia-home" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-primera-infancia" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -3956,7 +3956,7 @@
 
                 </div>
             `,
-'primera-infancia-home': `
+'biblioteca-primera-infancia': `
                 <style>
                     /* DISEÑO CONSISTENTE: Contenedor gris y tarjetas blancas */
                     .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
@@ -3996,7 +3996,11 @@
                     .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 60px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
                     .retorno-text-side { flex: 1; min-width: 280px; }
                     .retorno-breadcrumb { color: #D4AF37; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; }
-                    .retorno-action-side { display: flex; align-items: center; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 10px; }
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; transition: all 0.3s ease; border: 2px solid; }
+                    .btn-indice-blanco { background-color: #ffffff; color: #0A2540; border-color: #0A2540; }
+                    .btn-indice-blanco:hover { background-color: #0A2540; color: #ffffff; }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
                     .btn-alerta { display: inline-flex; align-items: center; justify-content: center; background-color: var(--white); text-decoration: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; transition: all 0.3s ease; border: 2px solid #E53E3E; color: #E53E3E !important; }
                     .btn-alerta:hover { background-color: #E53E3E !important; color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.2); }
                     .btn-icon-arrow { font-size: 1.2rem; margin-right: 8px; transition: transform 0.2s ease; }
@@ -4009,8 +4013,8 @@
                         .card-icon { margin-bottom: 15px !important; }
                         .videos-grid { grid-template-columns: 1fr 1fr; }
                         .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
-                        .retorno-action-side { width: 100%; }
-                        .btn-alerta { width: 100%; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice, .btn-alerta { width: 100%; }
                     }
                 </style>
 
@@ -4216,17 +4220,19 @@
 
                   <div class="retorno-navigation-wrapper">
                     <div class="retorno-text-side">
-                      <span class="retorno-breadcrumb">Sistema Nacional de Protección Integral</span>
-                      <h3 style="color: #0A2540; font-size: 1.1rem; margin: 0 0 5px 0;">¿Identifica una situación de riesgo o vulneración?</h3>
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: #0A2540; font-size: 1.1rem; margin: 0 0 5px 0;">¿Desea reportar una irregularidad o vulneración?</h3>
                       <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Ingrese al portal oficial para registrar su aviso de forma confidencial y activar las rutas del Sistema Nacional de Protección Integral.</p>
                     </div>
                     <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
                       <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-alerta">
                         <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
                       </a>
                     </div>
                   </div>
-
                 </div>
             `,
             'calendario-home': `<div class="page-header"><h1>Calendario Escolar</h1><p>Organización anual de actividades cívicas, evaluaciones y festividades locales.</p></div>`,
