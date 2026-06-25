@@ -541,7 +541,7 @@
                 window.cerrarModalImagen();
             }
         });
-/* --- FUNCIONES DEL VISOR DE CALENDARIO --- */
+/* --- FUNCIONES DEL VISOR DE CALENDARIO (PANTALLA COMPLETA NATIVA) --- */
         window.abrirModalCalendario = function(tarjeta) {
             var modal = document.getElementById("modalVisorCalendario");
             var modalImg = document.getElementById("imagenAmpliadaCalendario");
@@ -551,7 +551,18 @@
             if (imagen && modal && modalImg && imagen.src !== "" && !imagen.src.includes("URL_IMAGEN")) {
                 modal.style.display = "flex"; 
                 modalImg.src = imagen.src; 
-                document.body.style.overflow = "hidden"; 
+                document.body.style.overflow = "hidden"; // Deshabilita el scroll de fondo
+
+                // --- NUEVO: ACTIVAR PANTALLA COMPLETA NATIVA ---
+                if (modalImg.requestFullscreen) {
+                    modalImg.requestFullscreen();
+                } else if (modalImg.mozRequestFullScreen) { /* Firefox */
+                    modalImg.mozRequestFullScreen();
+                } else if (modalImg.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    modalImg.webkitRequestFullscreen();
+                } else if (modalImg.msRequestFullscreen) { /* IE/Edge */
+                    modalImg.msRequestFullscreen();
+                }
             }
         };
 
@@ -560,7 +571,18 @@
             var modalImg = document.getElementById("imagenAmpliadaCalendario");
             if(modal) modal.style.display = "none";
             if(modalImg) modalImg.src = ""; 
-            document.body.style.overflow = "auto"; 
+            document.body.style.overflow = "auto"; // Reactiva el scroll de fondo
+            
+            // --- NUEVO: SALIR DE PANTALLA COMPLETA NATIVA ---
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
         };
 
         // Permite cerrar la imagen del calendario con la tecla Escape
@@ -568,8 +590,7 @@
             if (event.key === "Escape" && window.cerrarModalCalendario) {
                 window.cerrarModalCalendario();
             }
-        });
-        /* ==========================================
+        });        /* ==========================================
            2. DICCIONARIO DE CONTENIDOS (SPA)
            ========================================== */
         const contentRegistry = {
@@ -5562,14 +5583,14 @@
                     .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
                     .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
                     .binaes-header h2 { color: var(--primary-blue); font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; }
-                    .binaes-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.5; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
 
                     /* BANNER PRINCIPAL DE DESCARGA */
                     .calendar-main-banner { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); border-left: 5px solid var(--accent-gold); border-radius: 8px; padding: 25px 30px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(10, 37, 64, 0.15); flex-wrap: wrap; gap: 20px; }
                     .calendar-banner-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; flex: 1; }
                     .calendar-icon { font-size: 3rem; }
                     .calendar-text h4 { color: var(--white); margin: 0 0 5px 0; font-size: 1.25rem; font-weight: 700; }
-                    .calendar-text p { color: #cbd5e1; margin: 0; font-size: 0.95rem; line-height: 1.5; max-width: 500px; }
+                    .calendar-text p { color: #cbd5e1; margin: 0; font-size: 0.95rem; line-height: 1.6; max-width: 500px; }
                     
                     .btn-download-main { background-color: var(--accent-gold); color: var(--primary-blue) !important; text-decoration: none; padding: 14px 24px; font-size: 1rem; font-weight: 800; border-radius: 6px; transition: all 0.2s ease-in-out; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 10px; border: 1px solid transparent; }
                     .btn-download-main:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4); background-color: #e5c354; }
@@ -5591,14 +5612,14 @@
                     .zoom-icon-cal { font-size: 2.2rem; background-color: var(--accent-gold); color: var(--primary-blue); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: translateY(15px); transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
                     .month-card:hover .zoom-icon-cal { transform: translateY(0); }
 
-                    /* MODAL VISOR DE CALENDARIO (PANTALLA COMPLETA) */
+                    /* MODAL VISOR DE CALENDARIO (PANTALLA COMPLETA NATIVA OPTIMIZADA) */
                     .modal-visor-calendario { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(10, 37, 64, 0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column; }
-                    /* Modificado para que tome todo el espacio posible de la pantalla */
-                    .modal-contenido-calendario { max-width: 98vw; max-height: 95vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); animation: zoomModal 0.3s ease; object-fit: contain; background-color: #fff; padding: 10px; }
+                    /* Modificado para que tome todo el espacio posible de la pantalla sin distorsionar */
+                    .modal-contenido-calendario { max-width: 100%; max-height: 100%; animation: zoomModal 0.3s ease; object-fit: contain; background-color: #000; border: none; }
                     @keyframes zoomModal { from {transform: scale(0.8); opacity: 0} to {transform: scale(1); opacity: 1} }
                     .cerrar-modal-calendario { position: absolute; top: 15px; right: 30px; color: #fff; font-size: 50px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 100000; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
                     .cerrar-modal-calendario:hover { color: var(--accent-gold); transform: scale(1.15); }
-                    .modal-instruccion { color: #cbd5e1; margin-top: 15px; font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; }
+                    .modal-instruccion { color: #cbd5e1; margin-top: 15px; font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
                     @media (max-width: 768px) {
                         .opico-binaes-container { padding: 20px; }
