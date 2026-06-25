@@ -1067,7 +1067,7 @@
                       <h3>Sistema SALVE</h3>
                       <p>Plataforma oficial de reporte electrónico y alertas tempranas ante incidentes de violencia escolar.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/sistema-salve" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-salve" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -5127,6 +5127,267 @@
                           <span class="btn-icon-arrow">←</span> Volver al Índice
                       </a>
                       <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
+                        <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+            `,
+'biblioteca-salve': `
+                <style>
+                    :root {
+                        --primary-blue: #0A2540;
+                        --secondary-blue: #1C3D5A;
+                        --accent-gold: #D4AF37;
+                        --light-bg: #F4F6F9;
+                        --text-dark: #2D3748;
+                        --text-muted: #718096;
+                        --white: #FFFFFF;
+                        --alert-red: #E53E3E;
+                    }
+
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 30px; background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2rem; margin: 0 0 10px 0; font-weight: 700; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1rem; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+
+                    .alert-info-box { padding: 15px 20px; border-radius: 6px; border-left: 4px solid; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+
+                    /* TABLA WORKFLOW */
+                    .memorandos-table-wrapper { width: 100%; overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px; -webkit-overflow-scrolling: touch; background: var(--white); }
+                    .memorandos-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; min-width: 850px; }
+                    .memorandos-table th { background-color: var(--secondary-blue); color: var(--white); padding: 14px 18px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+                    .memorandos-table td { padding: 16px 18px; border-bottom: 1px solid #E2E8F0; color: var(--text-dark); line-height: 1.5; vertical-align: middle; }
+                    .memorandos-table tbody tr:nth-child(even) { background-color: var(--light-bg); }
+                    .memorandos-table tbody tr:hover { background-color: #EDF2F7; }
+
+                    .memo-step { font-size: 1.4rem; font-weight: 800; color: var(--accent-gold); text-align: center; background-color: rgba(212, 175, 55, 0.05); }
+                    .memo-date { color: var(--secondary-blue); font-size: 0.95rem; font-weight: 700; }
+                    .memo-subject { font-size: 0.95rem; }
+
+                    /* BOTONES DE ACCIÓN EN TABLA (PDF Y VIDEO) BLINDADOS */
+                    .action-buttons-group { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+                    .btn-memo-action { display: flex; align-items: center; justify-content: center; width: 110px; padding: 6px 10px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; text-decoration: none; transition: all 0.2s ease-in-out; }
+                    
+                    .btn-pdf { background-color: var(--primary-blue); color: var(--white) !important; border: 1px solid var(--primary-blue); }
+                    .btn-pdf:hover { background-color: var(--accent-gold); border-color: var(--accent-gold); color: var(--primary-blue) !important; }
+                    
+                    .btn-video { background-color: transparent; color: var(--primary-blue) !important; border: 1px solid var(--primary-blue); }
+                    .btn-video:hover { background-color: var(--primary-blue); color: var(--white) !important; }
+
+                    /* BANNER TUTORIAL EXTRA BLINDADO */
+                    .tutorial-extra-banner { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); border-left: 5px solid var(--accent-gold); border-radius: 8px; padding: 20px 25px; margin-top: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(10, 37, 64, 0.15); flex-wrap: wrap; gap: 15px; }
+                    .tutorial-banner-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+                    .tutorial-icon { font-size: 2.5rem; }
+                    .tutorial-text h4 { color: var(--white); margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700; }
+                    .tutorial-text p { color: #A0AEC0; margin: 0; font-size: 0.95rem; max-width: 600px; }
+                    
+                    .btn-tutorial-action { background-color: var(--white); color: var(--primary-blue) !important; text-decoration: none; padding: 12px 22px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; transition: all 0.2s ease-in-out; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; }
+                    .btn-tutorial-action:hover { background-color: var(--accent-gold); color: var(--primary-blue) !important; transform: translateX(3px); }
+
+                    /* MESA DE AYUDA */
+                    .mesa-ayuda-box { background-color: var(--light-bg); border: 1px solid #E2E8F0; border-left: 4px solid var(--primary-blue); border-radius: 8px; padding: 20px 25px; margin-top: 20px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); flex-wrap: wrap; }
+                    .mesa-ayuda-icon { font-size: 2.5rem; }
+                    .mesa-ayuda-content { flex: 1; }
+                    .mesa-ayuda-content h4 { color: var(--primary-blue); margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700; }
+                    .mesa-ayuda-content p { color: var(--text-muted); margin: 0 0 12px 0; font-size: 0.95rem; line-height: 1.5; }
+                    .mesa-ayuda-contactos { display: flex; gap: 15px; flex-wrap: wrap; }
+                    .contacto-item { background-color: var(--white); border: 1px solid #E2E8F0; padding: 8px 14px; border-radius: 6px; font-size: 0.9rem; color: var(--text-dark); }
+                    .contacto-item a { color: var(--primary-blue); text-decoration: none; font-weight: 700; margin-left: 4px; transition: color 0.2s; }
+                    .contacto-item a:hover { color: var(--accent-gold); text-decoration: underline; }
+
+                    /* BOTONES DE RETORNO Y NAVEGACIÓN */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+                    
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; transition: all 0.25s ease-in-out; border: 2px solid; }
+                    .btn-indice-blanco { background-color: var(--white); color: var(--primary-blue) !important; border-color: var(--primary-blue); }
+                    .btn-indice-blanco:hover { background-color: var(--primary-blue) !important; color: var(--white) !important; }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
+
+                    .btn-alerta { background-color: var(--white); color: var(--alert-red) !important; border-color: var(--alert-red); }
+                    .btn-alerta:hover { background-color: var(--alert-red) !important; color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3); }
+
+                    .btn-icon-arrow { font-size: 1.1rem; margin-right: 8px; transition: transform 0.2s ease; }
+                    .btn-alerta:hover .btn-icon-arrow { transform: scale(1.1); }
+
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice { width: 100%; }
+                        .tutorial-extra-banner { flex-direction: column; align-items: flex-start; text-align: center; }
+                        .tutorial-banner-left { flex-direction: column; text-align: center; width: 100%; }
+                        .btn-tutorial-action { width: 100%; }
+                        .mesa-ayuda-box { flex-direction: column; text-align: center; }
+                        .mesa-ayuda-contactos { justify-content: center; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Sistema SALVE (Plataforma SIGOB-SOL)</h2>
+                    <p>Manuales técnicos y videotutoriales paso a paso para el registro, derivación y resolución digital de Avisos de Vulneración de Derechos en el entorno escolar.</p>
+                  </div>
+
+                  <div class="alert-info-box" style="background-color: #FFFDF3; border-left-color: var(--accent-gold); color: #744210;">
+                    <strong>🛡️ Confidencialidad y Debida Diligencia:</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem; line-height: 1.5;">
+                      El manejo de los casos en la plataforma SIGOB-SOL es de carácter <strong>estrictamente confidencial</strong>. Cada funcionario debe descargar la guía o ver el video correspondiente a su rol y dar estricto cumplimiento a los plazos legales.
+                    </p>
+                  </div>
+
+                  <div class="memorandos-table-wrapper">
+                    <table class="memorandos-table">
+                      <thead>
+                        <tr>
+                          <th style="width: 80px; text-align: center;">Paso</th>
+                          <th>Funcionario / Rol Responsable</th>
+                          <th>Proceso en el Sistema</th>
+                          <th style="text-align: center;">Recursos</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="memo-step">01</td>
+                          <td class="memo-date">Encargado(a) de O.A.C.</td>
+                          <td class="memo-subject">
+                            <strong>Registro Inicial del Aviso</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Ingreso de datos, identificación del centro escolar y creación del expediente digital por presunta vulneración.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1U9CIXILxHuaNjf2iTglj8paD0cMikJwQ/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="https://drive.google.com/file/d/1YYldjYDQwx_lKZ6pTN5KUAYwYFm_GFkv/view?usp=drive_link" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">02</td>
+                          <td class="memo-date">Coordinador(a) Jurídico(a)</td>
+                          <td class="memo-subject">
+                            <strong>Clasificación y Plazos de Gestión</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Asignación de lineamientos legales, nivel de urgencia y determinación de los plazos de respuesta en la plataforma.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1_yNRZqeGP7m3e0onoHIgL0i_9i8_lK1J/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="https://drive.google.com/file/d/1viUHhqRecs_XMvrzXvNdxFkcYDj68U_f/view?usp=drive_link" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">03</td>
+                          <td class="memo-date">Director(a) de Centro Educativo</td>
+                          <td class="memo-subject">
+                            <strong>Completar Aviso de Vulneración</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Instrucciones para anexar información faltante, actas y evidencias requeridas al expediente digital.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1NYP1ZrbaI8BUcv1IfL6Rwd4ptbxApXfT/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="https://drive.google.com/file/d/16Jyk5Sx7zzpd4ZuLSrPrk3TuPflTj9MU/view?usp=drive_link" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">04</td>
+                          <td class="memo-date">Jefatura Deptal. de Gestión Pedagógica</td>
+                          <td class="memo-subject">
+                            <strong>Registro de Acciones Pedagógicas</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Registro de las medidas de apoyo, contención y acompañamiento aplicadas a la víctima en el centro de estudios.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1yLS7PvYdnYxsPAJ2DRWlTkz5nWh1weVa/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="https://drive.google.com/file/d/1aPQ6mlxrY3ucCU9bpBgdHuoK40UfDgqd/view?usp=drive_link" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">05</td>
+                          <td class="memo-date">Coordinador(a) Jurídico(a)</td>
+                          <td class="memo-subject">
+                            <strong>Incorporación de Suspensión y Denuncia</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Pasos para subir el acta de suspensión previa del presunto vulnerador y la respectiva denuncia formal.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1olcM_ivxQsIW4t0Yj0ZAelcePLddCTce/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="https://drive.google.com/file/d/1rEqH3BKyLtD-eW1N-wWtY3gl8p2bYDMW/view?usp=drive_link" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">06</td>
+                          <td class="memo-date">Depto. de Protección de Derechos</td>
+                          <td class="memo-subject">
+                            <strong>Rechazo o Devolución del Aviso</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Flujo a seguir en caso de que la información subida presente invalidez o requiera subsanación por los involucrados.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1Nj78z8GHMWiE0edFWEB0qAP5P_L-oedp/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="#" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="memo-step">07</td>
+                          <td class="memo-date">Secretaría de Actuación (JCD)</td>
+                          <td class="memo-subject">
+                            <strong>Admisibilidad de la Denuncia (JCD)</strong><br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">Registro de la resolución de la Junta de la Carrera Docente (admisible/inadmisible) para el cierre o continuación.</span>
+                          </td>
+                          <td class="memo-action">
+                            <div class="action-buttons-group">
+                              <a href="https://drive.google.com/file/d/1C0L2J-SHs1AzVjHGSYmX9iP7zj7-j1eF/view?usp=drive_link" target="_blank" class="btn-memo-action btn-pdf">📄 Ver PDF</a>
+                              <a href="#" target="_blank" class="btn-memo-action btn-video">▶ Ver Video</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="tutorial-extra-banner">
+                    <div class="tutorial-banner-left">
+                      <div class="tutorial-icon">▶</div>
+                      <div class="tutorial-text">
+                        <h4>Videotutorial Complementario</h4>
+                        <p>Tutorial para solicitud y ejecución de medidas relacionadas con aviso en gestión.</p>
+                      </div>
+                    </div>
+                    <div class="tutorial-banner-right">
+                      <a href="https://drive.google.com/file/d/1TJfCjEryCRwaDEWJljpY9vNcch_uvBMd/view?usp=drive_link" target="_blank" class="btn-tutorial-action">Ver Videotutorial ➔</a>
+                    </div>
+                  </div>
+
+                  <div class="mesa-ayuda-box">
+                    <div class="mesa-ayuda-icon">🎧</div>
+                    <div class="mesa-ayuda-content">
+                      <h4>Mesa de Ayuda Institucional</h4>
+                      <p>Si tiene dudas o consultas sobre el uso de la plataforma y el trámite de vulneración, puede contactarnos por los siguientes medios:</p>
+                      <div class="mesa-ayuda-contactos">
+                        <span class="contacto-item"><strong>Teléfono:</strong> <a href="tel:25922045">2592-2045</a></span>
+                        <span class="contacto-item"><strong>WhatsApp:</strong> <a href="https://wa.me/50360083286" target="_blank">6008-3286</a></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="retorno-navigation-wrapper" style="margin-top: 35px; padding-top: 20px; border-top: 1px solid #E2E8F0;">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otro trámite?</h3>
+                    </div>
+                    <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
+                      <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" class="btn-retorno-indice btn-alerta">
                         <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
                       </a>
                     </div>
