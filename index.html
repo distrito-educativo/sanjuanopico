@@ -5519,7 +5519,177 @@
 
                 </div>
             `,
-            'calendario-home': `<div class="page-header"><h1>Calendario Escolar</h1><p>Organización anual de actividades cívicas, evaluaciones y festividades locales.</p></div>`,
+            'calendario-home': `
+                <style>
+                    :root {
+                        --primary-blue: #0A2540;
+                        --secondary-blue: #1C3D5A;
+                        --accent-gold: #D4AF37;
+                        --light-bg: #F4F6F9;
+                        --text-dark: #2D3748;
+                        --text-muted: #718096;
+                        --white: #FFFFFF;
+                        --alert-red: #E53E3E;
+                    }
+
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.5; }
+
+                    /* BANNER PRINCIPAL DE DESCARGA */
+                    .calendar-main-banner { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); border-left: 5px solid var(--accent-gold); border-radius: 8px; padding: 25px 30px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(10, 37, 64, 0.15); flex-wrap: wrap; gap: 20px; }
+                    .calendar-banner-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; flex: 1; }
+                    .calendar-icon { font-size: 3rem; }
+                    .calendar-text h4 { color: var(--white); margin: 0 0 5px 0; font-size: 1.25rem; font-weight: 700; }
+                    .calendar-text p { color: #cbd5e1; margin: 0; font-size: 0.95rem; line-height: 1.5; max-width: 500px; }
+                    
+                    .btn-download-main { background-color: var(--accent-gold); color: var(--primary-blue) !important; text-decoration: none; padding: 14px 24px; font-size: 1rem; font-weight: 800; border-radius: 6px; transition: all 0.2s ease-in-out; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 10px; border: 1px solid transparent; }
+                    .btn-download-main:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4); background-color: #e5c354; }
+
+                    .section-divider-title { font-size: 1.5rem; color: var(--primary-blue); border-bottom: 3px solid var(--accent-gold); padding-bottom: 10px; margin-bottom: 25px; font-weight: 800; text-transform: uppercase; }
+
+                    /* CUADRÍCULA DE MESES */
+                    .months-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+                    .month-card { background: var(--light-bg); border: 1px solid #E2E8F0; border-radius: 8px; padding: 15px; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; align-items: center; }
+                    .month-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(10,37,64,0.1); border-color: var(--accent-gold); }
+                    .month-card h4 { color: var(--primary-blue); font-size: 1.2rem; font-weight: 800; margin: 0 0 15px 0; border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px; width: 100%; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+                    .month-image-container { width: 100%; background-color: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; flex-grow: 1; display: flex; align-items: center; justify-content: center; min-height: 250px; }
+                    .month-image-container img { width: 100%; height: auto; display: block; object-fit: contain; }
+
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; }
+                        .calendar-main-banner { flex-direction: column; text-align: center; }
+                        .calendar-banner-left { flex-direction: column; justify-content: center; }
+                        .btn-download-main { width: 100%; justify-content: center; }
+                        .months-grid { grid-template-columns: 1fr; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Calendario Escolar 2026</h2>
+                    <p>Organización oficial de actividades académicas, asuetos, evaluaciones y festividades del ciclo lectivo. Utiliza este recurso para planificar tu trabajo docente y administrativo.</p>
+                  </div>
+
+                  <div class="calendar-main-banner">
+                    <div class="calendar-banner-left">
+                      <div class="calendar-icon">📅</div>
+                      <div class="calendar-text">
+                        <h4>Documento Oficial Completo</h4>
+                        <p>Visualiza o descarga el archivo PDF emitido por el Ministerio de Educación con la resolución y normativas del año.</p>
+                      </div>
+                    </div>
+                    <div class="calendar-banner-right">
+                      <a href="https://drive.google.com/file/d/13GpyuZT3-wIgUExW1gb86r7LWzEbqgCA/view?usp=drive_link" target="_blank" class="btn-download-main">
+                        📥 Descargar PDF General
+                      </a>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Desglose Mensual</h3>
+                  
+                  <div class="months-grid">
+                    
+                    <!-- MES 1 -->
+                    <div class="month-card">
+                      <h4>Enero</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_ENERO" alt="Calendario Enero" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Enero</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 2 -->
+                    <div class="month-card">
+                      <h4>Febrero</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_FEBRERO" alt="Calendario Febrero" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Febrero</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 3 -->
+                    <div class="month-card">
+                      <h4>Marzo</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_MARZO" alt="Calendario Marzo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Marzo</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 4 -->
+                    <div class="month-card">
+                      <h4>Abril</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_ABRIL" alt="Calendario Abril" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Abril</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 5 -->
+                    <div class="month-card">
+                      <h4>Mayo</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_MAYO" alt="Calendario Mayo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Mayo</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 6 -->
+                    <div class="month-card">
+                      <h4>Junio</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_JUNIO" alt="Calendario Junio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Junio</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 7 -->
+                    <div class="month-card">
+                      <h4>Julio</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_JULIO" alt="Calendario Julio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Julio</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 8 -->
+                    <div class="month-card">
+                      <h4>Agosto</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_AGOSTO" alt="Calendario Agosto" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Agosto</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 9 -->
+                    <div class="month-card">
+                      <h4>Septiembre</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_SEPTIEMBRE" alt="Calendario Septiembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Septiembre</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 10 -->
+                    <div class="month-card">
+                      <h4>Octubre</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_OCTUBRE" alt="Calendario Octubre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Octubre</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 11 -->
+                    <div class="month-card">
+                      <h4>Noviembre</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_NOVIEMBRE" alt="Calendario Noviembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Noviembre</span>'">
+                      </div>
+                    </div>
+
+                    <!-- MES 12 -->
+                    <div class="month-card">
+                      <h4>Diciembre</h4>
+                      <div class="month-image-container">
+                        <img src="URL_IMAGEN_DICIEMBRE" alt="Calendario Diciembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Diciembre</span>'">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+            `,,
             'derechos-home': `<div class="page-header"><h1>Derechos Humanos</h1><p>Entidad encargada de velar por el bienestar, la equidad y la seguridad.</p></div>`,
             'derechos-denuncia': `<div class="page-header"><h1>Canales de Denuncia</h1></div>`,
             'derechos-conoce': `<div class="page-header"><h1>Conoce tus Derechos</h1></div>`,
