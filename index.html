@@ -690,7 +690,7 @@
                     </div>
 
                     <div class="digits-container">
-                        <svg onload="window.iniciarContadorPremium()" style="display:none;"></svg>
+                        <img src="dummy_image_inexistente.jpg" onerror="if(window.iniciarContadorPremium) window.iniciarContadorPremium(); this.remove();" style="display:none;" />
                         
                         <div class="digit-box" id="digit-0">0</div>
                         <div class="digit-box" id="digit-1">0</div>
@@ -700,7 +700,6 @@
                         <div class="digit-box" id="digit-5">6</div>
                         <div class="digit-box" id="digit-6">0</div>
                     </div>
-                </div>
         `,
             'noticias-home': `<div class="page-header"><h1>Sección de Noticias</h1></div>`,
             'noticias-avisos': `<div class="page-header"><h1>Avisos del Distrito</h1></div>`,
@@ -6100,28 +6099,33 @@
         
         // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
 
-        /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS) --- */
+        /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS - VERSIÓN SPA) --- */
         window.iniciarContadorPremium = function() {
-            // Tu número base histórico
             let baseCount = 19560; 
-            
-            // Revisa si el usuario ya visitó la página y le suma 1
             let localVisits = localStorage.getItem('distrito_visitas');
-            if (!localVisits) {
-                localVisits = 1;
-            } else {
-                localVisits = parseInt(localVisits) + 1;
-            }
-            localStorage.setItem('distrito_visitas', localVisits);
 
-            // Suma el historial viejo + las nuevas visitas
+            // Si es la primera vez en la vida que entra, empieza en 0 visitas locales
+            if (!localVisits) {
+                localVisits = 0; 
+            } else {
+                localVisits = parseInt(localVisits);
+            }
+
+            // Verifica si en esta "sesión" actual ya le sumamos una visita
+            if (!sessionStorage.getItem('sesion_activa_contada')) {
+                localVisits += 1; // Suma 1 visita nueva
+                localStorage.setItem('distrito_visitas', localVisits); // La guarda para siempre
+                sessionStorage.setItem('sesion_activa_contada', 'true'); // Marca que ya fue contado hoy
+            }
+
+            // Calcula el total exacto
             let totalVisits = baseCount + localVisits;
             
-            // Obliga a que el número siempre tenga 7 cifras (ej. 0019561)
+            // Obliga a tener 7 cifras
             let paddedVisits = totalVisits.toString().padStart(7, '0');
             let digits = paddedVisits.split('');
 
-            // Reparte cada número en su respectiva cajita visual
+            // Inyecta los números en pantalla al instante
             for (let i = 0; i < 7; i++) {
                 let el = document.getElementById('digit-' + i);
                 if(el) {
