@@ -1010,12 +1010,12 @@
                         </div>
                     </div>
 
-                    <div class="binaes-card indice-item" data-title="registro de deméritos">
+                   <div class="binaes-card indice-item" data-title="registro de demeritos">
                       <div class="card-icon">⚖️</div>
                       <h3>Registro de Deméritos</h3>
                       <p>Control del sistema formativo conductual escolar en base al Reglamento de Cortesía Escolar.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/registro-de-dem%C3%A9ritos" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-demeritos" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -4628,6 +4628,144 @@
                       <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
                       <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Identifica una situación de riesgo o vulneración?</h3>
                       <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Ingrese al portal oficial para registrar su aviso de forma confidencial y activar las rutas de protección institucional.</p>
+                    </div>
+                    <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
+                      <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
+                        <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+            `,
+'biblioteca-demeritos': `
+                <style>
+                    :root {
+                        --primary-blue: #0A2540;
+                        --secondary-blue: #1C3D5A;
+                        --accent-gold: #D4AF37;
+                        --light-bg: #F4F6F9;
+                        --text-dark: #2D3748;
+                        --text-muted: #718096;
+                        --white: #FFFFFF;
+                        --alert-red: #E53E3E;
+                    }
+
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: var(--white); border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease; }
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2rem; margin: 0 0 10px 0; font-weight: 700; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1rem; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+
+                    /* RECUADRO DE INFORMACIÓN / ALERTA */
+                    .alert-info-box { padding: 15px 20px; border-radius: 6px; border-left: 4px solid; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+
+                    /* DISEÑO DE CUADRÍCULA Y TARJETAS */
+                    .binaes-grid { display: grid; gap: 25px; }
+                    .binaes-card { background: var(--light-bg); border: 1px solid #E2E8F0; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; }
+                    .binaes-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(10, 37, 64, 0.08); }
+                    .card-highlight { border-top: 4px solid var(--accent-gold); background: linear-gradient(180deg, #FFFFFF 0%, var(--light-bg) 100%); }
+
+                    .card-icon { font-size: 2.2rem; margin-bottom: 15px; }
+                    .binaes-card h3 { color: var(--secondary-blue); font-size: 1.25rem; margin: 0 0 10px 0; font-weight: 700; line-height: 1.4; }
+                    .binaes-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1; text-align: justify;}
+                    .card-actions { display: flex; margin-top: auto; }
+
+                    /* BOTONERA DOBLE BLINDADA */
+                    .dual-buttons { display: flex; gap: 10px; width: 100%; }
+                    .btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary-blue); color: #ffffff !important; text-decoration: none; font-weight: 600; padding: 12px 16px; font-size: 0.9rem; border-radius: 6px; transition: all 0.2s ease-in-out; box-shadow: 0 2px 6px rgba(10, 37, 64, 0.15); flex: 1; border: 1px solid transparent; }
+                    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); background-color: var(--accent-gold) !important; color: var(--primary-blue) !important; }
+
+                    /* ESTILOS DEL BOTÓN DE RETORNO Y NAVEGACIÓN */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+                    
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; transition: all 0.25s ease-in-out; border: 2px solid; }
+                    .btn-indice-blanco { background-color: var(--white); color: var(--primary-blue) !important; border-color: var(--primary-blue); }
+                    .btn-indice-blanco:hover { background-color: var(--primary-blue); color: var(--white) !important; }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
+
+                    .btn-alerta { background-color: var(--white); color: var(--alert-red) !important; border-color: var(--alert-red); }
+                    .btn-alerta:hover { background-color: var(--alert-red); color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3); }
+
+                    .btn-icon-arrow { font-size: 1.1rem; margin-right: 8px; transition: transform 0.2s ease; }
+                    .btn-alerta:hover .btn-icon-arrow { transform: scale(1.1); }
+
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; }
+                        .binaes-grid { grid-template-columns: 1fr !important; }
+                        .binaes-card { text-align: center; }
+                        .dual-buttons { flex-direction: row; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Promoción de la Cortesía y Registro de Deméritos</h2>
+                    <p>Normativa oficial e instrumentos de registro para fomentar los valores ciudadanos, el respeto mutuo y la convivencia armónica dentro de los centros educativos.</p>
+                  </div>
+
+                  <div class="alert-info-box" style="background-color: #F0F7FF; border-left-color: var(--secondary-blue); color: var(--secondary-blue);">
+                    <strong>⚖️ Enfoque Formativo y Consecuencias:</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem; line-height: 1.5;">
+                      La asignación de deméritos busca corregir conductas como la omisión del saludo, no usar palabras de cortesía ("por favor", "gracias") o el uso de un tono irrespetuoso. El sistema es formativo, permitiendo a los estudiantes <strong>redimir deméritos</strong> mediante buenas acciones y otorgando <strong>reconocimientos mensuales</strong> a las secciones ejemplares.
+                    </p>
+                  </div>
+
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                    
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">📜</div>
+                      <h3>Reglamento Oficial de Cortesía</h3>
+                      <p>Acuerdo 15-1359/2025. Marco normativo que establece la escala de consecuencias (desde advertencias hasta la no promoción de grado con 15 deméritos), mecanismos de redención y reconocimientos.</p>
+                      <div class="card-actions">
+                        <a href="https://drive.google.com/file/d/1rKWlWcyC4hYuouwR7XMS6Is4udh2ruSs/view?usp=drive_link" target="_blank" class="btn-primary" style="width: 100%;">Descargar Reglamento (PDF) ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">👤</div>
+                      <h3>Instrumento 001: Tarjeta Individual</h3>
+                      <p>Hoja de seguimiento por estudiante para registrar oficialmente la asignación de deméritos, las opciones de redención elegidas y los reconocimientos otorgados con sus respectivas firmas.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/1PQskd1MAVN6H65CLy6pC_W3nUEsLz91O/view?usp=drive_link" target="_blank" class="btn-primary">PDF</a>
+                        <a href="https://docs.google.com/document/d/1xz-1HAXuP_7qTK_bim_T8xTCZMAHzQzi/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">👩‍🏫</div>
+                      <h3>Instrumento 002: Consolidado Docente</h3>
+                      <p>Matriz de registro mensual para que el docente responsable centralice y totalice las estadísticas de deméritos, redenciones y reconocimientos generados exclusivamente en su sección.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/1YQrm_f4Slnz950_7sqruQxNuAuV3JzIl/view?usp=drive_link" target="_blank" class="btn-primary">PDF</a>
+                        <a href="https://docs.google.com/document/d/1YMm71QcWhpWITkjeg0Zs743M1zCuaI4M/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🏫</div>
+                      <h3>Instrumento 003: Consolidado Director</h3>
+                      <p>Matriz general de recolección de datos para la dirección del centro educativo. Permite unificar los reportes de todos los grados, secciones y turnos para el control estadístico mensual institucional.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/1YYD0z-5gy5GVyeeawIbNKL-CjRnO6zOe/view?usp=drive_link" target="_blank" class="btn-primary">PDF</a>
+                        <a href="https://docs.google.com/document/d/1Oj3AqBDHOrv84mDt-Q3Jv-BwMloWgDmu/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Word</a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="retorno-navigation-wrapper" style="margin-top: 35px; padding-top: 20px; border-top: 1px solid #E2E8F0;">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otro trámite?</h3>
                     </div>
                     <div class="retorno-action-side">
                       <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
