@@ -1085,7 +1085,7 @@
                       <h3>Unidad de Acreditación</h3>
                       <p>Gestión del proceso completo de la Prueba de Suficiencia, temarios por grados y actas de notas.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/unidad-de-acreditaci%C3%B3n" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-acreditacion" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -5388,6 +5388,130 @@
                           <span class="btn-icon-arrow">←</span> Volver al Índice
                       </a>
                       <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" class="btn-retorno-indice btn-alerta">
+                        <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+            `,
+'biblioteca-acreditacion': `
+                <style>
+                    :root {
+                        --primary-blue: #0A2540;
+                        --secondary-blue: #1C3D5A;
+                        --accent-gold: #D4AF37;
+                        --light-bg: #F4F6F9;
+                        --text-dark: #2D3748;
+                        --text-muted: #718096;
+                        --white: #FFFFFF;
+                        --alert-red: #E53E3E;
+                    }
+
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease;}
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2rem; margin: 0 0 10px 0; font-weight: 700; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1rem; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+
+                    /* RECUADRO DE INFORMACIÓN / ALERTA */
+                    .alert-info-box { padding: 18px 20px; border-radius: 6px; border-left: 5px solid; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+
+                    /* DISEÑO DE CUADRÍCULA Y TARJETAS */
+                    .binaes-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+                    .binaes-card { background: var(--light-bg); border: 1px solid #E2E8F0; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; }
+                    .binaes-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(10, 37, 64, 0.08); }
+                    .card-highlight { border-top: 4px solid var(--accent-gold); background: linear-gradient(180deg, #FFFFFF 0%, var(--light-bg) 100%); }
+
+                    .card-icon { font-size: 2.2rem; margin-bottom: 15px; }
+                    .binaes-card h3 { color: var(--secondary-blue); font-size: 1.25rem; margin: 0 0 10px 0; font-weight: 700; line-height: 1.4; }
+                    .binaes-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1; text-align: justify; }
+                    .card-actions { display: flex; margin-top: auto; }
+
+                    /* BOTONES BLINDADOS */
+                    .btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary-blue); color: var(--white) !important; text-decoration: none; font-weight: 600; padding: 12px 16px; font-size: 0.9rem; border-radius: 6px; transition: all 0.2s ease-in-out; box-shadow: 0 2px 6px rgba(10, 37, 64, 0.15); width: 100%; border: 1px solid transparent; }
+                    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
+
+                    /* ESTILOS DEL BOTÓN DE RETORNO Y NAVEGACIÓN */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 35px; padding-top: 20px; border-top: 1px solid #E2E8F0; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border-radius: 6px; transition: all 0.25s ease-in-out; border: 2px solid; }
+                    .btn-indice-blanco { background-color: var(--white); color: var(--primary-blue) !important; border-color: var(--primary-blue); }
+                    .btn-indice-blanco:hover { background-color: var(--primary-blue) !important; color: var(--white) !important; }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
+
+                    .btn-alerta { background-color: var(--white); color: var(--alert-red) !important; border-color: var(--alert-red); }
+                    .btn-alerta:hover { background-color: var(--alert-red) !important; color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3); }
+
+                    .btn-icon-arrow { font-size: 1.1rem; margin-right: 8px; transition: transform 0.2s ease; }
+                    .btn-alerta:hover .btn-icon-arrow { transform: scale(1.1); }
+
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; }
+                        .binaes-grid { grid-template-columns: 1fr; }
+                        .binaes-card { text-align: center; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Unidad de Acreditación y Registro</h2>
+                    <p>Gestión de procesos de equivalencias, legalización de documentos, validación de partidas de nacimiento extranjeras y normativas de matrícula para estudiantes retornados.</p>
+                  </div>
+
+                  <div class="alert-info-box" style="background-color: #F0F7FF; border-left-color: var(--secondary-blue); color: var(--secondary-blue);">
+                    <strong>🌍 Garantía del Derecho a la Educación (Acuerdo 15-2176):</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem; line-height: 1.5;">
+                      Las instituciones educativas deben garantizar el acceso y continuidad educativa de la niñez y adolescencia <strong>retornada o extranjera</strong>. La falta de documentos apostillados no es impedimento para la matrícula; para ello, se habilita el uso de la Declaración Jurada para su incorporación al sistema.
+                    </p>
+                  </div>
+
+                  <div class="binaes-grid">
+                    
+                    <div class="binaes-card card-highlight">
+                      <div class="card-icon">📄</div>
+                      <h3>Lineamientos de Matrícula (Extranjeros)</h3>
+                      <p>Acuerdo 15-2176/2025. Normativa legal y operativa para la inserción al sistema de El Salvador de alumnos retornados y extranjeros. Incluye anexo de Declaración Jurada para directores.</p>
+                      <div class="card-actions">
+                        <a href="https://drive.google.com/file/d/10egiqhhJplsTrw4HXqGHs9snqQg07Z_0/view?usp=drive_link" target="_blank" class="btn-primary">Descargar Acuerdo ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">📝</div>
+                      <h3>Validación de Partidas de Nacimiento</h3>
+                      <p>Ventanilla de carga de información. Formulario habilitado para solicitar a la Unidad de Acreditación la validación técnica de partidas de nacimiento provenientes del extranjero.</p>
+                      <div class="card-actions">
+                        <a href="https://depa.edu.sv/validacion2026" target="_blank" class="btn-primary" style="background-color: var(--accent-gold) !important; color: var(--primary-blue) !important;">Ir al Formulario de Carga ➔</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">🏛️</div>
+                      <h3>Sitio Oficial de Acreditación</h3>
+                      <p>Portal web oficial del Departamento de Acreditación Institucional del MINEDUCYT. Acceso a trámites complementarios, auténticas, equivalencias de estudios y certificaciones.</p>
+                      <div class="card-actions">
+                        <a href="PAGINA DE ACREDITACION" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue) !important; border: 1px solid var(--secondary-blue);">Visitar Sitio Oficial ➔</a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="retorno-navigation-wrapper">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Deseas consultar otro trámite?</h3>
+                    </div>
+                    <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
+                      <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
                         <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
                       </a>
                     </div>
