@@ -599,13 +599,105 @@
                     <h1>Bienvenido al Panel Gestión Escolar</h1>
                     <p>San Juan Opico digitaliza sus procesos. Navega fácilmente por el menú lateral para acceder a trámites, educación y herramientas de desarrollo.</p>
                 </div>
+                
                 <div class="card-grid">
                     <div class="card">
                         <h3 style="color: var(--primary-color); margin-bottom: 10px;">📊 Un Entorno Enfocado</h3>
-                        <p style="color: var(--text-muted); font-size: 10.5pt;">Haz clic en cualquier option del menú izquierdo. La información cambiará aquí mismo sin recargar la página.</p>
+                        <p style="color: var(--text-muted); font-size: 10.5pt;">Haz clic en cualquier opción del menú izquierdo. La información cambiará aquí mismo sin recargar la página.</p>
                     </div>
                 </div>
-            `,
+
+                <style>
+                      .counter-premium-wrapper {
+                          background: linear-gradient(135deg, #0A2540 0%, #1C3D5A 100%);
+                          border-radius: 12px;
+                          padding: 30px 25px;
+                          margin-top: 35px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          box-shadow: 0 10px 25px rgba(10,37,64,0.15);
+                          flex-wrap: wrap;
+                          gap: 20px;
+                          border-left: 5px solid #D4AF37;
+                      }
+                      
+                      .counter-premium-text {
+                          display: flex;
+                          align-items: center;
+                          gap: 15px;
+                      }
+
+                      .counter-premium-text h3 {
+                          color: #D4AF37;
+                          margin: 0 0 5px 0;
+                          font-size: 1.2rem;
+                          font-weight: 800;
+                          text-transform: uppercase;
+                          letter-spacing: 1px;
+                      }
+
+                      .counter-premium-text p {
+                          color: #e2e8f0;
+                          margin: 0;
+                          font-size: 0.95rem;
+                          max-width: 300px;
+                          line-height: 1.5;
+                      }
+
+                      .digits-container {
+                          display: flex;
+                          gap: 6px;
+                          background: rgba(0, 0, 0, 0.2);
+                          padding: 15px;
+                          border-radius: 10px;
+                          box-shadow: inset 0 4px 10px rgba(0,0,0,0.3);
+                      }
+
+                      .digit-box {
+                          background-color: #ffffff;
+                          color: #0A2540;
+                          font-size: 2.5rem;
+                          font-weight: 900;
+                          padding: 10px 12px;
+                          border-radius: 6px;
+                          min-width: 35px;
+                          text-align: center;
+                          box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 -3px 0 rgba(0,0,0,0.1);
+                          font-family: 'Courier New', Courier, monospace;
+                          line-height: 1;
+                      }
+
+                      @media(max-width: 768px) {
+                          .counter-premium-wrapper { flex-direction: column; text-align: center; justify-content: center; }
+                          .counter-premium-text { flex-direction: column; text-align: center; }
+                          .digits-container { gap: 4px; padding: 10px; }
+                          .digit-box { font-size: 1.8rem; padding: 8px 6px; min-width: 25px; }
+                      }
+                </style>
+
+                <div class="counter-premium-wrapper">
+                    <div class="counter-premium-text">
+                        <div style="font-size: 3rem;">📊</div>
+                        <div>
+                            <h3>Tráfico Histórico</h3>
+                            <p>Registro continuo de visualizaciones al portal del distrito desde su lanzamiento.</p>
+                        </div>
+                    </div>
+
+                    <div class="digits-container">
+                        <svg onload="window.iniciarContadorPremium()" style="display:none;"></svg>
+                        
+                        <div class="digit-box" id="digit-0">0</div>
+                        <div class="digit-box" id="digit-1">0</div>
+                        <div class="digit-box" id="digit-2">1</div>
+                        <div class="digit-box" id="digit-3">9</div>
+                        <div class="digit-box" id="digit-4">5</div>
+                        <div class="digit-box" id="digit-5">6</div>
+                        <div class="digit-box" id="digit-6">0</div>
+                    </div>
+                </div>
+        `,
             'noticias-home': `<div class="page-header"><h1>Sección de Noticias</h1></div>`,
             'noticias-avisos': `<div class="page-header"><h1>Avisos del Distrito</h1></div>`,
             'noticias-boletin': `<div class="page-header"><h1>Boletín Mensual</h1></div>`,
@@ -6000,6 +6092,44 @@
         menuToggle.addEventListener('click', () => { sidebar.classList.add('active'); overlay.classList.add('active'); });
         overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
         window.addEventListener('resize', () => { if(window.innerWidth > 1024) { sidebar.classList.remove('active'); overlay.classList.remove('active'); } });
+// ... (Aquí arriba están las otras funciones que pegamos antes, como las del calendario) ...
+        
+        // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
+
+        /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS) --- */
+        window.iniciarContadorPremium = function() {
+            // Tu número base histórico
+            let baseCount = 19560; 
+            
+            // Revisa si el usuario ya visitó la página y le suma 1
+            let localVisits = localStorage.getItem('distrito_visitas');
+            if (!localVisits) {
+                localVisits = 1;
+            } else {
+                localVisits = parseInt(localVisits) + 1;
+            }
+            localStorage.setItem('distrito_visitas', localVisits);
+
+            // Suma el historial viejo + las nuevas visitas
+            let totalVisits = baseCount + localVisits;
+            
+            // Obliga a que el número siempre tenga 7 cifras (ej. 0019561)
+            let paddedVisits = totalVisits.toString().padStart(7, '0');
+            let digits = paddedVisits.split('');
+
+            // Reparte cada número en su respectiva cajita visual
+            for (let i = 0; i < 7; i++) {
+                let el = document.getElementById('digit-' + i);
+                if(el) {
+                    el.innerText = digits[i];
+                }
+            }
+        };
+
+        // 👆 EL CÓDIGO DEL PASO 1 TERMINA AQUÍ 👆
+
+    </script>  </body>
+</html>
     </script>
 </body>
 </html>
