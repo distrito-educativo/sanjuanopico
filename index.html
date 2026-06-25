@@ -5585,19 +5585,88 @@
             `,
 
             'mapa-home': `
-                <div class="page-header">
+                <style>
+                    /* CONTENEDOR DEL MAPA */
+                    .map-container-wrapper {
+                        background: #ffffff;
+                        border-radius: 12px;
+                        border: 1px solid #e2e8f0;
+                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        height: 70vh; /* Altura dinámica adaptable a la pantalla */
+                        min-height: 500px;
+                        margin-top: 25px;
+                        animation: fadeIn 0.4s ease;
+                    }
+                    .map-header {
+                        padding: 18px 25px;
+                        background: #f8fafc;
+                        border-bottom: 1px solid #e2e8f0;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                    .map-header-title {
+                        margin: 0;
+                        font-size: 1.15rem;
+                        color: #0A2540;
+                        font-weight: 800;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                    .map-badge {
+                        background-color: #D4AF37;
+                        color: #0A2540;
+                        padding: 6px 14px;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+                    }
+                    
+                    /* FORZAR IFRAME AL 100% BLINDADO */
+                    .map-iframe-container {
+                        flex: 1;
+                        width: 100%;
+                        position: relative;
+                        background: #e2e8f0;
+                    }
+                    .map-iframe-container iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100% !important;
+                        height: 100% !important;
+                        border: none !important;
+                    }
+
+                    /* AJUSTE PARA ENCABEZADO ESTÁNDAR */
+                    .page-header-map { margin-bottom: 10px; animation: fadeIn 0.4s ease; }
+                    .page-header-map h1 { color: #0A2540; font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+                    .page-header-map p { color: #718096; font-size: 1.05rem; max-width: 800px; line-height: 1.6; margin: 0; }
+                </style>
+
+                <div class="page-header-map">
                     <h1>Mapa Escolar del Distrito</h1>
-                    <p>Explora la ubicación georreferenciada de todos los Centros Escolares de San Juan Opico y La Libertad.</p>
+                    <p>Explora la ubicación georreferenciada y datos clave de todos los Centros Escolares de San Juan Opico y La Libertad.</p>
                 </div>
-                <div class="card-grid" style="grid-template-columns: 1fr;">
-                    <div class="card" style="padding: 0; overflow: hidden; height: 600px; display: flex; flex-direction: column;">
-                        <div style="padding: 15px 24px; background: var(--bg-body); border-bottom: 1px solid var(--border-color);">
-                            <span class="badge bg-primary">Interactivo</span>
-                            <h3 style="margin-top: 5px; font-size: 11pt; color: var(--text-main);">Red de Instituciones Educativas</h3>
-                        </div>
-                        <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #e2e8f0;">
-                            <iframe src="https://googleusercontent.com/maps.google.com/3" width="100%" height="100%" style="border:0;"></iframe>
-                        </div>
+
+                <div class="map-container-wrapper">
+                    <div class="map-header">
+                        <h3 class="map-header-title">
+                            <span style="font-size: 1.4rem;">📍</span> Red de Instituciones Educativas
+                        </h3>
+                        <span class="map-badge">Mapa Interactivo</span>
+                    </div>
+                    <div class="map-iframe-container">
+                        <iframe src="https://www.google.com/maps/d/embed?mid=1HtAqF4i3auMU8wKWMcj1AUPsRFch5mI&ehbc=2E312F" width="100%" height="100%"></iframe>
                     </div>
                 </div>
             `,
