@@ -997,7 +997,7 @@
                       <h3>Prueba ERCE y PISA</h3>
                       <p>Marcos de evaluación internacional de estándares educativos y guías prácticas de simulación.</p>
                       <div class="card-actions">
-                        <a href="https://sites.google.com/clases.edu.sv/gestionpedagogicaopicosur/biblioteca-documental/pruebas-erce-y-pisa" target="_blank" class="binaes-btn-primary">Ir a Sección</a>
+                        <a href="#" data-target="biblioteca-erce-pisa" class="binaes-btn-primary">Ir a Sección</a>
                       </div>
                     </div>
 
@@ -4483,6 +4483,154 @@
                     </div>
                     <div class="retorno-action-side">
                       <a href="#" data-target="biblioteca-home" class="btn-retorno-indice" style="margin-right: 15px;">
+                          <span class="btn-icon-arrow">←</span> Volver al Índice
+                      </a>
+                      <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
+                        <span class="btn-icon-arrow">⚠️</span> Avisos y Denuncias
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+            `,
+'biblioteca-erce-pisa': `
+                <style>
+                    :root {
+                        --primary-blue: #0A2540;
+                        --secondary-blue: #1C3D5A;
+                        --accent-gold: #D4AF37;
+                        --light-bg: #F4F6F9;
+                        --text-dark: #2D3748;
+                        --text-muted: #718096;
+                        --white: #FFFFFF;
+                        --alert-red: #E53E3E;
+                    }
+
+                    .opico-binaes-container { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 35px; background-color: var(--white); border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); color: var(--text-dark); box-sizing: border-box; animation: fadeIn 0.4s ease;}
+                    .binaes-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-bg); padding-bottom: 25px; }
+                    .binaes-header h2 { color: var(--primary-blue); font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; }
+                    .binaes-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+                    /* ALERTA DE INFORMACIÓN */
+                    .alert-info-box { padding: 18px 20px; border-radius: 8px; border-left: 5px solid; margin-bottom: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+                    .section-divider-title { font-size: 1.4rem; color: var(--primary-blue); border-bottom: 3px solid var(--accent-gold); padding-bottom: 10px; margin-bottom: 25px; font-weight: 800; }
+
+                    /* CUADRÍCULA Y TARJETAS */
+                    .binaes-grid { display: grid; gap: 25px; }
+                    .binaes-card { background: var(--light-bg); border: 1px solid #E2E8F0; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; }
+                    .binaes-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 37, 64, 0.1); }
+                    .card-highlight { border-top: 4px solid var(--accent-gold); background: linear-gradient(180deg, #FFFFFF 0%, var(--light-bg) 100%); }
+
+                    .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+                    .binaes-card h3 { color: var(--secondary-blue); font-size: 1.25rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.3; }
+                    .binaes-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1; }
+                    .card-actions { display: flex; margin-top: auto; }
+
+                    /* BOTONERA DUAL BLINDADA */
+                    .dual-buttons { display: flex; gap: 12px; width: 100%; }
+                    .btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary-blue); color: #ffffff !important; text-decoration: none; font-weight: 600; padding: 12px 14px; font-size: 0.85rem; border-radius: 6px; transition: all 0.2s ease-in-out; width: 100%; box-shadow: 0 4px 8px rgba(10, 37, 64, 0.15); border: 1px solid transparent; }
+                    .dual-buttons .btn-primary { flex: 1; text-align: center; }
+                    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(10, 37, 64, 0.2); background-color: var(--accent-gold) !important; color: var(--primary-blue) !important; }
+
+                    /* NAVEGACIÓN Y SOPORTE INFERIOR */
+                    .retorno-navigation-wrapper { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+                    .retorno-text-side { flex: 1; min-width: 280px; }
+                    .retorno-breadcrumb { color: var(--accent-gold); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+                    .retorno-action-side { display: flex; align-items: center; gap: 10px; }
+                    
+                    .btn-retorno-indice { display: inline-flex; align-items: center; justify-content: center; background-color: var(--white); text-decoration: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; transition: all 0.3s ease; border: 2px solid; }
+                    .btn-indice-blanco { color: var(--primary-blue); border-color: var(--primary-blue); }
+                    .btn-indice-blanco:hover { background-color: var(--primary-blue); color: var(--white); }
+                    
+                    .btn-alerta { color: var(--alert-red); border-color: var(--alert-red); }
+                    .btn-alerta:hover { background-color: var(--alert-red) !important; color: var(--white) !important; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.2); }
+                    
+                    .btn-icon-arrow { font-size: 1.2rem; margin-right: 8px; transition: transform 0.2s ease; }
+                    .btn-alerta:hover .btn-icon-arrow { transform: scale(1.15); }
+                    .btn-indice-blanco:hover .btn-icon-arrow { transform: translateX(-4px); }
+
+                    /* RESPONSIVIDAD PARA CELULARES */
+                    @media (max-width: 768px) {
+                        .opico-binaes-container { padding: 20px; }
+                        .binaes-grid { grid-template-columns: 1fr !important; }
+                        .binaes-card { text-align: center; }
+                        .dual-buttons { flex-direction: column; }
+                        .retorno-navigation-wrapper { flex-direction: column; text-align: center; }
+                        .retorno-action-side { width: 100%; flex-direction: column; }
+                        .btn-retorno-indice { width: 100%; }
+                    }
+                </style>
+
+                <div class="opico-binaes-container">
+                  <div class="binaes-header">
+                    <h2>Evaluaciones Internacionales: ERCE y PISA 2025</h2>
+                    <p>Folletos informativos, agendas de jornadas y orientaciones pedagógicas para directores y docentes en el marco de la preparación para las pruebas de medición de la calidad educativa.</p>
+                  </div>
+
+                  <div class="alert-info-box" style="background-color: #F0F7FF; border-left-color: var(--secondary-blue); color: var(--secondary-blue);">
+                    <strong>📊 Un enfoque más allá de la memorización:</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem; line-height: 1.5;">
+                      Las pruebas internacionales <strong>ERCE y PISA</strong> no se limitan a evaluar la memorización de datos, sino la capacidad de los estudiantes para resolver problemas del mundo real y aplicar sus conocimientos. Además, incorporan evaluaciones sobre <strong>Habilidades Socioemocionales (HSE)</strong>, esenciales para el desarrollo integral.
+                    </p>
+                  </div>
+
+                  <h3 class="section-divider-title">Información General</h3>
+                  <div class="binaes-grid" style="grid-template-columns: 1fr; margin-bottom: 30px;">
+                    <div class="binaes-card card-highlight" style="flex-direction: row; align-items: center; gap: 25px; flex-wrap: wrap;">
+                      <div class="card-icon" style="font-size: 3.5rem; margin: 0;">🌍</div>
+                      <div class="card-content" style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-bottom: 5px;">Folleto Informativo ERCE 2025</h3>
+                        <p style="margin:0;">Documento oficial del LLECE (UNESCO) que detalla el propósito de la prueba piloto, los países participantes y los instrumentos de evaluación a aplicar en El Salvador (pruebas de logro, cuestionarios de factores asociados y módulos de habilidades socioemocionales).</p>
+                      </div>
+                      <div class="card-actions" style="min-width: 200px;">
+                        <a href="https://drive.google.com/file/d/1BjqdKwVfDQkH8Oah97iEmNrhzO1us6ns/view?usp=drive_link" target="_blank" class="btn-primary" style="width: 100%; padding: 14px 20px; font-size: 0.95rem;">Descargar Folleto ➔</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="section-divider-title">Paquetes de Preparación por Grado</h3>
+                  <div class="binaes-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-bottom: 40px;">
+                    
+                    <div class="binaes-card">
+                      <div class="card-icon">🎒</div>
+                      <h3>Preparación ERCE: 3° Grado</h3>
+                      <p>Material de trabajo para docentes de Tercer Grado. Incluye la agenda de la jornada paso a paso y las orientaciones pedagógicas sobre comprensión lectora, matemática y escritura.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/1AoG0GmizIvtNQuHo7r-2w6Y7a93Uu-67/view?usp=drive_link" target="_blank" class="btn-primary">Descargar Agenda</a>
+                        <a href="https://drive.google.com/file/d/1GblOMHAwHL1TXlzmWV0E-RcYcft5kCqB/view?usp=drive_link" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Ver Orientaciones</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card">
+                      <div class="card-icon">📚</div>
+                      <h3>Preparación ERCE: 6° Grado</h3>
+                      <p>Material de trabajo para docentes de Sexto Grado. Contiene la agenda estructurada y las orientaciones para reforzar la resolución de problemas y la evaluación en Ciencias Naturales.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/1tXjnZsd-F9JUw1WEkfY94w6AjhQlSEdE/view?usp=drive_link" target="_blank" class="btn-primary">Descargar Agenda</a>
+                        <a href="https://drive.google.com/file/d/1-UlgGUa1u4kJMOy04fhjFb5sQ01OWJhK/view?usp=drive_link" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Ver Orientaciones</a>
+                      </div>
+                    </div>
+
+                    <div class="binaes-card" style="border-top: 4px solid var(--accent-gold);">
+                      <div class="card-icon">🎓</div>
+                      <h3>Preparación PISA: 9° Grado</h3>
+                      <p>Recursos especializados para Educación Básica Superior. Incluye la agenda de la primera jornada y las orientaciones oficiales para el desarrollo de competencias PISA.</p>
+                      <div class="card-actions dual-buttons">
+                        <a href="https://drive.google.com/file/d/15h2oy_QjGcKlWzol5ZKrwrrXmGXh-9TW/view?usp=drive_link" target="_blank" class="btn-primary">Descargar Agenda</a>
+                        <a href="https://drive.google.com/file/d/1eOwM_6nUdailD51s2FKloV32XJvgKuqS/view?usp=drive_link" target="_blank" class="btn-primary" style="background-color: var(--secondary-blue);">Ver Orientaciones</a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="retorno-navigation-wrapper" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #E2E8F0;">
+                    <div class="retorno-text-side">
+                      <span class="retorno-breadcrumb">Portal Educativo Distrital</span>
+                      <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin: 0 0 5px 0;">¿Identifica una situación de riesgo o vulneración?</h3>
+                      <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Ingrese al portal oficial para registrar su aviso de forma confidencial y activar las rutas de protección institucional.</p>
+                    </div>
+                    <div class="retorno-action-side">
+                      <a href="#" data-target="biblioteca-home" class="btn-retorno-indice btn-indice-blanco">
                           <span class="btn-icon-arrow">←</span> Volver al Índice
                       </a>
                       <a href="https://www.mined.gob.sv/avisosydenuncias/web.php" target="_blank" class="btn-retorno-indice btn-alerta">
