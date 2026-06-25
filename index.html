@@ -5582,22 +5582,23 @@
                     .month-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(10,37,64,0.1); border-color: var(--accent-gold); }
                     .month-card h4 { color: var(--primary-blue); font-size: 1.2rem; font-weight: 800; margin: 0 0 15px 0; border-bottom: 2px solid var(--accent-gold); padding-bottom: 5px; width: 100%; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
                     
-                    .month-image-container { width: 100%; background-color: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; flex-grow: 1; display: flex; align-items: center; justify-content: center; min-height: 250px; position: relative; }
-                    .month-image-container img { width: 100%; height: auto; display: block; object-fit: contain; }
+                    .month-image-container { width: 100%; background-color: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; flex-grow: 1; display: flex; align-items: center; justify-content: center; min-height: 380px; position: relative; }
+                    .month-image-container img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top; }
                     
                     /* OVERLAY DE LUPA AL PASAR EL CURSOR */
-                    .zoom-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,37,64,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; border-radius: 6px; }
+                    .zoom-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,37,64,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; border-radius: 6px; }
                     .month-card:hover .zoom-overlay { opacity: 1; }
-                    .zoom-icon-cal { font-size: 2rem; background-color: var(--accent-gold); color: var(--primary-blue); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: translateY(15px); transition: transform 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+                    .zoom-icon-cal { font-size: 2.2rem; background-color: var(--accent-gold); color: var(--primary-blue); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: translateY(15px); transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
                     .month-card:hover .zoom-icon-cal { transform: translateY(0); }
 
-                    /* MODAL VISOR DE CALENDARIO */
-                    .modal-visor-calendario { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(10, 37, 64, 0.95); backdrop-filter: blur(5px); align-items: center; justify-content: center; flex-direction: column; }
-                    .modal-contenido-calendario { max-width: 95vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: zoomModal 0.3s ease; object-fit: contain; background-color: #fff; padding: 10px; }
+                    /* MODAL VISOR DE CALENDARIO (PANTALLA COMPLETA) */
+                    .modal-visor-calendario { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(10, 37, 64, 0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column; }
+                    /* Modificado para que tome todo el espacio posible de la pantalla */
+                    .modal-contenido-calendario { max-width: 98vw; max-height: 95vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); animation: zoomModal 0.3s ease; object-fit: contain; background-color: #fff; padding: 10px; }
                     @keyframes zoomModal { from {transform: scale(0.8); opacity: 0} to {transform: scale(1); opacity: 1} }
-                    .cerrar-modal-calendario { position: absolute; top: 20px; right: 40px; color: #fff; font-size: 45px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 100000; }
-                    .cerrar-modal-calendario:hover { color: var(--accent-gold); transform: scale(1.1); }
-                    .modal-instruccion { color: #cbd5e1; margin-top: 15px; font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
+                    .cerrar-modal-calendario { position: absolute; top: 15px; right: 30px; color: #fff; font-size: 50px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 100000; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+                    .cerrar-modal-calendario:hover { color: var(--accent-gold); transform: scale(1.15); }
+                    .modal-instruccion { color: #cbd5e1; margin-top: 15px; font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; }
 
                     @media (max-width: 768px) {
                         .opico-binaes-container { padding: 20px; }
@@ -5633,121 +5634,108 @@
                   
                   <div class="months-grid">
                     
-                    <!-- MES 1 (CON IMAGEN DE PRUEBA Y EFECTO LUPA) -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Enero</h4>
                       <div class="month-image-container">
-                        <img src="https://drive.google.com/uc?export=view&id=1rJcb-SXh6tli8bIMWRQC4bz3SmTGWtbD" alt="Calendario Enero" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Colocar URL de Enero</span>'">
+                        <img src="https://i.postimg.cc/j2yk5SLN/CALENDARIO-ESCOLAR-2026-vf-page-0002.jpg" alt="Calendario Enero">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 2 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Febrero</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_FEBRERO" alt="Calendario Febrero" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/Kjtsz8RT/CALENDARIO-ESCOLAR-2026-vf-page-0003.jpg" alt="Calendario Febrero">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 3 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Marzo</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_MARZO" alt="Calendario Marzo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/B6rV4KQL/CALENDARIO-ESCOLAR-2026-vf-page-0004.jpg" alt="Calendario Marzo">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 4 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Abril</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_ABRIL" alt="Calendario Abril" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/vT5SBZcr/CALENDARIO-ESCOLAR-2026-vf-page-0005.jpg" alt="Calendario Abril">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 5 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Mayo</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_MAYO" alt="Calendario Mayo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/J7XFKPPh/CALENDARIO-ESCOLAR-2026-vf-page-0006.jpg" alt="Calendario Mayo">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 6 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Junio</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_JUNIO" alt="Calendario Junio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/SNpvPCP0/CALENDARIO-ESCOLAR-2026-vf-page-0007.jpg" alt="Calendario Junio">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 7 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Julio</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_JULIO" alt="Calendario Julio" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/4NbSRyDD/CALENDARIO-ESCOLAR-2026-vf-page-0008.jpg" alt="Calendario Julio">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 8 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Agosto</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_AGOSTO" alt="Calendario Agosto" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/jdQFYCVd/CALENDARIO-ESCOLAR-2026-vf-page-0009.jpg" alt="Calendario Agosto">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 9 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Septiembre</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_SEPTIEMBRE" alt="Calendario Septiembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/28FKN3pW/CALENDARIO-ESCOLAR-2026-vf-page-0010.jpg" alt="Calendario Septiembre">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 10 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Octubre</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_OCTUBRE" alt="Calendario Octubre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/3xtfW6J9/CALENDARIO-ESCOLAR-2026-vf-page-0011.jpg" alt="Calendario Octubre">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 11 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Noviembre</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_NOVIEMBRE" alt="Calendario Noviembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/NjdCLVjY/CALENDARIO-ESCOLAR-2026-vf-page-0012.jpg" alt="Calendario Noviembre">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
-                    <!-- MES 12 -->
                     <div class="month-card" onclick="window.abrirModalCalendario(this)">
                       <h4>Diciembre</h4>
                       <div class="month-image-container">
-                        <img src="URL_IMAGEN_DICIEMBRE" alt="Calendario Diciembre" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:#64748b; font-size:0.9rem;\\'>Pendiente de Cargar</span>'">
+                        <img src="https://i.postimg.cc/W15YtKbx/CALENDARIO-ESCOLAR-2026-vf-page-0013.jpg" alt="Calendario Diciembre">
                         <div class="zoom-overlay"><span class="zoom-icon-cal">🔍</span></div>
                       </div>
                     </div>
 
                   </div>
 
-                  <!-- VENTANA MODAL (SE MUESTRA SOLO AL HACER CLIC) -->
                   <div id="modalVisorCalendario" class="modal-visor-calendario" onclick="window.cerrarModalCalendario()">
                     <span class="cerrar-modal-calendario">&times;</span>
                     <img class="modal-contenido-calendario" id="imagenAmpliadaCalendario" alt="Mes Ampliado" />
-                    <span class="modal-instruccion">Haz clic en cualquier parte para cerrar</span>
+                    <span class="modal-instruccion">Haz clic en cualquier parte o presiona "ESC" para cerrar</span>
                   </div>
 
                 </div>
