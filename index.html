@@ -6099,24 +6099,19 @@
         
         // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
 
-        /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS - VERSIÓN SPA) --- */
+       /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS - SIN FRENOS) --- */
         window.iniciarContadorPremium = function() {
             let baseCount = 19560; 
             let localVisits = localStorage.getItem('distrito_visitas');
 
-            // Si es la primera vez en la vida que entra, empieza en 0 visitas locales
+            // Si es la primera vez en la vida que entra, empieza en 0
             if (!localVisits) {
                 localVisits = 0; 
-            } else {
-                localVisits = parseInt(localVisits);
             }
-
-            // Verifica si en esta "sesión" actual ya le sumamos una visita
-            if (!sessionStorage.getItem('sesion_activa_contada')) {
-                localVisits += 1; // Suma 1 visita nueva
-                localStorage.setItem('distrito_visitas', localVisits); // La guarda para siempre
-                sessionStorage.setItem('sesion_activa_contada', 'true'); // Marca que ya fue contado hoy
-            }
+            
+            // Suma 1 visita INMEDIATAMENTE cada vez que se abra la sección (sin importar la sesión)
+            localVisits = parseInt(localVisits) + 1;
+            localStorage.setItem('distrito_visitas', localVisits);
 
             // Calcula el total exacto
             let totalVisits = baseCount + localVisits;
@@ -6125,7 +6120,7 @@
             let paddedVisits = totalVisits.toString().padStart(7, '0');
             let digits = paddedVisits.split('');
 
-            // Inyecta los números en pantalla al instante
+            // Inyecta los números en las cajitas al instante
             for (let i = 0; i < 7; i++) {
                 let el = document.getElementById('digit-' + i);
                 if(el) {
