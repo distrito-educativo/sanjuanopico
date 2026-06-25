@@ -6099,34 +6099,40 @@
         
         // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
 
-       /* --- CEREBRO DEL CONTADOR DE VISITAS (7 CIFRAS - SIN FRENOS) --- */
+       /* --- CEREBRO DEL CONTADOR GLOBAL EN LA NUBE (7 CIFRAS) --- */
         window.iniciarContadorPremium = function() {
-            let baseCount = 19560; 
-            let localVisits = localStorage.getItem('distrito_visitas');
-
-            // Si es la primera vez en la vida que entra, empieza en 0
-            if (!localVisits) {
-                localVisits = 0; 
-            }
+            let baseCount = 19560; // Tu número base histórico
             
-            // Suma 1 visita INMEDIATAMENTE cada vez que se abra la sección (sin importar la sesión)
-            localVisits = parseInt(localVisits) + 1;
-            localStorage.setItem('distrito_visitas', localVisits);
+            // Nos conectamos a una base de datos externa y gratuita para llevar el conteo global
+            fetch('https://abacus.jasoncameron.dev/hit/sanjuanopico_distrito/visitas', { cache: 'no-store' })
+                .then(response => response.json())
+                .then(data => {
+                    // "data.value" es el número real de clics guardado en la nube
+                    let globalVisits = data.value;
+                    let totalVisits = baseCount + globalVisits;
+                    
+                    // Obliga a tener 7 cifras (ej. 0019561)
+                    let paddedVisits = totalVisits.toString().padStart(7, '0');
+                    let digits = paddedVisits.split('');
 
-            // Calcula el total exacto
-            let totalVisits = baseCount + localVisits;
-            
-            // Obliga a tener 7 cifras
-            let paddedVisits = totalVisits.toString().padStart(7, '0');
-            let digits = paddedVisits.split('');
-
-            // Inyecta los números en las cajitas al instante
-            for (let i = 0; i < 7; i++) {
-                let el = document.getElementById('digit-' + i);
-                if(el) {
-                    el.innerText = digits[i];
-                }
-            }
+                    // Inyecta los números en las cajitas al instante
+                    for (let i = 0; i < 7; i++) {
+                        let el = document.getElementById('digit-' + i);
+                        if(el) {
+                            el.innerText = digits[i];
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Error conectando con la nube del contador:", error);
+                    // Si llega a fallar el internet, muestra al menos la base
+                    let paddedVisits = baseCount.toString().padStart(7, '0');
+                    let digits = paddedVisits.split('');
+                    for (let i = 0; i < 7; i++) {
+                        let el = document.getElementById('digit-' + i);
+                        if(el) el.innerText = digits[i];
+                    }
+                });
         };
 
         // 👆 EL CÓDIGO DEL PASO 1 TERMINA AQUÍ 👆
