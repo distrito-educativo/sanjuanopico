@@ -716,13 +716,13 @@
                     </div>
                     <div class="digits-container">
                         <img src="dummy_image.jpg" onerror="if(window.iniciarContadorPremium) window.iniciarContadorPremium(); this.remove();" style="display:none;" />
-                        <div class="digit-box" id="digit-0">&nbsp;</div>
-                        <div class="digit-box" id="digit-1">&nbsp;</div>
-                        <div class="digit-box" id="digit-2">&nbsp;</div>
-                        <div class="digit-box" id="digit-3">&nbsp;</div>
-                        <div class="digit-box" id="digit-4">&nbsp;</div>
-                        <div class="digit-box" id="digit-5">&nbsp;</div>
-                        <div class="digit-box" id="digit-6">&nbsp;</div>
+                        <div class="digit-box" id="digit-0">0</div>
+                        <div class="digit-box" id="digit-1">0</div>
+                        <div class="digit-box" id="digit-2">1</div>
+                        <div class="digit-box" id="digit-3">9</div>
+                        <div class="digit-box" id="digit-4">5</div>
+                        <div class="digit-box" id="digit-5">6</div>
+                        <div class="digit-box" id="digit-6">0</div>
                     </div>
                 </div>
 
@@ -6321,45 +6321,37 @@
         
         // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
 
-     /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
+     /* --- CEREBRO DEL CONTADOR GLOBAL (SUMA 1 VEZ POR SESIÓN, LEE SIEMPRE) --- */
         window.iniciarContadorPremium = function() {
             let baseCount = 19560; 
             let tiempoExacto = new Date().getTime();
-            let accion = 'get';
+            
+            // Verificamos en la memoria temporal si el usuario ya sumó su visita hoy
+            let accion = 'get'; // Por defecto, solo "lee" el número
             
             if (!sessionStorage.getItem('visita_contada_nube')) {
-                accion = 'hit';
-                sessionStorage.setItem('visita_contada_nube', 'true');
-            }
-
-            // 1. MEMORIA INMEDIATA: Pinta el último número conocido al instante (sin esperar a la nube)
-            let ultimoConteo = localStorage.getItem('contador_cache_local') || baseCount;
-            let paddedCache = ultimoConteo.toString().padStart(7, '0');
-            let digitsCache = paddedCache.split('');
-            for (let i = 0; i < 7; i++) {
-                let el = document.getElementById('digit-' + i);
-                if (el) el.innerText = digitsCache[i];
+                accion = 'hit'; // Si es su primera vez en la sesión, "golpea" (suma 1)
+                sessionStorage.setItem('visita_contada_nube', 'true'); // Marca que ya sumó
             }
             
-            // 2. CONEXIÓN DE FONDO: Trae el número real y fresco desde la nube de forma invisible
+            // Construimos el enlace dependiendo de si va a sumar o solo a leer
             let urlConectada = 'https://abacus.jasoncameron.dev/' + accion + '/sanjuanopico_distrito/visitas?t=' + tiempoExacto;
 
             fetch(urlConectada, { cache: 'no-store', mode: 'cors' })
                 .then(response => response.json())
                 .then(data => {
+                    // data.value trae el total exacto desde la nube
                     let globalVisits = data.value;
                     let totalVisits = baseCount + globalVisits;
                     
-                    // Guarda el número fresco en la memoria para tu próximo clic
-                    localStorage.setItem('contador_cache_local', totalVisits);
-                    
+                    // Obliga a tener 7 cifras (ej. 0019605)
                     let paddedVisits = totalVisits.toString().padStart(7, '0');
                     let digits = paddedVisits.split('');
 
-                    // Actualiza las cajas suavemente (solo si el número cambió en este segundo)
+                    // Inyecta los números en las cajitas al instante
                     for (let i = 0; i < 7; i++) {
                         let el = document.getElementById('digit-' + i);
-                        if(el && el.innerText !== digits[i]) {
+                        if(el) {
                             el.innerText = digits[i];
                         }
                     }
