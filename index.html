@@ -6321,19 +6321,30 @@
         
         // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
 
-       /* --- CEREBRO DEL CONTADOR GLOBAL EN LA NUBE (7 CIFRAS) --- */
+     /* --- CEREBRO DEL CONTADOR GLOBAL (SUMA 1 VEZ POR SESIÓN, LEE SIEMPRE) --- */
         window.iniciarContadorPremium = function() {
-            let baseCount = 19560; // Tu número base histórico
+            let baseCount = 19560; 
+            let tiempoExacto = new Date().getTime();
             
-            // Nos conectamos a una base de datos externa y gratuita para llevar el conteo global
-            fetch('https://abacus.jasoncameron.dev/hit/sanjuanopico_distrito/visitas', { cache: 'no-store' })
+            // Verificamos en la memoria temporal si el usuario ya sumó su visita hoy
+            let accion = 'get'; // Por defecto, solo "lee" el número
+            
+            if (!sessionStorage.getItem('visita_contada_nube')) {
+                accion = 'hit'; // Si es su primera vez en la sesión, "golpea" (suma 1)
+                sessionStorage.setItem('visita_contada_nube', 'true'); // Marca que ya sumó
+            }
+            
+            // Construimos el enlace dependiendo de si va a sumar o solo a leer
+            let urlConectada = 'https://abacus.jasoncameron.dev/' + accion + '/sanjuanopico_distrito/visitas?t=' + tiempoExacto;
+
+            fetch(urlConectada, { cache: 'no-store', mode: 'cors' })
                 .then(response => response.json())
                 .then(data => {
-                    // "data.value" es el número real de clics guardado en la nube
+                    // data.value trae el total exacto desde la nube
                     let globalVisits = data.value;
                     let totalVisits = baseCount + globalVisits;
                     
-                    // Obliga a tener 7 cifras (ej. 0019561)
+                    // Obliga a tener 7 cifras (ej. 0019605)
                     let paddedVisits = totalVisits.toString().padStart(7, '0');
                     let digits = paddedVisits.split('');
 
@@ -6347,13 +6358,6 @@
                 })
                 .catch(error => {
                     console.error("Error conectando con la nube del contador:", error);
-                    // Si llega a fallar el internet, muestra al menos la base
-                    let paddedVisits = baseCount.toString().padStart(7, '0');
-                    let digits = paddedVisits.split('');
-                    for (let i = 0; i < 7; i++) {
-                        let el = document.getElementById('digit-' + i);
-                        if(el) el.innerText = digits[i];
-                    }
                 });
         };
 
