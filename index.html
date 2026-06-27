@@ -6090,10 +6090,8 @@
                             <h2 style="color: #D4AF37; margin-bottom: 10px;">Reporte de Incidencias Climáticas</h2>
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
-
-                     <form onsubmit="event.preventDefault(); var mainForm=this; var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; var prios=[]; for(var i=1;i<=6;i++){var cb=document.getElementById('p'+i); if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);} var data = { CentroEscolar: document.getElementById('rep-centro').value, Codigo: document.getElementById('rep-codigo').value, Director: document.getElementById('rep-director').value, Telefono: document.getElementById('rep-telefono').value, Energia: document.getElementById('rep-energia').value, Internet: document.getElementById('rep-internet').value, Vias: document.getElementById('rep-vias').value, Muros: document.getElementById('rep-muros').value, AulasInundadas: document.getElementById('rep-aulas-inundadas').value, Techos: document.getElementById('rep-techos').value, Electrico: document.getElementById('rep-electrico').value, Tecnologia: document.getElementById('rep-tecnologia').value, Mobiliario: document.getElementById('rep-mobiliario').value, Prioridades: prios.join(' / ') }; var form=document.createElement('form'); form.method='POST'; form.action='https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; for(var key in data){var input=document.createElement('input'); input.type='hidden'; input.name=key; input.value=data[key]; form.appendChild(input);} document.body.appendChild(form); var iframe=document.createElement('iframe'); iframe.name='submit-iframe'; iframe.style.display='none'; document.body.appendChild(iframe); form.target='submit-iframe'; form.submit(); setTimeout(function(){ document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0); form.remove(); iframe.remove(); mainForm.reset(); btn.innerText='📤 Enviar Informe y Generar Documento'; btn.disabled=false; }, 500);">
-                            
-                            <div class="form-section">
+<form onsubmit="enviarReporte(event, this)">
+                                 <div class="form-section">
                                 <h3>1. Datos Generales</h3>
                                 <div class="form-group">
                                     <label>Nombre del Centro Escolar</label>
@@ -6658,5 +6656,79 @@
             }
         }, 6000);
     </script>
+<script>
+function enviarReporte(event, mainForm) {
+    // 1. Detenemos el comportamiento normal y bloqueamos el botón
+    event.preventDefault(); 
+    var btn = mainForm.querySelector('.btn-submit'); 
+    btn.innerText = 'ENVIANDO REPORTE...'; 
+    btn.disabled = true; 
+    
+    // 2. Recolectamos las prioridades marcadas
+    var prios = []; 
+    for(var i = 1; i <= 6; i++) {
+        var cb = document.getElementById('p' + i); 
+        if(cb && cb.checked) {
+            prios.push(cb.nextElementSibling.innerText);
+        }
+    } 
+    
+    // 3. Empaquetamos todos los datos (textos y listas desplegables)
+    var data = { 
+        CentroEscolar: document.getElementById('rep-centro').value, 
+        Codigo: document.getElementById('rep-codigo').value, 
+        Director: document.getElementById('rep-director').value, 
+        Telefono: document.getElementById('rep-telefono').value, 
+        Energia: document.getElementById('rep-energia').value, 
+        Internet: document.getElementById('rep-internet').value, 
+        Vias: document.getElementById('rep-vias').value, 
+        Muros: document.getElementById('rep-muros').value, 
+        AulasInundadas: document.getElementById('rep-aulas-inundadas').value, 
+        Techos: document.getElementById('rep-techos').value, 
+        Electrico: document.getElementById('rep-electrico').value, 
+        Tecnologia: document.getElementById('rep-tecnologia').value, 
+        Mobiliario: document.getElementById('rep-mobiliario').value, 
+        Prioridades: prios.join(' / ') 
+    }; 
+    
+    // 4. Creamos el túnel invisible hacia Google
+    var form = document.createElement('form'); 
+    form.method = 'POST'; 
+    form.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
+    
+    for(var key in data){
+        var input = document.createElement('input'); 
+        input.type = 'hidden'; 
+        input.name = key; 
+        input.value = data[key]; 
+        form.appendChild(input);
+    } 
+    
+    var iframe = document.createElement('iframe'); 
+    iframe.name = 'submit-iframe'; 
+    iframe.style.display = 'none'; 
+    
+    document.body.appendChild(iframe); 
+    document.body.appendChild(form); 
+    
+    form.target = 'submit-iframe'; 
+    form.submit(); 
+    
+    // 5. INMEDIATAMENTE MOSTRAMOS LA PANTALLA VERDE DE ÉXITO
+    document.getElementById('contenedor-formulario').style.display = 'none'; 
+    if(document.getElementById('dashboard-menu')) document.getElementById('dashboard-menu').style.display = 'none'; 
+    document.getElementById('mensaje-exito').style.display = 'block'; 
+    window.scrollTo(0,0); 
+    
+    // 6. Limpiamos por detrás para cuando el usuario decida volver
+    setTimeout(function(){ 
+        form.remove(); 
+        iframe.remove(); 
+        mainForm.reset(); 
+        btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+        btn.disabled = false; 
+    }, 1000);
+}
+</script>
 </body>
 </html>
