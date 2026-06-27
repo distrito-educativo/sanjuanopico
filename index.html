@@ -6658,56 +6658,97 @@
     </script>
 <script>
 function enviarReporte(event, mainForm) {
-    // 1. Evitamos que la página se recargue y desactivamos el botón
-    event.preventDefault(); 
-    var btn = mainForm.querySelector('.btn-submit'); 
-    btn.innerText = 'ENVIANDO REPORTE...'; 
-    btn.disabled = true; 
-    
-    // 2. Recolectamos las prioridades de los checkboxes
-    var prios = []; 
-    for(var i = 1; i <= 6; i++) {
-        var cb = document.getElementById('p' + i); 
-        if(cb && cb.checked) {
-            prios.push(cb.nextElementSibling.innerText);
+    try {
+        // 1. Bloqueamos radicalmente que el navegador te saque de la página
+        event.preventDefault(); 
+        
+        var btn = mainForm.querySelector('.btn-submit'); 
+        if(btn) {
+            btn.innerText = 'ENVIANDO REPORTE...'; 
+            btn.disabled = true; 
         }
-    } 
-    
-    // 3. Preparamos el contenedor FormData (El formato que Google Sheets procesa sin errores)
-    var formData = new FormData();
-    formData.append('CentroEscolar', document.getElementById('rep-centro').value);
-    formData.append('Codigo', document.getElementById('rep-codigo').value);
-    formData.append('Director', document.getElementById('rep-director').value);
-    formData.append('Telefono', document.getElementById('rep-telefono').value);
-    formData.append('Energia', document.getElementById('rep-energia').value);
-    formData.append('Internet', document.getElementById('rep-internet').value);
-    formData.append('Vias', document.getElementById('rep-vias').value);
-    formData.append('Muros', document.getElementById('rep-muros').value);
-    formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas').value);
-    formData.append('Techos', document.getElementById('rep-techos').value);
-    formData.append('Electrico', document.getElementById('rep-electrico').value);
-    formData.append('Tecnologia', document.getElementById('rep-tecnologia').value);
-    formData.append('Mobiliario', document.getElementById('rep-mobiliario').value);
-    formData.append('Prioridades', prios.join(' / '));
 
-    // 4. DISPARAR EN SEGUNDO PLANO (Envía los datos con fuerza hacia Google)
-    fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
-        method: 'POST',
-        body: formData
-    });
+        // 2. Recolectamos las prioridades de las casillas
+        var prios = []; 
+        for(var i = 1; i <= 6; i++) {
+            var cb = document.getElementById('p' + i); 
+            if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
+        } 
 
-    // 5. ACCIÓN INMEDIATA: Mostramos la pantalla verde de éxito sin retrasos
-    document.getElementById('contenedor-formulario').style.display = 'none'; 
-    if(document.getElementById('dashboard-menu')) {
-        document.getElementById('dashboard-menu').style.display = 'none';
+        // 3. Extraemos todos los datos (con protección por si algún campo falta)
+        var data = { 
+            CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
+            Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
+            Director: document.getElementById('rep-director') ? document.getElementById('rep-director').value : '', 
+            Telefono: document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '', 
+            Energia: document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '', 
+            Internet: document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '', 
+            Vias: document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '', 
+            Muros: document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '', 
+            AulasInundadas: document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '', 
+            Techos: document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '', 
+            Electrico: document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '', 
+            Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
+            Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
+            Prioridades: prios.join(' / ') 
+        }; 
+
+        // 4. LA VIEJA CONFIABLE: Creamos el portal invisible (Iframe)
+        var iframeName = 'iframe-google-' + Date.now();
+        var iframe = document.createElement('iframe'); 
+        iframe.name = iframeName; 
+        iframe.style.display = 'none'; 
+        document.body.appendChild(iframe); 
+
+        // Creamos el formulario de inyección
+        var hiddenForm = document.createElement('form'); 
+        hiddenForm.method = 'POST'; 
+        hiddenForm.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
+        hiddenForm.target = iframeName; // Obligamos a que el resultado se quede en el iframe invisible
+
+        for(var key in data) {
+            var input = document.createElement('input'); 
+            input.type = 'hidden'; 
+            input.name = key; 
+            input.value = data[key]; 
+            hiddenForm.appendChild(input);
+        } 
+        document.body.appendChild(hiddenForm); 
+
+        // ¡Disparo de datos hacia Google!
+        hiddenForm.submit(); 
+
+        // 5. EFECTO VISUAL INSTANTÁNEO Y LIMPIEZA
+        setTimeout(function() { 
+            // Mostramos el éxito
+            var contForm = document.getElementById('contenedor-formulario');
+            var dashMenu = document.getElementById('dashboard-menu');
+            var msjExito = document.getElementById('mensaje-exito');
+            
+            if(contForm) contForm.style.display = 'none'; 
+            if(dashMenu) dashMenu.style.display = 'none'; 
+            if(msjExito) msjExito.style.display = 'block'; 
+            
+            window.scrollTo(0,0); 
+
+            // Reseteamos el formulario real para que quede limpio al volver
+            mainForm.reset(); 
+            if(btn) {
+                btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+                btn.disabled = false; 
+            }
+
+            // Destruimos el portal invisible para no dejar basura en tu página
+            setTimeout(function() {
+                document.body.removeChild(hiddenForm);
+                document.body.removeChild(iframe);
+            }, 3000);
+
+        }, 500); // Esto hace que tu pantalla verde salte en medio segundo exacto
+
+    } catch (error) {
+        console.error("Error procesando formulario:", error);
     }
-    document.getElementById('mensaje-exito').style.display = 'block'; 
-    window.scrollTo(0,0); 
-    
-    // 6. Limpiamos el formulario y rehabilitamos el botón para el siguiente director
-    mainForm.reset(); 
-    btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-    btn.disabled = false; 
 }
 </script>
 </body>
