@@ -6091,7 +6091,28 @@
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
 
-                        <form onsubmit="event.preventDefault(); var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; var form=document.createElement('form'); form.method='POST'; form.action='https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; var inputs={CentroEscolar:document.getElementById('rep-centro').value,Codigo:document.getElementById('rep-codigo').value,Director:document.getElementById('rep-director').value,Telefono:document.getElementById('rep-telefono').value}; for(var key in inputs){var input=document.createElement('input'); input.type='hidden'; input.name=key; input.value=inputs[key]; form.appendChild(input);} document.body.appendChild(form); var iframe=document.createElement('iframe'); iframe.name='submit-iframe'; iframe.style.display='none'; document.body.appendChild(iframe); form.target='submit-iframe'; form.submit(); setTimeout(function(){document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0); form.remove(); iframe.remove();}, 2000);">
+                      <form onsubmit="event.preventDefault(); var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; 
+                        var prios=[]; for(var i=1;i<=6;i++){var cb=document.getElementById('p'+i); if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);}
+                        var data = {
+                            CentroEscolar: document.getElementById('rep-centro').value,
+                            Codigo: document.getElementById('rep-codigo').value,
+                            Director: document.getElementById('rep-director').value,
+                            Telefono: document.getElementById('rep-telefono').value,
+                            Energia: document.getElementById('rep-energia').value,
+                            Internet: document.getElementById('rep-internet').value,
+                            Vias: document.getElementById('rep-vias').value,
+                            Muros: document.getElementById('rep-muros').value,
+                            AulasInundadas: document.getElementById('rep-aulas-inundadas').value,
+                            Techos: document.getElementById('rep-techos').value,
+                            Electrico: document.getElementById('rep-electrico').value,
+                            Tecnologia: document.getElementById('rep-tecnologia').value,
+                            Mobiliario: document.getElementById('rep-mobiliario').value,
+                            Prioridades: prios.join(' / ')
+                        };
+                        var form=document.createElement('form'); form.method='POST'; form.action='https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
+                        for(var key in data){var input=document.createElement('input'); input.type='hidden'; input.name=key; input.value=data[key]; form.appendChild(input);} 
+                        document.body.appendChild(form); var iframe=document.createElement('iframe'); iframe.name='submit-iframe'; iframe.style.display='none'; document.body.appendChild(iframe); form.target='submit-iframe'; form.submit(); 
+                        setTimeout(function(){document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0); form.remove(); iframe.remove();}, 2000);">
                             
                             <div class="form-section">
                                 <h3>1. Datos Generales</h3>
@@ -6103,48 +6124,36 @@
                                 <div class="form-group"><label>Nombre del Director/a</label><input type="text" id="rep-director" required></div>
                                 <div class="form-group">
                                     <label>¿Cuenta actualmente con energía eléctrica?</label>
-                                    <select required><option value="">Seleccione...</option><option>Sí, servicio normal</option><option>No hay servicio</option><option>Servicio parcial</option></select>
+                                    <select id="rep-energia" required><option value="">Seleccione...</option><option>Sí, servicio normal</option><option>No hay servicio</option><option>Servicio parcial</option></select>
                                 </div>
                                 <div class="form-group">
                                     <label>¿Cuenta con conectividad a internet o señal móvil estable?</label>
-                                    <select required><option value="">Seleccione...</option><option>Sí</option><option>No</option></select>
+                                    <select id="rep-internet" required><option value="">Seleccione...</option><option>Sí</option><option>No</option></select>
                                 </div>
                             </div>
 
                             <div class="form-section">
                                 <h3>2. Estado de Accesibilidad y Entorno</h3>
-                                <div class="form-group"><label>¿Obstrucción en vías de acceso principales?</label><textarea placeholder="Calles inundadas, cárcavas, caída de árboles..."></textarea></div>
-                                <div class="form-group"><label>¿Daños en muros perimetrales o portones?</label><textarea></textarea></div>
-                                <div class="form-group"><label>¿Riesgo de deslizamientos en laderas colindantes?</label><textarea></textarea></div>
+                                <div class="form-group"><label>¿Obstrucción en vías de acceso principales?</label><textarea id="rep-vias" placeholder="Calles inundadas, cárcavas..."></textarea></div>
+                                <div class="form-group"><label>¿Daños en muros perimetrales o portones?</label><textarea id="rep-muros"></textarea></div>
                             </div>
 
                             <div class="form-section">
                                 <h3>3. Infraestructura Interna</h3>
-                                <div class="form-group"><label>¿Aulas con filtraciones severas? (Cantidad)</label><input type="number"></div>
-                                <div class="form-group"><label>¿Desprendimientos de techo o daños estructurales?</label><textarea></textarea></div>
-                                <div class="form-group"><label>¿Daños en el sistema eléctrico interno?</label><textarea placeholder="Cortocircuitos, lámparas dadas..."></textarea></div>
+                                <div class="form-group"><label>¿Aulas con filtraciones severas? (Cantidad)</label><input type="number" id="rep-aulas-inundadas"></div>
+                                <div class="form-group"><label>¿Desprendimientos de techo o daños estructurales?</label><textarea id="rep-techos"></textarea></div>
+                                <div class="form-group"><label>¿Daños en el sistema eléctrico interno?</label><textarea id="rep-electrico"></textarea></div>
                             </div>
                             
                             <div class="form-section">
-                                <h3>4. Evidencia Fotográfica</h3>
-                                <div class="form-group">
-                                    <div class="file-upload-container" onclick="document.getElementById('foto').click()">
-                                        <div style="font-size: 2rem; margin-bottom: 10px;">📸</div>
-                                        <p style="margin: 0; font-weight: bold; color: #0A2540;">Haga clic aquí para tomar fotos o subir desde su galería</p>
-                                        <input type="file" id="foto" accept="image/*" multiple style="display:none;" onchange="alert('Archivos seleccionados correctamente.')">
-                                    </div>
-                                </div>
+                                <h3>4. Daños a Recursos y Tecnología</h3>
+                                <div class="form-group"><label>¿Pérdida de dispositivos tecnológicos (computadoras, tablets)?</label><textarea id="rep-tecnologia"></textarea></div>
+                                <div class="form-group"><label>¿Pérdida de mobiliario escolar o material didáctico?</label><textarea id="rep-mobiliario"></textarea></div>
                             </div>
 
                             <div class="form-section">
-                                <h3>5. Daños a Recursos y Tecnología</h3>
-                                <div class="form-group"><label>¿Pérdida de dispositivos tecnológicos (computadoras, tablets)?</label><textarea></textarea></div>
-                                <div class="form-group"><label>¿Pérdida de mobiliario escolar o material didáctico?</label><textarea></textarea></div>
-                            </div>
-
-                            <div class="form-section">
-                                <h3>6. Resumen de Prioridades</h3>
-                                <label style="display: block; font-weight: 600; margin-bottom: 15px; color: #D4AF37;">Seleccione las TRES necesidades más urgentes:</label>
+                                <h3>5. Resumen de Prioridades</h3>
+                                <label style="display: block; font-weight: 600; margin-bottom: 15px; color: #D4AF37;">Seleccione las necesidades más urgentes:</label>
                                 <div class="checkbox-item"><input type="checkbox" id="p1"><label for="p1">Reparación de techos / techado de aulas</label></div>
                                 <div class="checkbox-item"><input type="checkbox" id="p2"><label for="p2">Remoción de escombros / árboles caídos</label></div>
                                 <div class="checkbox-item"><input type="checkbox" id="p3"><label for="p3">Reactivación de servicios básicos (agua/luz)</label></div>
