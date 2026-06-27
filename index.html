@@ -6299,14 +6299,14 @@
                         </form>
                     </div>
 
-                    <div id="mensaje-exito">
-                        <div style="font-size: 4rem; margin-bottom: 15px;">✅</div>
-                        <h3>¡Informe Registrado Exitosamente!</h3>
-                        <p style="color: #475569; margin-bottom: 25px;">Los datos han sido procesados de forma segura.<br><strong>El Documento Oficial de Incidencias ha sido guardado en la Base de Datos.</strong></p>
-                        <button class="btn-volver" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('dashboard-menu').style.display='block';">Volver al Panel Central</button>
-                    </div>
-
-                </div>
+                   <div id="mensaje-exito" style="display: none; text-align: center; padding: 40px 20px; background-color: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; max-width: 600px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #15803d; font-size: 24px; margin-bottom: 15px;">✅ ¡Reporte Enviado con Éxito!</h2>
+    <p style="color: #166534; font-size: 16px; margin-bottom: 25px;">Los datos han sido procesados de forma segura en la Base de Datos Distrital. El documento PDF oficial ha sido generado y enviado al correo institucional.</p>
+    
+    <button type="button" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="background-color: #15803d; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; transition: background-color 0.3s;">
+        🔙 Volver al Formulario
+    </button>
+</div>
             `,
 
             'mapa-home': `
