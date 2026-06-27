@@ -6658,7 +6658,7 @@
     </script>
 <script>
 function enviarReporte(event, mainForm) {
-    // 1. Detenemos el comportamiento normal y bloqueamos el botón
+    // 1. Bloqueamos el botón y evitamos que la página se recargue
     event.preventDefault(); 
     var btn = mainForm.querySelector('.btn-submit'); 
     btn.innerText = 'ENVIANDO REPORTE...'; 
@@ -6673,7 +6673,7 @@ function enviarReporte(event, mainForm) {
         }
     } 
     
-    // 3. Empaquetamos todos los datos (textos y listas desplegables)
+    // 3. Empaquetamos todos los datos de tus listas desplegables
     var data = { 
         CentroEscolar: document.getElementById('rep-centro').value, 
         Codigo: document.getElementById('rep-codigo').value, 
@@ -6691,43 +6691,37 @@ function enviarReporte(event, mainForm) {
         Prioridades: prios.join(' / ') 
     }; 
     
-    // 4. Creamos el túnel invisible hacia Google
-    var form = document.createElement('form'); 
-    form.method = 'POST'; 
-    form.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
+    // Convertimos los datos al formato nativo de formularios
+    var params = new URLSearchParams(data);
     
-    for(var key in data){
-        var input = document.createElement('input'); 
-        input.type = 'hidden'; 
-        input.name = key; 
-        input.value = data[key]; 
-        form.appendChild(input);
-    } 
-    
-    var iframe = document.createElement('iframe'); 
-    iframe.name = 'submit-iframe'; 
-    iframe.style.display = 'none'; 
-    
-    document.body.appendChild(iframe); 
-    document.body.appendChild(form); 
-    
-    form.target = 'submit-iframe'; 
-    form.submit(); 
-    
-    // 5. INMEDIATAMENTE MOSTRAMOS LA PANTALLA VERDE DE ÉXITO
-    document.getElementById('contenedor-formulario').style.display = 'none'; 
-    if(document.getElementById('dashboard-menu')) document.getElementById('dashboard-menu').style.display = 'none'; 
-    document.getElementById('mensaje-exito').style.display = 'block'; 
-    window.scrollTo(0,0); 
-    
-    // 6. Limpiamos por detrás para cuando el usuario decida volver
-    setTimeout(function(){ 
-        form.remove(); 
-        iframe.remove(); 
-        mainForm.reset(); 
+    // 4. Conexión 100% invisible en segundo plano con Google (evita que te saque de la página)
+    fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params
+    })
+    .then(function() {
+        // 5. Ocultamos el formulario y MOSTRAMOS LA PANTALLA VERDE inmediatamente
+        document.getElementById('contenedor-formulario').style.display = 'none'; 
+        if(document.getElementById('dashboard-menu')) document.getElementById('dashboard-menu').style.display = 'none'; 
+        document.getElementById('mensaje-exito').style.display = 'block'; 
+        window.scrollTo(0,0); 
+        
+        // 6. Limpiamos el formulario silenciosamente para el próximo uso
+        setTimeout(function(){ 
+            mainForm.reset(); 
+            btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+            btn.disabled = false; 
+        }, 1000);
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
         btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-        btn.disabled = false; 
-    }, 1000);
+        btn.disabled = false;
+    });
 }
 </script>
 </body>
