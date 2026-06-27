@@ -6658,13 +6658,13 @@
     </script>
 <script>
 function enviarReporte(event, mainForm) {
-    // 1. Bloqueamos el botón y evitamos que la página se recargue
+    // 1. Evitamos que la página se recargue y desactivamos el botón
     event.preventDefault(); 
     var btn = mainForm.querySelector('.btn-submit'); 
     btn.innerText = 'ENVIANDO REPORTE...'; 
     btn.disabled = true; 
     
-    // 2. Recolectamos las prioridades marcadas
+    // 2. Recolectamos las prioridades de los checkboxes
     var prios = []; 
     for(var i = 1; i <= 6; i++) {
         var cb = document.getElementById('p' + i); 
@@ -6673,55 +6673,41 @@ function enviarReporte(event, mainForm) {
         }
     } 
     
-    // 3. Empaquetamos todos los datos de tus listas desplegables
-    var data = { 
-        CentroEscolar: document.getElementById('rep-centro').value, 
-        Codigo: document.getElementById('rep-codigo').value, 
-        Director: document.getElementById('rep-director').value, 
-        Telefono: document.getElementById('rep-telefono').value, 
-        Energia: document.getElementById('rep-energia').value, 
-        Internet: document.getElementById('rep-internet').value, 
-        Vias: document.getElementById('rep-vias').value, 
-        Muros: document.getElementById('rep-muros').value, 
-        AulasInundadas: document.getElementById('rep-aulas-inundadas').value, 
-        Techos: document.getElementById('rep-techos').value, 
-        Electrico: document.getElementById('rep-electrico').value, 
-        Tecnologia: document.getElementById('rep-tecnologia').value, 
-        Mobiliario: document.getElementById('rep-mobiliario').value, 
-        Prioridades: prios.join(' / ') 
-    }; 
-    
-    // Convertimos los datos al formato nativo de formularios
-    var params = new URLSearchParams(data);
-    
-    // 4. Conexión 100% invisible en segundo plano con Google (evita que te saque de la página)
+    // 3. Preparamos el contenedor FormData (El formato que Google Sheets procesa sin errores)
+    var formData = new FormData();
+    formData.append('CentroEscolar', document.getElementById('rep-centro').value);
+    formData.append('Codigo', document.getElementById('rep-codigo').value);
+    formData.append('Director', document.getElementById('rep-director').value);
+    formData.append('Telefono', document.getElementById('rep-telefono').value);
+    formData.append('Energia', document.getElementById('rep-energia').value);
+    formData.append('Internet', document.getElementById('rep-internet').value);
+    formData.append('Vias', document.getElementById('rep-vias').value);
+    formData.append('Muros', document.getElementById('rep-muros').value);
+    formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas').value);
+    formData.append('Techos', document.getElementById('rep-techos').value);
+    formData.append('Electrico', document.getElementById('rep-electrico').value);
+    formData.append('Tecnologia', document.getElementById('rep-tecnologia').value);
+    formData.append('Mobiliario', document.getElementById('rep-mobiliario').value);
+    formData.append('Prioridades', prios.join(' / '));
+
+    // 4. DISPARAR EN SEGUNDO PLANO (Envía los datos con fuerza hacia Google)
     fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params
-    })
-    .then(function() {
-        // 5. Ocultamos el formulario y MOSTRAMOS LA PANTALLA VERDE inmediatamente
-        document.getElementById('contenedor-formulario').style.display = 'none'; 
-        if(document.getElementById('dashboard-menu')) document.getElementById('dashboard-menu').style.display = 'none'; 
-        document.getElementById('mensaje-exito').style.display = 'block'; 
-        window.scrollTo(0,0); 
-        
-        // 6. Limpiamos el formulario silenciosamente para el próximo uso
-        setTimeout(function(){ 
-            mainForm.reset(); 
-            btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-            btn.disabled = false; 
-        }, 1000);
-    })
-    .catch(function(error) {
-        console.error('Error:', error);
-        btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-        btn.disabled = false;
+        body: formData
     });
+
+    // 5. ACCIÓN INMEDIATA: Mostramos la pantalla verde de éxito sin retrasos
+    document.getElementById('contenedor-formulario').style.display = 'none'; 
+    if(document.getElementById('dashboard-menu')) {
+        document.getElementById('dashboard-menu').style.display = 'none';
+    }
+    document.getElementById('mensaje-exito').style.display = 'block'; 
+    window.scrollTo(0,0); 
+    
+    // 6. Limpiamos el formulario y rehabilitamos el botón para el siguiente director
+    mainForm.reset(); 
+    btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+    btn.disabled = false; 
 }
 </script>
 </body>
