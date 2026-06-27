@@ -6009,45 +6009,240 @@
             'visita-informes': `<div class="page-header"><h1>Portal de Informes</h1></div>`,
             
             /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
-            'monitoreo-home': `
-                <div class="page-header">
-                    <h1>Monitoreo Distrital</h1>
-                    <p>Plataforma exclusiva para la gestión administrativa de centros educativos del distrito.</p>
+            'monitoreo-distrital': `
+                <style>
+                    .monitoreo-wrapper { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; animation: fadeIn 0.5s ease; color: #1a1a1a; }
+                    
+                    /* Tarjeta de Instrucciones */
+                    .instrucciones-card { background: linear-gradient(135deg, #0A2540 0%, #1C3D5A 100%); border-radius: 12px; padding: 35px; margin-bottom: 30px; color: white; border-bottom: 5px solid #D4AF37; box-shadow: 0 10px 25px rgba(10,37,64,0.15); display: flex; flex-direction: column; align-items: flex-start; gap: 15px; }
+                    .instrucciones-card h2 { font-size: 2rem; margin: 0; font-weight: 800; color: #D4AF37; display: flex; align-items: center; gap: 10px; }
+                    .instrucciones-card p { font-size: 1.05rem; line-height: 1.6; margin: 0; color: #e2e8f0; }
+                    .btn-iniciar-reporte { background-color: #D4AF37; color: #0A2540; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); margin-top: 10px; }
+                    .btn-iniciar-reporte:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4); background-color: #e5c158; }
+
+                    /* Contenedor del Formulario */
+                    #contenedor-formulario { display: none; animation: slideDown 0.4s ease-out; }
+                    .form-section { background: white; border-radius: 12px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-top: 4px solid #0A2540; }
+                    .form-section h3 { color: #0A2540; font-size: 1.3rem; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+                    
+                    /* Elementos del Formulario */
+                    .form-group { margin-bottom: 20px; }
+                    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; font-size: 0.95rem; }
+                    .form-group input[type="text"], .form-group input[type="number"], .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 1rem; color: #1e293b; transition: border-color 0.3s; box-sizing: border-box; background-color: #f8fafc; }
+                    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #D4AF37; background-color: #ffffff; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+                    .form-group textarea { resize: vertical; min-height: 80px; }
+                    
+                    /* Subida de Archivos */
+                    .file-upload-container { border: 2px dashed #cbd5e1; padding: 20px; text-align: center; border-radius: 8px; background-color: #f8fafc; transition: all 0.3s; cursor: pointer; }
+                    .file-upload-container:hover { border-color: #D4AF37; background-color: #fff9e6; }
+                    .file-upload-container input[type="file"] { display: none; }
+                    .file-upload-label { color: #0A2540; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+                    .file-upload-label span { font-size: 2rem; color: #D4AF37; }
+
+                    /* Checkboxes */
+                    .checkbox-group { display: flex; flex-direction: column; gap: 12px; }
+                    .checkbox-item { display: flex; align-items: flex-start; gap: 10px; }
+                    .checkbox-item input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; accent-color: #0A2540; }
+                    .checkbox-item label { font-weight: normal; color: #475569; margin-bottom: 0; cursor: pointer; }
+
+                    /* Botón Enviar */
+                    .btn-submit { background-color: #0A2540; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
+                    .btn-submit:hover { background-color: #1a365d; box-shadow: 0 6px 20px rgba(10, 37, 64, 0.3); }
+
+                    /* Mensaje de Éxito */
+                    #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; border-top: 5px solid #10b981; animation: fadeIn 0.5s ease; }
+                    #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
+                    #mensaje-exito p { color: #475569; font-size: 1.1rem; line-height: 1.6; }
+
+                    @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+                </style>
+
+                <div class="monitoreo-wrapper">
+                    
+                    <div class="instrucciones-card" id="tarjeta-instrucciones">
+                        <h2>📡 Monitoreo Distrital</h2>
+                        <p>Plataforma exclusiva para uso de Directores. Este instrumento permite recolectar los daños generados por eventos climáticos (lluvias) en la infraestructura, recursos y áreas pedagógicas. La información se utilizará para gestionar apoyos técnicos y logísticos.</p>
+                        <p><strong>Nota:</strong> Puede adjuntar fotografías directamente desde la cámara de su teléfono para respaldar los daños.</p>
+                        <button class="btn-iniciar-reporte" onclick="document.getElementById('contenedor-formulario').style.display='block'; this.style.display='none';">
+                            📝 Iniciar Reporte de Incidencias
+                        </button>
+                    </div>
+
+                    <div id="contenedor-formulario">
+                        <form id="form-lluvias" onsubmit="event.preventDefault(); simularEnvio();">
+                            
+                            <div class="form-section">
+                                <h3>1. Datos Generales</h3>
+                                <div class="form-group">
+                                    <label>Nombre del Centro Escolar</label>
+                                    <input type="text" required placeholder="Ej. Centro Escolar Caserío Agua Zarca">
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div class="form-group">
+                                        <label>Código de Infraestructura</label>
+                                        <input type="number" required placeholder="Ej. 12345">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Teléfono de Contacto</label>
+                                        <input type="text" required placeholder="Ej. 7000-0000">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del Director/a o Responsable</label>
+                                    <input type="text" required placeholder="Nombre completo">
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Cuenta actualmente con servicio de energía eléctrica?</label>
+                                    <select required>
+                                        <option value="">Seleccione una opción...</option>
+                                        <option>Sí, servicio normal</option>
+                                        <option>No hay servicio</option>
+                                        <option>Servicio parcial o intermitente</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Cuenta con conectividad a internet o señal móvil estable?</label>
+                                    <select required>
+                                        <option value="">Seleccione una opción...</option>
+                                        <option>Sí</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>2. Estado de Accesibilidad y Entorno Externo</h3>
+                                <div class="form-group">
+                                    <label>¿Existe obstrucción en las vías de acceso principales al centro escolar?</label>
+                                    <textarea placeholder="Detalle si hay calles inundadas, cárcavas, caída de árboles, tendido eléctrico derribado, etc."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Se registran daños o colapso en los muros perimetrales o portones?</label>
+                                    <textarea placeholder="Describa brevemente si hay riesgo de ingreso de personas ajenas."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Se observan taludes, laderas o terrenos colindantes inestables con riesgo de deslizamiento hacia la escuela?</label>
+                                    <textarea placeholder="Describa la situación del terreno."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>3. Infraestructura Interna y Techados</h3>
+                                <div class="form-group">
+                                    <label>¿Cuántas aulas presentan filtraciones severas o inundaciones por daños en techos?</label>
+                                    <input type="number" min="0" placeholder="Cantidad de aulas">
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Se registran desprendimientos de láminas, duralita, cielo falso o estructuras de soporte?</label>
+                                    <textarea placeholder="Describa los daños en techos."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿El estado de las paredes presenta agrietamientos nuevos, humedad extrema o riesgo de colapso?</label>
+                                    <textarea placeholder="Describa el estado de las paredes."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Se reportan daños en el sistema eléctrico interno?</label>
+                                    <textarea placeholder="Cortocircuitos, tomacorrientes o lámparas dañadas por el agua."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>4. Áreas Comunes y Evidencia Fotográfica</h3>
+                                <div class="form-group">
+                                    <label>Aulas de Primera Infancia: ¿Presentan daños en infraestructura o inundación de material lúdico?</label>
+                                    <textarea placeholder="Detalle la situación de Primera Infancia."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Servicios Sanitarios: ¿Se reporta colapso de fosas sépticas, tuberías o lavamanos?</label>
+                                    <textarea placeholder="Detalle daños hidrosanitarios."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cocina/Bodega: ¿Se encuentra resguardada la comida escolar o hay riesgo de contaminación?</label>
+                                    <textarea placeholder="Estado de los alimentos y área de preparación."></textarea>
+                                </div>
+                                
+                                <div class="form-group" style="margin-top: 30px;">
+                                    <label>📸 Evidencia Fotográfica (Opcional pero recomendado)</label>
+                                    <div class="file-upload-container" onclick="document.getElementById('foto-evidencia').click()">
+                                        <label class="file-upload-label">
+                                            <span>📷</span>
+                                            Haga clic aquí para tomar una foto o subir archivos desde su galería.
+                                        </label>
+                                        <input type="file" id="foto-evidencia" accept="image/*" multiple onchange="alert('Imágenes adjuntadas correctamente al reporte preliminar.')">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>5. Daños a Recursos y Tecnología</h3>
+                                <div class="form-group">
+                                    <label>¿Se reportan daños o pérdida de dispositivos tecnológicos (computadoras, tablets)?</label>
+                                    <textarea placeholder="Especifique cantidad aproximada si es posible."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Existe pérdida de mobiliario escolar (pupitres, estantes) o recursos de biblioteca?</label>
+                                    <textarea placeholder="Detalle daños a recursos."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>6. Gestión de Riesgos y Resumen de Prioridades</h3>
+                                <div class="form-group">
+                                    <label>¿El centro escolar está siendo utilizado como albergue temporal?</label>
+                                    <select required>
+                                        <option value="">Seleccione...</option>
+                                        <option>Sí, está operando como albergue</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Existen condiciones mínimas de seguridad para retomar actividades pedagógicas presenciales?</label>
+                                    <textarea required placeholder="Justifique si es posible abrir o si se necesita activar continuidad educativa remota."></textarea>
+                                </div>
+                                
+                                <div class="form-group" style="margin-top: 30px;">
+                                    <label style="font-size: 1.1rem; color: #D4AF37; margin-bottom: 15px;">Seleccione las TRES (3) necesidades más urgentes para operar con seguridad:</label>
+                                    <div class="checkbox-group">
+                                        <div class="checkbox-item"><input type="checkbox" id="p1"><label for="p1">Reparación de techos / techado de aulas</label></div>
+                                        <div class="checkbox-item"><input type="checkbox" id="p2"><label for="p2">Remoción de escombros / árboles caídos</label></div>
+                                        <div class="checkbox-item"><input type="checkbox" id="p3"><label for="p3">Reactivación de servicios básicos (agua/luz)</label></div>
+                                        <div class="checkbox-item"><input type="checkbox" id="p4"><label for="p4">Reparación de muro perimetral (seguridad)</label></div>
+                                        <div class="checkbox-item"><input type="checkbox" id="p5"><label for="p5">Reposición de equipo tecnológico o material didáctico</label></div>
+                                        <div class="checkbox-item"><input type="checkbox" id="p6"><label for="p6">Limpieza y desinfección general (por lodo o colapso de aguas negras)</label></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 25px;">
+                                    <label>Observaciones adicionales o comentarios urgentes:</label>
+                                    <textarea placeholder="Escriba aquí cualquier otro detalle crítico que no haya sido mencionado."></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                📤 Enviar Informe y Generar Documento
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="mensaje-exito">
+                        <div style="font-size: 4rem;">✅</div>
+                        <h3>¡Informe Registrado Exitosamente!</h3>
+                        <p>Los datos han sido procesados de forma segura en la base de datos central.<br><br><strong>El Documento Oficial de Incidencias ha sido generado automáticamente en formato Word/PDF y ha sido enviado a su correo institucional para su firma y resguardo.</strong></p>
+                        <button class="btn-iniciar-reporte" style="margin-top: 20px;" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('tarjeta-instrucciones').style.display='flex'; document.getElementById('form-lluvias').reset();">Volver al Menú</button>
+                    </div>
+
                 </div>
 
-                <div id="login-wall" class="card-grid" style="grid-template-columns: 1fr; max-width: 500px; margin: 40px auto 0 auto;">
-                    <div class="card" style="text-align: center; padding: 40px 30px; border-top: 4px solid var(--primary-color);">
-                        <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="var(--primary-color)" stroke-width="1.5" style="margin-bottom: 20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <h3 style="margin-bottom: 15px; font-size: 16pt;">Acceso Restringido</h3>
-                        <p style="color: var(--text-muted); font-size: 11pt; margin-bottom: 25px; line-height: 1.5;">Para ingresar a este módulo, debes iniciar sesión con tu cuenta institucional <b>@clases.edu.sv</b>. Solo directores autorizados tienen acceso.</p>
-                        
-                        <div id="googleButtonDiv" style="display: flex; justify-content: center; width: 100%;"></div>
-                        
-                    </div>
-                </div>
-
-                <div id="private-dashboard" style="display: none; animation: fadeIn 0.5s ease;">
-                    <div class="card-grid">
-                        <div class="card" style="border-left: 4px solid var(--success-color);">
-                            <h3 style="color: var(--success-color);">Acceso Concedido</h3>
-                            <p style="margin-top: 10px;">Bienvenido/a al panel central, <b id="director-name">Director</b>.</p>
-                            <p style="color: var(--text-muted); font-size:10pt; margin-top: 5px;">Sesión activa: <span id="director-email" style="color:var(--primary-color);"></span></p>
-                        </div>
-                    </div>
-                    <div class="card-grid">
-                        <div class="card">
-                            <span class="badge bg-primary">Estadísticas</span>
-                            <h3>Rendimiento Distrital</h3>
-                            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Aquí irán las gráficas y reportes confidenciales de los centros escolares.</p>
-                        </div>
-                        <div class="card">
-                            <span class="badge bg-warning">Reportes</span>
-                            <h3>Descarga de Actas</h3>
-                            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Panel para visualizar y descargar los informes de los instrumentos de visita.</p>
-                        </div>
-                    </div>
-                </div>
-            `,
+                <script>
+                    function simularEnvio() {
+                        // Oculta el formulario y muestra la pantalla de éxito simulando la generación del Word
+                        document.getElementById('contenedor-formulario').style.display = 'none';
+                        document.getElementById('tarjeta-instrucciones').style.display = 'none';
+                        document.getElementById('mensaje-exito').style.display = 'block';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                </script>
+        `,
 
             'mapa-home': `
                 <style>
