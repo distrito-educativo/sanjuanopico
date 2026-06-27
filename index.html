@@ -6021,6 +6021,7 @@
                     .form-group textarea { min-height: 80px; resize: vertical; }
                     .btn-submit { background-color: #0A2540; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; cursor: pointer; width: 100%; text-transform: uppercase; transition: background 0.3s; }
                     .btn-submit:hover { background-color: #1a365d; }
+                    .btn-submit:disabled { background-color: #94a3b8; cursor: not-allowed; }
                     .btn-volver { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; }
                     .btn-volver:hover { background-color: #e2e8f0; }
                     .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -6090,16 +6091,16 @@
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
 
-                        <form onsubmit="event.preventDefault(); document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0);">
+                        <form onsubmit="event.preventDefault(); var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; var data={CentroEscolar:document.getElementById('rep-centro').value,Codigo:document.getElementById('rep-codigo').value,Director:document.getElementById('rep-director').value,Telefono:document.getElementById('rep-telefono').value}; fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec',{method:'POST',body:JSON.stringify(data)}).then(function(){document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0);}).catch(function(err){alert('Error al conectar con la base de datos: '+err); btn.innerText='📤 Enviar Informe y Generar Documento'; btn.disabled=false;});">
                             
                             <div class="form-section">
                                 <h3>1. Datos Generales</h3>
-                                <div class="form-group"><label>Nombre del Centro Escolar</label><input type="text" required></div>
+                                <div class="form-group"><label>Nombre del Centro Escolar</label><input type="text" id="rep-centro" required></div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                                    <div class="form-group"><label>Código de Infraestructura</label><input type="number" required></div>
-                                    <div class="form-group"><label>Teléfono de Contacto</label><input type="text" required></div>
+                                    <div class="form-group"><label>Código de Infraestructura</label><input type="number" id="rep-codigo" required></div>
+                                    <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="rep-telefono" required></div>
                                 </div>
-                                <div class="form-group"><label>Nombre del Director/a</label><input type="text" required></div>
+                                <div class="form-group"><label>Nombre del Director/a</label><input type="text" id="rep-director" required></div>
                                 <div class="form-group">
                                     <label>¿Cuenta actualmente con energía eléctrica?</label>
                                     <select required><option value="">Seleccione...</option><option>Sí, servicio normal</option><option>No hay servicio</option><option>Servicio parcial</option></select>
@@ -6121,7 +6122,7 @@
                                 <h3>3. Infraestructura Interna</h3>
                                 <div class="form-group"><label>¿Aulas con filtraciones severas? (Cantidad)</label><input type="number"></div>
                                 <div class="form-group"><label>¿Desprendimientos de techo o daños estructurales?</label><textarea></textarea></div>
-                                <div class="form-group"><label>¿Daños en el sistema eléctrico interno?</label><textarea placeholder="Cortocircuitos, lámparas dañadas..."></textarea></div>
+                                <div class="form-group"><label>¿Daños en el sistema eléctrico interno?</label><textarea placeholder="Cortocircuitos, lámparas dadas..."></textarea></div>
                             </div>
                             
                             <div class="form-section">
@@ -6159,7 +6160,7 @@
                     <div id="mensaje-exito">
                         <div style="font-size: 4rem; margin-bottom: 15px;">✅</div>
                         <h3>¡Informe Registrado Exitosamente!</h3>
-                        <p style="color: #475569; margin-bottom: 25px;">Los datos han sido procesados de forma segura.<br><strong>El Documento Oficial de Incidencias será generado y enviado a su correo institucional.</strong></p>
+                        <p style="color: #475569; margin-bottom: 25px;">Los datos han sido procesados de forma segura.<br><strong>El Documento Oficial de Incidencias ha sido guardado en la Base de Datos.</strong></p>
                         <button class="btn-volver" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('dashboard-menu').style.display='block';">Volver al Panel Central</button>
                     </div>
 
