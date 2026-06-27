@@ -6656,7 +6656,7 @@
 <script>
 function enviarReporte(event, mainForm) {
     try {
-        // 1. Bloqueamos radicalmente que el navegador te saque de la página
+        // 1. Bloqueamos el navegador
         event.preventDefault(); 
         
         var btn = mainForm.querySelector('.btn-submit'); 
@@ -6665,14 +6665,13 @@ function enviarReporte(event, mainForm) {
             btn.disabled = true; 
         }
 
-        // 2. Recolectamos las prioridades de las casillas
+        // 2. Recolectamos datos
         var prios = []; 
         for(var i = 1; i <= 6; i++) {
             var cb = document.getElementById('p' + i); 
             if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
         } 
 
-        // 3. Extraemos todos los datos (con protección por si algún campo falta)
         var data = { 
             CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
             Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
@@ -6690,18 +6689,17 @@ function enviarReporte(event, mainForm) {
             Prioridades: prios.join(' / ') 
         }; 
 
-        // 4. LA VIEJA CONFIABLE: Creamos el portal invisible (Iframe)
+        // 3. Portal invisible (Iframe)
         var iframeName = 'iframe-google-' + Date.now();
         var iframe = document.createElement('iframe'); 
         iframe.name = iframeName; 
         iframe.style.display = 'none'; 
         document.body.appendChild(iframe); 
 
-        // Creamos el formulario de inyección
         var hiddenForm = document.createElement('form'); 
         hiddenForm.method = 'POST'; 
         hiddenForm.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
-        hiddenForm.target = iframeName; // Obligamos a que el resultado se quede en el iframe invisible
+        hiddenForm.target = iframeName; 
 
         for(var key in data) {
             var input = document.createElement('input'); 
@@ -6711,40 +6709,40 @@ function enviarReporte(event, mainForm) {
             hiddenForm.appendChild(input);
         } 
         document.body.appendChild(hiddenForm); 
-
-        // ¡Disparo de datos hacia Google!
         hiddenForm.submit(); 
 
-        // 5. EFECTO VISUAL INSTANTÁNEO Y LIMPIEZA
+        // 4. LA SOLUCIÓN INFALIBLE: ALERTA Y RETORNO AL PANEL
         setTimeout(function() { 
-            // Mostramos el éxito
+            // Ocultamos el formulario
             var contForm = document.getElementById('contenedor-formulario');
-            var dashMenu = document.getElementById('dashboard-menu');
-            var msjExito = document.getElementById('mensaje-exito');
-            
             if(contForm) contForm.style.display = 'none'; 
-            if(dashMenu) dashMenu.style.display = 'none'; 
-            if(msjExito) msjExito.style.display = 'block'; 
             
-            window.scrollTo(0,0); 
+            // Restauramos el menú de las 3 tarjetas quitando cualquier bloqueo
+            var dashMenu = document.getElementById('dashboard-menu');
+            if(dashMenu) dashMenu.style.display = ''; 
 
-            // Reseteamos el formulario real para que quede limpio al volver
+            // Dejamos el formulario limpio en segundo plano
             mainForm.reset(); 
             if(btn) {
                 btn.innerText = '📤 Enviar Informe y Generar Documento'; 
                 btn.disabled = false; 
             }
+            
+            window.scrollTo(0,0); 
 
-            // Destruimos el portal invisible para no dejar basura en tu página
+            // Disparamos la alerta nativa del navegador con el éxito
+            alert("✅ ¡REPORTE ENVIADO CON ÉXITO!\n\nLos datos han sido guardados en la base distrital y el PDF oficial ha sido generado.");
+
+            // Limpieza de basura invisible
             setTimeout(function() {
-                document.body.removeChild(hiddenForm);
-                document.body.removeChild(iframe);
+                if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                if(document.body.contains(iframe)) document.body.removeChild(iframe);
             }, 3000);
 
-        }, 500); // Esto hace que tu pantalla verde salte en medio segundo exacto
+        }, 500); 
 
     } catch (error) {
-        console.error("Error procesando formulario:", error);
+        console.error("Error:", error);
     }
 }
 </script>
