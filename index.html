@@ -6090,7 +6090,7 @@
                             <h2 style="color: #D4AF37; margin-bottom: 10px;">Reporte de Incidencias Climáticas</h2>
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
-<form onsubmit="enviarReporte(event, this)">
+<form onSubmit="enviarReporte(event, this)">
                                  <div class="form-section">
                                 <h3>1. Datos Generales</h3>
                                 <div class="form-group">
@@ -6296,8 +6296,6 @@
                             </div>
 
                             <button type="submit" class="btn-submit">📤 Enviar Informe y Generar Documento</button>
-                        </form>
-                    </div>
 
                    <div id="mensaje-exito" style="display: none; text-align: center; padding: 40px 20px; background-color: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; max-width: 600px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
     <h2 style="color: #15803d; font-size: 24px; margin-bottom: 15px;">✅ ¡Reporte Enviado con Éxito!</h2>
@@ -6307,6 +6305,9 @@
         🔙 Volver al Formulario
     </button>
 </div>
+                        </form>
+                    </div>
+
             `,
 
             'mapa-home': `
