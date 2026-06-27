@@ -6010,43 +6010,90 @@
             
             /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
             'monitoreo-home': `
-                <div class="page-header">
-                    <h1>Monitoreo Distrital</h1>
-                    <p>Plataforma exclusiva para la gestión administrativa de centros educativos del distrito.</p>
-                </div>
+                <style>
+    .monitoreo-wrapper { font-family: 'Segoe UI', sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; animation: fadeIn 0.5s ease; color: #1a1a1a; }
+    .instrucciones-card { background: linear-gradient(135deg, #0A2540 0%, #1C3D5A 100%); border-radius: 12px; padding: 35px; margin-bottom: 30px; color: white; border-bottom: 5px solid #D4AF37; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+    .instrucciones-card h2 { font-size: 2rem; margin: 0 0 15px 0; font-weight: 800; color: #D4AF37; }
+    .instrucciones-card p { font-size: 1.05rem; line-height: 1.6; margin: 0 0 15px 0; color: #e2e8f0; }
+    .btn-iniciar-reporte { background-color: #D4AF37; color: #0A2540; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; }
+    .btn-iniciar-reporte:hover { transform: translateY(-2px); background-color: #e5c158; }
+    #contenedor-formulario { display: none; }
+    .form-section { background: white; border-radius: 12px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-top: 4px solid #0A2540; }
+    .form-section h3 { color: #0A2540; font-size: 1.3rem; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 1rem; box-sizing: border-box; background-color: #f8fafc; }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .btn-submit { background-color: #0A2540; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; cursor: pointer; width: 100%; text-transform: uppercase; }
+    #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; }
+    #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; }
+    .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .file-upload-container { border: 2px dashed #cbd5e1; padding: 20px; text-align: center; border-radius: 8px; background-color: #f8fafc; cursor: pointer; }
+</style>
 
-                <div id="login-wall" class="card-grid" style="grid-template-columns: 1fr; max-width: 500px; margin: 40px auto 0 auto;">
-                    <div class="card" style="text-align: center; padding: 40px 30px; border-top: 4px solid var(--primary-color);">
-                        <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="var(--primary-color)" stroke-width="1.5" style="margin-bottom: 20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <h3 style="margin-bottom: 15px; font-size: 16pt;">Acceso Restringido</h3>
-                        <p style="color: var(--text-muted); font-size: 11pt; margin-bottom: 25px; line-height: 1.5;">Para ingresar a este módulo, debes iniciar sesión con tu cuenta institucional <b>@clases.edu.sv</b>. Solo directores autorizados tienen acceso.</p>
-                        
-                        <div id="googleButtonDiv" style="display: flex; justify-content: center; width: 100%;"></div>
-                        
-                    </div>
-                </div>
+<div class="monitoreo-wrapper">
+    <div class="instrucciones-card" id="tarjeta-instrucciones">
+        <h2>📡 Monitoreo Distrital</h2>
+        <p>Plataforma exclusiva para directores. Reporte de incidencias por eventos climáticos (lluvias) en infraestructura y recursos.</p>
+        <button class="btn-iniciar-reporte" onclick="document.getElementById('contenedor-formulario').style.display='block'; this.style.display='none';">
+            📝 Iniciar Reporte
+        </button>
+    </div>
 
-                <div id="private-dashboard" style="display: none; animation: fadeIn 0.5s ease;">
-                    <div class="card-grid">
-                        <div class="card" style="border-left: 4px solid var(--success-color);">
-                            <h3 style="color: var(--success-color);">Acceso Concedido</h3>
-                            <p style="margin-top: 10px;">Bienvenido/a al panel central, <b id="director-name">Director</b>.</p>
-                            <p style="color: var(--text-muted); font-size:10pt; margin-top: 5px;">Sesión activa: <span id="director-email" style="color:var(--primary-color);"></span></p>
-                        </div>
-                    </div>
-                    <div class="card-grid">
-                        <div class="card">
-                            <span class="badge bg-primary">Estadísticas</span>
-                            <h3>Rendimiento Distrital</h3>
-                            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Aquí irán las gráficas y reportes confidenciales de los centros escolares.</p>
-                        </div>
-                        <div class="card">
-                            <span class="badge bg-warning">Reportes</span>
-                            <h3>Descarga de Actas</h3>
-                            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Panel para visualizar y descargar los informes de los instrumentos de visita.</p>
-                        </div>
+    <div id="contenedor-formulario">
+        <form onsubmit="event.preventDefault(); document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('tarjeta-instrucciones').style.display='none'; document.getElementById('mensaje-exito').style.display='block'; window.scrollTo(0,0);">
+            
+            <div class="form-section">
+                <h3>1. Datos Generales</h3>
+                <div class="form-group"><label>Nombre del Centro Escolar</label><input type="text" required></div>
+                <div class="form-group"><label>Código de Infraestructura</label><input type="number" required></div>
+                <div class="form-group"><label>Nombre del Director/a</label><input type="text" required></div>
+                <div class="form-group">
+                    <label>¿Cuenta actualmente con energía eléctrica?</label>
+                    <select required><option value="">Seleccione...</option><option>Sí</option><option>No</option><option>Parcial</option></select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>2. Estado de Accesibilidad y Entorno</h3>
+                <div class="form-group"><label>¿Obstrucción en vías de acceso?</label><textarea></textarea></div>
+                <div class="form-group"><label>¿Daños en muros o portones?</label><textarea></textarea></div>
+            </div>
+
+            <div class="form-section">
+                <h3>3. Infraestructura Interna (Techos y Paredes)</h3>
+                <div class="form-group"><label>¿Aulas con filtraciones severas?</label><input type="number"></div>
+                <div class="form-group"><label>¿Desprendimientos de techo o daños en paredes?</label><textarea></textarea></div>
+            </div>
+            
+            <div class="form-section">
+                <h3>4. Evidencia Fotográfica</h3>
+                <div class="form-group">
+                    <div class="file-upload-container" onclick="document.getElementById('foto').click()">
+                        <p>📷 Toque aquí para subir fotos desde su celular</p>
+                        <input type="file" id="foto" accept="image/*" multiple style="display:none;" onchange="alert('Fotos listas para adjuntar.')">
                     </div>
                 </div>
+            </div>
+
+            <div class="form-section">
+                <h3>5. Prioridades Urgentes</h3>
+                <div class="checkbox-item"><input type="checkbox"><label>Reparación de techos</label></div>
+                <div class="checkbox-item"><input type="checkbox"><label>Remoción de escombros</label></div>
+                <div class="checkbox-item"><input type="checkbox"><label>Reactivación de servicios básicos</label></div>
+            </div>
+
+            <button type="submit" class="btn-submit">📤 Enviar Informe</button>
+        </form>
+    </div>
+
+    <div id="mensaje-exito">
+        <div style="font-size: 3rem;">✅</div>
+        <h3>¡Informe Recibido!</h3>
+        <p>El Documento Oficial será enviado a su correo institucional.</p>
+        <button class="btn-iniciar-reporte" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('tarjeta-instrucciones').style.display='block';">Volver</button>
+    </div>
+</div>
             `,
 
             'mapa-home': `
