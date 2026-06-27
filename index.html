@@ -6091,7 +6091,7 @@
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
 
-                      <form onsubmit="event.preventDefault(); var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; 
+                     <form onsubmit="event.preventDefault(); var btn=this.querySelector('.btn-submit'); btn.innerText='ENVIANDO REPORTE...'; btn.disabled=true; 
                         var prios=[]; for(var i=1;i<=6;i++){var cb=document.getElementById('p'+i); if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);}
                         var data = {
                             CentroEscolar: document.getElementById('rep-centro').value,
@@ -6124,31 +6124,102 @@
                                 <div class="form-group"><label>Nombre del Director/a</label><input type="text" id="rep-director" required></div>
                                 <div class="form-group">
                                     <label>¿Cuenta actualmente con energía eléctrica?</label>
-                                    <select id="rep-energia" required><option value="">Seleccione...</option><option>Sí, servicio normal</option><option>No hay servicio</option><option>Servicio parcial</option></select>
+                                    <select id="rep-energia" required>
+                                        <option value="">Seleccione una opción...</option>
+                                        <option>Sí, servicio normal</option>
+                                        <option>No hay servicio en toda la escuela</option>
+                                        <option>Servicio parcial (módulos sin luz)</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>¿Cuenta con conectividad a internet o señal móvil estable?</label>
-                                    <select id="rep-internet" required><option value="">Seleccione...</option><option>Sí</option><option>No</option></select>
+                                    <select id="rep-internet" required>
+                                        <option value="">Seleccione una opción...</option>
+                                        <option>Sí, conexión estable</option>
+                                        <option>No, incomunicado/sin señal</option>
+                                        <option>Intermitente / Muy inestable</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-section">
                                 <h3>2. Estado de Accesibilidad y Entorno</h3>
-                                <div class="form-group"><label>¿Obstrucción en vías de acceso principales?</label><textarea id="rep-vias" placeholder="Calles inundadas, cárcavas..."></textarea></div>
-                                <div class="form-group"><label>¿Daños en muros perimetrales o portones?</label><textarea id="rep-muros"></textarea></div>
+                                <div class="form-group">
+                                    <label>¿Obstrucción en vías de acceso principales?</label>
+                                    <select id="rep-vias" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Acceso libre (Normal)</option>
+                                        <option>Obstrucción parcial (Solo paso peatonal / vehículos con dificultad)</option>
+                                        <option>Obstrucción total (Paso bloqueado por árboles, inundación o cárcava)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Daños en muros perimetrales o portones?</label>
+                                    <select id="rep-muros" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Sin daños evidentes</option>
+                                        <option>Daños leves (Grietas o fisuras superficiales)</option>
+                                        <option>Daño estructural grave (Riesgo inminente de caída)</option>
+                                        <option>Colapso total de un tramo del muro/portón</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-section">
-                                <h3>3. Infraestructura Interna</h3>
-                                <div class="form-group"><label>¿Aulas con filtraciones severas? (Cantidad)</label><input type="number" id="rep-aulas-inundadas"></div>
-                                <div class="form-group"><label>¿Desprendimientos de techo o daños estructurales?</label><textarea id="rep-techos"></textarea></div>
-                                <div class="form-group"><label>¿Daños en el sistema eléctrico interno?</label><textarea id="rep-electrico"></textarea></div>
+                                <h3>3. Infraestructura Interna (Aulas y Módulos)</h3>
+                                <div class="form-group">
+                                    <label>¿Aulas con filtraciones severas o inundaciones?</label>
+                                    <select id="rep-aulas-inundadas" required>
+                                        <option value="">Seleccione la cantidad...</option>
+                                        <option>0 aulas afectadas</option>
+                                        <option>1 a 3 aulas afectadas</option>
+                                        <option>4 a 6 aulas afectadas</option>
+                                        <option>7 o más aulas afectadas</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Desprendimientos de techo o daños estructurales en paredes?</label>
+                                    <select id="rep-techos" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Sin daños</option>
+                                        <option>Daños leves (Goteras menores manejables)</option>
+                                        <option>Daño parcial (Láminas levantadas / cielos falsos dañados)</option>
+                                        <option>Daño grave (Desprendimiento completo de techo / colapso de cielo falso)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Daños en el sistema eléctrico interno?</label>
+                                    <select id="rep-electrico" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Sistema funcionando normal</option>
+                                        <option>Cortocircuito localizado (Afecta una sola aula o pasillo)</option>
+                                        <option>Módulo completo sin energía por humedad o filtraciones</option>
+                                        <option>Riesgo eléctrico grave (Cables expuestos en zonas inundadas)</option>
+                                    </select>
+                                </div>
                             </div>
                             
                             <div class="form-section">
-                                <h3>4. Daños a Recursos y Tecnología</h3>
-                                <div class="form-group"><label>¿Pérdida de dispositivos tecnológicos (computadoras, tablets)?</label><textarea id="rep-tecnologia"></textarea></div>
-                                <div class="form-group"><label>¿Pérdida de mobiliario escolar o material didáctico?</label><textarea id="rep-mobiliario"></textarea></div>
+                                <h3>4. Daños a Recursos Educativos y Tecnología</h3>
+                                <div class="form-group">
+                                    <label>¿Afectación en dispositivos tecnológicos (Laptops, Tablets, Servidor)?</label>
+                                    <select id="rep-tecnologia" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Sin afectaciones (Equipo resguardado de forma segura)</option>
+                                        <option>Daño leve (Pocos equipos expuestos a humedad superficial)</option>
+                                        <option>Pérdida parcial de equipos (Dispositivos mojados/dañados por goteras)</option>
+                                        <option>Pérdida total del aula informática / recursos tecnológicos por inundación</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Pérdida de mobiliario escolar o material didáctico?</label>
+                                    <select id="rep-mobiliario" required>
+                                        <option value="">Seleccione el nivel de afectación...</option>
+                                        <option>Sin afectaciones</option>
+                                        <option>Daño parcial (Mobiliario expuesto en áreas abiertas)</option>
+                                        <option>Pérdida considerable (Escritorios, pupitres o libros destruidos por agua)</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-section">
