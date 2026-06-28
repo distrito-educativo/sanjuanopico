@@ -6693,7 +6693,8 @@ function enviarReporte(event, mainForm) {
             Electrico: document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '', 
             Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
-            Prioridades: prios.join(' / ') 
+            Prioridades: prios.join(' / '),
+            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.'
         }; 
 
         // 3. Portal invisible (Iframe)
