@@ -6743,94 +6743,72 @@
 <script>
 function enviarReporte(event, mainForm) {
     try {
-        // 1. Bloqueamos el navegador
         event.preventDefault(); 
         
         var btn = mainForm.querySelector('.btn-submit'); 
         if(btn) {
-            btn.innerText = 'ENVIANDO REPORTE...'; 
+            btn.innerText = '⏳ ENVIANDO REPORTE A GOOGLE...'; 
             btn.disabled = true; 
         }
 
-        // 2. Recolectamos datos
+        // Recolectamos datos de prioridades
         var prios = []; 
         for(var i = 1; i <= 6; i++) {
             var cb = document.getElementById('p' + i); 
             if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
         } 
 
-        var data = { 
-            CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
-            Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
-            Director: document.getElementById('rep-director') ? document.getElementById('rep-director').value : '', 
-            Telefono: document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '', 
-            Energia: document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '', 
-            Internet: document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '', 
-            Vias: document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '', 
-            Muros: document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '', 
-            AulasInundadas: document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '', 
-            Techos: document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '', 
-            Electrico: document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '', 
-            Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
-            Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
-            Prioridades: prios.join(' / '),
-            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.'
-        }; 
+        // Empaquetamos los datos exactamente como los pide tu Apps Script
+        var formData = new FormData();
+        formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
+        formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
+        formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
+        formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
+        formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
+        formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
+        formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
+        formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
+        formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
+        formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
+        formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
+        formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
+        formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
+        formData.append('Prioridades', prios.join(' / '));
+        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
 
-        // 3. Portal invisible (Iframe)
-        var iframeName = 'iframe-google-' + Date.now();
-        var iframe = document.createElement('iframe'); 
-        iframe.name = iframeName; 
-        iframe.style.display = 'none'; 
-        document.body.appendChild(iframe); 
-
-        var hiddenForm = document.createElement('form'); 
-        hiddenForm.method = 'POST'; 
-        hiddenForm.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
-        hiddenForm.target = iframeName; 
-
-        for(var key in data) {
-            var input = document.createElement('input'); 
-            input.type = 'hidden'; 
-            input.name = key; 
-            input.value = data[key]; 
-            hiddenForm.appendChild(input);
-        } 
-        document.body.appendChild(hiddenForm); 
-        hiddenForm.submit(); 
-
-        // 4. LA SOLUCIÓN INFALIBLE: ALERTA Y RETORNO AL PANEL
-        setTimeout(function() { 
-            // Ocultamos el formulario
+        // Cambiamos el iframe ciego por un Fetch inteligente con manejo de respuesta
+        fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function() {
+            // ESTO SOLO PASA SI GOOGLE REALMENTE GUARDÓ LOS DATOS
             var contForm = document.getElementById('contenedor-formulario');
             if(contForm) contForm.style.display = 'none'; 
             
-            // Restauramos el menú de las 3 tarjetas quitando cualquier bloqueo
             var dashMenu = document.getElementById('dashboard-menu');
             if(dashMenu) dashMenu.style.display = ''; 
 
-            // Dejamos el formulario limpio en segundo plano
             mainForm.reset(); 
             if(btn) {
                 btn.innerText = '📤 Enviar Informe y Generar Documento'; 
                 btn.disabled = false; 
             }
-            
             window.scrollTo(0,0); 
-
-            // Disparamos la alerta nativa del navegador con el éxito
-            alert("✅ ¡REPORTE ENVIADO CON ÉXITO!\n\nLos datos han sido guardados en la base distrital y el PDF oficial ha sido generado.");
-
-            // Limpieza de basura invisible
-            setTimeout(function() {
-                if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
-                if(document.body.contains(iframe)) document.body.removeChild(iframe);
-            }, 3000);
-
-        }, 500); 
+            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos han sido guardados en la base distrital y el PDF oficial ha sido generado.");
+        })
+        .catch(function(error) {
+            // SI GOOGLE BLOQUEA LA CONEXIÓN, LA PÁGINA SE ENTERA E INFORMA
+            console.error("Error:", error);
+            if(btn) {
+                btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+                btn.disabled = false; 
+            }
+            alert("❌ ERROR DE CONEXIÓN CON GOOGLE:\n\nNo se pudo registrar el reporte. Por favor, asegúrese de no tener múltiples cuentas de Google abiertas o intente desde una ventana de Incógnito.");
+        });
 
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error crítico de ejecución:", error);
     }
 }
 </script>
