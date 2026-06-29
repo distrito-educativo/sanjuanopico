@@ -6754,5 +6754,320 @@ function enviarReporte(event, mainForm) {
     }
 }
 </script>
+
+<div id="modulo-asistencia" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 1000px; margin: 25px auto; display: none; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px;">
+        <h2 style="color: #042444; margin: 0; font-size: 1.6rem;">Agregar Control de Asistencia</h2>
+        <button type="button" onclick="document.getElementById('modulo-asistencia').style.display='none'; document.getElementById('dashboard-menu').style.display=''; window.scrollTo(0,0);" style="background-color: #e2e8f0; color: #334155; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+            🔙 Volver al Menú
+        </button>
+    </div>
+    
+    <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
+        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+            <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
+            <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px; font-size: 1rem;">
+            <button type="button" id="btn-buscar-docentes" onclick="buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+                🔍 Buscar Planta Docente
+            </button>
+        </div>
+    </div>
+
+    <div id="asistencia-contenido" style="display: none;">
+        
+        <div style="background: #f0fdf4; padding: 20px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 25px; line-height: 1.6; font-size: 1rem;">
+            <p style="margin: 4px 0;"><strong>Sede Educativa: *</strong> <span id="asis-sede-nombre" style="color: #166534; font-weight: bold;">Cargando...</span></p>
+            <p style="margin: 4px 0;"><strong>Fecha de Reporte: *</strong> <span id="asis-fecha-hoy" style="color: #166534; font-weight: bold;"></span></p>
+            <p style="margin: 4px 0;"><strong>Año Lectivo: *</strong> <span style="color: #166534; font-weight: bold;">2026</span></p>
+        </div>
+
+        <div style="margin-bottom: 25px; padding: 15px; background: #f8fafc; border-left: 5px solid #042444; border-radius: 4px; font-size: 1.05rem; color: #334155;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-weight: bold;">
+                <div>👥 Cantidad de docentes: <span id="stat-total" style="color:#042444;">0</span></div>
+                <div>✅ Presentes: <span id="stat-presentes" style="color:#16a34a;">0</span></div>
+                <div>❌ Ausentes: <span id="stat-ausentes" style="color:#dc2626;">0</span></div>
+            </div>
+        </div>
+
+        <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <p style="margin-top: 0; font-weight: bold; color: #1e293b; font-size: 1.05rem;">⚡ Aplicar acción a todos los registros</p>
+            <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                <div>
+                    <strong>Falta:</strong> 
+                    <label style="margin-left: 8px;"><input type="radio" name="bulk_falta" value="si" onchange="conmutarBulkOpciones(true)"> Sí</label> 
+                    <label style="margin-left: 12px;"><input type="radio" name="bulk_falta" value="no" checked onchange="conmutarBulkOpciones(false)"> No</label>
+                </div>
+                
+                <div id="bulk-campos-condicionales" style="display: none; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div>
+                        <strong>Motivo de inasistencia:</strong> 
+                        <select id="bulk_motivo" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">
+                            <option value="">--- Seleccionar ---</option>
+                            <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
+                            <option value="Incapacidad médica (ISSS)">Incapacidad médica (ISSS)</option>
+                            <option value="Permiso personal con goce">Permiso personal con goce</option>
+                            <option value="Permiso personal sin goce">Permiso personal sin goce</option>
+                            <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
+                            <option value="Inasistencia injustificada">Inasistencia injustificada</option>
+                        </select>
+                    </div>
+                    <div>
+                        <strong>Observación:</strong> 
+                        <input type="text" id="bulk_obs" placeholder="Ej. Decreto nacional" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 220px;">
+                    </div>
+                </div>
+                
+                <button type="button" onclick="aplicarATodos()" style="background: #025992; color: white; padding: 9px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: auto;">Aplicar a todos</button>
+            </div>
+        </div>
+
+        <div style="overflow-x: auto; margin-bottom: 25px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <table style="width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.95rem;">
+                <thead>
+                    <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                        <th style="padding: 14px 16px; text-align: left; width: 150px;">NIP</th>
+                        <th style="padding: 14px 16px; text-align: left;">Nombre Completo del Docente</th>
+                        <th style="padding: 14px 16px; text-align: center; width: 120px;">¿Faltó?</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-docentes-body" style="color: #475569;">
+                    </tbody>
+            </table>
+        </div>
+
+        <button type="button" id="btn-guardar-asistencia" onclick="enviarAsistencia()" style="background: #16a34a; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(22,163,74,0.2);">
+            💾 Guardar Control de Asistencia
+        </button>
+    </div>
+</div>
+
+<script>
+let listaDocentesCargados = [];
+// URL vinculada exactamente a tu Google Apps Script de confianza
+const URL_API_GOOGLE = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec';
+
+// 1. Buscador conectado al Google Sheets (doGet)
+function buscarDocentes() {
+    const codigoInput = document.getElementById('asis-codigo-buscar').value.trim();
+    const btn = document.getElementById('btn-buscar-docentes');
+    
+    if (!codigoInput) {
+        alert("⚠️ Por favor, ingrese un código de infraestructura.");
+        return;
+    }
+    
+    btn.innerText = "⏳ BUSCANDO PLANTA...";
+    btn.disabled = true;
+    
+    fetch(`${URL_API_GOOGLE}?codigo=${codigoInput}`)
+    .then(response => response.json())
+    .then(result => {
+        btn.innerText = "🔍 Buscar Planta Docente";
+        btn.disabled = false;
+        
+        if (result.status === "success") {
+            if (result.data.length === 0) {
+                alert("❌ No hay docentes registrados para este código en la pestaña 'Docentes'.");
+                document.getElementById('asistencia-contenido').style.display = 'none';
+                return;
+            }
+            
+            listaDocentesCargados = result.data;
+            document.getElementById('asis-sede-nombre').innerText = result.sede;
+            
+            const hoy = new Date();
+            document.getElementById('asis-fecha-hoy').innerText = hoy.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) + " " + hoy.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+            
+            renderizarTablaDocentes(result.data);
+            document.getElementById('asistencia-contenido').style.display = 'block';
+            recalcularEstadisticas();
+        } else {
+            alert("Error: " + result.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        btn.innerText = "🔍 Buscar Planta Docente";
+        btn.disabled = false;
+        alert("❌ Error de conexión con la base de datos.");
+    });
+}
+
+// 2. Renderizador de filas colapsables e interactivas
+function renderizarTablaDocentes(docentes) {
+    const tbody = document.getElementById('tabla-docentes-body');
+    tbody.innerHTML = "";
+    
+    docentes.forEach((docente, index) => {
+        const filaPrincipal = document.createElement('tr');
+        filaPrincipal.style.borderBottom = "1px solid #e2e8f0";
+        
+        filaPrincipal.innerHTML = `
+            <td style="padding: 14px 16px; font-weight: 500; background: #ffffff;">${docente.nip}</td>
+            <td style="padding: 14px 16px; font-weight: 500; background: #ffffff; color:#1e293b;">${docente.nombre}</td>
+            <td style="padding: 14px 16px; text-align: center; background: #ffffff;">
+                <input type="checkbox" id="falta-${index}" onchange="conmutarFilaInasistencia(${index})" style="width: 18px; height: 18px; cursor: pointer;">
+            </td>
+        `;
+        tbody.appendChild(filaPrincipal);
+        
+        // Fila Desplegable Oculta (Motivo + Observación)
+        const filaDetalle = document.createElement('tr');
+        filaDetalle.id = `detalle-fila-${index}`;
+        filaDetalle.style.display = "none";
+        filaDetalle.style.background = "#fdf8f6";
+        filaDetalle.style.borderBottom = "1px solid #e2e8f0";
+        
+        filaDetalle.innerHTML = `
+            <td colspan="3" style="padding: 12px 25px;">
+                <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                    <div>
+                        <span style="color: #dc2626; font-weight: bold;">Motivo de inasistencia:*</span>
+                        <select id="motivo-${index}" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin-left: 10px; background: white;">
+                            <option value="">--- Seleccionar ---</option>
+                            <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
+                            <option value="Incapacidad médica (ISSS)">Incapacidad médica (ISSS)</option>
+                            <option value="Permiso personal con goce">Permiso personal con goce</option>
+                            <option value="Permiso personal sin goce">Permiso personal sin goce</option>
+                            <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
+                            <option value="Inasistencia injustificada">Inasistencia injustificada</option>
+                        </select>
+                    </div>
+                    <div style="flex-grow: 1; display: flex; align-items: center;">
+                        <span style="font-weight: 500; color: #475569;">Observación:</span>
+                        <input type="text" id="obs-${index}" placeholder="Aclaraciones o detalles..." style="padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; margin-left: 10px; flex-grow: 1; max-width: 500px;">
+                    </div>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(filaDetalle);
+    });
+}
+
+function conmutarFilaInasistencia(index) {
+    const chk = document.getElementById(`falta-${index}`);
+    const detalle = document.getElementById(`detalle-fila-${index}`);
+    
+    if (chk.checked) {
+        detalle.style.display = "table-row";
+    } else {
+        detalle.style.display = "none";
+        document.getElementById(`motivo-${index}`).value = "";
+        document.getElementById(`obs-${index}`).value = "";
+    }
+    recalcularEstadisticas();
+}
+
+function conmutarBulkOpciones(mostrar) {
+    document.getElementById('bulk-campos-condicionales').style.display = mostrar ? 'flex' : 'none';
+}
+
+// 3. Aplicar acciones masivas
+function aplicarATodos() {
+    const bulkFaltaSi = document.querySelector('input[name="bulk_falta"]:checked').value === "si";
+    const bulkMotivo = document.getElementById('bulk_motivo').value;
+    const bulkObs = document.getElementById('bulk_obs').value.trim();
+    
+    listaDocentesCargados.forEach((docente, index) => {
+        const chk = document.getElementById(`falta-${index}`);
+        chk.checked = bulkFaltaSi;
+        
+        const detalle = document.getElementById(`detalle-fila-${index}`);
+        if (bulkFaltaSi) {
+            detalle.style.display = "table-row";
+            if(bulkMotivo) document.getElementById(`motivo-${index}`).value = bulkMotivo;
+            if(bulkObs) document.getElementById(`obs-${index}`).value = bulkObs;
+        } else {
+            detalle.style.display = "none";
+            document.getElementById(`motivo-${index}`).value = "";
+            document.getElementById(`obs-${index}`).value = "";
+        }
+    });
+    recalcularEstadisticas();
+}
+
+// 4. Calculadora dinámica
+function recalcularEstadisticas() {
+    const total = listaDocentesCargados.length;
+    let ausentes = 0;
+    
+    listaDocentesCargados.forEach((docente, index) => {
+        if (document.getElementById(`falta-${index}`).checked) ausentes++;
+    });
+    
+    document.getElementById('stat-total').innerText = total;
+    document.getElementById('stat-ausentes').innerText = ausentes;
+    document.getElementById('stat-presentes').innerText = (total - ausentes);
+}
+
+// 5. Envío en masa a la pestaña "Asistencia" (doPost)
+function enviarAsistencia() {
+    const btn = document.getElementById('btn-guardar-asistencia');
+    const codigoEscuela = document.getElementById('asis-codigo-buscar').value.trim();
+    const sedeNombre = document.getElementById('asis-sede-nombre').innerText;
+    
+    let datosEmpaquetados = [];
+    let validacionExitosa = true;
+    
+    listaDocentesCargados.forEach((docente, index) => {
+        const falto = document.getElementById(`falta-${index}`).checked;
+        const motivo = document.getElementById(`motivo-${index}`).value;
+        const observacion = document.getElementById(`obs-${index}`).value.trim();
+        
+        if (falto && !motivo) {
+            alert(`⚠️ Falta seleccionar el motivo de inasistencia de: ${docente.nombre}`);
+            validacionExitosa = false;
+            return;
+        }
+        
+        datosEmpaquetados.push({
+            nip: docente.nip,
+            nombre: docente.nombre,
+            falto: falto ? "SÍ" : "NO",
+            motivo: falto ? motivo : "N/A",
+            observacion: observacion ? observacion : "Sin observaciones"
+        });
+    });
+    
+    if (!validacionExitosa) return;
+    
+    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS...";
+    btn.disabled = true;
+    
+    var formData = new FormData();
+    formData.append('tipoFormulario', 'asistencia');
+    formData.append('codigo', codigoEscuela);
+    formData.append('sede', sedeNombre);
+    formData.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
+    
+    fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: formData
+    })
+    .then(() => {
+        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
+        
+        // Limpieza y regreso al menú principal
+        document.getElementById('asistencia-contenido').style.display = 'none';
+        document.getElementById('modulo-asistencia').style.display = 'none';
+        document.getElementById('asis-codigo-buscar').value = "";
+        
+        var dashMenu = document.getElementById('dashboard-menu');
+        if(dashMenu) dashMenu.style.display = '';
+        
+        btn.innerText = "💾 Guardar Control de Asistencia";
+        btn.disabled = false;
+        window.scrollTo(0,0);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        btn.innerText = "💾 Guardar Control de Asistencia";
+        btn.disabled = false;
+        alert("❌ Error crítico: No se pudo guardar la asistencia.");
+    });
+}
+</script>
 </body>
 </html>
