@@ -6025,8 +6025,6 @@
                     .btn-volver { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; }
                     .btn-volver:hover { background-color: #e2e8f0; }
                     .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-                    .file-upload-container { border: 2px dashed #cbd5e1; padding: 20px; text-align: center; border-radius: 8px; background-color: #f8fafc; cursor: pointer; transition: border-color 0.3s; }
-                    .file-upload-container:hover { border-color: #D4AF37; }
                     #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
                     #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
                 </style>
@@ -6065,132 +6063,60 @@
                             <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
                                 <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Diario</span>
                                 <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
-                                 <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes</p>
-                                <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block';" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
-    📝 Iniciar Reporte
-</button>
+                                 <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
+                                <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+                                    📝 Iniciar Reporte
+                                </button>
                             </div>
                             <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
                                 <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Urgente</span>
                                 <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Lluvias</h3>
                                 <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
-                                <button onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block';" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+                                <button onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
                                     📝 Iniciar Reporte
                                 </button>
                             </div>
                         </div>
                     </div>
+
                     <div id="contenedor-formulario" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">
-                        
-                        <button class="btn-volver" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block';">
+                        <button class="btn-volver" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
                             ← Volver al Panel
                         </button>
-
                         <div class="card" style="background: linear-gradient(135deg, #0A2540 0%, #1C3D5A 100%); color: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
                             <h2 style="color: #D4AF37; margin-bottom: 10px;">Reporte de Incidencias Climáticas</h2>
                             <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">Complete este instrumento para registrar daños en la infraestructura. Los datos ingresados generarán automáticamente un documento oficial.</p>
                         </div>
-<form onSubmit="enviarReporte(event, this)">
-                                 <div class="form-section">
+                        <form onSubmit="enviarReporte(event, this)">
+                            <div class="form-section">
                                 <h3>1. Datos Generales</h3>
                                 <div class="form-group">
                                     <label>Nombre del Centro Escolar</label>
                                     <select id="rep-centro" required>
                                         <option value="">Seleccione su Centro Escolar...</option>
-                                        <option value="ESCUELA DE EDUCACION PARVULARIA HACIENDA CHANMICO">ESCUELA DE EDUCACION PARVULARIA HACIENDA CHANMICO</option>
-                                        <option value="ESCUELA DE EDUCACION PARVULARIA HACIENDA SAN ANDRES">ESCUELA DE EDUCACION PARVULARIA HACIENDA SAN ANDRES</option>
-                                        <option value="ESCUELA DE EDUCACION PARVULARIA CANTON CHANMICO">ESCUELA DE EDUCACION PARVULARIA CANTON CHANMICO</option>
                                         <option value="CENTRO ESCOLAR HACIENDA CHANMICO">CENTRO ESCOLAR HACIENDA CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CANTON EL MATAZANO">CENTRO ESCOLAR CANTON EL MATAZANO</option>
-                                        <option value="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES">COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES</option>
-                                        <option value="CENTRO ESCOLAR CANTON SITIO DEL NIÑO">CENTRO ESCOLAR CANTON SITIO DEL NIÑO</option>
-                                        <option value="CENTRO ESCOLAR LA NUEVA ESPERANZA">CENTRO ESCOLAR LA NUEVA ESPERANZA</option>
-                                        <option value="CENTRO ESCOLAR CANTON JABALINCITO">CENTRO ESCOLAR CANTON JABALINCITO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN LAS DELICIAS">CENTRO ESCOLAR CANTÓN LAS DELICIAS</option>
-                                        <option value="CENTRO ESCOLAR CANTON CHANMICO">CENTRO ESCOLAR CANTON CHANMICO</option>
-                                        <option value="ESCOLAR CANTÓN AGUA ESCONDIDA">ESCOLAR CANTÓN AGUA ESCONDIDA</option>
-                                        <option value="INSTITUTO NACIONAL TECPAN">INSTITUTO NACIONAL TECPAN</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN CANTÓN SITIO DEL NIÑO">CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN CANTÓN SITIO DEL NIÑO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO EL CAMBIO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO EL CAMBIO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO EL JABALINCITO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO EL JABALINCITO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN EL JABALINÓN">CENTRO ESCOLAR CANTÓN EL JABALINÓN</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO AGUA ZARCA CANTÓN SITIO DEL NIÑO">CENTRO ESCOLAR CASERÍO AGUA ZARCA CANTÓN SITIO DEL NIÑO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN SITIO GRANDE">CENTRO ESCOLAR CANTÓN SITIO GRANDE</option>
-                                        <option value="CENTRO ESCOLAR CASTO VALLADARES">CENTRO ESCOLAR CASTO VALLADARES</option>
-                                        <option value="INSTITUTO NACIONAL DE SAN JUAN OPICO">INSTITUTO NACIONAL DE SAN JUAN OPICO</option>
-                                    </select>
+                                        </select>
                                 </div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                                    
                                     <div class="form-group">
                                         <label>Código de Infraestructura</label>
-                                        <select id="rep-codigo" required>
-                                            <option value="">Seleccione el código...</option>
-                                            <option value="10130">10130</option>
-                                            <option value="11190">11190</option>
-                                            <option value="11204">11204</option>
-                                            <option value="11212">11212</option>
-                                            <option value="11213">11213</option>
-                                            <option value="11214">11214</option>
-                                            <option value="11215">11215</option>
-                                            <option value="11216">11216</option>
-                                            <option value="11217">11217</option>
-                                            <option value="11232">11232</option>
-                                            <option value="11233">11233</option>
-                                            <option value="11239">11239</option>
-                                            <option value="11241">11241</option>
-                                            <option value="12624">12624</option>
-                                            <option value="14800">14800</option>
-                                            <option value="14869">14869</option>
-                                            <option value="60121">60121</option>
-                                            <option value="60127">60127</option>
-                                            <option value="68008">68008</option>
-                                            <option value="68110">68110</option>
-                                            <option value="68111">68111</option>
-                                            <option value="68114">68114</option>
-                                            <option value="68122">68122</option>
-                                            <option value="68123">68123</option>
-                                        </select>
+                                        <input type="text" id="rep-codigo" required>
                                     </div>
-                                    <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="rep-telefono" required></div>
+                                    <div class="form-group">
+                                        <label>Teléfono de Contacto</label>
+                                        <input type="text" id="rep-telefono" required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre del Director/a</label>
-                                    <select id="rep-director" required>
-                                        <option value="">Seleccione el nombre del director/a...</option>
-                                        <option value="ALEJANDRA DANIELA ABREGO CARCAMO">ALEJANDRA DANIELA ABREGO CARCAMO</option>
-                                        <option value="AURA LILI CORTEZ DE QUIJADA">AURA LILI CORTEZ DE QUIJADA</option>
-                                        <option value="BLANCA LIDIA PENADO GAITAN">BLANCA LIDIA PENADO GAITAN</option>
-                                        <option value="CARLOS HUMBERTO AREVALO RUIZ">CARLOS HUMBERTO AREVALO RUIZ</option>
-                                        <option value="CESAR ROLANDO ORTIZ">CESAR ROLANDO ORTIZ</option>
-                                        <option value="CLAUDIA EVELYN MENDOZA">CLAUDIA EVELYN MENDOZA</option>
-                                        <option value="CLIDE RUTH LOPEZ DE CLAVEL">CLIDE RUTH LOPEZ DE CLAVEL</option>
-                                        <option value="DANIEL OMAR MELGAR RODRIGUEZ">DANIEL OMAR MELGAR RODRIGUEZ</option>
-                                        <option value="ELENA ROSIBEL VALDIZÓN">ELENA ROSIBEL VALDIZÓN</option>
-                                        <option value="ERMELINDA ARACELY GARCIA MORAN">ERMELINDA ARACELY GARCIA MORAN</option>
-                                        <option value="ISSA LORENA PERDOMO PEREZ">ISSA LORENA PERDOMO PEREZ</option>
-                                        <option value="JUAN PABLO OLIVARES CLAVEL">JUAN PABLO OLIVARES CLAVEL</option>
-                                        <option value="JULIAN EDGARDO GALDAMEZ PACHECO">JULIAN EDGARDO GALDAMEZ PACHECO</option>
-                                        <option value="LAURA CECILIA MENA">LAURA CECILIA MENA</option>
-                                        <option value="MARCOS ELMER ORELLANA LONE">MARCOS ELMER ORELLANA LONE</option>
-                                        <option value="MIRNA CRISTELA MENA VALENCIA">MIRNA CRISTELA MENA VALENCIA</option>
-                                        <option value="OSCAR AMILCAR FLORES ARGUETA">OSCAR AMILCAR FLORES ARGUETA</option>
-                                        <option value="RAUL AMILCAR LANDAVERDE MEJIA">RAUL AMILCAR LANDAVERDE MEJIA</option>
-                                        <option value="RINA ELIZABETH MARTINEZ">RINA ELIZABETH MARTINEZ</option>
-                                        <option value="ROBERTO ANTONIO GUIROLA ERROA">ROBERTO ANTONIO GUIROLA ERROA</option>
-                                        <option value="ROSA ESTER YANES DE PEÑA">ROSA ESTER YANES DE PEÑA</option>
-                                        <option value="ROSA MARIA URIAS CHICAS">ROSA MARIA URIAS CHICAS</option>
-                                        <option value="XIOMARA GUADALUPE CACERES DE LEMUS">XIOMARA GUADALUPE CACERES DE LEMUS</option>
-                                    </select>
+                                    <input type="text" id="rep-director" required>
                                 </div>
-                                <div class="form-group"><label>¿Cuenta actualmente con energía eléctrica?</label><select id="rep-energia" required>
+                                <div class="form-group">
+                                    <label>¿Cuenta actualmente con energía eléctrica?</label>
+                                    <select id="rep-energia" required>
                                         <option value="">Seleccione una opción...</option>
                                         <option>Sí, servicio normal</option>
                                         <option>No hay servicio en toda la escuela</option>
-                                        <option>Servicio parcial (módulos sin luz)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -6199,119 +6125,99 @@
                                         <option value="">Seleccione una opción...</option>
                                         <option>Sí, conexión estable</option>
                                         <option>No, incomunicado/sin señal</option>
-                                        <option>Intermitente / Muy inestable</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-section">
-                                <h3>2. Estado de Accesibilidad y Entorno</h3>
-                                <div class="form-group">
-                                    <label>¿Obstrucción en vías de acceso principales?</label>
-                                    <select id="rep-vias" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Acceso libre (Normal)</option>
-                                        <option>Obstrucción parcial (Solo paso peatonal / vehículos con dificultad)</option>
-                                        <option>Obstrucción total (Paso bloqueado por árboles, inundación o cárcava)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>¿Daños en muros perimetrales o portones?</label>
-                                    <select id="rep-muros" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Sin daños evidentes</option>
-                                        <option>Daños leves (Grietas o fisuras superficiales)</option>
-                                        <option>Daño estructural grave (Riesgo inminente de caída)</option>
-                                        <option>Colapso total de un tramo del muro/portón</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-section">
-                                <h3>3. Infraestructura Interna (Aulas y Módulos)</h3>
-                                <div class="form-group">
-                                    <label>¿Aulas con filtraciones severas o inundaciones?</label>
-                                    <select id="rep-aulas-inundadas" required>
-                                        <option value="">Seleccione la cantidad...</option>
-                                        <option>0 aulas afectadas</option>
-                                        <option>1 a 3 aulas afectadas</option>
-                                        <option>4 a 6 aulas afectadas</option>
-                                        <option>7 o más aulas afectadas</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>¿Desprendimientos de techo o daños estructurales en paredes?</label>
-                                    <select id="rep-techos" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Sin daños</option>
-                                        <option>Daños leves (Goteras menores manejables)</option>
-                                        <option>Daño parcial (Láminas levantadas / cielos falsos dañados)</option>
-                                        <option>Daño grave (Desprendimiento completo de techo / colapso de cielo falso)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>¿Daños en el sistema eléctrico interno?</label>
-                                    <select id="rep-electrico" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Sistema funcionando normal</option>
-                                        <option>Cortocircuito localizado (Afecta una sola aula o pasillo)</option>
-                                        <option>Módulo completo sin energía por humedad o filtraciones</option>
-                                        <option>Riesgo eléctrico grave (Cables expuestos en zonas inundadas)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-section">
-                                <h3>4. Daños a Recursos Educativos y Tecnología</h3>
-                                <div class="form-group">
-                                    <label>¿Afectación en dispositivos tecnológicos (Laptops, Tablets, Servidor)?</label>
-                                    <select id="rep-tecnologia" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Sin afectaciones (Equipo resguardado de forma segura)</option>
-                                        <option>Daño leve (Pocos equipos expuestos a humedad superficial)</option>
-                                        <option>Pérdida parcial de equipos (Dispositivos mojados/dañados por goteras)</option>
-                                        <option>Pérdida total del aula informática / recursos tecnológicos por inundación</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>¿Pérdida de mobiliario escolar o material didáctico?</label>
-                                    <select id="rep-mobiliario" required>
-                                        <option value="">Seleccione el nivel de afectación...</option>
-                                        <option>Sin afectaciones</option>
-                                        <option>Daño parcial (Mobiliario expuesto en áreas abiertas)</option>
-                                        <option>Pérdida considerable (Escritorios, pupitres o libros destruidos por agua)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-section">
-                                <h3>5. Resumen de Prioridades</h3>
-                                <label style="display: block; font-weight: 600; margin-bottom: 15px; color: #D4AF37;">Seleccione las necesidades más urgentes:</label>
-                                <div class="checkbox-item"><input type="checkbox" id="p1"><label for="p1">Reparación de techos / techado de aulas</label></div>
-                                <div class="checkbox-item"><input type="checkbox" id="p2"><label for="p2">Remoción de escombros / árboles caídos</label></div>
-                                <div class="checkbox-item"><input type="checkbox" id="p3"><label for="p3">Reactivación de servicios básicos (agua/luz)</label></div>
-                                <div class="checkbox-item"><input type="checkbox" id="p4"><label for="p4">Reparación de muro perimetral</label></div>
-                                <div class="checkbox-item"><input type="checkbox" id="p5"><label for="p5">Reposición de equipo tecnológico o mobiliario</label></div>
-                                <div class="checkbox-item"><input type="checkbox" id="p6"><label for="p6">Limpieza y desinfección general</label></div>
-                            </div>
-<div class="form-section">
-                                <h3>6. Comentarios u Observaciones Adicionales</h3>
-                                <div class="form-group">
-                                    <label>Detalle cualquier información relevante o aclaración sobre los daños reportados:</label>
-                                    <textarea id="rep-comentarios" rows="4" placeholder="Escriba aquí sus observaciones (Opcional)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical;"></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-submit">📤 Enviar Informe y Generar Documento</button>
+                            <button type="submit" class="btn-submit">📤 Enviar Informe</button>
                         </form>
                     </div>
-                   <div id="mensaje-exito" style="display: none; text-align: center; padding: 40px 20px; background-color: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; max-width: 600px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-    <h2 style="color: #15803d; font-size: 24px; margin-bottom: 15px;">✅ ¡Reporte Enviado con Éxito!</h2>
-    <p style="color: #166534; font-size: 16px; margin-bottom: 25px;">Los datos han sido procesados de forma segura en la Base de Datos Distrital. El documento PDF oficial ha sido generado y enviado al correo institucional.</p>
-    
-    <button type="button" onclick="document.getElementById('mensaje-exito').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="background-color: #15803d; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; transition: background-color 0.3s;">
-        🔙 Volver al Formulario
-    </button>
-</div>
+
+                    <div id="modulo-asistencia" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 1000px; margin: 0 auto; display: none; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; animation: fadeIn 0.5s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px;">
+                            <h2 style="color: #042444; margin: 0; font-size: 1.6rem;">Agregar Control de Asistencia</h2>
+                            <button type="button" onclick="document.getElementById('modulo-asistencia').style.display='none'; document.getElementById('dashboard-menu').style.display=''; window.scrollTo(0,0);" style="background-color: #e2e8f0; color: #334155; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+                                🔙 Volver al Menú
+                            </button>
+                        </div>
+                        <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
+                            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                                <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
+                                <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px; font-size: 1rem;">
+                                <button type="button" id="btn-buscar-docentes" onclick="buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+                                    🔍 Buscar Planta Docente
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="asistencia-contenido" style="display: none;">
+                            <div style="background: #f0fdf4; padding: 20px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 25px; line-height: 1.6; font-size: 1rem;">
+                                <p style="margin: 4px 0;"><strong>Sede Educativa: *</strong> <span id="asis-sede-nombre" style="color: #166534; font-weight: bold;">Cargando...</span></p>
+                                <p style="margin: 4px 0;"><strong>Fecha de Reporte: *</strong> <span id="asis-fecha-hoy" style="color: #166534; font-weight: bold;"></span></p>
+                                <p style="margin: 4px 0;"><strong>Año Lectivo: *</strong> <span style="color: #166534; font-weight: bold;">2026</span></p>
+                            </div>
+
+                            <div style="margin-bottom: 25px; padding: 15px; background: #f8fafc; border-left: 5px solid #042444; border-radius: 4px; font-size: 1.05rem; color: #334155;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-weight: bold;">
+                                    <div>👥 Cantidad de docentes: <span id="stat-total" style="color:#042444;">0</span></div>
+                                    <div>✅ Presentes: <span id="stat-presentes" style="color:#16a34a;">0</span></div>
+                                    <div>❌ Ausentes: <span id="stat-ausentes" style="color:#dc2626;">0</span></div>
+                                </div>
+                            </div>
+
+                            <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                                <p style="margin-top: 0; font-weight: bold; color: #1e293b; font-size: 1.05rem;">⚡ Aplicar acción a todos los registros</p>
+                                <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                                    <div>
+                                        <strong>Falta:</strong> 
+                                        <label style="margin-left: 8px;"><input type="radio" name="bulk_falta" value="si" onchange="conmutarBulkOpciones(true)"> Sí</label> 
+                                        <label style="margin-left: 12px;"><input type="radio" name="bulk_falta" value="no" checked onchange="conmutarBulkOpciones(false)"> No</label>
+                                    </div>
+                                    
+                                    <div id="bulk-campos-condicionales" style="display: none; gap: 15px; align-items: center; flex-wrap: wrap;">
+                                        <div>
+                                            <strong>Motivo de inasistencia:</strong> 
+                                            <select id="bulk_motivo" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">
+                                                <option value="">--- Seleccionar ---</option>
+                                                <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
+                                                <option value="Incapacidad médica (ISSS)">Incapacidad médica (ISSS)</option>
+                                                <option value="Permiso personal con goce">Permiso personal con goce</option>
+                                                <option value="Permiso personal sin goce">Permiso personal sin goce</option>
+                                                <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
+                                                <option value="Inasistencia injustificada">Inasistencia injustificada</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <strong>Observación:</strong> 
+                                            <input type="text" id="bulk_obs" placeholder="Ej. Decreto nacional" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 220px;">
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="button" onclick="aplicarATodos()" style="background: #025992; color: white; padding: 9px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: auto;">Aplicar a todos</button>
+                                </div>
+                            </div>
+
+                            <div style="overflow-x: auto; margin-bottom: 25px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                                <table style="width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.95rem;">
+                                    <thead>
+                                        <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">
+                                            <th style="padding: 14px 16px; text-align: left; width: 150px;">NIP</th>
+                                            <th style="padding: 14px 16px; text-align: left;">Nombre Completo del Docente</th>
+                                            <th style="padding: 14px 16px; text-align: center; width: 120px;">¿Faltó?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla-docentes-body" style="color: #475569;">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <button type="button" id="btn-guardar-asistencia" onclick="enviarAsistencia()" style="background: #16a34a; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(22,163,74,0.2);">
+                                💾 Guardar Control de Asistencia
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             `,
             'mapa-home': `
                 <style>
