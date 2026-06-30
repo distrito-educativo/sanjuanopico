@@ -6385,9 +6385,14 @@
                                 </table>
                             </div>
 
-                            <button type="button" id="btn-guardar-asistencia" onclick="enviarAsistencia()" style="background: #16a34a; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(22,163,74,0.2);">
-                                💾 Guardar Control de Asistencia
-                            </button>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <button type="button" onclick="window.limpiarFormularioAsistencia()" style="flex: 1; min-width: 150px; background: #e2e8f0; color: #475569; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem;">
+        🧹 Limpiar
+    </button>
+    <button type="button" id="btn-guardar-asistencia" onclick="enviarAsistencia()" style="flex: 3; min-width: 250px; background: #16a34a; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(22,163,74,0.2);">
+        💾 Guardar Control de Asistencia
+    </button>
+</div>
                         </div>
                     </div>
 
@@ -6759,9 +6764,13 @@ function enviarReporte(event, mainForm) {
             if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
         } 
 
+       // Capturamos el correo del director desde la pantalla de inicio de sesión
+        var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
+
         // 3. Empaquetamos los datos
         var data = { 
             tipoFormulario: 'lluvias',
+            Correo: correoDirector, // <--- AQUÍ LE ENVIAMOS EL CORREO A GOOGLE
             CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
             Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
             Director: document.getElementById('rep-director') ? document.getElementById('rep-director').value : '', 
@@ -6777,7 +6786,7 @@ function enviarReporte(event, mainForm) {
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
             Prioridades: prios.join(' / '),
             Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.'
-        }; 
+        };
 
         // 4. Portal invisible (Iframe) para evitar el bloqueo del navegador
         var iframeName = 'iframe-lluvias-' + Date.now();
@@ -7075,7 +7084,28 @@ function recalcularEstadisticas() {
     document.getElementById('stat-ausentes').innerText = ausentes;
     document.getElementById('stat-presentes').innerText = (total - ausentes);
 }
-
+// Función para reiniciar y limpiar todo el módulo de asistencia
+window.limpiarFormularioAsistencia = function() {
+    // 1. Limpiar el buscador
+    document.getElementById('asis-codigo-buscar').value = "";
+    
+    // 2. Ocultar la tabla y estadísticas
+    document.getElementById('asistencia-contenido').style.display = 'none';
+    
+    // 3. Vaciar los datos y contadores
+    document.getElementById('tabla-docentes-body').innerHTML = "";
+    listaDocentesCargados = [];
+    document.getElementById('stat-total').innerText = "0";
+    document.getElementById('stat-presentes').innerText = "0";
+    document.getElementById('stat-ausentes').innerText = "0";
+    
+    // 4. Reiniciar los botones de acción masiva (Bulk) a su estado original
+    const radioNo = document.querySelector('input[name="bulk_falta"][value="no"]');
+    if(radioNo) radioNo.checked = true;
+    document.getElementById('bulk-campos-condicionales').style.display = 'none';
+    document.getElementById('bulk_motivo').value = "";
+    document.getElementById('bulk_obs').value = "";
+};
 // 5. Envío en masa a la pestaña "Asistencia" (Bypass de Seguridad CORS)
 function enviarAsistencia() {
     const btn = document.getElementById('btn-guardar-asistencia');
@@ -7144,10 +7174,33 @@ function enviarAsistencia() {
     setTimeout(function() { 
         alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
         
-        // Limpieza de interfaz y regreso al menú
-        document.getElementById('asistencia-contenido').style.display = 'none';
+// Función para reiniciar y limpiar todo el módulo de asistencia
+window.limpiarFormularioAsistencia = function() {
+    document.getElementById('asis-codigo-buscar').value = "";
+    document.getElementById('asistencia-contenido').style.display = 'none';
+    document.getElementById('tabla-docentes-body').innerHTML = "";
+    listaDocentesCargados = [];
+    document.getElementById('stat-total').innerText = "0";
+    document.getElementById('stat-presentes').innerText = "0";
+    document.getElementById('stat-ausentes').innerText = "0";
+    
+    const radioNo = document.querySelector('input[name="bulk_falta"][value="no"]');
+    if(radioNo) radioNo.checked = true;
+    document.getElementById('bulk-campos-condicionales').style.display = 'none';
+    document.getElementById('bulk_motivo').value = "";
+    document.getElementById('bulk_obs').value = "";
+};
+        // --- 🧹 LIMPIEZA AUTOMÁTICA DEL MÓDULO ---
+        if (typeof window.limpiarFormularioAsistencia === "function") {
+            window.limpiarFormularioAsistencia();
+        } else {
+            // Limpieza básica de respaldo en caso de que falte la función principal
+            document.getElementById('asistencia-contenido').style.display = 'none';
+            document.getElementById('asis-codigo-buscar').value = "";
+        }
+        
+        // Regreso al menú principal
         document.getElementById('modulo-asistencia').style.display = 'none';
-        document.getElementById('asis-codigo-buscar').value = "";
         
         var dashMenu = document.getElementById('dashboard-menu');
         if(dashMenu) dashMenu.style.display = '';
