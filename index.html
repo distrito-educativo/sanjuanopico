@@ -135,21 +135,25 @@
     </style>
 <style>
         @media print {
-            /* Forzar a que todo el reporte quepa en una sola página Carta */
-            @page { size: letter; margin: 0.3in; }
+            /* Configuración estricta de página carta sin márgenes desperdiciados */
+            @page { size: letter; margin: 0.2in; }
             body { background: white; color: black; }
             
-            /* Encoger los gráficos para que no salten de hoja */
-            canvas { max-height: 150px !important; width: auto !important; margin: 0 auto; }
+            /* Forzar a que todo el reporte se encoja un 15% automáticamente */
+            #area-imprimible-est { 
+                zoom: 85% !important; 
+                transform: scale(0.85); 
+                transform-origin: top center;
+                padding: 5px !important;
+            }
             
-            /* Ajustar espacios de firmas y textos */
-            #area-imprimible-est { padding: 10px !important; }
-            #seccion-bloque-reporte { margin-top: 15px !important; }
-            #leyenda-automatizada-pdf { font-size: 8.5pt !important; line-height: 1.3 !important; }
+            /* Asegurar que los gráficos mantengan su tamaño compacto */
+            canvas { max-height: 140px !important; width: auto !important; margin: 0 auto; }
             
-            /* Hacer las tarjetas de conteo más compactas */
-            .card-grid, [style*="display: flex"] { gap: 10px !important; margin-bottom: 10px !important; }
-            h2, h3 { margin: 2px 0 !important; }
+            /* Reducir espacios de separación */
+            .card-grid, [style*="display: flex"] { gap: 8px !important; margin-bottom: 8px !important; }
+            #seccion-bloque-reporte { margin-top: 10px !important; }
+            #leyenda-automatizada-pdf { font-size: 8pt !important; line-height: 1.2 !important; }
         }
     </style>
 </head>
