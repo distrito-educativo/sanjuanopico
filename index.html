@@ -6081,9 +6081,15 @@
 
                     <div id="contenedor-formulario" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">
                         
-                        <button class="btn-volver" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
-                            ← Volver al Panel
-                        </button>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+    <button type="button" class="btn-volver" style="margin-bottom: 0;" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
+        ← Volver al Panel
+    </button>
+    <button type="button" onclick="window.limpiarFormularioLluvias()" style="background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+        🧹 Limpiar Formulario
+    </button>
+
+</div>
 
                         <div class="card" style="background: linear-gradient(135deg, #0A2540 0%, #1C3D5A 100%); color: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
                             <h2 style="color: #D4AF37; margin-bottom: 10px;">Reporte de Incidencias Climáticas</h2>
@@ -6301,7 +6307,14 @@
                                     <textarea id="rep-comentarios" rows="4" placeholder="Escriba aquí sus observaciones (Opcional)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical;"></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="btn-submit">📤 Enviar Informe y Generar Documento</button>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <button type="button" onclick="window.limpiarFormularioLluvias()" style="flex: 1; min-width: 150px; background: #e2e8f0; color: #475569; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+        🧹 Limpiar
+    </button>
+    <button type="submit" class="btn-submit" style="flex: 3; min-width: 250px;">
+        📤 Enviar Informe y Generar Documento
+    </button>
+</div>
                         </form>
                     </div>
 
@@ -7108,6 +7121,13 @@ window.limpiarFormularioAsistencia = function() {
     document.getElementById('bulk-campos-condicionales').style.display = 'none';
     document.getElementById('bulk_motivo').value = "";
     document.getElementById('bulk_obs').value = "";
+};
+// Función para reiniciar y limpiar todo el formulario de Lluvias
+window.limpiarFormularioLluvias = function() {
+    const formLluvias = document.querySelector('#contenedor-formulario form');
+    if (formLluvias) {
+        formLluvias.reset();
+    }
 };
 // 5. Envío en masa a la pestaña "Asistencia" (Bypass de Seguridad CORS)
 function enviarAsistencia() {
