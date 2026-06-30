@@ -7428,7 +7428,7 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
     if (miGraficoDona) miGraficoDona.destroy();
     if (miGraficoBarras) miGraficoBarras.destroy();
 
-    // DIBUJAR GRÁFICO 1: DONA (Presentes vs Ausentes)
+    // DIBUJAR GRÁFICO 1: DONA (Presentes vs Ausentes con Porcentajes)
     const ctxDona = document.getElementById('grafico-dona').getContext('2d');
     miGraficoDona = new Chart(ctxDona, {
         type: 'doughnut',
@@ -7440,26 +7440,43 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
                 hoverOffset: 4
             }]
         },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        options: { 
+            responsive: true, 
+            plugins: { 
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let valor = context.raw;
+                            // Calculamos el total sumando presentes + ausentes
+                            let total = context.chart._metasets[context.datasetIndex].total;
+                            // Sacamos el porcentaje con 1 decimal
+                            let porcentaje = ((valor / total) * 100).toFixed(1) + '%';
+                            return ` ${context.label}: ${valor} registros (${porcentaje})`;
+                        }
+                    }
+                }
+            } 
+        }
     });
 
-    // DIBUJAR GRÁFICO 2: BARRAS (Top Motivos de inasistencia)
-    const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
+    // Preparar datos para las Barras
     const nombresMotivos = Object.keys(motivosObj);
     const cantidadesMotivos = Object.values(motivosObj);
 
-    // Si nadie faltó, mostramos un mensaje en la gráfica en lugar de dejarla en blanco
     if (nombresMotivos.length === 0) {
         nombresMotivos.push("Sin Inasistencias registradas");
         cantidadesMotivos.push(0);
     }
 
+    // DIBUJAR GRÁFICO 2: BARRAS (Top Motivos con Porcentajes)
+    const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
     miGraficoBarras = new Chart(ctxBarras, {
         type: 'bar',
         data: {
             labels: nombresMotivos,
             datasets: [{
-                label: 'Cantidad de casos registrados',
+                label: 'Cantidad de casos',
                 data: cantidadesMotivos,
                 backgroundColor: '#042444',
                 borderRadius: 4
@@ -7468,7 +7485,20 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
         options: {
             responsive: true,
             scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } } },
-            plugins: { legend: { display: false } }
+            plugins: { 
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let valor = context.raw;
+                            // Sumamos todos los motivos para sacar el 100% de las inasistencias
+                            let totalAusencias = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let porcentaje = totalAusencias > 0 ? ((valor / totalAusencias) * 100).toFixed(1) + '%' : '0%';
+                            return ` Cantidad: ${valor} caso(s) (${porcentaje} del total de ausencias)`;
+                        }
+                    }
+                }
+            }
         }
     });
 }
