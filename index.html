@@ -136,7 +136,7 @@
 <style>
         @media print {
             /* Configuración estricta de página carta sin márgenes desperdiciados */
-            @page { size: letter; margin: 0.6in; }
+            @page { size: letter; margin: 0.2in; }
             body { background: white; color: black; }
             
             /* Forzar a que todo el reporte se encoja un 10% automáticamente */
@@ -6099,9 +6099,9 @@
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">DIARIO</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
         <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
-        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
-            📝 Iniciar Reporte
-        </button>
+        <button type="button" id="btn-iniciar-asistencia" onclick="iniciarValidacionAsistencia()" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">
+    📝 Iniciar Reporte
+</button>
     </div>
 
     <div class="card" style="border-top: 4px solid #0A2540; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
@@ -7594,6 +7594,76 @@ let textoLeyenda = `El presente informe estadístico consolida un total de <stro
 
 // Inyectarlo en la zona de abajo del reporte
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
+}
+function iniciarValidacionAsistencia() {
+    // 1. Capturamos el código que el director tiene escrito en la pantalla principal
+    // (Asegúrate de que 'asistencia-codigo' sea el ID del input donde digita su código)
+    const inputCodigo = document.getElementById('asistencia-codigo'); 
+    const botonIniciar = document.getElementById('btn-iniciar-asistencia'); 
+    
+    if (!inputCodigo || !inputCodigo.value.trim()) {
+        alert("⚠️ Por favor, ingrese el código de infraestructura de su centro escolar antes de iniciar.");
+        return;
+    }
+    
+    const codigoSede = inputCodigo.value.trim();
+    
+    // Obtenemos la fecha de hoy en la zona horaria local (Formato: YYYY-MM-DD)
+    const hoy = new Date().toLocaleDateString('sv-SE'); 
+    
+    // Bloqueamos el botón visualmente para que no le den dos clics mientras consulta al servidor
+    if (botonIniciar) {
+        botonIniciar.disabled = true;
+        botonIniciar.innerText = "⏳ Verificando auditoría distrital...";
+        botonIniciar.style.background = "#64748b";
+    }
+    
+    // 🚨 REEMPLAZA ESTA URL POR TU URL REAL DE GOOGLE APPS SCRIPT
+    const URL_SCRIPT = "TU_URL_DE_EXEC_DE_GOOGLE_APPS_SCRIPT_AQUÍ"; 
+    
+    // Realizamos la consulta en tiempo real directo a la pestaña "Asistencia"
+    fetch(`${URL_SCRIPT}?accion=verificar_duplicado&codigo=${codigoSede}&fecha=${hoy}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.duplicado) {
+            // 🛑 BLOQUEO ABSOLUTO: Ya hay registros con esa fecha y código
+            alert(`🛑 Bloqueo de Auditoría: El centro escolar con código ${codigoSede} ya envió su reporte de asistencia correspondiente al día de hoy.\n\nNo se permiten múltiples envíos en la misma fecha desde ningún dispositivo.`);
+            
+            // Restablecemos el botón por si se equivocó de código
+            if (botonIniciar) {
+                botonIniciar.disabled = false;
+                botonIniciar.innerText = "📝 Iniciar Reporte";
+                botonIniciar.style.background = "#0A2540";
+            }
+        } else {
+            // ✅ AUTORIZADO: La fecha está limpia para esta escuela, llamamos a tu función original
+            // Aquí pones las líneas exactas que usabas antes para abrir tu formulario, por ejemplo:
+            document.getElementById('dashboard-menu').style.display = 'none'; 
+            document.getElementById('modulo-asistencia').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // Si tenías una función para cargar los docentes de la sede, la ejecutas aquí:
+            if (typeof buscarDocentes === "function") {
+                buscarDocentes(); 
+            }
+            
+            // Devolvemos el botón a su estado original en el menú de atrás
+            if (botonIniciar) {
+                botonIniciar.disabled = false;
+                botonIniciar.innerText = "📝 Iniciar Reporte";
+                botonIniciar.style.background = "#0A2540";
+            }
+        }
+    })
+    .catch(error => {
+        console.error("Error en el control de auditoría:", error);
+        alert("❌ Error de comunicación con el servidor distrital. Por favor, intente nuevamente.");
+        if (botonIniciar) {
+            botonIniciar.disabled = false;
+            botonIniciar.innerText = "📝 Iniciar Reporte";
+            botonIniciar.style.background = "#0A2540";
+        }
+    });
 }
 </script>
 </body>
