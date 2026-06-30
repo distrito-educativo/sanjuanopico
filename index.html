@@ -133,29 +133,6 @@
             .overlay.active { display: block; }
         }
     </style>
-<style>
-        @media print {
-            /* Configuración estricta de página carta sin márgenes desperdiciados */
-            @page { size: letter; margin: 0.2in; }
-            body { background: white; color: black; }
-            
-            /* Forzar a que todo el reporte se encoja un 10% automáticamente */
-            #area-imprimible-est { 
-                zoom: 90% !important; 
-                transform: scale(0.90); 
-                transform-origin: top center;
-                padding: 5px !important;
-            }
-            
-            /* Asegurar que los gráficos mantengan su tamaño compacto */
-            canvas { max-height: 140px !important; width: auto !important; margin: 0 auto; }
-            
-            /* Reducir espacios de separación */
-            .card-grid, [style*="display: flex"] { gap: 8px !important; margin-bottom: 8px !important; }
-            #seccion-bloque-reporte { margin-top: 10px !important; }
-            #leyenda-automatizada-pdf { font-size: 8pt !important; line-height: 1.2 !important; }
-        }
-    </style>
 </head>
 <body>
 
@@ -6099,9 +6076,9 @@
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">DIARIO</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
         <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
-        <button type="button" id="btn-iniciar-asistencia" onclick="iniciarValidacionAsistencia()" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">
-    📝 Iniciar Reporte
-</button>
+        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+            📝 Iniciar Reporte
+        </button>
     </div>
 
     <div class="card" style="border-top: 4px solid #0A2540; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
@@ -6554,7 +6531,7 @@
                     Distrito Educativo de San Juan Opico
                 </p>
                 
-              <div style="margin-top: 15px; border: 1px dashed #cbd5e1; width: 90px; height: 90px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
+                <div style="margin-top: 25px; border: 1px dashed #cbd5e1; width: 120px; height: 120px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
                     <span style="font-size: 8pt; color: #94a3b8; display: block; margin-top: 45px; text-transform: uppercase; font-weight: bold;">
                         Sello<br>Dirección
                     </span>
@@ -7594,84 +7571,6 @@ let textoLeyenda = `El presente informe estadístico consolida un total de <stro
 
 // Inyectarlo en la zona de abajo del reporte
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
-}
-function iniciarValidacionAsistencia() {
-    const botonIniciar = document.getElementById('btn-iniciar-asistencia'); 
-    
-    // 1. OBTENCIÓN AUTOMÁTICA DEL CÓDIGO
-    // Buscamos la variable global de tu sistema. Comúnmente se llama 'codigoSedeGlobal' o está en un campo oculto.
-    // Como respaldo, intentamos leer la variable que usa tu pestaña de Estadísticas o Planta Docente.
-    let codigoSede = "";
-    
-    if (typeof codigoSedeGlobal !== 'undefined' && codigoSedeGlobal) {
-        codigoSede = codigoSedeGlobal;
-    } else {
-        // Si se guarda en un campo oculto del formulario o en el módulo de estadísticas, lo extraemos de ahí:
-        const campoRespaldo = document.getElementById('asistencia-codigo') || document.getElementById('est-codigo');
-        if (campoRespaldo && campoRespaldo.value.trim()) {
-            codigoSede = campoRespaldo.value.trim();
-        }
-    }
-    
-    // Si por alguna razón extrema el sistema no ha cargado el código al iniciar sesión
-    if (!codigoSede) {
-        alert("⚠️ No se detectó el código de infraestructura de su sesión activa. Por favor, intente recargar la página.");
-        return;
-    }
-    
-    // Obtenemos la fecha de hoy en formato exacto YYYY-MM-DD
-    const hoy = new Date().toLocaleDateString('sv-SE'); 
-    
-    // Bloqueamos el botón para evitar doble clic
-    if (botonIniciar) {
-        botonIniciar.disabled = true;
-        botonIniciar.innerText = "⏳ Verificando auditoría distrital...";
-        botonIniciar.style.background = "#64748b";
-    }
-    
-    // URL de tu Google Apps Script
-    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec"; 
-    
-    // Consulta en tiempo real a Google Sheets
-    fetch(`${URL_SCRIPT}?accion=verificar_duplicado&codigo=${codigoSede}&fecha=${hoy}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.duplicado) {
-            // 🛑 BLOQUEO DE AUDITORÍA
-            alert(`🛑 Bloqueo de Auditoría: El centro escolar con código ${codigoSede} ya envió su reporte de asistencia correspondiente al día de hoy.\n\nNo se permiten múltiples envíos en la misma fecha desde ningún dispositivo.`);
-            
-            if (botonIniciar) {
-                botonIniciar.disabled = false;
-                botonIniciar.innerText = "📝 Iniciar Reporte";
-                botonIniciar.style.background = "#0A2540";
-            }
-        } else {
-            // ✅ AUTORIZADO: Abre el formulario directo sin preguntar nada
-            document.getElementById('dashboard-menu').style.display = 'none'; 
-            document.getElementById('modulo-asistencia').style.display = 'block';
-            window.scrollTo(0, 0);
-            
-            // Llama a tu función original que carga la lista de maestros
-            if (typeof buscarDocentes === "function") {
-                buscarDocentes(); 
-            }
-            
-            if (botonIniciar) {
-                botonIniciar.disabled = false;
-                botonIniciar.innerText = "📝 Iniciar Reporte";
-                botonIniciar.style.background = "#0A2540";
-            }
-        }
-    })
-    .catch(error => {
-        console.error("Error en auditoría:", error);
-        alert("❌ Error de comunicación con el servidor distrital. Intente nuevamente.");
-        if (botonIniciar) {
-            botonIniciar.disabled = false;
-            botonIniciar.innerText = "📝 Iniciar Reporte";
-            botonIniciar.style.background = "#0A2540";
-        }
-    });
 }
 </script>
 </body>
