@@ -7596,58 +7596,66 @@ let textoLeyenda = `El presente informe estadístico consolida un total de <stro
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
 }
 function iniciarValidacionAsistencia() {
-    // 1. Capturamos el código que el director tiene escrito en la pantalla principal
-    // (Asegúrate de que 'asistencia-codigo' sea el ID del input donde digita su código)
-    const inputCodigo = document.getElementById('asistencia-codigo'); 
     const botonIniciar = document.getElementById('btn-iniciar-asistencia'); 
     
-    if (!inputCodigo || !inputCodigo.value.trim()) {
-        alert("⚠️ Por favor, ingrese el código de infraestructura de su centro escolar antes de iniciar.");
+    // 1. OBTENCIÓN AUTOMÁTICA DEL CÓDIGO
+    // Buscamos la variable global de tu sistema. Comúnmente se llama 'codigoSedeGlobal' o está en un campo oculto.
+    // Como respaldo, intentamos leer la variable que usa tu pestaña de Estadísticas o Planta Docente.
+    let codigoSede = "";
+    
+    if (typeof codigoSedeGlobal !== 'undefined' && codigoSedeGlobal) {
+        codigoSede = codigoSedeGlobal;
+    } else {
+        // Si se guarda en un campo oculto del formulario o en el módulo de estadísticas, lo extraemos de ahí:
+        const campoRespaldo = document.getElementById('asistencia-codigo') || document.getElementById('est-codigo');
+        if (campoRespaldo && campoRespaldo.value.trim()) {
+            codigoSede = campoRespaldo.value.trim();
+        }
+    }
+    
+    // Si por alguna razón extrema el sistema no ha cargado el código al iniciar sesión
+    if (!codigoSede) {
+        alert("⚠️ No se detectó el código de infraestructura de su sesión activa. Por favor, intente recargar la página.");
         return;
     }
     
-    const codigoSede = inputCodigo.value.trim();
-    
-    // Obtenemos la fecha de hoy en la zona horaria local (Formato: YYYY-MM-DD)
+    // Obtenemos la fecha de hoy en formato exacto YYYY-MM-DD
     const hoy = new Date().toLocaleDateString('sv-SE'); 
     
-    // Bloqueamos el botón visualmente para que no le den dos clics mientras consulta al servidor
+    // Bloqueamos el botón para evitar doble clic
     if (botonIniciar) {
         botonIniciar.disabled = true;
         botonIniciar.innerText = "⏳ Verificando auditoría distrital...";
         botonIniciar.style.background = "#64748b";
     }
     
-    // 🚨 REEMPLAZA ESTA URL POR TU URL REAL DE GOOGLE APPS SCRIPT
-    const URL_SCRIPT = "TU_URL_DE_EXEC_DE_GOOGLE_APPS_SCRIPT_AQUÍ"; 
+    // URL de tu Google Apps Script
+    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec"; 
     
-    // Realizamos la consulta en tiempo real directo a la pestaña "Asistencia"
+    // Consulta en tiempo real a Google Sheets
     fetch(`${URL_SCRIPT}?accion=verificar_duplicado&codigo=${codigoSede}&fecha=${hoy}`)
     .then(response => response.json())
     .then(data => {
         if (data.duplicado) {
-            // 🛑 BLOQUEO ABSOLUTO: Ya hay registros con esa fecha y código
+            // 🛑 BLOQUEO DE AUDITORÍA
             alert(`🛑 Bloqueo de Auditoría: El centro escolar con código ${codigoSede} ya envió su reporte de asistencia correspondiente al día de hoy.\n\nNo se permiten múltiples envíos en la misma fecha desde ningún dispositivo.`);
             
-            // Restablecemos el botón por si se equivocó de código
             if (botonIniciar) {
                 botonIniciar.disabled = false;
                 botonIniciar.innerText = "📝 Iniciar Reporte";
                 botonIniciar.style.background = "#0A2540";
             }
         } else {
-            // ✅ AUTORIZADO: La fecha está limpia para esta escuela, llamamos a tu función original
-            // Aquí pones las líneas exactas que usabas antes para abrir tu formulario, por ejemplo:
+            // ✅ AUTORIZADO: Abre el formulario directo sin preguntar nada
             document.getElementById('dashboard-menu').style.display = 'none'; 
             document.getElementById('modulo-asistencia').style.display = 'block';
             window.scrollTo(0, 0);
             
-            // Si tenías una función para cargar los docentes de la sede, la ejecutas aquí:
+            // Llama a tu función original que carga la lista de maestros
             if (typeof buscarDocentes === "function") {
                 buscarDocentes(); 
             }
             
-            // Devolvemos el botón a su estado original en el menú de atrás
             if (botonIniciar) {
                 botonIniciar.disabled = false;
                 botonIniciar.innerText = "📝 Iniciar Reporte";
@@ -7656,8 +7664,8 @@ function iniciarValidacionAsistencia() {
         }
     })
     .catch(error => {
-        console.error("Error en el control de auditoría:", error);
-        alert("❌ Error de comunicación con el servidor distrital. Por favor, intente nuevamente.");
+        console.error("Error en auditoría:", error);
+        alert("❌ Error de comunicación con el servidor distrital. Intente nuevamente.");
         if (botonIniciar) {
             botonIniciar.disabled = false;
             botonIniciar.innerText = "📝 Iniciar Reporte";
