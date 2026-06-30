@@ -7,6 +7,8 @@
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    
 
     <style>
         /* --- CONFIGURACIÓN GENERAL Y VARIABLES --- */
@@ -7428,10 +7430,13 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
     if (miGraficoDona) miGraficoDona.destroy();
     if (miGraficoBarras) miGraficoBarras.destroy();
 
-    // DIBUJAR GRÁFICO 1: DONA (Presentes vs Ausentes con Porcentajes)
+    // ==========================================================
+    // GRÁFICO 1: DONA (Con porcentajes VISIBLES en las tajadas)
+    // ==========================================================
     const ctxDona = document.getElementById('grafico-dona').getContext('2d');
     miGraficoDona = new Chart(ctxDona, {
         type: 'doughnut',
+        plugins: [ChartDataLabels], // ¡Activamos la extensión visual aquí!
         data: {
             labels: ['Presentes', 'Ausentes'],
             datasets: [{
@@ -7444,13 +7449,21 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
             responsive: true, 
             plugins: { 
                 legend: { position: 'bottom' },
-                tooltip: {
+                datalabels: { // Configuración del texto estampado
+                    color: '#ffffff', // Letra blanca
+                    font: { weight: 'bold', size: 14 },
+                    formatter: function(value, context) {
+                        if (value === 0) return ''; // Si el valor es 0, ocultamos el texto para no ensuciar
+                        let total = context.chart._metasets[context.datasetIndex].total;
+                        let porcentaje = ((value / total) * 100).toFixed(1) + '%';
+                        return porcentaje;
+                    }
+                },
+                tooltip: { // Mantenemos el cuadro negro informativo intacto
                     callbacks: {
                         label: function(context) {
                             let valor = context.raw;
-                            // Calculamos el total sumando presentes + ausentes
                             let total = context.chart._metasets[context.datasetIndex].total;
-                            // Sacamos el porcentaje con 1 decimal
                             let porcentaje = ((valor / total) * 100).toFixed(1) + '%';
                             return ` ${context.label}: ${valor} registros (${porcentaje})`;
                         }
@@ -7460,7 +7473,9 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
         }
     });
 
-    // Preparar datos para las Barras
+    // ==========================================================
+    // GRÁFICO 2: BARRAS (Top Motivos)
+    // ==========================================================
     const nombresMotivos = Object.keys(motivosObj);
     const cantidadesMotivos = Object.values(motivosObj);
 
@@ -7469,10 +7484,10 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
         cantidadesMotivos.push(0);
     }
 
-    // DIBUJAR GRÁFICO 2: BARRAS (Top Motivos con Porcentajes)
     const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
     miGraficoBarras = new Chart(ctxBarras, {
         type: 'bar',
+        plugins: [ChartDataLabels], // También lo activamos aquí para poder controlarlo
         data: {
             labels: nombresMotivos,
             datasets: [{
@@ -7487,11 +7502,13 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
             scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } } },
             plugins: { 
                 legend: { display: false },
+                datalabels: { 
+                    display: false // Ocultamos el texto sobre las barras para no amontonar
+                },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             let valor = context.raw;
-                            // Sumamos todos los motivos para sacar el 100% de las inasistencias
                             let totalAusencias = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
                             let porcentaje = totalAusencias > 0 ? ((valor / totalAusencias) * 100).toFixed(1) + '%' : '0%';
                             return ` Cantidad: ${valor} caso(s) (${porcentaje} del total de ausencias)`;
