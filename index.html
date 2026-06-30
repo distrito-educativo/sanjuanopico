@@ -6471,88 +6471,83 @@
                             </div>
                         </div>
 
-                        <div id="area-imprimible-est" style="display: none; background: white; padding: 20px;">
-                            <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid #D4AF37; padding-bottom: 15px;">
-                                <h1 style="color: #042444; margin-bottom: 5px; text-transform: uppercase; font-size: 1.8rem;">Informe Distrital de Asistencia</h1>
-                                <h2 id="est-sede-nombre" style="color: #475569; margin-top: 0; margin-bottom: 10px;">Nombre Sede</h2>
-                                <p style="color: #1e293b; font-weight: bold; margin: 0; font-size: 1.1rem;">Período solicitado: <span id="est-rango-texto" style="color: #042444;"></span></p>
-                            </div>
+                        <div id="area-imprimible-est" style="display: none; background: white; padding: 15px;">
+        
+        <div style="text-align: center; margin-bottom: 12px; border-bottom: 3px solid #D4AF37; padding-bottom: 8px;">
+            <h1 style="color: #042444; margin: 0 0 4px 0; text-transform: uppercase; font-size: 1.3rem;">Informe Distrital de Asistencia</h1>
+            <h2 id="est-sede-nombre" style="color: #475569; margin: 0 0 4px 0; font-size: 1.1rem;">Nombre Sede</h2>
+            <p style="color: #1e293b; font-weight: bold; margin: 0; font-size: 0.9rem;">Período auditado: <span id="est-rango-texto" style="color: #042444;"></span></p>
+        </div>
 
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; text-align: center;">
-                                <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1;">
-                                    <div style="font-size: 2.5rem; font-weight: bold; color: #042444;" id="est-kpi-total">0</div>
-                                    <div style="color: #475569; font-weight: bold; font-size: 1rem;">Total de Asistencias Tomadas</div>
-                                </div>
-                                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border: 1px solid #bbf7d0;">
-                                    <div style="font-size: 2.5rem; font-weight: bold; color: #16a34a;" id="est-kpi-presentes">0</div>
-                                    <div style="color: #166534; font-weight: bold; font-size: 1rem;">Total Presentes</div>
-                                </div>
-                                <div style="background: #fef2f2; padding: 20px; border-radius: 8px; border: 1px solid #fecaca;">
-                                    <div style="font-size: 2.5rem; font-weight: bold; color: #dc2626;" id="est-kpi-ausentes">0</div>
-                                    <div style="color: #991b1b; font-weight: bold; font-size: 1rem;">Total Ausentes</div>
-                                </div>
-                            </div>
+        <div id="area-reporte-pdf" style="max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif;">
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Proporción General</h3>
-                                    <canvas id="grafico-dona" style="max-width: 100%; margin: 0 auto;"></canvas>
-                                </div>
-                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Motivos de Inasistencia</h3>
-                                    <canvas id="grafico-barras" style="max-width: 100%; margin: 0 auto;"></canvas>
-                                </div>
-                            </div>
-<div id="seccion-bloque-reporte" style="margin-top: 30px; border-top: 2px solid #0A2540; padding-top: 20px;">
-    
-    <div style="background-color: #f8fafc; border-left: 4px solid #0A2540; padding: 15px; margin-bottom: 40px; border-radius: 4px;">
-        <h4 style="margin: 0 0 8px 0; color: #0A2540; font-size: 11pt; font-weight: bold; text-transform: uppercase;">
-            🔍 Interpretación y Notas del Análisis
-        </h4>
-        <p id="leyenda-automatizada-pdf" style="margin: 0; font-size: 10pt; color: #334155; line-height: 1.5;">
-            El presente gráfico estadístico refleja el estado consolidado de asistencia docente en el distrito. Los porcentajes visualizados representan la distribución proporcional de marcajes válidos frente a las inasistencias reportadas en el rango de fechas seleccionado, desglosando las principales causales de fuerza mayor o permisos institucionales para fines de administración interna.
-        </p>
-    </div>
-
-    <div style="margin-top: 60px; display: table; width: 100%; border-collapse: collapse;">
-        <div style="display: table-row;">
-            <div style="display: table-cell; width: 20%;"></div>
-            
-            <div style="display: table-cell; width: 60%; text-align: center; vertical-align: top;">
-                <div style="border-top: 1px solid #475569; width: 280px; margin: 0 auto 10px auto;"></div>
-                
-                <p style="margin: 0; font-size: 10pt; font-weight: bold; color: #0A2540; text-transform: uppercase;">
-                    F. __________________________________
-                </p>
-                <p style="margin: 5px 0 0 0; font-size: 10pt; font-weight: bold; color: #1e293b;">
-                    Director
-                </p>
-                <p style="margin: 2px 0 0 0; font-size: 9pt; color: #64748b; font-style: italic;">
-                    Distrito Educativo de San Juan Opico
-                </p>
-                
-                <div style="margin-top: 25px; border: 1px dashed #cbd5e1; width: 120px; height: 120px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
-                    <span style="font-size: 8pt; color: #94a3b8; display: block; margin-top: 45px; text-transform: uppercase; font-weight: bold;">
-                        Sello<br>Dirección
-                    </span>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; justify-content: space-between;">
+                <div style="flex: 1; background: #f8fafc; border-left: 4px solid #16a34a; padding: 6px 10px; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                    <span style="font-size: 7.5pt; color: #64748b; font-weight: bold; text-transform: uppercase;">Docentes Presentes</span>
+                    <h2 id="pdf-presentes" style="margin: 2px 0 0 0; color: #16a34a; font-size: 15pt; font-weight: bold;">0</h2>
+                </div>
+                <div style="flex: 1; background: #f8fafc; border-left: 4px solid #dc2626; padding: 6px 10px; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                    <span style="font-size: 7.5pt; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Ausentes</span>
+                    <h2 id="pdf-ausentes" style="margin: 2px 0 0 0; color: #dc2626; font-size: 15pt; font-weight: bold;">0</h2>
                 </div>
             </div>
-            
-            <div style="display: table-cell; width: 20%;"></div>
-        </div>
-    </div>
-</div>                            
 
-                            <div style="margin-top: 50px; text-align: center; font-size: 0.9rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
-                                <p>Documento generado por el Sistema de Gestión Escolar del Distrito de San Juan Opico.</p>
-                            </div>
-                        </div>
-
-                        <button type="button" id="btn-imprimir-est" class="no-print" onclick="window.print()" style="background: #D4AF37; color: #042444; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.1rem; display: none; margin-top: 25px; box-shadow: 0 4px 6px rgba(212,175,55,0.3);">
-                            🖨️ Imprimir / Guardar Oficial en PDF
-                        </button>
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                <div style="flex: 1; background: #ffffff; border: 1px solid #e2e8f0; padding: 8px; border-radius: 6px; text-align: center;">
+                    <h4 style="margin: 0 0 6px 0; font-size: 8.5pt; color: #0A2540; font-weight: bold; text-transform: uppercase;">Proporción de Asistencia</h4>
+                    <div style="width: 100%; max-width: 150px; margin: 0 auto; height: 150px; position: relative;">
+                        <canvas id="grafico-dona"></canvas>
                     </div>
-            `,
+                </div>
+                <div style="flex: 1; background: #ffffff; border: 1px solid #e2e8f0; padding: 8px; border-radius: 6px; text-align: center;">
+                    <h4 style="margin: 0 0 6px 0; font-size: 8.5pt; color: #0A2540; font-weight: bold; text-transform: uppercase;">Principales Inasistencias</h4>
+                    <div style="width: 100%; height: 150px; position: relative;">
+                        <canvas id="grafico-barras"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color: #f8fafc; border-left: 3px solid #0A2540; padding: 8px; margin-bottom: 20px; border-radius: 4px;">
+                <h4 style="margin: 0 0 2px 0; color: #0A2540; font-size: 8.5pt; font-weight: bold; text-transform: uppercase;">
+                    🔍 Interpretación y Notas del Análisis
+                </h4>
+                <p id="leyenda-automatizada-pdf" style="margin: 0; font-size: 8pt; color: #334155; line-height: 1.3;">
+                    Cargando análisis estadístico...
+                </p>
+            </div>
+
+            <div style="margin-top: 25px; display: table; width: 100%; border-collapse: collapse;">
+                <div style="display: table-row;">
+                    <div style="display: table-cell; width: 25%;"></div>
+                    
+                    <div style="display: table-cell; width: 50%; text-align: center; vertical-align: top;">
+                        <div style="border-top: 1px solid #475569; width: 200px; margin: 0 auto 4px auto;"></div>
+                        <p style="margin: 0; font-size: 8.5pt; font-weight: bold; color: #0A2540; text-transform: uppercase;">
+                            F. __________________________________
+                        </p>
+                        <p style="margin: 2px 0 0 0; font-size: 8.5pt; font-weight: bold; color: #1e293b;">
+                            Director / Encargado de Monitoreo
+                        </p>
+                        <p style="margin: 1px 0 0 0; font-size: 7.5pt; color: #64748b; font-style: italic;">
+                            Distrito Educativo de San Juan Opico
+                        </p>
+                        
+                        <div style="margin-top: 12px; border: 1px dashed #cbd5e1; width: 85px; height: 85px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
+                            <span style="font-size: 7pt; color: #94a3b8; display: block; margin-top: 30px; text-transform: uppercase; font-weight: bold; line-height: 1.1;">
+                                Sello<br>Dirección
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: table-cell; width: 25%;"></div>
+                </div>
+            </div>
+
+        </div> <div style="margin-top: 25px; text-align: center; font-size: 0.8rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+            <p style="margin: 0;">Documento generado por el Sistema de Gestión Escolar del Distrito de San Juan Opico.</p>
+        </div>
+
+    </div> ```
             'mapa-home': `
                 <style>
                     /* CONTENEDOR DEL MAPA */
@@ -7449,9 +7444,8 @@ function generarEstadisticas() {
         const fi = inicio.split("-"); const ff = fin.split("-");
         document.getElementById('est-rango-texto').innerText = `${fi[2]}/${fi[1]}/${fi[0]} al ${ff[2]}/${ff[1]}/${ff[0]}`;
         
-        document.getElementById('est-kpi-total').innerText = data.total;
-        document.getElementById('est-kpi-presentes').innerText = data.presentes;
-        document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
+        document.getElementById('pdf-presentes').innerText = data.presentes;
+   document.getElementById('pdf-ausentes').innerText = data.ausentes;
 
         // 3. Mandar a pintar los Gráficos
         dibujarGraficos(data.presentes, data.ausentes, data.motivos);
@@ -7559,7 +7553,17 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
                 }
             }
         }
-    });
+// Cálculo e inyección automática de la leyenda analítica
+    let totalRegistros = presentes + ausentes;
+    let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 100).toFixed(1) : 0;
+    let porcentajeInasistencia = totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0;
+
+    let textoLeyenda = `El presente informe estadístico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
+    `Se muestra un índice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${porcentajeInasistencia}%</strong> de inasistencias generales. ` +
+    `Este balance provee el respaldo técnico necesario para las auditorías de rendimiento distrital y la respectiva liberación de firmas de conformidad.`;
+
+    document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;    
+});
 // Calcular el porcentaje total de asistencia para la leyenda analítica
 let totalRegistros = presentes + ausentes;
 let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 100).toFixed(1) : 0;
