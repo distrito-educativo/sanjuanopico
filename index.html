@@ -7426,6 +7426,11 @@ function generarEstadisticas() {
 }
 
 function dibujarGraficos(presentes, ausentes, motivosObj) {
+    // 1. REGISTRO OBLIGATORIO: Le avisamos a Chart.js que use la extensión de porcentajes
+    if (typeof ChartDataLabels !== 'undefined') {
+        Chart.register(ChartDataLabels);
+    }
+
     // Si ya existían gráficos anteriores en la pantalla, los borramos para que no se encimen
     if (miGraficoDona) miGraficoDona.destroy();
     if (miGraficoBarras) miGraficoBarras.destroy();
@@ -7436,7 +7441,6 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
     const ctxDona = document.getElementById('grafico-dona').getContext('2d');
     miGraficoDona = new Chart(ctxDona, {
         type: 'doughnut',
-        plugins: [ChartDataLabels], // ¡Activamos la extensión visual aquí!
         data: {
             labels: ['Presentes', 'Ausentes'],
             datasets: [{
@@ -7487,7 +7491,6 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
     const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
     miGraficoBarras = new Chart(ctxBarras, {
         type: 'bar',
-        plugins: [ChartDataLabels], // También lo activamos aquí para poder controlarlo
         data: {
             labels: nombresMotivos,
             datasets: [{
