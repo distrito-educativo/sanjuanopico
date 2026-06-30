@@ -6070,6 +6070,8 @@
 			
 			<div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
     
+   <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+    
     <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Diario</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
@@ -6092,15 +6094,13 @@
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Urgente</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Lluvias</h3>
         <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
-        <button onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
             📝 Iniciar Reporte
         </button>
     </div>
-</div>
 
-                    <div id="contenedor-formulario" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">
-                        
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+</div> </div> ```
+                <div id="contenedor-formulario" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">		                      		<div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
     <button type="button" class="btn-volver" style="margin-bottom: 0;" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
         ← Volver al Panel
     </button>
