@@ -6510,7 +6510,7 @@
             🔍 Interpretación y Notas del Análisis
         </h4>
         <p id="leyenda-automatizada-pdf" style="margin: 0; font-size: 10pt; color: #334155; line-height: 1.5;">
-            El presente gráfico estadístico refleja el estado consolidado de asistencia docente en el distrito. Los porcentajes visualizados representan la distribución proporcional de marcajes válidos frente a las inasistencias reportadas en el rango de fechas seleccionado, desglosando las principales causales de fuerza mayor o permisos institucionales para fines de auditoría interna.
+            El presente gráfico estadístico refleja el estado consolidado de asistencia docente en el distrito. Los porcentajes visualizados representan la distribución proporcional de marcajes válidos frente a las inasistencias reportadas en el rango de fechas seleccionado, desglosando las principales causales de fuerza mayor o permisos institucionales para fines de administración interna.
         </p>
     </div>
 
@@ -6525,7 +6525,7 @@
                     F. __________________________________
                 </p>
                 <p style="margin: 5px 0 0 0; font-size: 10pt; font-weight: bold; color: #1e293b;">
-                    Director / Encargado de Monitoreo
+                    Director
                 </p>
                 <p style="margin: 2px 0 0 0; font-size: 9pt; color: #64748b; font-style: italic;">
                     Distrito Educativo de San Juan Opico
@@ -7567,7 +7567,7 @@ let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 
 // Construir el texto analítico dinámico
 let textoLeyenda = `El presente informe estadístico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
 `Se muestra un índice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0}%</strong> de inasistencias generales. ` +
-`Este balance provee el respaldo técnico necesario para las auditorías de rendimiento distrital y la respectiva liberación de firmas de conformidad.`;
+`Este balance provee el respaldo técnico necesario para los registros de rendimiento distrital y la respectiva liberación de firmas de conformidad.`;
 
 // Inyectarlo en la zona de abajo del reporte
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
