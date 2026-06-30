@@ -6,6 +6,7 @@
     <title>Panel Gestión Escolar - San Juan Opico</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         /* --- CONFIGURACIÓN GENERAL Y VARIABLES --- */
@@ -6027,6 +6028,19 @@
                     .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
                     #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
                     #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
+/* ... (estilos anteriores que ya tienes) ... */
+                    #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
+                    #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
+
+                    /* === PASO 2: REGLAS DE IMPRESIÓN PARA EL PDF === */
+                    @media print {
+                        body * { visibility: hidden; }
+                        #area-imprimible-est, #area-imprimible-est * { visibility: visible; }
+                        #area-imprimible-est { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px; }
+                        .no-print { display: none !important; }
+                        canvas { max-height: 350px !important; }
+                    }
+                </style>
                 </style>
 
                 <div class="page-header">
@@ -6055,10 +6069,13 @@
                         </div>
 
                         <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                            <div class="card">
-                                <span class="badge" style="background: #0A2540; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">Estadísticas</span>
-                                <h3 style="margin-top: 10px;">Rendimiento Distrital</h3>
-                                <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Aquí irán las gráficas y reportes confidenciales de los centros escolares.</p>
+                            <div class="card" style="border-top: 4px solid #0A2540; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
+                                <span class="badge" style="background: #0A2540; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Auditoría</span>
+                                <h3 style="margin-top: 10px; color: #0A2540;">Rendimiento Distrital</h3>
+                                <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Consulta gráficas estadísticas de asistencia por rangos de fecha y exporta el reporte a PDF oficial.</p>
+                                <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-estadisticas').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+                                    📊 Ver Estadísticas
+                                </button>
                             </div>
                             <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
                                 <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Diario</span>
@@ -6413,6 +6430,80 @@
                     </div>
 
                 </div>
+<div id="modulo-estadisticas" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 1000px; margin: 25px auto; display: none; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box;">
+                        
+                        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 25px;">
+                            <h2 style="color: #042444; margin: 0; font-size: 1.6rem;">Auditoría de Asistencia Docente</h2>
+                            <button type="button" onclick="document.getElementById('modulo-estadisticas').style.display='none'; document.getElementById('dashboard-menu').style.display=''; window.scrollTo(0,0);" style="background-color: #e2e8f0; color: #334155; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+                                🔙 Volver al Menú
+                            </button>
+                        </div>
+
+                        <div class="no-print" style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px;">
+                            <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros Cronológicos</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+                                <div>
+                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Código Escolar: *</label>
+                                    <input type="text" id="est-codigo" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
+                                </div>
+                                <div>
+                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Desde la Fecha: *</label>
+                                    <input type="date" id="est-inicio" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
+                                </div>
+                                <div>
+                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Hasta la Fecha: *</label>
+                                    <input type="date" id="est-fin" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
+                                </div>
+                                <div>
+                                    <button type="button" id="btn-generar-est" onclick="generarEstadisticas()" style="background: #042444; color: white; padding: 11px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%;">
+                                        📊 Calcular Gráficas
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="area-imprimible-est" style="display: none; background: white; padding: 20px;">
+                            <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid #D4AF37; padding-bottom: 15px;">
+                                <h1 style="color: #042444; margin-bottom: 5px; text-transform: uppercase; font-size: 1.8rem;">Informe Distrital de Asistencia</h1>
+                                <h2 id="est-sede-nombre" style="color: #475569; margin-top: 0; margin-bottom: 10px;">Nombre Sede</h2>
+                                <p style="color: #1e293b; font-weight: bold; margin: 0; font-size: 1.1rem;">Período auditado: <span id="est-rango-texto" style="color: #042444;"></span></p>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; text-align: center;">
+                                <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #042444;" id="est-kpi-total">0</div>
+                                    <div style="color: #475569; font-weight: bold; font-size: 1rem;">Total de Asistencias Tomadas</div>
+                                </div>
+                                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border: 1px solid #bbf7d0;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #16a34a;" id="est-kpi-presentes">0</div>
+                                    <div style="color: #166534; font-weight: bold; font-size: 1rem;">Total Presentes</div>
+                                </div>
+                                <div style="background: #fef2f2; padding: 20px; border-radius: 8px; border: 1px solid #fecaca;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #dc2626;" id="est-kpi-ausentes">0</div>
+                                    <div style="color: #991b1b; font-weight: bold; font-size: 1rem;">Total Ausentes</div>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Proporción General</h3>
+                                    <canvas id="grafico-dona" style="max-width: 100%; margin: 0 auto;"></canvas>
+                                </div>
+                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Motivos de Inasistencia</h3>
+                                    <canvas id="grafico-barras" style="max-width: 100%; margin: 0 auto;"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 50px; text-align: center; font-size: 0.9rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
+                                <p>Documento generado por el Sistema de Gestión Escolar del Distrito de San Juan Opico.</p>
+                            </div>
+                        </div>
+
+                        <button type="button" id="btn-imprimir-est" class="no-print" onclick="window.print()" style="background: #D4AF37; color: #042444; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1.1rem; display: none; margin-top: 25px; box-shadow: 0 4px 6px rgba(212,175,55,0.3);">
+                            🖨️ Imprimir / Guardar Oficial en PDF
+                        </button>
+                    </div>
             `,
             'mapa-home': `
                 <style>
@@ -7238,6 +7329,126 @@ window.limpiarFormularioAsistencia = function() {
             if(document.body.contains(iframe)) document.body.removeChild(iframe);
         }, 3000);
     }, 1500); 
+}
+// =========================================================================
+// MÓDULO DE ESTADÍSTICAS Y GRÁFICOS (CHART.JS)
+// =========================================================================
+let miGraficoDona = null;
+let miGraficoBarras = null;
+
+function generarEstadisticas() {
+    const btn = document.getElementById('btn-generar-est');
+    const codigo = document.getElementById('est-codigo').value.trim();
+    const inicio = document.getElementById('est-inicio').value;
+    const fin = document.getElementById('est-fin').value;
+
+    if (!codigo || !inicio || !fin) {
+        alert("⚠️ Por favor, ingrese el código de la escuela y seleccione ambas fechas.");
+        return;
+    }
+    if (inicio > fin) {
+        alert("⚠️ Error cronológico: La fecha de inicio no puede ser mayor a la fecha de fin.");
+        return;
+    }
+
+    btn.innerText = "⏳ Procesando datos...";
+    btn.disabled = true;
+
+    // Conectamos con tu Apps Script enviando la nueva instrucción y las fechas
+    const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
+
+    fetch(urlConsulta)
+    .then(response => response.json())
+    .then(data => {
+        btn.innerText = "📊 Calcular Gráficas";
+        btn.disabled = false;
+
+        if (data.status === "error") {
+            alert("❌ Error: " + data.message);
+            return;
+        }
+
+        if (data.total === 0) {
+            alert("ℹ️ Auditoría vacía: No se encontraron registros de asistencia para el código " + codigo + " en las fechas indicadas.");
+            document.getElementById('area-imprimible-est').style.display = 'none';
+            document.getElementById('btn-imprimir-est').style.display = 'none';
+            return;
+        }
+
+        // 1. Mostrar la zona del reporte y el botón de impresión
+        document.getElementById('area-imprimible-est').style.display = 'block';
+        document.getElementById('btn-imprimir-est').style.display = 'block';
+
+        // 2. Inyectar Textos y Números (KPIs)
+        document.getElementById('est-sede-nombre').innerText = data.sede;
+        
+        // Convertimos el formato de fecha de YYYY-MM-DD a DD/MM/YYYY para lectura más natural
+        const fi = inicio.split("-"); const ff = fin.split("-");
+        document.getElementById('est-rango-texto').innerText = `${fi[2]}/${fi[1]}/${fi[0]} al ${ff[2]}/${ff[1]}/${ff[0]}`;
+        
+        document.getElementById('est-kpi-total').innerText = data.total;
+        document.getElementById('est-kpi-presentes').innerText = data.presentes;
+        document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
+
+        // 3. Mandar a pintar los Gráficos
+        dibujarGraficos(data.presentes, data.ausentes, data.motivos);
+    })
+    .catch(error => {
+        console.error("Error Fetch:", error);
+        btn.innerText = "📊 Calcular Gráficas";
+        btn.disabled = false;
+        alert("❌ Ocurrió un error al conectar con Google Sheets.");
+    });
+}
+
+function dibujarGraficos(presentes, ausentes, motivosObj) {
+    // Si ya existían gráficos anteriores en la pantalla, los borramos para que no se encimen
+    if (miGraficoDona) miGraficoDona.destroy();
+    if (miGraficoBarras) miGraficoBarras.destroy();
+
+    // DIBUJAR GRÁFICO 1: DONA (Presentes vs Ausentes)
+    const ctxDona = document.getElementById('grafico-dona').getContext('2d');
+    miGraficoDona = new Chart(ctxDona, {
+        type: 'doughnut',
+        data: {
+            labels: ['Presentes', 'Ausentes'],
+            datasets: [{
+                data: [presentes, ausentes],
+                backgroundColor: ['#16a34a', '#dc2626'],
+                hoverOffset: 4
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // DIBUJAR GRÁFICO 2: BARRAS (Top Motivos de inasistencia)
+    const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
+    const nombresMotivos = Object.keys(motivosObj);
+    const cantidadesMotivos = Object.values(motivosObj);
+
+    // Si nadie faltó, mostramos un mensaje en la gráfica en lugar de dejarla en blanco
+    if (nombresMotivos.length === 0) {
+        nombresMotivos.push("Sin Inasistencias registradas");
+        cantidadesMotivos.push(0);
+    }
+
+    miGraficoBarras = new Chart(ctxBarras, {
+        type: 'bar',
+        data: {
+            labels: nombresMotivos,
+            datasets: [{
+                label: 'Cantidad de casos registrados',
+                data: cantidadesMotivos,
+                backgroundColor: '#042444',
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } } },
+            plugins: { legend: { display: false } }
+        }
+    });
 }
 </script>
 </body>
