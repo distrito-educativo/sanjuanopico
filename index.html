@@ -6922,6 +6922,21 @@ function enviarReporte(event, mainForm) {
        // Capturamos el correo del director desde la pantalla de inicio de sesión
         var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
 
+// --- PROCESAMIENTO DE IMÁGENES EN BASE64 ---
+        var inputFotos = document.getElementById('lluvias-fotos');
+        var fotosPromesas = [];
+        var datosFotosJSON = '';
+
+        // Función interna para convertir archivo a Base64
+        function transformarFile(file) {
+            return new Promise(function(resolve, reject) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() { resolve(reader.result.split(',')[1]); };
+                reader.onerror = function(error) { reject(error); };
+            });
+        }
+
         // 3. Empaquetamos los datos
         var data = { 
             tipoFormulario: 'lluvias',
@@ -6940,8 +6955,37 @@ function enviarReporte(event, mainForm) {
             Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
             Prioridades: prios.join(' / '),
-            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.'
+            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',
+            datos_fotos: '' // Espacio reservado que llenaremos abajo
         };
+// Si el director seleccionó fotos, detenemos un segundo el envío para procesarlas
+        if (inputFotos && inputFotos.files.length > 0) {
+            var maxFotos = Math.min(inputFotos.files.length, 3);
+            var fotosCargadas = [];
+            
+            // Usamos un bucle tradicional compatible para procesar las fotos seleccionadas
+            (async function() {
+                for (var f = 0; f < maxFotos; f++) {
+                    try {
+                        var b64String = await transformarFile(inputFotos.files[f]);
+                        fotosCargadas.push({
+                            nombre: 'Evidencia_' + (f+1) + '_' + inputFotos.files[f].name,
+                            mimeType: inputFotos.files[f].type,
+                            base64: b64String
+                        });
+                    } catch(eImg) { console.error(eImg); }
+                }
+                if(fotosCargadas.length > 0) {
+                    data.datos_fotos = JSON.stringify(fotosCargadas);
+                }
+                ejecutarEnvioIframe(); // Ejecuta el envío con fotos
+            })();
+        } else {
+            ejecutarEnvioIframe(); // Ejecuta el envío normal sin fotos
+        }
+
+        // Envolvemos tu envío original en una función interna para controlar el flujo
+        function ejecutarEnvioIframe() {
 
         // 4. Portal invisible (Iframe) para evitar el bloqueo del navegador
         var iframeName = 'iframe-lluvias-' + Date.now();
@@ -6991,6 +7035,7 @@ function enviarReporte(event, mainForm) {
     } catch (error) {
         console.error("Error:", error);
     }
+} // Cierra ejecutarEnvioIframe
 }
 </script>
 
@@ -7572,6 +7617,39 @@ let textoLeyenda = `El presente informe estadístico consolida un total de <stro
 // Inyectarlo en la zona de abajo del reporte
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
 }
+// =========================================================================
+// INYECTOR AUTOMÁTICO DE CAJA DE FOTOS (MÉTODO SEGURO ANTI-BLANCO)
+// =========================================================================
+function verificarEInyectarCajaFotos() {
+    // Buscamos si ya existe el campo para no duplicarlo
+    if (document.getElementById('lluvias-fotos')) return;
+
+    // Buscamos el cuadro de comentarios de lluvias
+    const txtComentarios = document.getElementById('rep-comentarios');
+    if (txtComentarios) {
+        // Creamos el contenedor de las fotos
+        const contenedorFotos = document.createElement('div');
+        contenedorFotos.style.marginTop = "20px";
+        contenedorFotos.style.textAlign = "left";
+        contenedorFotos.innerHTML = `
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
+                📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+            </label>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; cursor: pointer;">
+            <small style="color: #64748b; display: block; margin-top: 4px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+        `;
+        // Lo insertamos exactamente abajo de los comentarios
+        txtComentarios.parentNode.appendChild(contenedorFotos);
+    }
+}
+
+// Monitoreamos la pantalla para inyectar la caja en cuanto el director abra el formulario
+document.addEventListener('click', function(e) {
+    const targetEl = e.target.closest('[data-target]');
+    if (targetEl && targetEl.getAttribute('data-target') === 'monitoreo-home') {
+        setTimeout(verificarEInyectarCajaFotos, 300);
+    }
+});
 </script>
 </body>
 </html>
