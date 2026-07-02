@@ -7651,38 +7651,41 @@ document.addEventListener('click', function(e) {
     }
 });
 // =========================================================================
-// INYECTOR AUTOMÁTICO DE CAJA DE FOTOS (SÓLO INTERFAZ GRÁFICA)
+// INYECTOR INTELIGENTE Y CONTINUO DE CAJA DE FOTOS (ANTI-RETRASOS)
 // =========================================================================
-function verificarEInyectarCajaFotos() {
-    // Buscamos si ya existe el campo para no duplicarlo
+function forzarInyeccionCajaFotos() {
+    // 1. Si el botón ya existe en pantalla, no hacemos nada para no duplicarlo
     if (document.getElementById('lluvias-fotos')) return;
 
-    // Buscamos el cuadro de comentarios de lluvias
-    const txtComentarios = document.getElementById('rep-comentarios');
+    // 2. Buscamos el cuadro de comentarios del Reporte de Lluvias
+    var txtComentarios = document.getElementById('rep-comentarios');
+    
+    // 3. Si el formulario ya se renderizó y el cuadro existe, fabricamos el botón
     if (txtComentarios) {
-        // Creamos el contenedor de las fotos
-        const contenedorFotos = document.createElement('div');
+        var contenedorFotos = document.createElement('div');
         contenedorFotos.style.marginTop = "20px";
         contenedorFotos.style.textAlign = "left";
+        contenedorFotos.style.padding = "15px";
+        contenedorFotos.style.background = "#f8fafc";
+        contenedorFotos.style.border = "1px dashed #cbd5e1";
+        contenedorFotos.style.borderRadius = "8px";
+        
         contenedorFotos.innerHTML = `
-            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px; font-family: inherit;">
                 📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
             </label>
-            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; cursor: pointer;">
-            <small style="color: #64748b; display: block; margin-top: 4px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff; cursor: pointer; box-sizing: border-box;">
+            <small style="color: #64748b; display: block; margin-top: 6px; font-size: 0.85rem;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG para anexar al PDF oficial.</small>
         `;
+        
         // Lo insertamos exactamente abajo de los comentarios
         txtComentarios.parentNode.appendChild(contenedorFotos);
+        console.log("✅ Caja de fotos inyectada con éxito.");
     }
 }
 
-// Monitoreamos la pantalla para inyectar la caja en cuanto el director abra el formulario
-document.addEventListener('click', function(e) {
-    const targetEl = e.target.closest('[data-target]');
-    if (targetEl && targetEl.getAttribute('data-target') === 'monitoreo-home') {
-        setTimeout(verificarEInyectarCajaFotos, 300);
-    }
-});
+// Escáner en segundo plano: Revisa la pantalla cada 500 milisegundos buscando el formulario
+setInterval(forzarInyeccionCajaFotos, 500);
 </script>
 </body>
 </html>
