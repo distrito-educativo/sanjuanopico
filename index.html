@@ -6011,7 +6011,7 @@
             'visita-formularios': `<div class="page-header"><h1>Formularios Digitales</h1></div>`,
             'visita-informes': `<div class="page-header"><h1>Portal de Informes</h1></div>`,
             
-         /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
+          /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
             'monitoreo-home': `
                 <style>
                     /* Estilos inyectados para el Formulario de Incidencias */
@@ -6030,25 +6030,19 @@
                     .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
                     #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
                     #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
+/* ... (estilos anteriores que ya tienes) ... */
+                    #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
+                    #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
 
-                    /* === REGLAS DE IMPRESIÓN PARA EL PDF COMPACTO (1 PÁGINA) === */
+                    /* === PASO 2: REGLAS DE IMPRESIÓN PARA EL PDF === */
                     @media print {
-                        body * { visibility: hidden; background: white !important; }
+                        body * { visibility: hidden; }
                         #area-imprimible-est, #area-imprimible-est * { visibility: visible; }
-                        #area-imprimible-est { 
-                            position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 10px !important; 
-                            zoom: 82% !important; transform: scale(0.82); transform-origin: top center;
-                        }
+                        #area-imprimible-est { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px; }
                         .no-print { display: none !important; }
-                        .kpi-container-pdf { display: flex !important; gap: 10px !important; margin-bottom: 15px !important; }
-                        .kpi-card-pdf { flex: 1 !important; padding: 10px !important; }
-                        .grid-graficos-pdf { display: flex !important; gap: 15px !important; }
-                        .grid-graficos-pdf > div { flex: 1 !important; padding: 10px !important; }
-                        canvas { max-height: 140px !important; width: auto !important; margin: 0 auto; }
-                        #seccion-bloque-reporte { margin-top: 15px !important; }
-                        .sello-box-pdf { width: 85px !important; height: 85px !important; margin-top: 12px !important; }
-                        .sello-text-pdf { margin-top: 28px !important; font-size: 7.5pt !important; }
+                        canvas { max-height: 350px !important; }
                     }
+                </style>
                 </style>
 
                 <div class="page-header">
@@ -6082,7 +6076,7 @@
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">DIARIO</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
         <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
-        <button type="button" id="btn-iniciar-asistencia" onclick="window.iniciarValidacionAsistencia()" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
             📝 Iniciar Reporte
         </button>
     </div>
@@ -6334,14 +6328,6 @@
                                 <div class="form-group">
                                     <label>Detalle cualquier información relevante o aclaración sobre los daños reportados:</label>
                                     <textarea id="rep-comentarios" rows="4" placeholder="Escriba aquí sus observaciones (Opcional)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical;"></textarea>
-
-<div style="margin-top: 20px; text-align: left;">
-    <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
-        📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
-    </label>
-    <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; cursor: pointer;">
-    <small style="color: #64748b; display: block; margin-top: 4px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
-</div>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -6363,18 +6349,18 @@
                                 🔙 Volver al Menú
                             </button>
                         </div>
-                        <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; display: none;">
+                        <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
                             <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
                             <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                                <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
-                                <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px; font-size: 1rem;">
-                                <button type="button" id="btn-buscar-docentes" onclick="buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
-                                    🔍 Buscar Planta Docente
-                                </button>
-                                <button type="button" onclick="window.limpiarFormularioAsistencia()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-                                    🧹 Limpiar
-                                </button>
-                            </div>
+    <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
+    <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px; font-size: 1rem;">
+    <button type="button" id="btn-buscar-docentes" onclick="buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+        🔍 Buscar Planta Docente
+    </button>
+    <button type="button" onclick="window.limpiarFormularioAsistencia()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+        🧹 Limpiar
+    </button>
+</div>
                         </div>
 
                         <div id="asistencia-contenido" style="display: none;">
@@ -6475,90 +6461,90 @@
                                     <input type="date" id="est-fin" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
                                 </div>
                                 <div style="display: flex; gap: 10px;">
-                                <button type="button" onclick="window.limpiarEstadisticas()" style="background: #e2e8f0; color: #475569; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; flex: 1;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-                                    🧹 Limpiar
-                                </button>
-                                <button type="button" id="btn-generar-est" onclick="generarEstadisticas()" style="background: #042444; color: white; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2;">
-                                    📊 Calcular Gráficas
-                                </button>
-                            </div>
+                <button type="button" onclick="window.limpiarEstadisticas()" style="background: #e2e8f0; color: #475569; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; flex: 1;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+                    🧹 Limpiar
+                </button>
+                <button type="button" id="btn-generar-est" onclick="generarEstadisticas()" style="background: #042444; color: white; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2;">
+                    📊 Calcular Gráficas
+                </button>
+            </div>
                             </div>
                         </div>
 
-                        <div id="area-imprimible-est" style="display: none; background: white; padding: 15px;">
-                            <div style="text-align: center; margin-bottom: 15px; border-bottom: 3px solid #D4AF37; padding-bottom: 8px;">
-                                <h1 style="color: #042444; margin: 0 0 4px 0; text-transform: uppercase; font-size: 1.4rem;">Informe Distrital de Asistencia</h1>
-                                <h2 id="est-sede-nombre" style="color: #475569; margin: 0 0 4px 0; font-size: 1.1rem;">Nombre Sede</h2>
-                                <p style="color: #1e293b; font-weight: bold; margin: 0; font-size: 0.95rem;">Período solicitado: <span id="est-rango-texto" style="color: #042444;"></span></p>
+                        <div id="area-imprimible-est" style="display: none; background: white; padding: 20px;">
+                            <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid #D4AF37; padding-bottom: 15px;">
+                                <h1 style="color: #042444; margin-bottom: 5px; text-transform: uppercase; font-size: 1.8rem;">Informe Distrital de Asistencia</h1>
+                                <h2 id="est-sede-nombre" style="color: #475569; margin-top: 0; margin-bottom: 10px;">Nombre Sede</h2>
+                                <p style="color: #1e293b; font-weight: bold; margin: 0; font-size: 1.1rem;">Período solicitado: <span id="est-rango-texto" style="color: #042444;"></span></p>
                             </div>
 
-                            <div class="kpi-container-pdf" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; text-align: center;">
-                                <div class="kpi-card-pdf" style="background: #f1f5f9; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
-                                    <div style="font-size: 1.8rem; font-weight: bold; color: #042444;" id="est-kpi-total">0</div>
-                                    <div style="color: #475569; font-weight: bold; font-size: 0.85rem; text-transform: uppercase;">Total Asistencias</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; text-align: center;">
+                                <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #042444;" id="est-kpi-total">0</div>
+                                    <div style="color: #475569; font-weight: bold; font-size: 1rem;">Total de Asistencias Tomadas</div>
                                 </div>
-                                <div class="kpi-card-pdf" style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0;">
-                                    <div style="font-size: 1.8rem; font-weight: bold; color: #16a34a;" id="est-kpi-presentes">0</div>
-                                    <div style="color: #166534; font-weight: bold; font-size: 0.85rem; text-transform: uppercase;">Total Presentes</div>
+                                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border: 1px solid #bbf7d0;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #16a34a;" id="est-kpi-presentes">0</div>
+                                    <div style="color: #166534; font-weight: bold; font-size: 1rem;">Total Presentes</div>
                                 </div>
-                                <div class="kpi-card-pdf" style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca;">
-                                    <div style="font-size: 1.8rem; font-weight: bold; color: #dc2626;" id="est-kpi-ausentes">0</div>
-                                    <div style="color: #991b1b; font-weight: bold; font-size: 0.85rem; text-transform: uppercase;">Total Ausentes</div>
+                                <div style="background: #fef2f2; padding: 20px; border-radius: 8px; border: 1px solid #fecaca;">
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #dc2626;" id="est-kpi-ausentes">0</div>
+                                    <div style="color: #991b1b; font-weight: bold; font-size: 1rem;">Total Ausentes</div>
                                 </div>
                             </div>
 
-                            <div class="grid-graficos-pdf" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                                <div style="background: white; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
-                                    <h3 style="color: #334155; margin: 0 0 8px 0; font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">Proporción General</h3>
-                                    <canvas id="grafico-dona" style="max-width: 100%; margin: 0 auto; max-height: 150px;"></canvas>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Proporción General</h3>
+                                    <canvas id="grafico-dona" style="max-width: 100%; margin: 0 auto;"></canvas>
                                 </div>
-                                <div style="background: white; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
-                                    <h3 style="color: #334155; margin: 0 0 8px 0; font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">Motivos de Inasistencia</h3>
-                                    <canvas id="grafico-barras" style="max-width: 100%; margin: 0 auto; max-height: 150px;"></canvas>
+                                <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <h3 style="color: #334155; margin-top: 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">Motivos de Inasistencia</h3>
+                                    <canvas id="grafico-barras" style="max-width: 100%; margin: 0 auto;"></canvas>
                                 </div>
                             </div>
-<div id="seccion-bloque-reporte" style="margin-top: 20px; border-top: 2px solid #0A2540; padding-top: 15px;">
+<div id="seccion-bloque-reporte" style="margin-top: 30px; border-top: 2px solid #0A2540; padding-top: 20px;">
     
-    <div style="background-color: #f8fafc; border-left: 4px solid #0A2540; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
-        <h4 style="margin: 0 0 4px 0; color: #0A2540; font-size: 9.5pt; font-weight: bold; text-transform: uppercase;">
+    <div style="background-color: #f8fafc; border-left: 4px solid #0A2540; padding: 15px; margin-bottom: 40px; border-radius: 4px;">
+        <h4 style="margin: 0 0 8px 0; color: #0A2540; font-size: 11pt; font-weight: bold; text-transform: uppercase;">
             🔍 Interpretación y Notas del Análisis
         </h4>
-        <p id="leyenda-automatizada-pdf" style="margin: 0; font-size: 8.5pt; color: #334155; line-height: 1.3;">
+        <p id="leyenda-automatizada-pdf" style="margin: 0; font-size: 10pt; color: #334155; line-height: 1.5;">
             El presente gráfico estadístico refleja el estado consolidado de asistencia docente en el distrito. Los porcentajes visualizados representan la distribución proporcional de marcajes válidos frente a las inasistencias reportadas en el rango de fechas seleccionado, desglosando las principales causales de fuerza mayor o permisos institucionales para fines de administración interna.
         </p>
     </div>
 
-    <div style="margin-top: 40px; display: table; width: 100%; border-collapse: collapse;">
+    <div style="margin-top: 60px; display: table; width: 100%; border-collapse: collapse;">
         <div style="display: table-row;">
-            <div style="display: table-cell; width: 25%;"></div>
+            <div style="display: table-cell; width: 20%;"></div>
             
-            <div style="display: table-cell; width: 50%; text-align: center; vertical-align: top;">
-                <div style="border-top: 1px solid #475569; width: 220px; margin: 0 auto 5px auto;"></div>
+            <div style="display: table-cell; width: 60%; text-align: center; vertical-align: top;">
+                <div style="border-top: 1px solid #475569; width: 280px; margin: 0 auto 10px auto;"></div>
                 
-                <p style="margin: 0; font-size: 9pt; font-weight: bold; color: #0A2540; text-transform: uppercase;">
+                <p style="margin: 0; font-size: 10pt; font-weight: bold; color: #0A2540; text-transform: uppercase;">
                     F. __________________________________
                 </p>
-                <p style="margin: 3px 0 0 0; font-size: 9pt; font-weight: bold; color: #1e293b;">
+                <p style="margin: 5px 0 0 0; font-size: 10pt; font-weight: bold; color: #1e293b;">
                     Director
                 </p>
-                <p style="margin: 1px 0 0 0; font-size: 8pt; color: #64748b; font-style: italic;">
+                <p style="margin: 2px 0 0 0; font-size: 9pt; color: #64748b; font-style: italic;">
                     Distrito Educativo de San Juan Opico
                 </p>
                 
-                <div class="sello-box-pdf" style="margin-top: 15px; border: 1px dashed #cbd5e1; width: 90px; height: 90px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
-                    <span class="sello-text-pdf" style="font-size: 7.5pt; color: #94a3b8; display: block; margin-top: 32px; text-transform: uppercase; font-weight: bold; line-height: 1.1;">
+                <div style="margin-top: 25px; border: 1px dashed #cbd5e1; width: 120px; height: 120px; margin-left: auto; margin-right: auto; border-radius: 4px; display: block;">
+                    <span style="font-size: 8pt; color: #94a3b8; display: block; margin-top: 45px; text-transform: uppercase; font-weight: bold;">
                         Sello<br>Dirección
                     </span>
                 </div>
             </div>
             
-            <div style="display: table-cell; width: 25%;"></div>
+            <div style="display: table-cell; width: 20%;"></div>
         </div>
     </div>
 </div>                            
 
-                            <div style="margin-top: 30px; text-align: center; font-size: 0.8rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
-                                <p style="margin: 0;">Documento generado por el Sistema de Gestión Escolar del Distrito de San Juan Opico.</p>
+                            <div style="margin-top: 50px; text-align: center; font-size: 0.9rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
+                                <p>Documento generado por el Sistema de Gestión Escolar del Distrito de San Juan Opico.</p>
                             </div>
                         </div>
 
@@ -6741,7 +6727,7 @@
                                 <span class="timeline-date">Del 26 al 30 de enero</span>
                                 <div class="timeline-content">
                                     <h4>Bloque 3: Planificación de los aprendizajes</h4>
-                                    <p>Diseño de la planificación de las primeras semanas del año escolar, considering los resultados del diagnóstico y orientaciones vigentes.</p>
+                                    <p>Diseño de la planificación de las primeras semanas del año escolar, considerando los resultados del diagnóstico y orientaciones vigentes.</p>
                                 </div>
                             </li>
                         </ul>
@@ -6837,81 +6823,11 @@
         menuToggle.addEventListener('click', () => { sidebar.classList.add('active'); overlay.classList.add('active'); });
         overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
         window.addEventListener('resize', () => { if(window.innerWidth > 1024) { sidebar.classList.remove('active'); overlay.classList.remove('active'); } });
-
-        // =========================================================================
-        // === NUEVO: ESCUDO DE AUDITORÍA CENTRAL MULTI-DISPOSITIVO (ANTI-DUPLICADOS) ===
-        // =========================================================================
-        window.iniciarValidacionAsistencia = function() {
-            const btn = document.getElementById('btn-iniciar-asistencia');
-            
-            // Evaluamos de forma segura el código de sesión que almacena la tabla de inasistencias
-            let codigoSede = "";
-            const campoRespaldo = document.getElementById('asis-codigo-buscar') || document.getElementById('est-codigo');
-            if (campoRespaldo && campoRespaldo.value.trim()) {
-                codigoSede = campoRespaldo.value.trim();
-            }
-
-            // Si aún no se digita en el buscador (como en el primer inicio), usamos el código de respaldo institucional de la sesión
-            if (!codigoSede && typeof listaDocentesCargados !== 'undefined') {
-                codigoSede = document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : "";
-            }
-            
-            if (!codigoSede) {
-                // Si la sesión es totalmente nueva, forzamos a abrir el buscador para que se registre el código
-                document.getElementById('dashboard-menu').style.display = 'none'; 
-                document.getElementById('modulo-asistencia').style.display = 'block';
-                document.getElementById('asistencia-buscador').style.display = 'block'; // Mostramos buscador si está vacío
-                window.scrollTo(0,0);
-                return;
-            }
-
-            const hoy = new Date().toLocaleDateString('sv-SE'); // Genera YYYY-MM-DD local estricto
-
-            if (btn) {
-                btn.disabled = true;
-                btn.innerText = "⏳ Verificando auditoría distrital...";
-                btn.style.background = "#64748b";
-            }
-
-            fetch(`${URL_API_GOOGLE}?accion=verificar_duplicado&codigo=${codigoSede}&fecha=${hoy}`)
-            .then(res => res.json())
-            .then(result => {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerText = "📝 Iniciar Reporte";
-                    btn.style.background = "#0A2540";
-                }
-
-                if (result.duplicado) {
-                    alert(`🛑 Bloqueo de Auditoría Distrital:\n\nEl centro educativo con código de infraestructura [ ${codigoSede} ] ya cargó y asentó el control de asistencia correspondiente al día de hoy.\n\nNo se admiten reportes duplicados en la misma fecha desde ningún dispositivo.`);
-                } else {
-                    // Libre de duplicados: Abrimos el módulo
-                    document.getElementById('dashboard-menu').style.display = 'none'; 
-                    document.getElementById('modulo-asistencia').style.display = 'block';
-                    document.getElementById('asistencia-buscador').style.display = 'none'; // Escondemos buscador para evitar spam manual
-                    
-                    const campoBuscadorInterno = document.getElementById('asis-codigo-buscar');
-                    if(campoBuscadorInterno) campoBuscadorInterno.value = codigoSede;
-                    
-                    window.scrollTo(0,0);
-                    if (typeof buscarDocentes === "function") buscarDocentes();
-                }
-            })
-            .catch(err => {
-                console.error("Error validando duplicado:", err);
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerText = "📝 Iniciar Reporte";
-                    btn.style.background = "#0A2540";
-                }
-                // Si la API falla por red, permitimos pase de emergencia
-                document.getElementById('dashboard-menu').style.display = 'none'; 
-                document.getElementById('modulo-asistencia').style.display = 'block';
-                window.scrollTo(0,0);
-            });
-        };
+// ... (Aquí arriba están las otras funciones que pegamos antes, como las del calendario) ...
         
-        /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
+        // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
+
+     /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
         window.iniciarContadorPremium = function() {
             let baseCount = 19560; 
             let tiempoExacto = new Date().getTime();
@@ -6922,6 +6838,7 @@
                 sessionStorage.setItem('visita_contada_nube', 'true');
             }
 
+            // 1. MEMORIA INMEDIATA: Pinta el último número conocido al instante (sin esperar a la nube)
             let ultimoConteo = localStorage.getItem('contador_cache_local') || baseCount;
             let paddedCache = ultimoConteo.toString().padStart(7, '0');
             let digitsCache = paddedCache.split('');
@@ -6930,6 +6847,7 @@
                 if (el) el.innerText = digitsCache[i];
             }
             
+            // 2. CONEXIÓN DE FONDO: Trae el número real y fresco desde la nube de forma invisible
             let urlConectada = 'https://abacus.jasoncameron.dev/' + accion + '/sanjuanopico_distrito/visitas?t=' + tiempoExacto;
 
             fetch(urlConectada, { cache: 'no-store', mode: 'cors' })
@@ -6937,10 +6855,14 @@
                 .then(data => {
                     let globalVisits = data.value;
                     let totalVisits = baseCount + globalVisits;
+                    
+                    // Guarda el número fresco en la memoria para tu próximo clic
                     localStorage.setItem('contador_cache_local', totalVisits);
+                    
                     let paddedVisits = totalVisits.toString().padStart(7, '0');
                     let digits = paddedVisits.split('');
 
+                    // Actualiza las cajas suavemente (solo si el número cambió en este segundo)
                     for (let i = 0; i < 7; i++) {
                         let el = document.getElementById('digit-' + i);
                         if(el && el.innerText !== digits[i]) {
@@ -6953,11 +6875,14 @@
                 });
         };
 
-        /* --- FUNCIONES DEL CARRUSEL DE NOTICIAS (TEXTO ENVOLVENTE) --- */
+        // 👆 EL CÓDIGO DEL PASO 1 TERMINA AQUÍ 👆
+
+ /* --- FUNCIONES DEL CARRUSEL DE NOTICIAS (TEXTO ENVOLVENTE) --- */
         window.slideIndex = 0;
         window.cambiarSlide = function(n) {
+            // Busca las diapositivas solo en la página actual
             const slides = document.querySelectorAll('.carousel-slides .slide');
-            if(slides.length === 0) return; 
+            if(slides.length === 0) return; // Si no estamos en inicio, no hace nada
             
             slides.forEach(slide => slide.classList.remove('active'));
             window.slideIndex += n;
@@ -6966,65 +6891,41 @@
             slides[window.slideIndex].classList.add('active');
         };
 
+        // Temporizador para que el carrusel gire solo
         setInterval(() => {
             const slides = document.querySelectorAll('.carousel-slides .slide');
+            // Gira solo si el carrusel está visible en la pantalla
             if(slides.length > 0) {
                 window.cambiarSlide(1);
             }
         }, 6000);
-    </style>
+    </script>
 <script>
-// Función auxiliar para transformar imágenes pesadas de evidencias a cadenas Base64 seguras
-function procesarImagenABase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = error => reject(error);
-    });
-}
-
-async function enviarReporte(event, mainForm) {
+function enviarReporte(event, mainForm) {
     try {
+        // 1. Bloqueamos el navegador
         event.preventDefault(); 
         
         var btn = mainForm.querySelector('.btn-submit'); 
         if(btn) {
-            btn.innerText = '⏳ PROCESANDO IMÁGENES Y ENVIANDO REPORTE...'; 
+            btn.innerText = '⏳ ENVIANDO REPORTE A GOOGLE...'; 
             btn.disabled = true; 
         }
 
-        // --- PROCESAMIENTO ASÍNCRONO DE EVIDENCIAS FOTOGRÁFICAS ---
-        const inputFotos = document.getElementById('lluvias-fotos');
-        let fotosBase64 = [];
-        if (inputFotos && inputFotos.files.length > 0) {
-            const maxFotos = Math.min(inputFotos.files.length, 3); // Límite estricto de 3 fotos
-            for (let f = 0; f < maxFotos; f++) {
-                const archivo = inputFotos.files[f];
-                try {
-                    const textoBase64 = await procesarImagenABase64(archivo);
-                    fotosBase64.push({
-                        nombre: `Evidencia_${f+1}_${archivo.name}`,
-                        mimeType: archivo.type,
-                        base64: textoBase64
-                    });
-                } catch (errImg) {
-                    console.error("Error binario de imagen:", errImg);
-                }
-            }
-        }
-
+        // 2. Recolectamos datos de prioridades
         var prios = []; 
         for(var i = 1; i <= 6; i++) {
             var cb = document.getElementById('p' + i); 
             if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
         } 
 
+       // Capturamos el correo del director desde la pantalla de inicio de sesión
         var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
 
+        // 3. Empaquetamos los datos
         var data = { 
             tipoFormulario: 'lluvias',
-            Correo: correoDirector, 
+            Correo: correoDirector, // <--- AQUÍ LE ENVIAMOS EL CORREO A GOOGLE
             CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
             Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
             Director: document.getElementById('rep-director') ? document.getElementById('rep-director').value : '', 
@@ -7039,10 +6940,10 @@ async function enviarReporte(event, mainForm) {
             Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
             Prioridades: prios.join(' / '),
-            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',
-            datos_fotos: fotosBase64.length > 0 ? JSON.stringify(fotosBase64) : '' // Inyección del paquete fotográfico
+            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.'
         };
 
+        // 4. Portal invisible (Iframe) para evitar el bloqueo del navegador
         var iframeName = 'iframe-lluvias-' + Date.now();
         var iframe = document.createElement('iframe'); 
         iframe.name = iframeName; 
@@ -7064,6 +6965,7 @@ async function enviarReporte(event, mainForm) {
         document.body.appendChild(hiddenForm); 
         hiddenForm.submit(); 
 
+        // 5. Mostrar éxito y limpiar después de 1.5 segundos
         setTimeout(function() { 
             var contForm = document.getElementById('contenedor-formulario');
             if(contForm) contForm.style.display = 'none'; 
@@ -7077,20 +6979,17 @@ async function enviarReporte(event, mainForm) {
                 btn.disabled = false; 
             }
             window.scrollTo(0,0); 
-            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido consolidados de manera oficial en la nube. El PDF unificado se remitió a su correo.");
+            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos han sido guardados en la base distrital y el PDF oficial ha sido generado.");
             
+            // Limpieza de basura invisible
             setTimeout(function() {
                 if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
                 if(document.body.contains(iframe)) document.body.removeChild(iframe);
             }, 3000);
-        }, 1800); 
+        }, 1500); 
 
     } catch (error) {
         console.error("Error:", error);
-        if(btn) {
-            btn.innerText = '📤 Enviar Informe y Generar Documento';
-            btn.disabled = false;
-        }
     }
 }
 </script>
@@ -7103,7 +7002,7 @@ async function enviarReporte(event, mainForm) {
             🔙 Volver al Menú
         </button>
     </div>
-    <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; display: none;">
+    <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
         <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
             <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
@@ -7189,11 +7088,7 @@ const URL_API_GOOGLE = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNz
 
 // 1. Buscador conectado al Google Sheets (doGet)
 function buscarDocentes() {
-    // Tomamos el código del buscador interno o, en su defecto, el de lluvias de la sesión activa
-    let codigoInput = document.getElementById('asis-codigo-buscar').value.trim();
-    if(!codigoInput) {
-        codigoInput = document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value.trim() : '';
-    }
+    const codigoInput = document.getElementById('asis-codigo-buscar').value.trim();
     const btn = document.getElementById('btn-buscar-docentes');
     
     if (!codigoInput) {
@@ -7201,18 +7096,14 @@ function buscarDocentes() {
         return;
     }
     
-    if(btn) {
-        btn.innerText = "⏳ BUSCANDO PLANTA...";
-        btn.disabled = true;
-    }
+    btn.innerText = "⏳ BUSCANDO PLANTA...";
+    btn.disabled = true;
     
     fetch(`${URL_API_GOOGLE}?codigo=${codigoInput}`)
     .then(response => response.json())
     .then(result => {
-        if(btn) {
-            btn.innerText = "🔍 Buscar Planta Docente";
-            btn.disabled = false;
-        }
+        btn.innerText = "🔍 Buscar Planta Docente";
+        btn.disabled = false;
         
         if (result.status === "success") {
             if (result.data.length === 0) {
@@ -7236,10 +7127,8 @@ function buscarDocentes() {
     })
     .catch(error => {
         console.error("Error:", error);
-        if(btn) {
-            btn.innerText = "🔍 Buscar Planta Docente";
-            btn.disabled = false;
-        }
+        btn.innerText = "🔍 Buscar Planta Docente";
+        btn.disabled = false;
         alert("❌ Error de conexión con la base de datos.");
     });
 }
@@ -7352,14 +7241,20 @@ function recalcularEstadisticas() {
 }
 // Función para reiniciar y limpiar todo el módulo de asistencia
 window.limpiarFormularioAsistencia = function() {
+    // 1. Limpiar el buscador
     document.getElementById('asis-codigo-buscar').value = "";
+    
+    // 2. Ocultar la tabla y estadísticas
     document.getElementById('asistencia-contenido').style.display = 'none';
+    
+    // 3. Vaciar los datos y contadores
     document.getElementById('tabla-docentes-body').innerHTML = "";
     listaDocentesCargados = [];
     document.getElementById('stat-total').innerText = "0";
     document.getElementById('stat-presentes').innerText = "0";
     document.getElementById('stat-ausentes').innerText = "0";
     
+    // 4. Reiniciar los botones de acción masiva (Bulk) a su estado original
     const radioNo = document.querySelector('input[name="bulk_falta"][value="no"]');
     if(radioNo) radioNo.checked = true;
     document.getElementById('bulk-campos-condicionales').style.display = 'none';
@@ -7368,12 +7263,16 @@ window.limpiarFormularioAsistencia = function() {
 };
 // Función para reiniciar el módulo de Estadísticas
 window.limpiarEstadisticas = function() {
+    // 1. Limpiar las cajas de texto y fechas
     document.getElementById('est-codigo').value = "";
     document.getElementById('est-inicio').value = "";
     document.getElementById('est-fin').value = "";
+    
+    // 2. Ocultar el reporte si estaba abierto
     document.getElementById('area-imprimible-est').style.display = 'none';
     document.getElementById('btn-imprimir-est').style.display = 'none';
     
+    // 3. Destruir los gráficos anteriores para liberar memoria
     if (typeof miGraficoDona !== 'undefined' && miGraficoDona) miGraficoDona.destroy();
     if (typeof miGraficoBarras !== 'undefined' && miGraficoBarras) miGraficoBarras.destroy();
 };
@@ -7387,10 +7286,7 @@ window.limpiarFormularioLluvias = function() {
 // 5. Envío en masa a la pestaña "Asistencia" (Bypass de Seguridad CORS)
 function enviarAsistencia() {
     const btn = document.getElementById('btn-guardar-asistencia');
-    let codigoEscuela = document.getElementById('asis-codigo-buscar').value.trim();
-    if(!codigoEscuela) {
-        codigoEscuela = document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value.trim() : '';
-    }
+    const codigoEscuela = document.getElementById('asis-codigo-buscar').value.trim();
     const sedeNombre = document.getElementById('asis-sede-nombre').innerText;
     
     let datosEmpaquetados = [];
@@ -7418,9 +7314,10 @@ function enviarAsistencia() {
     
     if (!validacionExitosa) return;
     
-    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS DISTRITAL...";
+    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS...";
     btn.disabled = true;
     
+    // --- EL TRUCO INFALIBLE DEL IFRAME INVISIBLE ---
     var iframeName = 'iframe-asistencia-' + Date.now();
     var iframe = document.createElement('iframe'); 
     iframe.name = iframeName; 
@@ -7432,6 +7329,7 @@ function enviarAsistencia() {
     hiddenForm.action = URL_API_GOOGLE; 
     hiddenForm.target = iframeName; 
 
+    // Aquí empaquetamos las variables idénticas a como las espera Apps Script
     var data = {
         tipoFormulario: 'asistencia',
         codigo: codigoEscuela,
@@ -7449,16 +7347,36 @@ function enviarAsistencia() {
     document.body.appendChild(hiddenForm); 
     hiddenForm.submit(); 
 
+    // Forzamos el mensaje de éxito nativo directo a los 1.5 segundos saltándonos el bloqueo del navegador
     setTimeout(function() { 
         alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
         
+// Función para reiniciar y limpiar todo el módulo de asistencia
+window.limpiarFormularioAsistencia = function() {
+    document.getElementById('asis-codigo-buscar').value = "";
+    document.getElementById('asistencia-contenido').style.display = 'none';
+    document.getElementById('tabla-docentes-body').innerHTML = "";
+    listaDocentesCargados = [];
+    document.getElementById('stat-total').innerText = "0";
+    document.getElementById('stat-presentes').innerText = "0";
+    document.getElementById('stat-ausentes').innerText = "0";
+    
+    const radioNo = document.querySelector('input[name="bulk_falta"][value="no"]');
+    if(radioNo) radioNo.checked = true;
+    document.getElementById('bulk-campos-condicionales').style.display = 'none';
+    document.getElementById('bulk_motivo').value = "";
+    document.getElementById('bulk_obs').value = "";
+};
+        // --- 🧹 LIMPIEZA AUTOMÁTICA DEL MÓDULO ---
         if (typeof window.limpiarFormularioAsistencia === "function") {
             window.limpiarFormularioAsistencia();
         } else {
+            // Limpieza básica de respaldo en caso de que falte la función principal
             document.getElementById('asistencia-contenido').style.display = 'none';
             document.getElementById('asis-codigo-buscar').value = "";
         }
         
+        // Regreso al menú principal
         document.getElementById('modulo-asistencia').style.display = 'none';
         
         var dashMenu = document.getElementById('dashboard-menu');
@@ -7468,6 +7386,7 @@ function enviarAsistencia() {
         btn.disabled = false;
         window.scrollTo(0,0);
 
+        // Limpieza del túnel en segundo plano
         setTimeout(function() {
             if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
             if(document.body.contains(iframe)) document.body.removeChild(iframe);
@@ -7498,6 +7417,7 @@ function generarEstadisticas() {
     btn.innerText = "⏳ Procesando datos...";
     btn.disabled = true;
 
+    // Conectamos con tu Apps Script enviando la nueva instrucción y las fechas
     const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
 
     fetch(urlConsulta)
@@ -7518,11 +7438,14 @@ function generarEstadisticas() {
             return;
         }
 
+        // 1. Mostrar la zona del reporte y el botón de impresión
         document.getElementById('area-imprimible-est').style.display = 'block';
         document.getElementById('btn-imprimir-est').style.display = 'block';
 
+        // 2. Inyectar Textos y Números (KPIs)
         document.getElementById('est-sede-nombre').innerText = data.sede;
         
+        // Convertimos el formato de fecha de YYYY-MM-DD a DD/MM/YYYY para lectura más natural
         const fi = inicio.split("-"); const ff = fin.split("-");
         document.getElementById('est-rango-texto').innerText = `${fi[2]}/${fi[1]}/${fi[0]} al ${ff[2]}/${ff[1]}/${ff[0]}`;
         
@@ -7530,6 +7453,7 @@ function generarEstadisticas() {
         document.getElementById('est-kpi-presentes').innerText = data.presentes;
         document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
 
+        // 3. Mandar a pintar los Gráficos
         dibujarGraficos(data.presentes, data.ausentes, data.motivos);
     })
     .catch(error => {
@@ -7541,10 +7465,12 @@ function generarEstadisticas() {
 }
 
 function dibujarGraficos(presentes, ausentes, motivosObj) {
+    // 1. REGISTRO OBLIGATORIO: Le avisamos a Chart.js que use la extensión de porcentajes
     if (typeof ChartDataLabels !== 'undefined') {
         Chart.register(ChartDataLabels);
     }
 
+    // Si ya existían gráficos anteriores en la pantalla, los borramos para que no se encimen
     if (miGraficoDona) miGraficoDona.destroy();
     if (miGraficoBarras) miGraficoBarras.destroy();
 
@@ -7566,17 +7492,17 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
             responsive: true, 
             plugins: { 
                 legend: { position: 'bottom' },
-                datalabels: { 
-                    color: '#ffffff', 
+                datalabels: { // Configuración del texto estampado
+                    color: '#ffffff', // Letra blanca
                     font: { weight: 'bold', size: 14 },
                     formatter: function(value, context) {
-                        if (value === 0) return ''; 
+                        if (value === 0) return ''; // Si el valor es 0, ocultamos el texto para no ensuciar
                         let total = context.chart._metasets[context.datasetIndex].total;
                         let porcentaje = ((value / total) * 100).toFixed(1) + '%';
                         return porcentaje;
                     }
                 },
-                tooltip: { 
+                tooltip: { // Mantenemos el cuadro negro informativo intacto
                     callbacks: {
                         label: function(context) {
                             let valor = context.raw;
@@ -7619,7 +7545,7 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
             plugins: { 
                 legend: { display: false },
                 datalabels: { 
-                    display: false 
+                    display: false // Ocultamos el texto sobre las barras para no amontonar
                 },
                 tooltip: {
                     callbacks: {
@@ -7634,14 +7560,16 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
             }
         }
     });
-
+// Calcular el porcentaje total de asistencia para la leyenda analítica
 let totalRegistros = presentes + ausentes;
 let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 100).toFixed(1) : 0;
 
+// Construir el texto analítico dinámico
 let textoLeyenda = `El presente informe estadístico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
 `Se muestra un índice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0}%</strong> de inasistencias generales. ` +
 `Este balance provee el respaldo técnico necesario para los registros de rendimiento distrital y la respectiva liberación de firmas de conformidad.`;
 
+// Inyectarlo en la zona de abajo del reporte
 document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
 }
 </script>
