@@ -6909,7 +6909,7 @@
     </script>
 <script>
 // =========================================================================
-// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN BLINDADA DE ALTA SEGURIDAD)
+// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN DEFINITIVA DE ALTA COMPATIBILIDAD)
 // =========================================================================
 function enviarReporte(event, mainForm) {
     // 1. Detener el reinicio del navegador AL INSTANTE (Evita la expulsión al inicio)
@@ -6955,7 +6955,7 @@ function enviarReporte(event, mainForm) {
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
             Prioridades: prios.join(' / '),
             Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',
-            datos_fotos: datosFotosJSON || ''
+            datos_fotos: datosFotosJSON
         };
 
         // Creación del puente seguro Iframe
