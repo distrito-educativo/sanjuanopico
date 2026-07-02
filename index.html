@@ -7500,6 +7500,36 @@ setInterval(function() {
         txtBox.parentNode.appendChild(wrapper);
     }
 }, 400);
+// ... aquí arriba termina la función de dibujarGraficos y la leyenda analítica ...
+    document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
+}
+
+// =========================================================================
+// SENSOR INTELIGENTE REFORZADO PARA LA CAJA DE FOTOS (AQUÍ LO PEGAS)
+// =========================================================================
+setInterval(function() {
+    var txtBox = document.getElementById('rep-comentarios');
+    if (txtBox && !document.getElementById('lluvias-fotos')) {
+        var wrapper = document.createElement('div');
+        wrapper.id = 'bloque-fotos-contenedor';
+        wrapper.style.marginTop = "15px";
+        wrapper.style.marginBottom = "15px";
+        wrapper.style.padding = "10px";
+        wrapper.style.background = "#f8fafc";
+        wrapper.style.border = "1px dashed #cbd5e1";
+        wrapper.style.borderRadius = "6px";
+        wrapper.style.textAlign = "left";
+        wrapper.innerHTML = `
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px; font-family: inherit;">
+                📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+            </label>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 6px; cursor: pointer; box-sizing: border-box;">
+            <small style="color: #64748b; display: block; margin-top: 4px; font-family: inherit;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+        `;
+        txtBox.parentNode.insertBefore(wrapper, txtBox.nextSibling);
+    }
+}, 500);
+</script>
 </script>
 </body>
 </html>
