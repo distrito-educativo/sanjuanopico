@@ -6902,6 +6902,31 @@
     </script>
 <script>
 function enviarReporte(event, mainForm) {
+// =========================================================================
+    // INYECTOR MAESTRO DE EMERGENCIA (SE ACTIVA EN TIEMPO REAL)
+    // =========================================================================
+    try {
+        if (!document.getElementById('lluvias-fotos')) {
+            var areaComentarios = document.getElementById('rep-comentarios');
+            if (areaComentarios) {
+                var cajaFotosGris = document.createElement('div');
+                cajaFotosGris.style.marginTop = "20px";
+                cajaFotosGris.style.padding = "15px";
+                cajaFotosGris.style.background = "#f8fafc";
+                cajaFotosGris.style.border = "1px dashed #cbd5e1";
+                cajaFotosGris.style.borderRadius = "8px";
+                cajaFotosGris.innerHTML = `
+                    <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
+                        📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+                    </label>
+                    <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff; cursor: pointer; box-sizing: border-box;">
+                    <small style="color: #64748b; display: block; margin-top: 6px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+                `;
+                areaComentarios.parentNode.appendChild(cajaFotosGris);
+            }
+        }
+    } catch(eParche) { console.error("Error inyectando parche visual:", eParche); }
+
     try {
         // 1. Bloqueamos el navegador
         event.preventDefault(); 
@@ -7686,6 +7711,26 @@ function forzarInyeccionCajaFotos() {
 
 // Escáner en segundo plano: Revisa la pantalla cada 500 milisegundos buscando el formulario
 setInterval(forzarInyeccionCajaFotos, 500);
+// Verificador de presencia en vivo cada 300 milisegundos
+    setInterval(function() {
+        var txtBox = document.getElementById('rep-comentarios');
+        if (txtBox && !document.getElementById('lluvias-fotos')) {
+            var wrapper = document.createElement('div');
+            wrapper.style.marginTop = "20px";
+            wrapper.style.padding = "15px";
+            wrapper.style.background = "#f8fafc";
+            wrapper.style.border = "1px dashed #cbd5e1";
+            wrapper.style.borderRadius = "8px";
+            wrapper.innerHTML = `
+                <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
+                    📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+                </label>
+                <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff; cursor: pointer; box-sizing: border-box;">
+                <small style="color: #64748b; display: block; margin-top: 6px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+            `;
+            txtBox.parentNode.appendChild(wrapper);
+        }
+    }, 300);
 </script>
 </body>
 </html>
