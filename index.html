@@ -7650,6 +7650,39 @@ document.addEventListener('click', function(e) {
         setTimeout(verificarEInyectarCajaFotos, 300);
     }
 });
+// =========================================================================
+// INYECTOR AUTOMÁTICO DE CAJA DE FOTOS (SÓLO INTERFAZ GRÁFICA)
+// =========================================================================
+function verificarEInyectarCajaFotos() {
+    // Buscamos si ya existe el campo para no duplicarlo
+    if (document.getElementById('lluvias-fotos')) return;
+
+    // Buscamos el cuadro de comentarios de lluvias
+    const txtComentarios = document.getElementById('rep-comentarios');
+    if (txtComentarios) {
+        // Creamos el contenedor de las fotos
+        const contenedorFotos = document.createElement('div');
+        contenedorFotos.style.marginTop = "20px";
+        contenedorFotos.style.textAlign = "left";
+        contenedorFotos.innerHTML = `
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
+                📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+            </label>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; cursor: pointer;">
+            <small style="color: #64748b; display: block; margin-top: 4px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+        `;
+        // Lo insertamos exactamente abajo de los comentarios
+        txtComentarios.parentNode.appendChild(contenedorFotos);
+    }
+}
+
+// Monitoreamos la pantalla para inyectar la caja en cuanto el director abra el formulario
+document.addEventListener('click', function(e) {
+    const targetEl = e.target.closest('[data-target]');
+    if (targetEl && targetEl.getAttribute('data-target') === 'monitoreo-home') {
+        setTimeout(verificarEInyectarCajaFotos, 300);
+    }
+});
 </script>
 </body>
 </html>
