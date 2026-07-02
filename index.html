@@ -6971,6 +6971,20 @@ function enviarReporte(event, mainForm) {
             });
         }
 
+// --- PROCESAMIENTO DE IMÁGENES EN BASE64 ---
+        var inputFotos = document.getElementById('lluvias-fotos');
+        var fotosPromesas = [];
+        var datosFotosJSON = '';
+
+        // Función interna para convertir archivo a Base64 de forma segura
+        function transformarFile(file) {
+            return new Promise(function(resolve, reject) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() { resolve(reader.result.split(',')[1]); };
+                reader.onerror = function(error) { reject(error); };
+            });
+        }
         // 3. Empaquetamos los datos
         var data = { 
             tipoFormulario: 'lluvias',
@@ -6990,7 +7004,7 @@ function enviarReporte(event, mainForm) {
             Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
             Prioridades: prios.join(' / '),
             Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',
-            datos_fotos: '' // Espacio reservado que llenaremos abajo
+            datos_fotos: '' // 👈 Déjalo exactamente así, vacío. El código de abajo se encargará de llenarlo.
         };
 // Si el director seleccionó fotos, detenemos un segundo el envío para procesarlas
         if (inputFotos && inputFotos.files.length > 0) {
@@ -7018,6 +7032,33 @@ function enviarReporte(event, mainForm) {
             ejecutarEnvioIframe(); // Ejecuta el envío normal sin fotos
         }
 
+// Si el director seleccionó fotos, procesamos antes de enviar
+        if (inputFotos && inputFotos.files.length > 0) {
+            var maxFotos = Math.min(inputFotos.files.length, 3);
+            var fotosCargadas = [];
+            
+            (async function() {
+                for (var f = 0; f < maxFotos; f++) {
+                    try {
+                        var b64String = await transformarFile(inputFotos.files[f]);
+                        fotosCargadas.push({
+                            nombre: 'Evidencia_' + (f+1) + '_' + inputFotos.files[f].name,
+                            mimeType: inputFotos.files[f].type,
+                            base64: b64String
+                        });
+                    } catch(eImg) { console.error(eImg); }
+                }
+                if(fotosCargadas.length > 0) {
+                    data.datos_fotos = JSON.stringify(fotosCargadas);
+                }
+                ejecutarEnvioIframe(); // Envía con fotos
+            })();
+        } else {
+            ejecutarEnvioIframe(); // Envía normal sin fotos
+        }
+
+        // Envolvemos tu envío original en una función interna para que no se ejecute antes de tiempo
+        function ejecutarEnvioIframe() {
         // Envolvemos tu envío original en una función interna para controlar el flujo
         function ejecutarEnvioIframe() {
 
@@ -7066,11 +7107,11 @@ function enviarReporte(event, mainForm) {
             }, 3000);
         }, 1500); 
 
-    } catch (error) {
-        console.error("Error:", error);
-    }
-} // Cierra ejecutarEnvioIframe
-}
+} catch (error) {
+            console.error("Error:", error);
+        }
+    } // 1. Aquí se cierra la función interna ejecutarEnvioIframe
+} // 2. Aquí se cierra la función principal enviarReporte
 </script>
 
 <div id="modulo-asistencia" style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 1000px; margin: 25px auto; display: none; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box;">
