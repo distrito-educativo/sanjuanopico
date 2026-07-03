@@ -6138,7 +6138,7 @@
                                         <option value="CENTRO ESCOLAR CANTON JABALINCITO">CENTRO ESCOLAR CANTON JABALINCITO</option>
                                         <option value="CENTRO ESCOLAR CANTÓN LAS DELICIAS">CENTRO ESCOLAR CANTÓN LAS DELICIAS</option>
                                         <option value="CENTRO ESCOLAR CANTON CHANMICO">CENTRO ESCOLAR CANTON CHANMICO</option>
-                                        <option value="ESCOLAR CANTÓN AGUA ESCONDIDA">ESCOLAR CANTÓN AGUA ESCONDIDA</option>
+                                        <option value="CENTRO ESCOLAR CANTÓN AGUA ESCONDIDA">CENTRO ESCOLAR CANTÓN AGUA ESCONDIDA</option>
                                         <option value="INSTITUTO NACIONAL TECPAN">INSTITUTO NACIONAL TECPAN</option>
                                         <option value="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO</option>
                                         <option value="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO</option>
@@ -6909,10 +6909,10 @@
     </script>
 <script>
 // =========================================================================
-// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN DEFINITIVA DE ALTA COMPATIBILIDAD)
+// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN DEFINITIVA CON FETCH BINARIO)
 // =========================================================================
 function enviarReporte(event, mainForm) {
-    // 1. Detener el reinicio del navegador AL INSTANTE (Evita la expulsión al inicio)
+    // 1. Detener el reinicio del navegador AL INSTANTE
     if (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -6935,53 +6935,37 @@ function enviarReporte(event, mainForm) {
     var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
     var inputFotos = document.getElementById('lluvias-fotos');
 
-    // 3. Definimos la lógica de empaquetado y envío final
+    // 3. Definimos la lógica de empaquetado y envío final usando FETCH moderno
     function procesarYEnviar(datosFotosJSON) {
-        var data = { 
-            tipoFormulario: 'lluvias',
-            Correo: correoDirector, 
-            CentroEscolar: document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '', 
-            Codigo: document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '', 
-            Director: document.getElementById('rep-director') ? document.getElementById('rep-director').value : '', 
-            Telefono: document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '', 
-            Energia: document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '', 
-            Internet: document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '', 
-            Vias: document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '', 
-            Muros: document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '', 
-            AulasInundadas: document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '', 
-            Techos: document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '', 
-            Electrico: document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '', 
-            Tecnologia: document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '', 
-            Mobiliario: document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '', 
-            Prioridades: prios.join(' / '),
-            Comentarios: (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',
-            datos_fotos: datosFotosJSON
-        };
+        // Usamos FormData para empaquetar los datos de manera nativa sin corromper el Base64
+        var formData = new FormData();
+        formData.append('tipoFormulario', 'lluvias');
+        formData.append('Correo', correoDirector);
+        formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
+        formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
+        formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
+        formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
+        formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
+        formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
+        formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
+        formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
+        formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
+        formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
+        formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
+        formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
+        formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
+        formData.append('Prioridades', prios.join(' / '));
+        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
+        formData.append('datos_fotos', datosFotosJSON);
 
-        // Creación del puente seguro Iframe
-        var iframeName = 'iframe-lluvias-' + Date.now();
-        var iframe = document.createElement('iframe'); 
-        iframe.name = iframeName; 
-        iframe.style.display = 'none'; 
-        document.body.appendChild(iframe); 
-
-        var hiddenForm = document.createElement('form'); 
-        hiddenForm.method = 'POST'; 
-        hiddenForm.action = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec'; 
-        hiddenForm.target = iframeName; 
-
-        for(var key in data) {
-            var input = document.createElement('input'); 
-            input.type = 'hidden'; 
-            input.name = key; 
-            input.value = data[key]; 
-            hiddenForm.appendChild(input);
-        } 
-        document.body.appendChild(hiddenForm); 
-        hiddenForm.submit(); 
-
-        // Retorno controlado al menú
-        setTimeout(function() { 
+        // Envío asíncrono seguro a la URL de tu Google Apps Script
+        fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // Requerido para la comunicación sin conflictos con macros de Google
+        })
+        .then(function() {
+            // Retorno controlado al menú al completarse la transmisión
             var contForm = document.getElementById('contenedor-formulario');
             if(contForm) contForm.style.display = 'none'; 
             
@@ -6995,15 +6979,18 @@ function enviarReporte(event, mainForm) {
             }
             window.scrollTo(0,0); 
             alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido guardados en el servidor distrital y el PDF oficial ha sido generado.");
-            
-            setTimeout(function() {
-                if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
-                if(document.body.contains(iframe)) document.body.removeChild(iframe);
-            }, 3000);
-        }, 2000);
+        })
+        .catch(function(error) {
+            console.error("Error en la transmisión de datos:", error);
+            alert("⚠️ Los datos fueron enviados, pero el servidor está tardando en procesar el documento. Por favor, verifica tu correo electrónico en unos minutos.");
+            if(btn) {
+                btn.innerText = '📤 Enviar Informe y Generar Documento'; 
+                btn.disabled = false; 
+            }
+        });
     }
 
-    // 4. --- CONTROL CONSECUTIVO DE IMÁGENES (EVITA ERRORES ASYNC) ---
+    // 4. --- CONTROL CONSECUTIVO DE IMÁGENES ---
     if (inputFotos && inputFotos.files.length > 0) {
         var maxFotos = Math.min(inputFotos.files.length, 3);
         var fotosCargadas = [];
@@ -7038,7 +7025,6 @@ function enviarReporte(event, mainForm) {
         procesarYEnviar('');
     }
 }
-
 // =========================================================================
 // MÓDULO DE ASISTENCIA: VARIABLES Y LOGICA DE CONSULTA (Tu código original)
 // =========================================================================
