@@ -6099,12 +6099,12 @@
         </button>
     </div>
 
-    <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
-        <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">URGENTE</span>
-        <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Lluvias</h3>
-        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
-        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
-            📝 Iniciar Reporte
+    <div class="card" style="border-top: 4px solid #94a3b8; background: linear-gradient(to bottom, #ffffff, #f8fafc); opacity: 0.85;">
+        <span class="badge" style="background: #94a3b8; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">MÓDULO</span>
+        <h3 style="margin-top: 10px; color: #475569;">Próximo Reporte</h3>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Espacio reservado para la implementación de nuevas herramientas de gestión y recolección de datos distritales.</p>
+        <button type="button" disabled style="margin-top: 15px; background: #cbd5e1; color: #64748b; border: 1px solid #cbd5e1; padding: 12px 20px; border-radius: 6px; cursor: not-allowed; width: 100%; font-weight: bold;">
+            ⏳ Módulo en Construcción
         </button>
     </div>
 
@@ -6953,11 +6953,14 @@
             }
         };
 
-        window.dispararWhatsApp = function(e, t, n, r) {
+       window.dispararWhatsApp = function(e, t, n, r) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             var o = document.getElementById("txt-alerta-whatsapp").value.trim();
             if (!o) return alert("⚠️ Por favor, escribe el mensaje institucional primero.");
-            var a = "https://api.whatsapp.com/send?phone=" + t + "&text=" + encodeURIComponent("Estimado/a Director/a " + n + ",\n\n" + o);
+            
+            // Removido el saludo forzado; ahora envía exactamente lo que redactas en la caja de texto
+            var a = "https://api.whatsapp.com/send?phone=" + t + "&text=" + encodeURIComponent(o);
+            
             var s = document.getElementById("btn-wsp-" + r);
             if (s) { s.style.background = "#64748b"; s.innerText = "✅ Enviado"; }
             window.open(a, "_blank");
