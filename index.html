@@ -6011,7 +6011,7 @@
             'visita-formularios': `<div class="page-header"><h1>Formularios Digitales</h1></div>`,
             'visita-informes': `<div class="page-header"><h1>Portal de Informes</h1></div>`,
             
-          /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
+         /* --- EL PANEL SEGURO DE MONITOREO DISTRITAL --- */
             'monitoreo-home': `
                 <style>
                     /* Estilos inyectados para el Formulario de Incidencias */
@@ -6030,7 +6030,7 @@
                     .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
                     #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
                     #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
-/* ... (estilos anteriores que ya tienes) ... */
+                    /* ... (estilos anteriores que ya tienes) ... */
                     #mensaje-exito { display: none; text-align: center; background: white; padding: 50px 30px; border-radius: 12px; border-top: 5px solid #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
                     #mensaje-exito h3 { color: #10b981; font-size: 1.8rem; margin: 15px 0; }
 
@@ -6042,7 +6042,6 @@
                         .no-print { display: none !important; }
                         canvas { max-height: 350px !important; }
                     }
-                </style>
                 </style>
 
                 <div class="page-header">
@@ -6100,6 +6099,36 @@
         </button>
     </div>
 
+    <div class="card" style="border-top: 4px solid #042444; background: linear-gradient(to bottom, #ffffff, #f6f8fa); display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;">
+        <div id="wsp-bloque-candado" style="text-align: center; width: 100%;">
+            <span class="badge" style="background: #475569; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ADMINISTRACIÓN</span>
+            <h3 style="margin-top: 10px; color: #042444;">Avisos por WhatsApp</h3>
+            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px; line-height: 1.4; margin-bottom: 12px;">Acceso exclusivo para el Administrador Distrital.</p>
+            <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; width: 100%; box-sizing: border-box; font-size: 0.95rem; margin-bottom: 10px; text-align: center; background: white;">
+            <button type="button" onclick="verificarAccesoAlerta(event)" style="background: #042444; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.95rem;">🔒 Desbloquear Panel</button>
+        </div>
+
+        <div id="modulo-alertas-whatsapp" style="display: none; width: 100%;">
+            <span class="badge" style="background: #25D366; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">CENTRAL ACTIVA</span>
+            <h3 style="margin-top: 10px; color: #0A2540; font-size: 1.1rem;">Redactar Alerta Urgentísima</h3>
+            <textarea id="txt-alerta-whatsapp" rows="3" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: sans-serif; font-size: 0.9rem; resize: none; margin-bottom: 10px; background: white;" placeholder="Escribe el aviso general aquí..."></textarea>
+            <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #25D366; color: white; border: none; padding: 10px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 10px;">🔄 Cargar los 23 Directores</button>
+            
+            <div id="panel-envio-directores" style="display: none; max-height: 140px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; background: white;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 11px;">
+                    <thead>
+                        <tr style="background: #f8fafc; color: #64748b; border-bottom: 1px solid #cbd5e1; position: sticky; top: 0;">
+                            <th style="padding: 6px;">Escuela</th>
+                            <th style="padding: 6px;">Director</th>
+                            <th style="padding: 6px; text-align: center;">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-directores-whatsapp-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
                     </div>
 		    <br>
@@ -6107,10 +6136,10 @@
                         
                         <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
     <button type="button" class="btn-volver" style="margin-bottom: 0;" onclick="document.getElementById('contenedor-formulario').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
-        ← Volver al Panel
+        &larr; Volver al Panel
     </button>
     <button type="button" onclick="window.limpiarFormularioLluvias()" style="background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-        🧹 Limpiar Formulario
+        &nbsp; Limpiar Formulario
     </button>
 
 </div>
@@ -6132,22 +6161,22 @@
                                         <option value="ESCUELA DE EDUCACION PARVULARIA CANTON CHANMICO">ESCUELA DE EDUCACION PARVULARIA CANTON CHANMICO</option>
                                         <option value="CENTRO ESCOLAR HACIENDA CHANMICO">CENTRO ESCOLAR HACIENDA CHANMICO</option>
                                         <option value="CENTRO ESCOLAR CANTON EL MATAZANO">CENTRO ESCOLAR CANTON EL MATAZANO</option>
-                                        <option value="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES">COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES</option>
-                                        <option value="CENTRO ESCOLAR CANTON SITIO DEL NIÑO">CENTRO ESCOLAR CANTON SITIO DEL NIÑO</option>
+                                        <option value="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORT&Iacute;Z REYES">COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORT&Iacute;Z REYES</option>
+                                        <option value="CENTRO ESCOLAR CANTON SITIO DEL NI&Ntilde;O">CENTRO ESCOLAR CANTON SITIO DEL NI&Ntilde;O</option>
                                         <option value="CENTRO ESCOLAR LA NUEVA ESPERANZA">CENTRO ESCOLAR LA NUEVA ESPERANZA</option>
                                         <option value="CENTRO ESCOLAR CANTON JABALINCITO">CENTRO ESCOLAR CANTON JABALINCITO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN LAS DELICIAS">CENTRO ESCOLAR CANTÓN LAS DELICIAS</option>
+                                        <option value="CENTRO ESCOLAR CANT&Oacute;N LAS DELICIAS">CENTRO ESCOLAR CANT&Oacute;N LAS DELICIAS</option>
                                         <option value="CENTRO ESCOLAR CANTON CHANMICO">CENTRO ESCOLAR CANTON CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN AGUA ESCONDIDA">CENTRO ESCOLAR CANTÓN AGUA ESCONDIDA</option>
+                                        <option value="CENTRO ESCOLAR CANT&Oacute;N AGUA ESCONDIDA">CENTRO ESCOLAR CANT&Oacute;N AGUA ESCONDIDA</option>
                                         <option value="INSTITUTO NACIONAL TECPAN">INSTITUTO NACIONAL TECPAN</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN CANTÓN SITIO DEL NIÑO">CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN CANTÓN SITIO DEL NIÑO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO EL CAMBIO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO EL CAMBIO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO EL JABALINCITO CANTÓN CHANMICO">CENTRO ESCOLAR CASERÍO EL JABALINCITO CANTÓN CHANMICO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN EL JABALINÓN">CENTRO ESCOLAR CANTÓN EL JABALINÓN</option>
-                                        <option value="CENTRO ESCOLAR CASERÍO AGUA ZARCA CANTÓN SITIO DEL NIÑO">CENTRO ESCOLAR CASERÍO AGUA ZARCA CANTÓN SITIO DEL NIÑO</option>
-                                        <option value="CENTRO ESCOLAR CANTÓN SITIO GRANDE">CENTRO ESCOLAR CANTÓN SITIO GRANDE</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O NUEVO CONSUMIDERO CANT&Oacute;N CHANMICO">CENTRO ESCOLAR CASER&Iacute;O NUEVO CONSUMIDERO CANT&Oacute;N CHANMICO</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O VILLA LA ESPERANZA CANT&Oacute;N CHANMICO">CENTRO ESCOLAR CASER&Iacute;O VILLA LA ESPERANZA CANT&Oacute;N CHANMICO</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O COMUNIDAD TECPAN CANT&Oacute;N SITIO DEL NI&Ntilde;O">CENTRO ESCOLAR CASER&Iacute;O COMUNIDAD TECPAN CANT&Oacute;N SITIO DEL NI&Ntilde;O</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O EL CAMBIO CANT&Oacute;N CHANMICO">CENTRO ESCOLAR CASER&Iacute;O EL CAMBIO CANT&Oacute;N CHANMICO</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O EL JABALINCITO CANT&Oacute;N CHANMICO">CENTRO ESCOLAR CASER&Iacute;O EL JABALINCITO CANT&Oacute;N CHANMICO</option>
+                                        <option value="CENTRO ESCOLAR CANT&Oacute;N EL JABALIN&Oacute;N">CENTRO ESCOLAR CANT&Oacute;N EL JABALIN&Oacute;N</option>
+                                        <option value="CENTRO ESCOLAR CASER&Iacute;O AGUA ZARCA CANT&Oacute;N SITIO DEL NI&Ntilde;O">CENTRO ESCOLAR CASER&Iacute;O AGUA ZARCA CANT&Oacute;N SITIO DEL NI&Ntilde;O</option>
+                                        <option value="CENTRO ESCOLAR CANT&Oacute;N SITIO GRANDE">CENTRO ESCOLAR CANT&Oacute;N SITIO GRANDE</option>
                                         <option value="CENTRO ESCOLAR CASTO VALLADARES">CENTRO ESCOLAR CASTO VALLADARES</option>
                                         <option value="INSTITUTO NACIONAL DE SAN JUAN OPICO">INSTITUTO NACIONAL DE SAN JUAN OPICO</option>
                                     </select>
@@ -6183,7 +6212,10 @@
                                             <option value="68123">68123</option>
                                         </select>
                                     </div>
-                                    <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="rep-telefono" required></div>
+                                    <div class="form-group">
+                                        <label>Teléfono de Contacto</label>
+                                        <input type="text" id="rep-telefono" required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre del Director/a</label>
@@ -6197,7 +6229,7 @@
                                         <option value="CLAUDIA EVELYN MENDOZA">CLAUDIA EVELYN MENDOZA</option>
                                         <option value="CLIDE RUTH LOPEZ DE CLAVEL">CLIDE RUTH LOPEZ DE CLAVEL</option>
                                         <option value="DANIEL OMAR MELGAR RODRIGUEZ">DANIEL OMAR MELGAR RODRIGUEZ</option>
-                                        <option value="ELENA ROSIBEL VALDIZÓN">ELENA ROSIBEL VALDIZÓN</option>
+                                        <option value="ELENA ROSIBEL VALDIZ&Oacute;N">ELENA ROSIBEL VALDIZ&Oacute;N</option>
                                         <option value="ERMELINDA ARACELY GARCIA MORAN">ERMELINDA ARACELY GARCIA MORAN</option>
                                         <option value="ISSA LORENA PERDOMO PEREZ">ISSA LORENA PERDOMO PEREZ</option>
                                         <option value="JUAN PABLO OLIVARES CLAVEL">JUAN PABLO OLIVARES CLAVEL</option>
@@ -6339,7 +6371,7 @@
                             </div>
                             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
     <button type="button" onclick="window.limpiarFormularioLluvias()" style="flex: 1; min-width: 150px; background: #e2e8f0; color: #475569; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-        🧹 Limpiar formulario
+        &nbsp; Limpiar formulario
     </button>
     <button type="submit" class="btn-submit" style="flex: 3; min-width: 250px;">
         📤 Enviar Informe y Generar Documento
@@ -6365,7 +6397,7 @@
         🔍 Buscar Planta Docente
     </button>
     <button type="button" onclick="window.limpiarFormularioAsistencia()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-        🧹 Limpiar
+        &nbsp; Limpiar
     </button>
 </div>
                         </div>
@@ -6433,7 +6465,7 @@
 
                             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
     <button type="button" onclick="window.limpiarFormularioAsistencia()" style="flex: 1; min-width: 150px; background: #e2e8f0; color: #475569; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem;">
-        🧹 Limpiar
+        &nbsp; Limpiar
     </button>
     <button type="button" id="btn-guardar-asistencia" onclick="enviarAsistencia()" style="flex: 3; min-width: 250px; background: #16a34a; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(22,163,74,0.2);">
         💾 Guardar Control de Asistencia
@@ -6682,7 +6714,7 @@
                     
                     <div class="orientaciones-header">
                         <h2>Orientaciones Pedagógicas 2026</h2>
-                        <p>El año 2026 representa una nueva oportunidad para continuar implementando y fortaleciendo la transformación educativa. En este espacio encontrarás los lineamientos oficiales y la ruta de trabajo para el inicio del año escolar.</p>
+                        <p>El año 2026 represents una nueva oportunidad para continuar implementando y fortaleciendo la transformación educativa. En este espacio encontrarás los lineamientos oficiales y la ruta de trabajo para el inicio del año escolar.</p>
                     </div>
 
                     <div class="video-container">
@@ -6833,7 +6865,75 @@
         window.addEventListener('resize', () => { if(window.innerWidth > 1024) { sidebar.classList.remove('active'); overlay.classList.remove('active'); } });
 // ... (Aquí arriba están las otras funciones que pegamos antes, como las del calendario) ...
         
-        // 👇 PEGA EL CÓDIGO DEL PASO 1 JUSTO AQUÍ ABAJO 👇
+        // 👇 ACCIONES COOPERATIVAS DE LA CENTRAL DE AVISOS PROPORCIONADAS POR LA FUNCIÓN DE INYECCIÓN 👇
+        window.verificarAccesoAlerta = function(e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            var t = document.getElementById("pass-maestra-wsp").value.trim();
+            if ("Monitor2026*" === t) {
+                document.getElementById("wsp-bloque-candado").style.display = "none";
+                document.getElementById("modulo-alertas-whatsapp").style.display = "block";
+            } else {
+                alert("❌ Contraseña incorrecta. Acceso denegado.");
+                document.getElementById("pass-maestra-wsp").value = "";
+            }
+        };
+
+        window.cargarPanelDirectores = function(e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            const t = document.getElementById("btn-cargar-wsp");
+            t.innerText = "⏳ CONECTANDO...", t.disabled = !0;
+            
+            fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec", {
+                method: "POST",
+                mode: "no-cors",
+                body: new URLSearchParams({ tipoFormulario: "cargar_directores" })
+            })
+            .then((function() {
+                return fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores");
+            }))
+            .then((e => e.json()))
+            .then((e => {
+                t.innerText = "🔄 Cargar los 23 Directores", t.disabled = !1;
+                if ("success" === e.status) {
+                    window.listaDirectoresCache = e.data;
+                    window.renderizarTablaWhatsApp();
+                } else {
+                    alert("Error: " + e.message);
+                }
+            }))
+            .catch((e => {
+                t.innerText = "🔄 Cargar los 23 Directores", t.disabled = !1;
+                alert("❌ Error de conexión con la base de datos de la pestaña 'Directores'.");
+            }));
+        };
+
+        window.renderizarTablaWhatsApp = function() {
+            const e = document.getElementById("tabla-directores-whatsapp-body");
+            e.innerHTML = "";
+            if (0 !== window.listaDirectoresCache.length) {
+                window.listaDirectoresCache.forEach(((t, n) => {
+                    const r = document.createElement("tr");
+                    r.style.borderBottom = "1px solid #f1f5f9";
+                    let o = t.telefono.trim();
+                    if (!o.startsWith("503") && 8 === o.length) { o = "503" + o; }
+                    r.innerHTML = `<td style="padding:6px; font-weight:bold; color:#042444;">${t.escuela}</td><td style="padding:6px; color:#334155;">${t.nombre}</td><td style="padding:6px; text-align:center;"><button type="button" onclick="window.dispararWhatsApp(event, '${o}', '${t.nombre}', ${n})" id="btn-wsp-${n}" style="background:#25D366; color:white; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:11px;">💬 Enviar</button></td>`;
+                    e.appendChild(r);
+                }));
+                document.getElementById("panel-envio-directores").style.display = "block";
+            } else {
+                e.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:10px; color:#64748b;">No hay registros válidos.</td></tr>';
+            }
+        };
+
+        window.dispararWhatsApp = function(e, t, n, r) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            var o = document.getElementById("txt-alerta-whatsapp").value.trim();
+            if (!o) return alert("⚠️ Por favor, escribe el mensaje institucional primero.");
+            var a = "https://api.whatsapp.com/send?phone=" + t + "&text=" + encodeURIComponent("Estimado/a Director/a " + n + ",\n\n" + o);
+            var s = document.getElementById("btn-wsp-" + r);
+            if (s) { s.style.background = "#64748b"; s.innerText = "✅ Enviado"; }
+            window.open(a, "_blank");
+        };
 
      /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
         window.iniciarContadorPremium = function() {
@@ -6882,8 +6982,6 @@
                     console.error("Error conectando con la nube del contador:", error);
                 });
         };
-
-        // 👆 EL CÓDIGO DEL PASO 1 TERMINA AQUÍ 👆
 
  /* --- FUNCIONES DEL CARRUSEL DE NOTICIAS (TEXTO ENVOLVENTE) --- */
         window.slideIndex = 0;
@@ -6975,7 +7073,7 @@ function enviarReporte(event, mainForm) {
             alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido optimizados y guardados en el servidor distrital.");
         })
         .catch(function(error) {
-            console.error("Error en la transmisión de datos:", error);
+            console.error("Error en la transmission de datos:", error);
             alert("⚠️ Error en el servidor. Por favor, verifica el peso de las imágenes e intenta de nuevo.");
             if(btn) {
                 btn.innerText = '📤 Enviar Informe y Generar Documento'; 
@@ -7255,7 +7353,7 @@ function enviarAsistencia() {
         datosEmpaquetados.push({
             nip: docente.nip,
             nombre: docente.nombre,
-            falto: falto ? "SÍ" : "NO",
+            falto: falto ? "S&Iacute;" : "NO",
             motivo: falto ? motivo : "N/A",
             observacion: observacion ? observacion : "Sin observaciones"
         });
@@ -7295,7 +7393,7 @@ function enviarAsistencia() {
     hiddenForm.submit(); 
 
     setTimeout(function() { 
-        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
+        alert("✅ ¡ASISTENCIA GUARDADA CON &Eacute;XITO!\n\nLos registros han sido asentados de manera oficial en la pesta&ntilde;a 'Asistencia'.");
         
         if (typeof window.limpiarFormularioAsistencia === "function") {
             window.limpiarFormularioAsistencia();
@@ -7321,7 +7419,7 @@ function enviarAsistencia() {
 }
 
 // =========================================================================
-// MÓDULO DE ESTADÍSTICAS Y GRÁFICOS (CHART.JS)
+// M&Oacute;DULO DE ESTAD&Iacute;STICAS Y GR&Aacute;FICOS (CHART.JS)
 // =========================================================================
 let miGraficoDona = null;
 let miGraficoBarras = null;
@@ -7333,11 +7431,11 @@ function generarEstadisticas() {
     const fin = document.getElementById('est-fin').value;
 
     if (!codigo || !inicio || !fin) {
-        alert("⚠️ Por favor, ingrese el código de la escuela y seleccione ambas fechas.");
+        alert("⚠️ Por favor, ingrese el c&oacute;digo de la escuela y seleccione ambas fechas.");
         return;
     }
     if (inicio > fin) {
-        alert("⚠️ Error cronológico: La fecha de inicio no puede ser mayor a la fecha de fin.");
+        alert("⚠️ Error cronol&oacute;gico: La fecha de inicio no puede ser mayor a la fecha de fin.");
         return;
     }
 
@@ -7349,16 +7447,17 @@ function generarEstadisticas() {
     fetch(urlConsulta)
     .then(response => response.json())
     .then(data => {
-        btn.innerText = "📊 Calcular Gráficas";
+        btn.innerText = "📊 Calcular Gr&aacute;ficas";
         btn.disabled = false;
 
         if (data.status === "error") {
             alert("❌ Error: " + data.message);
             return;
+            
         }
 
         if (data.total === 0) {
-            alert("ℹ️ Base de datos vacía: No se encontraron registros de asistencia para el código " + codigo + " en las fechas indicadas.");
+            alert("ℹ️ Base de datos vac&iacute;a: No se encontraron registros de asistencia para el c&oacute;digo " + codigo + " en las fechas indicadas.");
             document.getElementById('area-imprimible-est').style.display = 'none';
             document.getElementById('btn-imprimir-est').style.display = 'none';
             return;
@@ -7380,9 +7479,9 @@ function generarEstadisticas() {
     })
     .catch(error => {
         console.error("Error Fetch:", error);
-        btn.innerText = "📊 Calcular Gráficas";
+        btn.innerText = "📊 Calcular Gr&aacute;ficas";
         btn.disabled = false;
-        alert("❌ Ocurrió un error al conectar con Google Sheets.");
+        alert("❌ Ocurri&oacute; un error al conectar con Google Sheets.");
     });
 }
 
@@ -7478,9 +7577,9 @@ function dibujarGraficos(presentes, ausentes, motivosObj) {
     let totalRegistros = presentes + ausentes;
     let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 100).toFixed(1) : 0;
 
-    let textoLeyenda = `El presente informe estadístico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
-    `Se muestra un índice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0}%</strong> de inasistencias generales. ` +
-    `Este balance provee el respaldo técnico necesario para los registros de rendimiento distrital y la respectiva liberación de firmas de conformidad.`;
+    let textoLeyenda = `El presente informe estad&iacute;stico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
+    `Se muestra un &iacute;ndice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0}%</strong> de inasistencias generales. ` +
+    `Este balance provee el respaldo t&eacute;cnico necesario para los registros de rendimiento distrital y la respectiva liberaci&oacute;n de firmas de conformidad.`;
 
     document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
 }
@@ -7510,140 +7609,6 @@ setInterval(function() {
         txtBox.parentNode.insertBefore(wrapper, txtBox.nextSibling);
     }
 }, 500);
-</script>
-<script>
-(function() {
-    // Monitorea constantemente si el panel privado del Monitoreo ya está cargado en pantalla
-    const verificarYColocarTarjeta = setInterval(function() {
-        // Buscamos el contenedor donde tu script dinámico dibuja las tarjetas actuales
-        const contenedorMonitoreo = document.querySelector('[id*="monitoreo"], .grid-monitoreo, #monitoreo-home');
-        
-        // Si el contenedor existe en la pantalla actual y la tarjeta aún no ha sido inyectada
-        if (contenedorMonitoreo && !document.getElementById('tarjeta-wsp-distrital')) {
-            
-            // Creamos la cuarta tarjeta respetando el diseño institucional
-            const nuevaTarjeta = document.createElement('div');
-            nuevaTarjeta.id = 'tarjeta-wsp-distrital';
-            nuevaTarjeta.className = 'tarjeta-monitoreo'; // Hereda tus estilos automáticos
-            nuevaTarjeta.style.cssText = 'padding: 20px; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; font-family: sans-serif; min-width: 250px; margin: 10px;';
-            
-            nuevaTarjeta.innerHTML = `
-                <div id="wsp-bloque-candado" style="text-align: center;">
-                    <h3 style="color: #042444; margin-top: 0; font-size: 16px;">📢 Avisos por WhatsApp</h3>
-                    <p style="color: #64748b; font-size: 12px; margin-bottom: 15px;">Acceso exclusivo para el Administrador Distrital.</p>
-                    <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 80%; box-sizing: border-box; font-size: 13px; margin-bottom: 10px; text-align: center;">
-                    <button onclick="verificarAccesoAlerta()" style="background: #042444; color: white; border: none; padding: 8px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 80%; font-size: 13px;">🔒 Desbloquear Panel</button>
-                </div>
-
-                <div id="modulo-alertas-whatsapp" style="display: none;">
-                    <h3 style="color: #0A2540; margin-top: 0; margin-bottom: 10px; font-size: 16px;">📢 Central de Avisos Activa</h3>
-                    <div style="margin-bottom: 12px;">
-                        <textarea id="txt-alerta-whatsapp" rows="3" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 13px; resize: vertical;" placeholder="Escribe el recordatorio institucional aquí..."></textarea>
-                    </div>
-                    <button onclick="cargarPanelDirectores()" id="btn-cargar-wsp" style="background: #25D366; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 15px;">
-                        🔄 Cargar los 23 Directores
-                    </button>
-                    <div id="panel-envio-directores" style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px;">
-                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
-                            <thead>
-                                <tr style="background: #f8fafc; color: #64748b; border-bottom: 1px solid #cbd5e1; position: sticky; top: 0;">
-                                    <th style="padding: 6px;">Escuela</th>
-                                    <th style="padding: 6px;">Director</th>
-                                    <th style="padding: 6px; text-align: center;">Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-directores-whatsapp-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
-            
-            // Adjuntamos de forma segura la cuarta tarjeta al final del menú privado
-            contenedorMonitoreo.appendChild(nuevaTarjeta);
-        }
-    }, 1000); // Revisa de forma segura cada segundo sin congelar el portal
-})();
-
-// LÓGICA COOPERATIVA DEL MÓDULO
-var CONTRASEÑA_MAESTRA = "Monitor2026*"; 
-var listaDirectoresCache = [];
-
-function verificarAccesoAlerta() {
-    var entrada = document.getElementById('pass-maestra-wsp').value.trim();
-    if (entrada === CONTRASEÑA_MAESTRA) {
-        document.getElementById('wsp-bloque-candado').style.display = 'none';
-        document.getElementById('modulo-alertas-whatsapp').style.display = 'block';
-    } else {
-        alert("❌ Contraseña incorrecta. Acceso denegado.");
-        document.getElementById('pass-maestra-wsp').value = "";
-    }
-}
-
-function cargarPanelDirectores() {
-    const btn = document.getElementById('btn-cargar-wsp');
-    btn.innerText = "⏳ CONECTANDO...";
-    btn.disabled = true;
-
-    fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams({ 'tipoFormulario': 'cargar_directores' })
-    })
-    .then(function() {
-        return fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores');
-    })
-    .then(res => res.json())
-    .then(response => {
-        btn.innerText = "🔄 Cargar los 23 Directores";
-        btn.disabled = false;
-        if(response.status === "success") {
-            listaDirectoresCache = response.data;
-            renderizarTablaWhatsApp();
-        } else {
-            alert("Error: " + response.message);
-        }
-    })
-    .catch(err => {
-        btn.innerText = "🔄 Cargar los 23 Directores";
-        btn.disabled = false;
-        alert("❌ Error al conectar.");
-    });
-}
-
-function renderizarTablaWhatsApp() {
-    const tbody = document.getElementById('tabla-directores-whatsapp-body');
-    tbody.innerHTML = "";
-    if(listaDirectoresCache.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:10px; color:#64748b;">No hay registros.</td></tr>`;
-        return;
-    }
-    listaDirectoresCache.forEach((dir, index) => {
-        const fila = document.createElement('tr');
-        fila.style.borderBottom = "1px solid #f1f5f9";
-        let numCel = dir.telefono.trim();
-        if(!numCel.startsWith("503") && numCel.length === 8) { numCel = "503" + numCel; }
-
-        fila.innerHTML = `
-            <td style="padding: 6px; font-weight: bold; color: #042444;">${dir.escuela}</td>
-            <td style="padding: 6px; color: #334155;">${dir.nombre}</td>
-            <td style="padding: 6px; text-align: center;">
-                <button onclick="dispararWhatsApp('${numCel}', '${dir.nombre}', ${index})" id="btn-wsp-${index}" style="background: #25D366; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">💬 Enviar</button>
-            </td>
-        `;
-        tbody.appendChild(fila);
-    });
-    document.getElementById('panel-envio-directores').style.display = 'block';
-}
-
-function dispararWhatsApp(telefono, nombreDirector, index) {
-    var cuerpoMensaje = document.getElementById('txt-alerta-whatsapp').value.trim();
-    if(!cuerpoMensaje) { alert("⚠️ Escribe el mensaje primero."); return; }
-    var saludoPersonalizado = "Estimado/a Director/a " + nombreDirector + ",\n\n" + cuerpoMensaje;
-    var urlWhatsApp = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + encodeURIComponent(saludoPersonalizado);
-    var boton = document.getElementById('btn-wsp-' + index);
-    if(boton) { boton.style.background = "#64748b"; boton.innerText = "✅ Enviado"; }
-    window.open(urlWhatsApp, '_blank');
-}
 </script>
 </body>
 </html>
