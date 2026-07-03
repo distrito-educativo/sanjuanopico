@@ -7753,5 +7753,87 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Buscamos dinámicamente todos los botones de la interfaz
+    const todosLosBotones = document.querySelectorAll("button, input[type='button'], .btn");
+    let botonEstadisticas = null;
+
+    // Localizamos cuál es el botón encargado de renderizar los gráficos por su texto
+    todosLosBotones.forEach(btn => {
+      const textoBoton = btn.innerText ? btn.innerText.toLowerCase() : "";
+      if (textoBoton.includes("graf") || textoBoton.includes("estad") || textoBoton.includes("calcul")) {
+        botonEstadisticas = btn;
+      }
+    });
+
+    if (botonEstadisticas) {
+      // Removemos cualquier función antigua asignada para evitar cruces
+      botonEstadisticas.removeAttribute("onclick");
+      
+      botonEstadisticas.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const textoOriginal = botonEstadisticas.innerText;
+        botonEstadisticas.innerText = "⏳ Consultando historial...";
+        botonEstadisticas.disabled = true;
+
+        // Extraemos los valores de búsqueda del formulario web
+        const campoCodigo = document.getElementById('codigoEscolar')?.value || document.getElementById('codigo')?.value || '14800';
+        const campoDesde  = document.getElementById('desdeFecha')?.value || document.getElementById('desde')?.value || '03/07/2026';
+        const campoHasta  = document.getElementById('hastaFecha')?.value || document.getElementById('hasta')?.value || '03/07/2026';
+
+        // Forzamos explícitamente el parámetro 'accion=consultar' para saltarnos el bloque de guardado o lluvias
+        const urlBase = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec";
+        const urlFinal = `${urlBase}?accion=consultar&codigo=${campoCodigo}&desde=${campoDesde}&hasta=${campoHasta}`;
+
+        fetch(urlFinal)
+          .then(response => response.json())
+          .then(resultado => {
+            botonEstadisticas.innerText = textoOriginal;
+            botonEstadisticas.disabled = false;
+
+            if (resultado.status === "success" && resultado.data) {
+              // Mapeo riguroso en minúsculas para alimentar tus tarjetas de conteo y gráficos
+              const listaNormalizada = resultado.data.map(docente => ({
+                fecha: docente.fecha,
+                codigo: docente.codigo,
+                sede: docente.sede,
+                nip: docente.nip,
+                nombre: docente.nombre,
+                falto: docente.falto || docente.Falto || "No",
+                motivo: docente.motivo || docente.Motivo || "",
+                observacion: docente.observacion || docente.Observacion || ""
+              }));
+
+              // Buscamos qué función nativa de tu index.html maneja la actualización visual
+              const funcionesGraficos = ["renderizarGraficosEstadisticos", "procesarYMostrarEstadisticas", "mostrarEstadisticas", "actualizarGraficos", "cargarEstadisticas"];
+              let ejecutadaConExito = false;
+
+              funcionesGraficos.forEach(nombreFuncion => {
+                if (typeof window[nombreFuncion] === "function" && !ejecutadaConExito) {
+                  window[nombreFuncion](listaNormalizada);
+                  ejecutadaConExito = true;
+                }
+              });
+
+              if (!ejecutadaConExito) {
+                alert("Sincronización completada. El sistema no encontró la función gráfica, verifique la consola.");
+              }
+            } else {
+              alert("Aviso del servidor: " + (resultado.message || "No se encontraron registros para los filtros seleccionados."));
+            }
+          })
+          .catch(errorConexion => {
+            console.error("Error en la petición de estadísticas:", errorConexion);
+            botonEstadisticas.innerText = textoOriginal;
+            botonEstadisticas.disabled = false;
+            alert("❌ Ocurrió un error al procesar las estadísticas. Verifique la conexión.");
+          });
+      });
+    }
+});
+</script>
 </body>
 </html>
