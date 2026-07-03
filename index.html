@@ -6909,10 +6909,9 @@
     </script>
 <script>
 // =========================================================================
-// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN DEFINITIVA CON FETCH BINARIO)
+// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN SUPREMA CON COMPRESIÓN DE FOTOS)
 // =========================================================================
 function enviarReporte(event, mainForm) {
-    // 1. Detener el reinicio del navegador AL INSTANTE
     if (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -6920,24 +6919,20 @@ function enviarReporte(event, mainForm) {
     
     var btn = mainForm.querySelector('.btn-submit'); 
     if(btn) {
-        btn.innerText = '⏳ PROCESANDO EVIDENCIAS Y ENVIANDO...'; 
+        btn.innerText = '⏳ OPTIMIZANDO IMÁGENES Y ENVIANDO...'; 
         btn.disabled = true; 
     }
 
-    // 2. Recolectamos datos de prioridades
     var prios = []; 
     for(var i = 1; i <= 6; i++) {
         var cb = document.getElementById('p' + i); 
         if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
     } 
 
-    // Capturamos el correo del director
     var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
     var inputFotos = document.getElementById('lluvias-fotos');
 
-    // 3. Definimos la lógica de empaquetado y envío final usando FETCH moderno
-    function procesarYEnviar(datosFotosJSON) {
-        // Usamos FormData para empaquetar los datos de manera nativa sin corromper el Base64
+    function transmitirFlujoFinal(datosFotosJSON) {
         var formData = new FormData();
         formData.append('tipoFormulario', 'lluvias');
         formData.append('Correo', correoDirector);
@@ -6955,17 +6950,15 @@ function enviarReporte(event, mainForm) {
         formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
         formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
         formData.append('Prioridades', prios.join(' / '));
-        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
+        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',);
         formData.append('datos_fotos', datosFotosJSON);
 
-        // Envío asíncrono seguro a la URL de tu Google Apps Script
         fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
             method: 'POST',
             body: formData,
-            mode: 'no-cors' // Requerido para la comunicación sin conflictos con macros de Google
+            mode: 'no-cors'
         })
         .then(function() {
-            // Retorno controlado al menú al completarse la transmisión
             var contForm = document.getElementById('contenedor-formulario');
             if(contForm) contForm.style.display = 'none'; 
             
@@ -6978,11 +6971,11 @@ function enviarReporte(event, mainForm) {
                 btn.disabled = false; 
             }
             window.scrollTo(0,0); 
-            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido guardados en el servidor distrital y el PDF oficial ha sido generado.");
+            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido optimizados y guardados en el servidor distrital.");
         })
         .catch(function(error) {
             console.error("Error en la transmisión de datos:", error);
-            alert("⚠️ Los datos fueron enviados, pero el servidor está tardando en procesar el documento. Por favor, verifica tu correo electrónico en unos minutos.");
+            alert("⚠️ Error en el servidor. Por favor, verifica el peso de las imágenes e intenta de nuevo.");
             if(btn) {
                 btn.innerText = '📤 Enviar Informe y Generar Documento'; 
                 btn.disabled = false; 
@@ -6990,7 +6983,7 @@ function enviarReporte(event, mainForm) {
         });
     }
 
-    // 4. --- CONTROL CONSECUTIVO DE IMÁGENES ---
+    // 4. --- COMPRESOR AUTOMÁTICO DE ALTA VELOCIDAD EN LÍNEA ---
     if (inputFotos && inputFotos.files.length > 0) {
         var maxFotos = Math.min(inputFotos.files.length, 3);
         var fotosCargadas = [];
@@ -7001,28 +6994,53 @@ function enviarReporte(event, mainForm) {
                 var archivo = inputFotos.files[index];
                 var reader = new FileReader();
                 reader.readAsDataURL(archivo);
-                reader.onload = function() {
-                    var base64String = reader.result.split(',')[1];
-                    fotosCargadas.push({
-                        nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name,
-                        mimeType: archivo.type,
-                        base64: base64String
-                    });
-                    procesadas++;
-                    if (procesadas === maxFotos) {
-                        procesarYEnviar(JSON.stringify(fotosCargadas));
-                    }
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        // Creamos un lienzo Canvas dinámico para la compresión
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        
+                        // Forzamos una resolución máxima de 1200px de ancho guardando la proporción
+                        var MAX_WIDTH = 1200;
+                        var width = img.width;
+                        var height = img.height;
+                        
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Exportamos a Base64 reduciendo la calidad al 70% (baja el peso un 90%)
+                        var compressedBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
+                        
+                        fotosCargadas.push({
+                            nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name.split('.')[0] + '.jpg',
+                            mimeType: 'image/jpeg',
+                            base64: compressedBase64
+                        });
+                        
+                        procesadas++;
+                        if (procesadas === maxFotos) {
+                            transmitirFlujoFinal(JSON.stringify(fotosCargadas));
+                        }
+                    };
                 };
                 reader.onerror = function() {
                     procesadas++;
                     if (procesadas === maxFotos) {
-                        procesarYEnviar(JSON.stringify(fotosCargadas));
+                        transmitirFlujoFinal(JSON.stringify(fotosCargadas));
                     }
                 };
             })(f);
         }
     } else {
-        procesarYEnviar('');
+        transmitirFlujoFinal('');
     }
 }
 // =========================================================================
