@@ -6099,37 +6099,65 @@
         </button>
     </div>
 
-    <div class="card" style="border-top: 4px solid #042444; background: linear-gradient(to bottom, #ffffff, #f6f8fa); display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;">
-        <div id="wsp-bloque-candado" style="text-align: center; width: 100%;">
-            <span class="badge" style="background: #475569; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ADMINISTRACIÓN</span>
-            <h3 style="margin-top: 10px; color: #042444;">Avisos por WhatsApp</h3>
-            <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px; line-height: 1.4; margin-bottom: 12px;">Acceso exclusivo para el Administrador Distrital.</p>
-            <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; width: 100%; box-sizing: border-box; font-size: 0.95rem; margin-bottom: 10px; text-align: center; background: white;">
-            <button type="button" onclick="verificarAccesoAlerta(event)" style="background: #042444; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.95rem;">🔒 Desbloquear Panel</button>
-        </div>
+    <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
+        <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">URGENTE</span>
+        <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Lluvias</h3>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
+        <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
+            📝 Iniciar Reporte
+        </button>
+    </div>
 
-        <div id="modulo-alertas-whatsapp" style="display: none; width: 100%;">
-            <span class="badge" style="background: #25D366; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">CENTRAL ACTIVA</span>
-            <h3 style="margin-top: 10px; color: #0A2540; font-size: 1.1rem;">Redactar Alerta Urgentísima</h3>
-            <textarea id="txt-alerta-whatsapp" rows="3" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: sans-serif; font-size: 0.9rem; resize: none; margin-bottom: 10px; background: white;" placeholder="Escribe el aviso general aquí..."></textarea>
-            <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #25D366; color: white; border: none; padding: 10px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 10px;">🔄 Cargar los 23 Directores</button>
-            
-            <div id="panel-envio-directores" style="display: none; max-height: 140px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; background: white;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 11px;">
-                    <thead>
-                        <tr style="background: #f8fafc; color: #64748b; border-bottom: 1px solid #cbd5e1; position: sticky; top: 0;">
-                            <th style="padding: 6px;">Escuela</th>
-                            <th style="padding: 6px;">Director</th>
-                            <th style="padding: 6px; text-align: center;">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-directores-whatsapp-body"></tbody>
-                </table>
-            </div>
+</div> <br>
+
+<div class="card" style="border-top: 4px solid #042444; background: linear-gradient(to bottom, #ffffff, #f8fafc); padding: 25px; margin-top: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); box-sizing: border-box; width: 100%;">
+    
+    <div id="wsp-bloque-candado" style="text-align: center; max-width: 450px; margin: 0 auto; padding: 10px 0;">
+        <span class="badge" style="background: #475569; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">ADMINISTRACIÓN DISTRITAL</span>
+        <h3 style="margin-top: 15px; color: #042444; font-size: 1.4rem; font-weight: bold;">Módulo Privado: Central de Avisos Colectivos</h3>
+        <p style="color: var(--text-muted); font-size: 10.5pt; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">Ingrese la credencial maestra para habilitar el despacho de recordatorios por WhatsApp a los directores.</p>
+        <div style="display: flex; gap: 10px; justify-content: center; max-width: 380px; margin: 0 auto;">
+            <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 65%; box-sizing: border-box; font-size: 1rem; background: white; text-align: center;">
+            <button type="button" onclick="verificarAccesoAlerta(event)" style="background: #042444; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">🔒 Desbloquear</button>
         </div>
     </div>
 
+    <div id="modulo-alertas-whatsapp" style="display: none; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+            <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central de Alertas y Avisos de Actividades</h2>
+            <span class="badge" style="background: #25D366; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">CANAL DIRECTO</span>
+        </div>
+        
+        <div style="display: flex; gap: 25px; flex-wrap: wrap; margin-top: 15px;">
+            
+            <div style="flex: 1; min-width: 320px;">
+                <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📝 Redactar Mensaje Institucional:</label>
+                <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Ej: Estimados directores, se les recuerda que el plazo de entrega para la recolección de firmas físicas vence hoy a las 4:00 PM. Quedo atento a sus envíos."></textarea>
+                <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 14px 20px; font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 4px 6px rgba(4,36,68,0.15); transition: background 0.2s;">
+                    🔄 Conectar y Sincronizar Planta Directiva
+                </button>
+            </div>
+            
+            <div id="panel-envio-directores" style="display: none; flex: 1.2; min-width: 350px;">
+                <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📋 Listado de Control de Envíos (Pestaña 'Directores'):</label>
+                <div style="max-height: 250px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; background: white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
+                        <thead>
+                            <tr style="background: #f1f5f9; color: #475569; border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; z-index: 10;">
+                                <th style="padding: 12px 10px; font-weight: 700;">Código</th>
+                                <th style="padding: 12px 10px; font-weight: 700;">Nombre del Director</th>
+                                <th style="padding: 12px 10px; text-align: center; font-weight: 700;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-directores-whatsapp-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </div>
+
                     </div>
 		    <br>
                     <div id="contenedor-formulario" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">
