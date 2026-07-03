@@ -6142,14 +6142,14 @@
     </button>
 </div>
 
-<div style="margin-top: 10px; display: flex; gap: 15px; width: 100%;">
+<div style="margin-top: 10px; display: flex; gap: 15px; width: 100%; align-items: center;">
     <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="flex: 2; background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15); white-space: nowrap;">
         🔄 Sincronizar Lista para Mensajes Individuales
     </button>
     
-    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); document.querySelectorAll('textarea').forEach(function(t){ t.value = ''; t.innerText = ''; }); document.querySelectorAll('.card input').forEach(function(i){ if(i.type === 'text') i.value = ''; }); var tabla = document.getElementById('tabla-directores-whatsapp-body') || document.querySelector('tbody'); if(tabla){ tabla.innerHTML='<tr><td colspan=&quot;3&quot; style=&quot;text-align: center; color: #64748b; padding: 35px;&quot;>Presiona el botón azul &quot;Sincronizar Lista&quot; para mapear los directores desde Excel si requieres realizar envíos individuales.</td></tr>'; }" style="flex: 1; background: #64748b; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(100,116,139,0.15); text-align: center; white-space: nowrap;">
+    <a href="javascript:void(0);" onclick="document.querySelectorAll('textarea').forEach(function(t){ t.value = ''; t.innerText = ''; }); document.querySelectorAll('input[type=\'text\']').forEach(function(i){ i.value = ''; }); var tabla = document.getElementById('tabla-directores-whatsapp-body') || document.querySelector('tbody'); if(tabla){ tabla.innerHTML='<tr><td colspan=&quot;3&quot; style=&quot;text-align: center; color: #64748b; padding: 35px;&quot;>Presiona el botón azul &quot;Sincronizar Lista&quot; para mapear los directores desde Excel si requieres realizar envíos individuales.</td></tr>'; };" style="flex: 1; background: #64748b; color: white; text-decoration: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(100,116,139,0.15); text-align: center; white-space: nowrap; display: inline-block;">
         🧹 Limpiar
-    </button>
+    </a>
 </div>
             
             <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
