@@ -7510,7 +7510,7 @@ function generarEstadisticas() {
     fetch(urlConsulta)
     .then(response => response.json())
     .then(data => {
-        btn.innerText = "📊 Calcular Gr&aacute;ficas";
+        btn.innerText = "📊 Calcular Gráficas";
         btn.disabled = false;
 
         if (data.status === "error") {
