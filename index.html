@@ -6136,15 +6136,21 @@
                     <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje institucional aquí... Se transmitirá exactamente lo que redactes en esta caja."></textarea>
                 </div>
                 
-                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
-                        👥 Despachar aviso al grupo Distrital
-                    </button>
-                    <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">
-                        🔄 Sincronizar Lista para Mensajes Individuales
-                    </button>
-                </div>
-            </div>
+                <div style="margin-top: 15px;">
+    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="width: 100%; background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
+        👥 Despachar aviso al grupo Distrital
+    </button>
+</div>
+
+<div style="margin-top: 10px; display: flex; gap: 15px; width: 100%;">
+    <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="flex: 2; background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15); white-space: nowrap;">
+        🔄 Sincronizar Lista para Mensajes Individuales
+    </button>
+    
+    <button type="button" onclick="limpiarModuloWhatsApp(event)" style="flex: 1; background: #64748b; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(100,116,139,0.15); text-align: center; white-space: nowrap;">
+        🧹 Limpiar
+    </button>
+</div>
             
             <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
                 <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
