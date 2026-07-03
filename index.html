@@ -6114,8 +6114,8 @@
     
     <div id="wsp-bloque-candado" style="text-align: center; max-width: 450px; margin: 0 auto; padding: 10px 0;">
         <span class="badge" style="background: #475569; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">ADMINISTRACIÓN DISTRITAL</span>
-        <h3 style="margin-top: 15px; color: #042444; font-size: 1.4rem; font-weight: bold;">Módulo Privado: Central de Avisos Híbrida</h3>
-        <p style="color: var(--text-muted); font-size: 10.5pt; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">Ingrese la credencial maestra para habilitar el despacho masivo a grupos o chats individuales.</p>
+        <h3 style="margin-top: 15px; color: #042444; font-size: 1.4rem; font-weight: bold;">Módulo Privado: Central de Avisos Colectivos</h3>
+        <p style="color: var(--text-muted); font-size: 10.5pt; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">Ingrese la credencial maestra para habilitar la mensajería dual (individual y grupal) de directores.</p>
         <div style="display: flex; gap: 10px; justify-content: center; max-width: 380px; margin: 0 auto;">
             <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 65%; box-sizing: border-box; font-size: 1rem; background: white; text-align: center;">
             <button type="button" onclick="verificarAccesoAlerta(event)" style="background: #042444; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">🔒 Desbloquear</button>
@@ -6125,19 +6125,19 @@
     <div id="modulo-alertas-whatsapp" style="display: none; width: 100% !important;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
             <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central Unificada de Avisos Distritales</h2>
-            <span class="badge" style="background: #025992; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">SISTEMA DUAL</span>
+            <span class="badge" style="background: #025992; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">MÓDULO DUAL</span>
         </div>
         
         <div style="display: flex; gap: 25px; flex-wrap: wrap; margin-top: 15px; width: 100%;">
             
             <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📝 Redactar Alerta Institucional:</label>
-                    <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje general o individual aquí... El sistema enviará exactamente lo que redactes."></textarea>
+                    <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📝 Redactar Alerta / Recordatorio:</label>
+                    <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje institucional aquí... Se transmitirá exactamente lo que redactes en esta caja."></textarea>
                 </div>
                 
                 <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); transition: background 0.2s;">
+                    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
                         👥 Despachar Aviso al Grupo Distrital
                     </button>
                     <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">
@@ -6159,8 +6159,8 @@
                         </thead>
                         <tbody id="tabla-directores-whatsapp-body">
                             <tr>
-                                <td colspan="3" style="text-align: center; color: #64748b; padding: 30px;">
-                                    Presiona el botón azul de la izquierda para mapear los 23 directores desde Excel si requieres hacer envíos privados.
+                                <td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">
+                                    Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel si requieres realizar envíos individuales.
                                 </td>
                             </tr>
                         </tbody>
@@ -6907,8 +6907,13 @@
 // ... (Aquí arriba están las otras funciones que pegamos antes, como las del calendario) ...
         
         // =========================================================================
-        // CENTRAL INTEGRADA DE MENSALERÍA WHATSAPP (LÓGICA HÍBRIDA)
+        // CONTROL LOGÍSTICO Y MENSALERÍA DUAL (INDIVIDUAL + GRUPAL)
         // =========================================================================
+        window.verificarAccAccessAlerta = function(e) {
+            // Se mantiene compatibilidad por si la función se llama diferente en otros clics
+            window.verificarAccesoAlerta(e);
+        };
+
         window.verificarAccesoAlerta = function(e) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             var t = document.getElementById("pass-maestra-wsp").value.trim();
@@ -6921,13 +6926,13 @@
             }
         };
 
-        // ACCIÓN A: ENVÍO DIRECTO AL GRUPO GENERAL
+        // ACCIÓN A: ENVÍO MASIVO DIRECTO AL GRUPO DE WHATSAPP
         window.enviarAlGrupoDistrital = function(e) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             var mensaje = document.getElementById("txt-alerta-whatsapp").value.trim();
             if (!mensaje) return alert("⚠️ Por favor, escribe primero el mensaje que deseas enviar al grupo.");
             
-            // 🚨 REEMPLAZA ESTE ENLACE DE EJEMPLO POR EL ENLACE REAL DE TU GRUPO:
+            // 🚨 COLOCA TU ENLACE DE INVITACIÓN DEL GRUPO REAL AQUÍ ABAJO:
             var enlaceGrupoOriginal = "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv"; 
             
             var codigoGrupo = enlaceGrupoOriginal.split("chat.whatsapp.com/")[1];
@@ -6935,7 +6940,7 @@
             window.location.href = urlGrupoNativa;
         };
 
-        // ACCIÓN B: CONEXIÓN GET PARA EXTRAER TABLA INDIVIDUAL
+        // ACCIÓN B: CONECTAR CON GOOGLE SHEETS PARA TRAER LOS 23 DIRECTORES
         window.cargarPanelDirectores = function(e) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             const t = document.getElementById("btn-cargar-wsp");
@@ -6968,7 +6973,7 @@
         window.renderizarTablaWhatsApp = function() {
             const e = document.getElementById("tabla-directores-whatsapp-body");
             e.innerHTML = "";
-            if (0 !== window.listaDirectoresCache.length) {
+            if (window.listaDirectoresCache && window.listaDirectoresCache.length !== 0) {
                 window.listaDirectoresCache.forEach(((t, n) => {
                     const r = document.createElement("tr");
                     r.style.borderBottom = "1px solid #f1f5f9";
@@ -6982,6 +6987,7 @@
             }
         };
 
+        // ACCIÓN C: DISPARAR MENSAJE A CHAT PRIVADO INDIVIDUAL
         window.dispararWhatsApp = function(e, t, n, r) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             var o = document.getElementById("txt-alerta-whatsapp").value.trim();
