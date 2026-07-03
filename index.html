@@ -6958,12 +6958,14 @@
             var o = document.getElementById("txt-alerta-whatsapp").value.trim();
             if (!o) return alert("⚠️ Por favor, escribe el mensaje institucional primero.");
             
-            // Removido el saludo forzado; ahora envía exactamente lo que redactas en la caja de texto
-            var a = "https://api.whatsapp.com/send?phone=" + t + "&text=" + encodeURIComponent(o);
+            // CAMBIO CLAVE: Usamos el protocolo nativo 'whatsapp://' en lugar de la API web
+            var a = "whatsapp://send?phone=" + t + "&text=" + encodeURIComponent(o);
             
             var s = document.getElementById("btn-wsp-" + r);
             if (s) { s.style.background = "#64748b"; s.innerText = "✅ Enviado"; }
-            window.open(a, "_blank");
+            
+            // Dispara directamente la aplicación instalada
+            window.location.href = a;
         };
 
      /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
