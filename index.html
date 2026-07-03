@@ -6926,18 +6926,19 @@
             }
         };
 
-        // ACCIÓN A: ENVÍO MASIVO DIRECTO AL GRUPO DE WHATSAPP
+        // ACCIÓN A: ENVÍO MASIVO AL GRUPO GENERAL (BLINDADO ANTI-BLOQUEO)
         window.enviarAlGrupoDistrital = function(e) {
             if(e) { e.preventDefault(); e.stopPropagation(); }
             var mensaje = document.getElementById("txt-alerta-whatsapp").value.trim();
             if (!mensaje) return alert("⚠️ Por favor, escribe primero el mensaje que deseas enviar al grupo.");
             
-            // 🚨 COLOCA TU ENLACE DE INVITACIÓN DEL GRUPO REAL AQUÍ ABAJO:
-            var enlaceGrupoOriginal = "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv"; 
+            // Tus datos reales del grupo de la captura (MONITOREO OPICO SUR)
+            var enlaceGrupoReal = "https://chat.whatsapp.com/K1lWHKZTufj4xwLKZY6rT1"; 
             
-            var codigoGrupo = enlaceGrupoOriginal.split("chat.whatsapp.com/")[1];
-            var urlGrupoNativa = "whatsapp://chat?code=" + codigoGrupo + "&text=" + encodeURIComponent(mensaje);
-            window.location.href = urlGrupoNativa;
+            // Al pasar el enlace como un parámetro de texto/URL genérico, forzamos a WhatsApp a abrir la conversación existente en tu app sin intentar unirte otra vez
+            var urlFinal = "https://api.whatsapp.com/send?text=" + encodeURIComponent(mensaje) + "&url=" + encodeURIComponent(enlaceGrupoReal);
+
+            window.open(urlFinal, "_blank");
         };
 
         // ACCIÓN B: CONECTAR CON GOOGLE SHEETS PARA TRAER LOS 23 DIRECTORES
