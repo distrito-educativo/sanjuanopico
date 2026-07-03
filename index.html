@@ -7511,5 +7511,139 @@ setInterval(function() {
     }
 }, 500);
 </script>
+<script>
+(function() {
+    // Monitorea constantemente si el panel privado del Monitoreo ya está cargado en pantalla
+    const verificarYColocarTarjeta = setInterval(function() {
+        // Buscamos el contenedor donde tu script dinámico dibuja las tarjetas actuales
+        const contenedorMonitoreo = document.querySelector('[id*="monitoreo"], .grid-monitoreo, #monitoreo-home');
+        
+        // Si el contenedor existe en la pantalla actual y la tarjeta aún no ha sido inyectada
+        if (contenedorMonitoreo && !document.getElementById('tarjeta-wsp-distrital')) {
+            
+            // Creamos la cuarta tarjeta respetando el diseño institucional
+            const nuevaTarjeta = document.createElement('div');
+            nuevaTarjeta.id = 'tarjeta-wsp-distrital';
+            nuevaTarjeta.className = 'tarjeta-monitoreo'; // Hereda tus estilos automáticos
+            nuevaTarjeta.style.cssText = 'padding: 20px; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; font-family: sans-serif; min-width: 250px; margin: 10px;';
+            
+            nuevaTarjeta.innerHTML = `
+                <div id="wsp-bloque-candado" style="text-align: center;">
+                    <h3 style="color: #042444; margin-top: 0; font-size: 16px;">📢 Avisos por WhatsApp</h3>
+                    <p style="color: #64748b; font-size: 12px; margin-bottom: 15px;">Acceso exclusivo para el Administrador Distrital.</p>
+                    <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 80%; box-sizing: border-box; font-size: 13px; margin-bottom: 10px; text-align: center;">
+                    <button onclick="verificarAccesoAlerta()" style="background: #042444; color: white; border: none; padding: 8px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 80%; font-size: 13px;">🔒 Desbloquear Panel</button>
+                </div>
+
+                <div id="modulo-alertas-whatsapp" style="display: none;">
+                    <h3 style="color: #0A2540; margin-top: 0; margin-bottom: 10px; font-size: 16px;">📢 Central de Avisos Activa</h3>
+                    <div style="margin-bottom: 12px;">
+                        <textarea id="txt-alerta-whatsapp" rows="3" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 13px; resize: vertical;" placeholder="Escribe el recordatorio institucional aquí..."></textarea>
+                    </div>
+                    <button onclick="cargarPanelDirectores()" id="btn-cargar-wsp" style="background: #25D366; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 15px;">
+                        🔄 Cargar los 23 Directores
+                    </button>
+                    <div id="panel-envio-directores" style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                            <thead>
+                                <tr style="background: #f8fafc; color: #64748b; border-bottom: 1px solid #cbd5e1; position: sticky; top: 0;">
+                                    <th style="padding: 6px;">Escuela</th>
+                                    <th style="padding: 6px;">Director</th>
+                                    <th style="padding: 6px; text-align: center;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-directores-whatsapp-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            // Adjuntamos de forma segura la cuarta tarjeta al final del menú privado
+            contenedorMonitoreo.appendChild(nuevaTarjeta);
+        }
+    }, 1000); // Revisa de forma segura cada segundo sin congelar el portal
+})();
+
+// LÓGICA COOPERATIVA DEL MÓDULO
+var CONTRASEÑA_MAESTRA = "Monitor2026*"; 
+var listaDirectoresCache = [];
+
+function verificarAccesoAlerta() {
+    var entrada = document.getElementById('pass-maestra-wsp').value.trim();
+    if (entrada === CONTRASEÑA_MAESTRA) {
+        document.getElementById('wsp-bloque-candado').style.display = 'none';
+        document.getElementById('modulo-alertas-whatsapp').style.display = 'block';
+    } else {
+        alert("❌ Contraseña incorrecta. Acceso denegado.");
+        document.getElementById('pass-maestra-wsp').value = "";
+    }
+}
+
+function cargarPanelDirectores() {
+    const btn = document.getElementById('btn-cargar-wsp');
+    btn.innerText = "⏳ CONECTANDO...";
+    btn.disabled = true;
+
+    fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({ 'tipoFormulario': 'cargar_directores' })
+    })
+    .then(function() {
+        return fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores');
+    })
+    .then(res => res.json())
+    .then(response => {
+        btn.innerText = "🔄 Cargar los 23 Directores";
+        btn.disabled = false;
+        if(response.status === "success") {
+            listaDirectoresCache = response.data;
+            renderizarTablaWhatsApp();
+        } else {
+            alert("Error: " + response.message);
+        }
+    })
+    .catch(err => {
+        btn.innerText = "🔄 Cargar los 23 Directores";
+        btn.disabled = false;
+        alert("❌ Error al conectar.");
+    });
+}
+
+function renderizarTablaWhatsApp() {
+    const tbody = document.getElementById('tabla-directores-whatsapp-body');
+    tbody.innerHTML = "";
+    if(listaDirectoresCache.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:10px; color:#64748b;">No hay registros.</td></tr>`;
+        return;
+    }
+    listaDirectoresCache.forEach((dir, index) => {
+        const fila = document.createElement('tr');
+        fila.style.borderBottom = "1px solid #f1f5f9";
+        let numCel = dir.telefono.trim();
+        if(!numCel.startsWith("503") && numCel.length === 8) { numCel = "503" + numCel; }
+
+        fila.innerHTML = `
+            <td style="padding: 6px; font-weight: bold; color: #042444;">${dir.escuela}</td>
+            <td style="padding: 6px; color: #334155;">${dir.nombre}</td>
+            <td style="padding: 6px; text-align: center;">
+                <button onclick="dispararWhatsApp('${numCel}', '${dir.nombre}', ${index})" id="btn-wsp-${index}" style="background: #25D366; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px;">💬 Enviar</button>
+            </td>
+        `;
+        tbody.appendChild(fila);
+    });
+    document.getElementById('panel-envio-directores').style.display = 'block';
+}
+
+function dispararWhatsApp(telefono, nombreDirector, index) {
+    var cuerpoMensaje = document.getElementById('txt-alerta-whatsapp').value.trim();
+    if(!cuerpoMensaje) { alert("⚠️ Escribe el mensaje primero."); return; }
+    var saludoPersonalizado = "Estimado/a Director/a " + nombreDirector + ",\n\n" + cuerpoMensaje;
+    var urlWhatsApp = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + encodeURIComponent(saludoPersonalizado);
+    var boton = document.getElementById('btn-wsp-' + index);
+    if(boton) { boton.style.background = "#64748b"; boton.innerText = "✅ Enviado"; }
+    window.open(urlWhatsApp, '_blank');
+}
+</script>
 </body>
 </html>
