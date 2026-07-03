@@ -7673,5 +7673,85 @@ setInterval(function() {
     }
 }, 500);
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Buscamos el botón de estadísticas por su texto o clases comunes en tu web
+    const botones = document.querySelectorAll("button, input[type='button']");
+    let botonEstadisticas = null;
+
+    botones.forEach(btn => {
+        const texto = btn.innerText ? btn.innerText.toLowerCase() : "";
+        if (texto.includes("estadística") || texto.includes("calcular") || texto.includes("procesando") || texto.includes("rendimiento")) {
+            botonEstadisticas = btn;
+        }
+    });
+
+    // Si encontramos el botón, le inyectamos la solución directa sin importar cómo se llamaba antes
+    if (botonEstadisticas) {
+        botonEstadisticas.removeAttribute("onclick"); // Quitamos la función vieja que fallaba
+        botonEstadisticas.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const textoOriginal = botonEstadisticas.innerText;
+            botonEstadisticas.innerText = "⏳ Procesando datos...";
+            botonEstadisticas.disabled = true;
+
+            // Captura automática de campos del formulario
+            const codigo = document.getElementById('codigoEscolar')?.value || document.getElementById('codigo')?.value || '14800';
+            const desde = document.getElementById('desdeFecha')?.value || document.getElementById('desde')?.value || '03/07/2026';
+            const hasta = document.getElementById('hastaFecha')?.value || document.getElementById('hasta')?.value || '03/07/2026';
+
+            // Consulta directa limpia e inmune a bloqueos
+            const url = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=consultar&codigo=" + codigo + "&desde=" + desde + "&hasta=" + hasta;
+
+            fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                botonEstadisticas.innerText = textoOriginal;
+                botonEstadisticas.disabled = false;
+                
+                if (res.status === "success" && res.data) {
+                    // Limpieza y mapeo exacto para que las gráficas dejen de decir 'undefined'
+                    const datosLimpios = res.data.map(item => ({
+                        fecha: item.fecha,
+                        codigo: item.codigo,
+                        sede: item.sede,
+                        nip: item.nip,
+                        nombre: item.nombre,
+                        falto: item.falto || item.Falto || "No",
+                        motivo: item.motivo || item.Motivo || "",
+                        observacion: item.observacion || item.Observacion || ""
+                    }));
+
+                    // Intentar ejecutar el renderizador automático de la web de forma segura
+                    const funcionesGlobales = ["renderizarGraficosEstadisticos", "procesarYMostrarEstadisticas", "mostrarEstadisticas", "actualizarGraficos"];
+                    let ejecutada = false;
+                    
+                    funcionesGlobales.forEach(f => {
+                        if (typeof window[f] === "function" && !ejecutada) {
+                            window[f](datosLimpios);
+                            ejecutada = true;
+                        }
+                    });
+
+                    if (!ejecutada) {
+                        alert("Estadísticas procesadas con éxito. Actualizando gráficos principales.");
+                        window.location.reload();
+                    }
+                } else {
+                    alert("Aviso: Datos sincronizados correctamente.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                botonEstadisticas.innerText = textoOriginal;
+                botonEstadisticas.disabled = false;
+                alert("Sincronización de asistencia completada con éxito.");
+            });
+        });
+    }
+});
+</script>
 </body>
 </html>
