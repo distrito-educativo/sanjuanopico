@@ -6114,8 +6114,8 @@
     
     <div id="wsp-bloque-candado" style="text-align: center; max-width: 450px; margin: 0 auto; padding: 10px 0;">
         <span class="badge" style="background: #475569; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">ADMINISTRACIÓN DISTRITAL</span>
-        <h3 style="margin-top: 15px; color: #042444; font-size: 1.4rem; font-weight: bold;">Módulo Privado: Central de avisos colectivos</h3>
-        <p style="color: var(--text-muted); font-size: 10.5pt; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">Ingrese la credencial maestra para habilitar la mensajería dual (individual y grupal) para directores.</p>
+        <h3 style="margin-top: 15px; color: #042444; font-size: 1.4rem; font-weight: bold;">Módulo Privado: Central de Avisos Colectivos</h3>
+        <p style="color: var(--text-muted); font-size: 10.5pt; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">Ingrese la credencial maestra para habilitar la mensajería dual (individual y grupal) de directores.</p>
         <div style="display: flex; gap: 10px; justify-content: center; max-width: 380px; margin: 0 auto;">
             <input type="password" id="pass-maestra-wsp" placeholder="Contraseña Maestra" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 65%; box-sizing: border-box; font-size: 1rem; background: white; text-align: center;">
             <button type="button" onclick="verificarAccesoAlerta(event)" style="background: #042444; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">🔒 Desbloquear</button>
@@ -6124,7 +6124,7 @@
 
     <div id="modulo-alertas-whatsapp" style="display: none; width: 100% !important;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
-            <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central unificada de avisos distritales</h2>
+            <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central Unificada de Avisos Distritales</h2>
             <span class="badge" style="background: #025992; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">MÓDULO DUAL</span>
         </div>
         
@@ -6136,21 +6136,15 @@
                     <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje institucional aquí... Se transmitirá exactamente lo que redactes en esta caja."></textarea>
                 </div>
                 
-               <div style="margin-top: 15px;">
-    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="width: 100%; background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
-        👥 Despachar aviso al grupo Distrital
-    </button>
-</div>
-
-<div style="margin-top: 10px; display: flex; gap: 15px; width: 100%;">
-    <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="flex: 2; background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15); white-space: nowrap;">
-        🔄 Sincronizar Lista para Mensajes Individuales
-    </button>
-    
-    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); document.querySelectorAll('textarea').forEach(function(t){ t.value = ''; t.innerText = ''; }); document.querySelectorAll('.card input').forEach(function(i){ if(i.type === 'text') i.value = ''; }); var tabla = document.getElementById('tabla-directores-whatsapp-body') || document.querySelector('tbody'); if(tabla){ tabla.innerHTML='<tr><td colspan=&quot;3&quot; style=&quot;text-align: center; color: #64748b; padding: 35px;&quot;>Presiona el botón azul &quot;Sincronizar Lista&quot; para mapear los directores desde Excel si requieres realizar envíos individuales.</td></tr>'; }" style="flex: 1; background: #64748b; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(100,116,139,0.15); text-align: center; white-space: nowrap;">
-        🧹 Limpiar
-    </button>
-</div>
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
+                        👥 Despachar Aviso al Grupo Distrital
+                    </button>
+                    <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">
+                        🔄 Sincronizar Lista para Mensajes Individuales
+                    </button>
+                </div>
+            </div>
             
             <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
                 <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
