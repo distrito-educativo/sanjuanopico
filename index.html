@@ -7864,5 +7864,129 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+<div id="modulo-asistencia" style="display: none; margin-top: 20px;" class="card">
+    <div style="background: #042444; color: white; padding: 15px; border-radius: 6px 6px 0 0; font-weight: bold;">
+        📝 Control de Asistencia Docente
+    </div>
+    <div style="padding: 20px; background: white; border: 1px solid #e2e8f0; border-radius: 0 0 6px 6px;">
+        <form id="form-asistencia-docente" onsubmit="guardarAsistencia(event)">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Código Escolar: *</label>
+                    <input type="text" id="codigoEscolar" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Desde la Fecha: *</label>
+                    <input type="date" id="desdeFecha" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Hasta la Fecha: *</label>
+                    <input type="date" id="hastaFecha" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button type="button" onclick="document.getElementById('modulo-asistencia').style.display='none';" style="background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Volver al Menú</button>
+                <button type="button" onclick="if(typeof procesarBusquedaPlanta === 'function') { procesarBusquedaPlanta(); } else { alert('Procesando consulta...'); }" style="background: #042444; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">🔍 Buscar Planta Docente</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modulo-lluvias" style="display: none; margin-top: 20px;" class="card">
+    <div style="background: #dc2626; color: white; padding: 15px; border-radius: 6px 6px 0 0; font-weight: bold;">
+        ⛈️ Reporte de Incidencias por Lluvias / Eventos Climáticos
+    </div>
+    <div style="padding: 20px; background: white; border: 1px solid #e2e8f0; border-radius: 0 0 6px 6px;">
+        <form id="form-reporte-lluvias" onsubmit="enviarReportoLluvias(event)">
+            <input type="hidden" name="tipoFormulario" value="lluvias">
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Centro Escolar:</label>
+                    <input type="text" name="CentroEscolar" id="lluvia-centro" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Código Infraestructura:</label>
+                    <input type="text" name="Codigo" id="lluvia-codigo" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Director / Responsable:</label>
+                    <input type="text" name="Director" id="lluvia-director" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">¿Posee Energía Eléctrica?</label>
+                    <select name="Energia" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        <option value="Sí">Sí, normal</option>
+                        <option value="No">No, suspendido</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">¿Posee Internet/Conectividad?</label>
+                    <select name="Internet" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        <option value="Sí">Sí, activo</option>
+                        <option value="No">No, sin señal</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Aulas Inundadas o Afectadas:</label>
+                    <input type="number" name="AulasInundadas" value="0" min="0" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Comentarios u Observaciones Adicionales:</label>
+                <textarea name="Comentarios" rows="3" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;" placeholder="Describa brevemente daños en techos, muros o necesidades prioritarias..."></textarea>
+            </div>
+
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button type="button" onclick="document.getElementById('modulo-lluvias').style.display='none';" style="background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Volver al Menú</button>
+                <button type="submit" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">📤 Despachar Reporte Oficial</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Buscamos todos los botones que inicien reportes en las tarjetas del menú principal
+    const botonesMenu = document.querySelectorAll("button, .btn, a");
+    
+    botonesMenu.forEach(elem => {
+        const texto = elem.innerText ? elem.innerText.toLowerCase() : "";
+        
+        // Conectamos el botón de Reporte de Asistencia
+        if(texto.includes("asistencia") && (texto.includes("iniciar") || texto.includes("reporte"))) {
+            elem.removeAttribute("onclick");
+            elem.addEventListener("click", function(e) {
+                e.preventDefault();
+                // Ocultamos los demás y mostramos asistencia
+                if(document.getElementById('modulo-lluvias')) document.getElementById('modulo-lluvias').style.display = 'none';
+                if(document.getElementById('area-imprimible-est')) document.getElementById('area-imprimible-est').style.display = 'none';
+                const modAsist = document.getElementById('modulo-asistencia');
+                if(modAsist) modAsist.style.display = 'block';
+                modAsist.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        
+        // Conectamos el botón de Reporte de Lluvias
+        if(texto.includes("lluvia") && (texto.includes("iniciar") || texto.includes("reporte"))) {
+            elem.removeAttribute("onclick");
+            elem.addEventListener("click", function(e) {
+                e.preventDefault();
+                // Ocultamos los demás y mostramos lluvias
+                if(document.getElementById('modulo-asistencia')) document.getElementById('modulo-asistencia').style.display = 'none';
+                if(document.getElementById('area-imprimible-est')) document.getElementById('area-imprimible-est').style.display = 'none';
+                const modLluv = document.getElementById('modulo-lluvias');
+                if(modLluv) modLluv.style.display = 'block';
+                modLluv.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+    });
+});
+</script>
 </body>
 </html>
