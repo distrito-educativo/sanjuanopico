@@ -6946,35 +6946,27 @@
             window.location.href = urlAppDirecta;
         };
 
-        // ACCIÓN B: CONECTAR CON GOOGLE SHEETS PARA TRAER LOS 23 DIRECTORES
-        window.cargarPanelDirectores = function(e) {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            const t = document.getElementById("btn-cargar-wsp");
-            t.innerText = "⏳ SINCRONIZANDO...", t.disabled = !0;
-            
-            fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec", {
-                method: "POST",
-                mode: "no-cors",
-                body: new URLSearchParams({ tipoformulario: "cargar_directores" })
-            })
-            .then((function() {
-                return fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores");
-            }))
-            .then((e => e.json()))
-            .then((e => {
-                t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales", t.disabled = !1;
-                if ("success" === e.status) {
-                    window.listaDirectoresCache = e.data;
-                    window.renderizarTablaWhatsApp();
-                } else {
-                    alert("Error en Sheets: " + e.message);
-                }
-            }))
-            .catch((e => {
-                t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales", t.disabled = !1;
-                alert("❌ Error de conexión al consultar la pestaña 'Directores'.");
-            }));
-        };
+        // 1. REPARACIÓN DEL BOTÓN SINCRONIZAR (Conexión nativa sin bloqueos de Chrome)
+    window.cargarPanelDirectores = function(e) {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        const t = document.getElementById("btn-cargar-wsp");
+        if(t) { t.innerText = "⏳ SINCRONIZANDO..."; t.disabled = true; }
+        
+        // Fetch simple, sin candados extra que asusten al navegador
+        fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores")
+        .then(res => res.json())
+        .then(data => {
+            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
+            if (data.status === "success") {
+                window.listaDirectoresCache = data.data;
+                if(typeof window.renderizarTablaWhatsApp === 'function') window.renderizarTablaWhatsApp();
+            } else { alert("Error en Sheets: " + data.message); }
+        })
+        .catch(err => {
+            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
+            alert("❌ Error de conexión.");
+        });
+    };
 
         window.renderizarTablaWhatsApp = function() {
             const e = document.getElementById("tabla-directores-whatsapp-body");
