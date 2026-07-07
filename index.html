@@ -6953,7 +6953,7 @@
         if(t) { t.innerText = "⏳ SINCRONIZANDO..."; t.disabled = true; }
         
         // Fetch simple, sin candados extra que asusten al navegador
-        fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores")
+        fetch("https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec?accion=cargar_directores")
         .then(res => res.json())
         .then(data => {
             if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
@@ -7069,179 +7069,185 @@
         }, 6000);
     </script>
 <script>
+<script>
 // =========================================================================
-    // FUNCIÓN DE ENVÍO DE INCIDENCIAS (CON ESCÁNER DE DIAGNÓSTICO)
-    // =========================================================================
-    function enviarReporte(event, mainForm) {
-        if (event) { event.preventDefault(); event.stopPropagation(); }
-        var btn = mainForm.querySelector('.btn-submit'); 
-        if(btn) { btn.innerText = '⏳ OPTIMIZANDO Y ENVIANDO...'; btn.disabled = true; }
+// 🌐 CONFIGURACIÓN CENTRAL DE GOOGLE APPS SCRIPT
+// =========================================================================
+// 🚨 AQUÍ PEGAS TU NUEVO ENLACE DE GOOGLE UNA SOLA VEZ 🚨
+const URL_API_GOOGLE = 'https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec';
 
-        var prios = []; 
-        for(var i = 1; i <= 6; i++) {
-            var cb = document.getElementById('p' + i); 
-            if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
-        } 
 
-        // CORRECCIÓN: Leemos el correo de forma a prueba de fallos (sea texto o input)
-        var correoEl = document.getElementById('director-email');
-        var correoDirector = correoEl ? (correoEl.value || correoEl.innerText || '').trim() : 'Sin Correo';
-        
-        var inputFotos = document.getElementById('lluvias-fotos');
-        var cantidadFotos = inputFotos && inputFotos.files ? inputFotos.files.length : 0;
+// =========================================================================
+// 1. MÓDULO DE REPORTE DE LLUVIAS E INCIDENCIAS
+// =========================================================================
+window.enviarReporte = function(event, mainForm) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    var btn = mainForm.querySelector('.btn-submit'); 
+    if(btn) { btn.innerText = '⏳ OPTIMIZANDO Y ENVIANDO...'; btn.disabled = true; }
 
-        // 🚨 ESCÁNER DE DIAGNÓSTICO EN PANTALLA 🚨
-        alert("🔍 DIAGNÓSTICO ANTES DE ENVIAR:\n\n1. Correo detectado: " + correoDirector + "\n2. Fotos detectadas: " + cantidadFotos + "\n\nSi el correo dice 'Sin Correo' o está vacío, el PDF no se enviará. Da clic en Aceptar para continuar el envío.");
+    var prios = []; 
+    for(var i = 1; i <= 6; i++) {
+        var cb = document.getElementById('p' + i); 
+        if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
+    } 
 
-        function transmitirFlujoFinal(datosFotosJSON) {
-            var formData = new FormData();
-            formData.append('tipoFormulario', 'lluvias');
-            formData.append('Correo', correoDirector);
-            formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
-            formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
-            formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
-            formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
-            formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
-            formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
-            formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
-            formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
-            formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
-            formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
-            formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
-            formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
-            formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
-            formData.append('Prioridades', prios.join(' / '));
-            formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
-            formData.append('datos_fotos', datosFotosJSON);
+    var correoEl = document.getElementById('director-email');
+    var correoDirector = correoEl ? (correoEl.value || correoEl.innerText || '').trim() : 'Sin Correo';
+    
+    var inputFotos = document.getElementById('lluvias-fotos');
+    var cantidadFotos = inputFotos && inputFotos.files ? inputFotos.files.length : 0;
 
-            fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
-                method: 'POST', body: formData, mode: 'no-cors'
-            })
-            .then(function() {
-                var contForm = document.getElementById('contenedor-formulario');
-                if(contForm) contForm.style.display = 'none'; 
-                var dashMenu = document.getElementById('dashboard-menu');
-                if(dashMenu) dashMenu.style.display = ''; 
+    alert("🔍 DIAGNÓSTICO ANTES DE ENVIAR:\n\n1. Correo detectado: " + correoDirector + "\n2. Fotos detectadas: " + cantidadFotos + "\n\nDa clic en Aceptar para continuar el envío.");
 
-                mainForm.reset(); 
-                if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
-                window.scrollTo(0,0); 
-                alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nRevisa tu base de datos y tu correo.");
-            })
-            .catch(function(error) {
-                console.error("Error en la transmission:", error);
-                alert("⚠️ Error en la conexión de red al enviar el formulario.");
-                if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
-            });
-        }
+    function transmitirFlujoFinal(datosFotosJSON) {
+        var formData = new FormData();
+        formData.append('tipoFormulario', 'lluvias');
+        formData.append('Correo', correoDirector);
+        formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
+        formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
+        formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
+        formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
+        formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
+        formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
+        formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
+        formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
+        formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
+        formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
+        formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
+        formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
+        formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
+        formData.append('Prioridades', prios.join(' / '));
+        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
+        formData.append('datos_fotos', datosFotosJSON);
 
-        if (cantidadFotos > 0) {
-            var maxFotos = Math.min(cantidadFotos, 3);
-            var fotosCargadas = [];
-            var procesadas = 0;
+        fetch(URL_API_GOOGLE, { method: 'POST', body: formData, mode: 'no-cors' })
+        .then(function() {
+            var contForm = document.getElementById('contenedor-formulario');
+            if(contForm) contForm.style.display = 'none'; 
+            var dashMenu = document.getElementById('dashboard-menu');
+            if(dashMenu) dashMenu.style.display = ''; 
 
-            for (var f = 0; f < maxFotos; f++) {
-                (function(index) {
-                    var archivo = inputFotos.files[index];
-                    var reader = new FileReader();
-                    reader.readAsDataURL(archivo);
-                    reader.onload = function(e) {
-                        var img = new Image();
-                        img.src = e.target.result;
-                        img.onload = function() {
-                            var canvas = document.createElement('canvas');
-                            var ctx = canvas.getContext('2d');
-                            var MAX_WIDTH = 1200;
-                            var width = img.width, height = img.height;
-                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                            canvas.width = width; canvas.height = height;
-                            ctx.drawImage(img, 0, 0, width, height);
-                            var compressedBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-                            
-                            fotosCargadas.push({
-                                nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name.split('.')[0] + '.jpg',
-                                mimeType: 'image/jpeg', base64: compressedBase64
-                            });
-                            procesadas++;
-                            if (procesadas === maxFotos) transmitirFlujoFinal(JSON.stringify(fotosCargadas));
-                        };
-                    };
-                    reader.onerror = function() {
+            mainForm.reset(); 
+            if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
+            window.scrollTo(0,0); 
+            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nRevisa tu base de datos y tu correo.");
+        })
+        .catch(function(error) {
+            console.error("Error en la transmission:", error);
+            alert("⚠️ Error en la conexión de red al enviar el formulario.");
+            if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
+        });
+    }
+
+    if (cantidadFotos > 0) {
+        var maxFotos = Math.min(cantidadFotos, 3);
+        var fotosCargadas = [];
+        var procesadas = 0;
+
+        for (var f = 0; f < maxFotos; f++) {
+            (function(index) {
+                var archivo = inputFotos.files[index];
+                var reader = new FileReader();
+                reader.readAsDataURL(archivo);
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        var MAX_WIDTH = 1200;
+                        var width = img.width, height = img.height;
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                        canvas.width = width; canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        var compressedBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
+                        
+                        fotosCargadas.push({
+                            nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name.split('.')[0] + '.jpg',
+                            mimeType: 'image/jpeg', base64: compressedBase64
+                        });
                         procesadas++;
                         if (procesadas === maxFotos) transmitirFlujoFinal(JSON.stringify(fotosCargadas));
                     };
-                })(f);
-            }
-        } else {
-            transmitirFlujoFinal('');
+                };
+                reader.onerror = function() {
+                    procesadas++;
+                    if (procesadas === maxFotos) transmitirFlujoFinal(JSON.stringify(fotosCargadas));
+                };
+            })(f);
         }
+    } else {
+        transmitirFlujoFinal('');
     }
-// =========================================================================
-// MÓDULO DE ASISTENCIA: VARIABLES Y LOGICA DE CONSULTA (Tu código original)
-// =========================================================================
-let listaDocentesCargados = [];
-const URL_API_GOOGLE = 'https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec';
+};
 
-function buscarDocentes() {
+window.limpiarFormularioLluvias = function() {
+    const formLluvias = document.querySelector('#contenedor-formulario form');
+    if (formLluvias) formLluvias.reset();
+};
+
+setInterval(function() {
+    var txtBox = document.getElementById('rep-comentarios');
+    if (txtBox && !document.getElementById('lluvias-fotos')) {
+        var wrapper = document.createElement('div');
+        wrapper.id = 'bloque-fotos-contenedor';
+        wrapper.style.marginTop = "15px"; wrapper.style.marginBottom = "15px";
+        wrapper.style.padding = "10px"; wrapper.style.background = "#f8fafc";
+        wrapper.style.border = "1px dashed #cbd5e1"; wrapper.style.borderRadius = "6px";
+        wrapper.innerHTML = `
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">📸 Evidencias Fotográficas (Máx. 3 fotos):</label>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 6px; cursor: pointer;">
+        `;
+        txtBox.parentNode.insertBefore(wrapper, txtBox.nextSibling);
+    }
+}, 500);
+
+// =========================================================================
+// 2. MÓDULO DE ASISTENCIA DOCENTE
+// =========================================================================
+window.listaDocentesCargados = [];
+
+window.buscarDocentes = function() {
     const codigoInput = document.getElementById('asis-codigo-buscar').value.trim();
     const btn = document.getElementById('btn-buscar-docentes');
+    if (!codigoInput) return alert("⚠️ Ingrese un código de infraestructura.");
     
-    if (!codigoInput) {
-        alert("⚠️ Por favor, ingrese un código de infraestructura.");
-        return;
-    }
-    
-    btn.innerText = "⏳ BUSCANDO PLANTA...";
-    btn.disabled = true;
+    btn.innerText = "⏳ BUSCANDO PLANTA..."; btn.disabled = true;
     
     fetch(`${URL_API_GOOGLE}?codigo=${codigoInput}`)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(result => {
-        btn.innerText = "🔍 Buscar Planta Docente";
-        btn.disabled = false;
-        
+        btn.innerText = "🔍 Buscar Planta Docente"; btn.disabled = false;
         if (result.status === "success") {
             if (result.data.length === 0) {
-                alert("❌ No hay docentes registrados para este código en la pestaña 'Docentes'.");
+                alert("❌ No hay docentes registrados para este código.");
                 document.getElementById('asistencia-contenido').style.display = 'none';
                 return;
             }
-            
-            listaDocentesCargados = result.data;
+            window.listaDocentesCargados = result.data;
             document.getElementById('asis-sede-nombre').innerText = result.sede;
-            
             const hoy = new Date();
-            document.getElementById('asis-fecha-hoy').innerText = hoy.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) + " " + hoy.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
-            
-            renderizarTablaDocentes(result.data);
+            document.getElementById('asis-fecha-hoy').innerText = hoy.toLocaleDateString('es-ES') + " " + hoy.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+            window.renderizarTablaDocentes(result.data);
             document.getElementById('asistencia-contenido').style.display = 'block';
-            recalcularEstadisticas();
-        } else {
-            alert("Error: " + result.message);
-        }
+            window.recalcularEstadisticas();
+        } else { alert("Error: " + result.message); }
     })
     .catch(error => {
-        console.error("Error:", error);
-        btn.innerText = "🔍 Buscar Planta Docente";
-        btn.disabled = false;
+        btn.innerText = "🔍 Buscar Planta Docente"; btn.disabled = false;
         alert("❌ Error de conexión con la base de datos.");
     });
-}
+};
 
-function renderizarTablaDocentes(docentes) {
+window.renderizarTablaDocentes = function(docentes) {
     const tbody = document.getElementById('tabla-docentes-body');
     tbody.innerHTML = "";
-    
     docentes.forEach((docente, index) => {
         const filaPrincipal = document.createElement('tr');
-        filaPrincipal.style.borderBottom = "1px solid #e2e8f0";
-        
         filaPrincipal.innerHTML = `
-            <td style="padding: 14px 16px; font-weight: 500; background: #ffffff;">${docente.nip}</td>
-            <td style="padding: 14px 16px; font-weight: 500; background: #ffffff; color:#1e293b;">${docente.nombre}</td>
-            <td style="padding: 14px 16px; text-align: center; background: #ffffff;">
-                <input type="checkbox" id="falta-${index}" onchange="conmutarFilaInasistencia(${index})" style="width: 18px; height: 18px; cursor: pointer;">
-            </td>
+            <td style="padding: 14px 16px;">${docente.nip}</td>
+            <td style="padding: 14px 16px; font-weight: bold;">${docente.nombre}</td>
+            <td style="padding: 14px 16px; text-align: center;"><input type="checkbox" id="falta-${index}" onchange="window.conmutarFilaInasistencia(${index})" style="width: 18px; height: 18px; cursor: pointer;"></td>
         `;
         tbody.appendChild(filaPrincipal);
         
@@ -7249,61 +7255,42 @@ function renderizarTablaDocentes(docentes) {
         filaDetalle.id = `detalle-fila-${index}`;
         filaDetalle.style.display = "none";
         filaDetalle.style.background = "#fdf8f6";
-        filaDetalle.style.borderBottom = "1px solid #e2e8f0";
-        
         filaDetalle.innerHTML = `
             <td colspan="3" style="padding: 12px 25px;">
-                <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
-                    <div>
-                        <span style="color: #dc2626; font-weight: bold;">Motivo de inasistencia:*</span>
-                        <select id="motivo-${index}" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin-left: 10px; background: white;">
-                            <option value="">--- Seleccionar ---</option>
-                            <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
-                            <option value="Incapacidad médica">Incapacidad médica</option>
-                            <option value="Permiso personal con goce">Permiso personal con goce</option>
-                            <option value="Permiso personal sin goce">Permiso personal sin goce</option>
-                            <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
-                            <option value="Inasistencia injustificada">Inasistencia injustificada</option>
-                        </select>
-                    </div>
-                    <div style="flex-grow: 1; display: flex; align-items: center;">
-                        <span style="font-weight: 500; color: #475569;">Observación:</span>
-                        <input type="text" id="obs-${index}" placeholder="Aclaraciones o detalles..." style="padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; margin-left: 10px; flex-grow: 1; max-width: 500px;">
-                    </div>
-                </div>
+                <span style="color: #dc2626; font-weight: bold;">Motivo:</span>
+                <select id="motivo-${index}" style="padding: 6px; border-radius: 6px; margin: 0 10px;">
+                    <option value="">--- Seleccionar ---</option>
+                    <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
+                    <option value="Incapacidad médica">Incapacidad médica</option>
+                    <option value="Permiso personal con goce">Permiso personal con goce</option>
+                    <option value="Permiso personal sin goce">Permiso personal sin goce</option>
+                    <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
+                    <option value="Inasistencia injustificada">Inasistencia injustificada</option>
+                </select>
+                <input type="text" id="obs-${index}" placeholder="Aclaraciones..." style="padding: 6px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px;">
             </td>
         `;
         tbody.appendChild(filaDetalle);
     });
-}
+};
 
-function conmutarFilaInasistencia(index) {
+window.conmutarFilaInasistencia = function(index) {
     const chk = document.getElementById(`falta-${index}`);
     const detalle = document.getElementById(`detalle-fila-${index}`);
-    
-    if (chk.checked) {
-        detalle.style.display = "table-row";
-    } else {
-        detalle.style.display = "none";
-        document.getElementById(`motivo-${index}`).value = "";
-        document.getElementById(`obs-${index}`).value = "";
-    }
-    recalcularEstadisticas();
-}
+    if (chk.checked) { detalle.style.display = "table-row"; } 
+    else { detalle.style.display = "none"; document.getElementById(`motivo-${index}`).value = ""; document.getElementById(`obs-${index}`).value = ""; }
+    window.recalcularEstadisticas();
+};
 
-function conmutarBulkOpciones(mostrar) {
-    document.getElementById('bulk-campos-condicionales').style.display = mostrar ? 'flex' : 'none';
-}
+window.conmutarBulkOpciones = function(mostrar) { document.getElementById('bulk-campos-condicionales').style.display = mostrar ? 'flex' : 'none'; };
 
-function aplicarATodos() {
+window.aplicarATodos = function() {
     const bulkFaltaSi = document.querySelector('input[name="bulk_falta"]:checked').value === "si";
     const bulkMotivo = document.getElementById('bulk_motivo').value;
     const bulkObs = document.getElementById('bulk_obs').value.trim();
     
-    listaDocentesCargados.forEach((docente, index) => {
-        const chk = document.getElementById(`falta-${index}`);
-        chk.checked = bulkFaltaSi;
-        
+    window.listaDocentesCargados.forEach((docente, index) => {
+        document.getElementById(`falta-${index}`).checked = bulkFaltaSi;
         const detalle = document.getElementById(`detalle-fila-${index}`);
         if (bulkFaltaSi) {
             detalle.style.display = "table-row";
@@ -7311,565 +7298,181 @@ function aplicarATodos() {
             if(bulkObs) document.getElementById(`obs-${index}`).value = bulkObs;
         } else {
             detalle.style.display = "none";
-            document.getElementById(`motivo-${index}`).value = "";
-            document.getElementById(`obs-${index}`).value = "";
+            document.getElementById(`motivo-${index}`).value = ""; document.getElementById(`obs-${index}`).value = "";
         }
     });
-    recalcularEstadisticas();
-}
+    window.recalcularEstadisticas();
+};
 
-function recalcularEstadisticas() {
-    const total = listaDocentesCargados.length;
+window.recalcularEstadisticas = function() {
     let ausentes = 0;
-    
-    listaDocentesCargados.forEach((docente, index) => {
-        if (document.getElementById(`falta-${index}`).checked) ausentes++;
-    });
-    
-    document.getElementById('stat-total').innerText = total;
+    window.listaDocentesCargados.forEach((d, i) => { if (document.getElementById(`falta-${i}`).checked) ausentes++; });
+    document.getElementById('stat-total').innerText = window.listaDocentesCargados.length;
     document.getElementById('stat-ausentes').innerText = ausentes;
-    document.getElementById('stat-presentes').innerText = (total - ausentes);
-}
+    document.getElementById('stat-presentes').innerText = (window.listaDocentesCargados.length - ausentes);
+};
 
 window.limpiarFormularioAsistencia = function() {
     document.getElementById('asis-codigo-buscar').value = "";
     document.getElementById('asistencia-contenido').style.display = 'none';
     document.getElementById('tabla-docentes-body').innerHTML = "";
-    listaDocentesCargados = [];
-    document.getElementById('stat-total').innerText = "0";
-    document.getElementById('stat-presentes').innerText = "0";
-    document.getElementById('stat-ausentes').innerText = "0";
-    
+    window.listaDocentesCargados = [];
     const radioNo = document.querySelector('input[name="bulk_falta"][value="no"]');
     if(radioNo) radioNo.checked = true;
     document.getElementById('bulk-campos-condicionales').style.display = 'none';
-    document.getElementById('bulk_motivo').value = "";
-    document.getElementById('bulk_obs').value = "";
 };
 
-window.limpiarEstadisticas = function() {
-    document.getElementById('est-codigo').value = "";
-    document.getElementById('est-inicio').value = "";
-    document.getElementById('est-fin').value = "";
-    document.getElementById('area-imprimible-est').style.display = 'none';
-    document.getElementById('btn-imprimir-est').style.display = 'none';
-    
-    if (typeof miGraficoDona !== 'undefined' && miGraficoDona) miGraficoDona.destroy();
-    if (typeof miGraficoBarras !== 'undefined' && miGraficoBarras) miGraficoBarras.destroy();
-};
-
-window.limpiarFormularioLluvias = function() {
-    const formLluvias = document.querySelector('#contenedor-formulario form');
-    if (formLluvias) {
-        formLluvias.reset();
-    }
-};
-
-function enviarAsistencia() {
+window.enviarAsistencia = function() {
     const btn = document.getElementById('btn-guardar-asistencia');
-    const codigoEscuela = document.getElementById('asis-codigo-buscar').value.trim();
-    const sedeNombre = document.getElementById('asis-sede-nombre').innerText;
+    let datosEmpaquetados = []; let validacionExitosa = true;
     
-    let datosEmpaquetados = [];
-    let validacionExitosa = true;
-    
-    listaDocentesCargados.forEach((docente, index) => {
+    window.listaDocentesCargados.forEach((docente, index) => {
         const falto = document.getElementById(`falta-${index}`).checked;
         const motivo = document.getElementById(`motivo-${index}`).value;
-        const observacion = document.getElementById(`obs-${index}`).value.trim();
-        
-        if (falto && !motivo) {
-            alert(`⚠️ Falta seleccionar el motivo de inasistencia de: ${docente.nombre}`);
-            validacionExitosa = false;
-            return;
-        }
-        
+        if (falto && !motivo) { alert(`⚠️ Falta motivo de: ${docente.nombre}`); validacionExitosa = false; return; }
         datosEmpaquetados.push({
-            nip: docente.nip,
-            nombre: docente.nombre,
-            falto: falto ? "SI" : "NO",
-            motivo: falto ? motivo : "N/A",
-            observacion: observacion ? observacion : "Sin observaciones"
+            nip: docente.nip, nombre: docente.nombre, falto: falto ? "SI" : "NO",
+            motivo: falto ? motivo : "N/A", observacion: document.getElementById(`obs-${index}`).value || "Sin observaciones"
         });
     });
-    
     if (!validacionExitosa) return;
     
-    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS...";
-    btn.disabled = true;
+    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; btn.disabled = true;
     
     var iframeName = 'iframe-asistencia-' + Date.now();
-    var iframe = document.createElement('iframe'); 
-    iframe.name = iframeName; 
-    iframe.style.display = 'none'; 
+    var iframe = document.createElement('iframe'); iframe.name = iframeName; iframe.style.display = 'none'; 
     document.body.appendChild(iframe); 
 
-    var hiddenForm = document.createElement('form'); 
-    hiddenForm.method = 'POST'; 
-    hiddenForm.action = URL_API_GOOGLE; 
-    hiddenForm.target = iframeName; 
+    var hiddenForm = document.createElement('form'); hiddenForm.method = 'POST'; 
+    hiddenForm.action = URL_API_GOOGLE; hiddenForm.target = iframeName; 
 
-    var data = {
-        tipoFormulario: 'asistencia',
-        codigo: codigoEscuela,
-        sede: sedeNombre,
-        datos_asistencia: JSON.stringify(datosEmpaquetados)
-    };
-
-    for(var key in data) {
-        var input = document.createElement('input'); 
-        input.type = 'hidden'; 
-        input.name = key; 
-        input.value = data[key]; 
-        hiddenForm.appendChild(input);
-    } 
-    document.body.appendChild(hiddenForm); 
-    hiddenForm.submit(); 
+    var data = { tipoFormulario: 'asistencia', codigo: document.getElementById('asis-codigo-buscar').value, sede: document.getElementById('asis-sede-nombre').innerText, datos_asistencia: JSON.stringify(datosEmpaquetados) };
+    for(var key in data) { var input = document.createElement('input'); input.type = 'hidden'; input.name = key; input.value = data[key]; hiddenForm.appendChild(input); } 
+    
+    document.body.appendChild(hiddenForm); hiddenForm.submit(); 
 
     setTimeout(function() { 
-        alert("✅ ¡ASISTENCIA GUARDADA CON &Eacute;XITO!\n\nLos registros han sido asentados de manera oficial en la pesta&ntilde;a 'Asistencia'.");
-        
-        if (typeof window.limpiarFormularioAsistencia === "function") {
-            window.limpiarFormularioAsistencia();
-        } else {
-            document.getElementById('asistencia-contenido').style.display = 'none';
-            document.getElementById('asis-codigo-buscar').value = "";
-        }
-        
+        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!");
+        window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
-        
-        var dashMenu = document.getElementById('dashboard-menu');
-        if(dashMenu) dashMenu.style.display = '';
-        
-        btn.innerText = "💾 Guardar Control de Asistencia";
-        btn.disabled = false;
+        document.getElementById('dashboard-menu').style.display = '';
+        btn.innerText = "💾 Guardar Control de Asistencia"; btn.disabled = false;
         window.scrollTo(0,0);
-
-        setTimeout(function() {
-            if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
-            if(document.body.contains(iframe)) document.body.removeChild(iframe);
-        }, 3000);
     }, 1500); 
-}
+};
 
 // =========================================================================
-// M&Oacute;DULO DE ESTAD&Iacute;STICAS Y GR&Aacute;FICOS (CHART.JS)
+// 3. MÓDULO DE ESTADÍSTICAS Y GRÁFICOS
 // =========================================================================
-let miGraficoDona = null;
-let miGraficoBarras = null;
-
-function generarEstadisticas() {
+window.generarEstadisticas = function() {
     const btn = document.getElementById('btn-generar-est');
     const codigo = document.getElementById('est-codigo').value.trim();
     const inicio = document.getElementById('est-inicio').value;
     const fin = document.getElementById('est-fin').value;
 
-    if (!codigo || !inicio || !fin) {
-        alert("⚠️ Por favor, ingrese el c&oacute;digo de la escuela y seleccione ambas fechas.");
-        return;
-    }
-    if (inicio > fin) {
-        alert("⚠️ Error cronol&oacute;gico: La fecha de inicio no puede ser mayor a la fecha de fin.");
-        return;
-    }
+    if (!codigo || !inicio || !fin) return alert("⚠️ Ingrese el código escolar y seleccione ambas fechas.");
+    btn.innerText = "⏳ Procesando datos..."; btn.disabled = true;
 
-    btn.innerText = "⏳ Procesando datos...";
-    btn.disabled = true;
-
-    const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
-
-    fetch(urlConsulta)
-    .then(response => response.json())
+    fetch(`${URL_API_GOOGLE}?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`)
+    .then(res => res.json())
     .then(data => {
-        btn.innerText = "📊 Calcular Gráficas";
-        btn.disabled = false;
-
-        if (data.status === "error") {
-            alert("❌ Error: " + data.message);
-            return;
-            
-        }
-
+        btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false;
+        if (data.status === "error") return alert("❌ Error: " + data.message);
         if (data.total === 0) {
-            alert("ℹ️ Base de datos vac&iacute;a: No se encontraron registros de asistencia para el c&oacute;digo " + codigo + " en las fechas indicadas.");
             document.getElementById('area-imprimible-est').style.display = 'none';
             document.getElementById('btn-imprimir-est').style.display = 'none';
-            return;
+            return alert("ℹ️ No hay registros para este código en estas fechas.");
         }
-
+        
         document.getElementById('area-imprimible-est').style.display = 'block';
         document.getElementById('btn-imprimir-est').style.display = 'block';
-
         document.getElementById('est-sede-nombre').innerText = data.sede;
-        
-        const fi = inicio.split("-"); const ff = fin.split("-");
-        document.getElementById('est-rango-texto').innerText = `${fi[2]}/${fi[1]}/${fi[0]} al ${ff[2]}/${ff[1]}/${ff[0]}`;
-        
         document.getElementById('est-kpi-total').innerText = data.total;
         document.getElementById('est-kpi-presentes').innerText = data.presentes;
         document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
 
-        dibujarGraficos(data.presentes, data.ausentes, data.motivos);
+        if (typeof ChartDataLabels !== 'undefined') Chart.register(ChartDataLabels);
+        if (window.miGraficoDona) window.miGraficoDona.destroy();
+        if (window.miGraficoBarras) window.miGraficoBarras.destroy();
+
+        window.miGraficoDona = new Chart(document.getElementById('grafico-dona').getContext('2d'), {
+            type: 'doughnut', data: { labels: ['Presentes', 'Ausentes'], datasets: [{ data: [data.presentes, data.ausentes], backgroundColor: ['#16a34a', '#dc2626'] }] },
+            options: { responsive: true, plugins: { datalabels: { color: '#fff', formatter: (val, ctx) => ((val/ctx.chart._metasets[0].total)*100).toFixed(1) + '%' } } }
+        });
+
+        const n = Object.keys(data.motivos); const c = Object.values(data.motivos);
+        window.miGraficoBarras = new Chart(document.getElementById('grafico-barras').getContext('2d'), {
+            type: 'bar', data: { labels: n.length?n:['Sin inasistencias'], datasets: [{ data: c.length?c:[0], backgroundColor: '#042444' }] },
+            options: { responsive: true, plugins: { datalabels: { display: false } } }
+        });
     })
-    .catch(error => {
-        console.error("Error Fetch:", error);
-        btn.innerText = "📊 Calcular Gr&aacute;ficas";
-        btn.disabled = false;
-        alert("❌ Ocurri&oacute; un error al conectar con Google Sheets.");
-    });
-}
+    .catch(err => { btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; alert("❌ Error conectando a Sheets."); });
+};
 
-function dibujarGraficos(presentes, ausentes, motivosObj) {
-    if (typeof ChartDataLabels !== 'undefined') {
-        Chart.register(ChartDataLabels);
-    }
-
-    if (miGraficoDona) miGraficoDona.destroy();
-    if (miGraficoBarras) miGraficoBarras.destroy();
-
-    const ctxDona = document.getElementById('grafico-dona').getContext('2d');
-    miGraficoDona = new Chart(ctxDona, {
-        type: 'doughnut',
-        data: {
-            labels: ['Presentes', 'Ausentes'],
-            datasets: [{
-                data: [presentes, ausentes],
-                backgroundColor: ['#16a34a', '#dc2626'],
-                hoverOffset: 4
-            }]
-        },
-        options: { 
-            responsive: true, 
-            plugins: { 
-                legend: { position: 'bottom' },
-                datalabels: { 
-                    color: '#ffffff', 
-                    font: { weight: 'bold', size: 14 },
-                    formatter: function(value, context) {
-                        if (value === 0) return ''; 
-                        let total = context.chart._metasets[context.datasetIndex].total;
-                        let porcentaje = ((value / total) * 100).toFixed(1) + '%';
-                        return porcentaje;
-                    }
-                },
-                tooltip: { 
-                    callbacks: {
-                        label: function(context) {
-                            let valor = context.raw;
-                            let total = context.chart._metasets[context.datasetIndex].total;
-                            let porcentaje = ((valor / total) * 100).toFixed(1) + '%';
-                            return ` ${context.label}: ${valor} registros (${porcentaje})`;
-                        }
-                    }
-                }
-            } 
-        }
-    });
-
-    const nombresMotivos = Object.keys(motivosObj);
-    const cantidadesMotivos = Object.values(motivosObj);
-
-    if (nombresMotivos.length === 0) {
-        nombresMotivos.push("Sin Inasistencias registradas");
-        cantidadesMotivos.push(0);
-    }
-
-    const ctxBarras = document.getElementById('grafico-barras').getContext('2d');
-    miGraficoBarras = new Chart(ctxBarras, {
-        type: 'bar',
-        data: {
-            labels: nombresMotivos,
-            datasets: [{
-                label: 'Cantidad de casos',
-                data: cantidadesMotivos,
-                backgroundColor: '#042444',
-                borderRadius: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 } } },
-            plugins: { 
-                legend: { display: false },
-                datalabels: { 
-                    display: false 
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let valor = context.raw;
-                            let totalAusencias = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                            let porcentaje = totalAusencias > 0 ? ((valor / totalAusencias) * 100).toFixed(1) + '%' : '0%';
-                            return ` Cantidad: ${valor} caso(s) (${porcentaje} del total de ausencias)`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    let totalRegistros = presentes + ausentes;
-    let porcentajeAsistencia = totalRegistros > 0 ? ((presentes / totalRegistros) * 100).toFixed(1) : 0;
-
-    let textoLeyenda = `El presente informe estad&iacute;stico consolida un total de <strong>${totalRegistros}</strong> registros validados en el sistema. ` +
-    `Se muestra un &iacute;ndice de asistencia del <strong>${porcentajeAsistencia}%</strong> del personal docente frente a un <strong>${totalRegistros > 0 ? ((ausentes / totalRegistros) * 100).toFixed(1) : 0}%</strong> de inasistencias generales. ` +
-    `Este balance provee el respaldo t&eacute;cnico necesario para los registros de rendimiento distrital y la respectiva liberaci&oacute;n de firmas de conformidad.`;
-
-    document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
-}
+window.limpiarEstadisticas = function() {
+    document.getElementById('est-codigo').value = ""; document.getElementById('est-inicio').value = ""; document.getElementById('est-fin').value = "";
+    document.getElementById('area-imprimible-est').style.display = 'none'; document.getElementById('btn-imprimir-est').style.display = 'none';
+    if(window.miGraficoDona) window.miGraficoDona.destroy(); if(window.miGraficoBarras) window.miGraficoBarras.destroy();
+};
 
 // =========================================================================
-// SENSOR INTELIGENTE REFORZADO PARA LA CAJA DE FOTOS
+// 4. MÓDULO DE CENTRAL WHATSAPP (DIRECTORES)
 // =========================================================================
-setInterval(function() {
-    var txtBox = document.getElementById('rep-comentarios');
-    if (txtBox && !document.getElementById('lluvias-fotos')) {
-        var wrapper = document.createElement('div');
-        wrapper.id = 'bloque-fotos-contenedor';
-        wrapper.style.marginTop = "15px";
-        wrapper.style.marginBottom = "15px";
-        wrapper.style.padding = "10px";
-        wrapper.style.background = "#f8fafc";
-        wrapper.style.border = "1px dashed #cbd5e1";
-        wrapper.style.borderRadius = "6px";
-        wrapper.style.textAlign = "left";
-        wrapper.innerHTML = `
-            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px; font-family: inherit;">
-                📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
-            </label>
-            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 6px; cursor: pointer; box-sizing: border-box;">
-            <small style="color: #64748b; display: block; margin-top: 4px; font-family: inherit;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
-        `;
-        txtBox.parentNode.insertBefore(wrapper, txtBox.nextSibling);
-    }
-}, 500);
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Buscamos el botón de estadísticas por su texto o clases comunes en tu web
-    const botones = document.querySelectorAll("button, input[type='button']");
-    let botonEstadisticas = null;
+window.verificarAccesoAlerta = function(e) {
+    if(e) e.preventDefault();
+    if(document.getElementById("pass-maestra-wsp").value.trim() === "Monitor2026*") {
+        document.getElementById("wsp-bloque-candado").style.display = "none";
+        document.getElementById("modulo-alertas-whatsapp").style.display = "block";
+    } else { alert("❌ Contraseña incorrecta."); document.getElementById("pass-maestra-wsp").value = ""; }
+};
+window.verificarAccAccessAlerta = window.verificarAccesoAlerta;
 
-    botones.forEach(btn => {
-        const texto = btn.innerText ? btn.innerText.toLowerCase() : "";
-        if (texto.includes("estadística") || texto.includes("calcular") || texto.includes("procesando") || texto.includes("rendimiento")) {
-            botonEstadisticas = btn;
-        }
-    });
+window.enviarAlGrupoDistrital = function(e) {
+    if(e) e.preventDefault();
+    var m = document.getElementById("txt-alerta-whatsapp").value.trim();
+    if(!m) return alert("⚠️ Escribe el mensaje primero.");
+    window.location.href = "whatsapp://send?text=" + encodeURIComponent(m);
+};
 
-    // Si encontramos el botón, le inyectamos la solución directa sin importar cómo se llamaba antes
-    if (botonEstadisticas) {
-        botonEstadisticas.removeAttribute("onclick"); // Quitamos la función vieja que fallaba
-        botonEstadisticas.addEventListener("click", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const textoOriginal = botonEstadisticas.innerText;
-            botonEstadisticas.innerText = "⏳ Procesando datos...";
-            botonEstadisticas.disabled = true;
-
-            // Captura automática de campos del formulario
-            const codigo = document.getElementById('codigoEscolar')?.value || document.getElementById('codigo')?.value || '14800';
-            const desde = document.getElementById('desdeFecha')?.value || document.getElementById('desde')?.value || '03/07/2026';
-            const hasta = document.getElementById('hastaFecha')?.value || document.getElementById('hasta')?.value || '03/07/2026';
-
-            // Consulta directa limpia e inmune a bloqueos
-            const url = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=consultar&codigo=" + codigo + "&desde=" + desde + "&hasta=" + hasta;
-
-            fetch(url)
-            .then(res => res.json())
-            .then(res => {
-                botonEstadisticas.innerText = textoOriginal;
-                botonEstadisticas.disabled = false;
-                
-                if (res.status === "success" && res.data) {
-                    // Limpieza y mapeo exacto para que las gráficas dejen de decir 'undefined'
-                    const datosLimpios = res.data.map(item => ({
-                        fecha: item.fecha,
-                        codigo: item.codigo,
-                        sede: item.sede,
-                        nip: item.nip,
-                        nombre: item.nombre,
-                        falto: item.falto || item.Falto || "No",
-                        motivo: item.motivo || item.Motivo || "",
-                        observacion: item.observacion || item.Observacion || ""
-                    }));
-
-                    // Intentar ejecutar el renderizador automático de la web de forma segura
-                    const funcionesGlobales = ["renderizarGraficosEstadisticos", "procesarYMostrarEstadisticas", "mostrarEstadisticas", "actualizarGraficos"];
-                    let ejecutada = false;
-                    
-                    funcionesGlobales.forEach(f => {
-                        if (typeof window[f] === "function" && !ejecutada) {
-                            window[f](datosLimpios);
-                            ejecutada = true;
-                        }
-                    });
-
-                    if (!ejecutada) {
-                        alert("Estadísticas procesadas con éxito. Actualizando gráficos principales.");
-                        window.location.reload();
-                    }
-                } else {
-                    alert("Aviso: Datos sincronizados correctamente.");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                botonEstadisticas.innerText = textoOriginal;
-                botonEstadisticas.disabled = false;
-                alert("Sincronización de asistencia completada con éxito.");
-            });
-        });
-    }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. GESTIÓN DE MEMORIA INTELIGENTE (Para que no se borre tu código al recargar)
-    // Buscamos cuál es el ID real de la caja de texto del código escolar
-    const inputCodigo = document.getElementById('codigoEscolar') || document.getElementById('codigo') || document.querySelector("input[type='text']");
+window.cargarPanelDirectores = function(e) {
+    if(e) e.preventDefault();
+    const btn = document.getElementById("btn-cargar-wsp");
+    if(btn) { btn.innerText = "⏳ SINCRONIZANDO..."; btn.disabled = true; }
     
-    if (inputCodigo) {
-        // Al cargar la página, verificamos si hay algún código guardado previamente
-        const codigoGuardado = localStorage.getItem("ultimoCodigoEscolar");
-        if (codigoGuardado) {
-            inputCodigo.value = codigoGuardado;
+    fetch(URL_API_GOOGLE + "?accion=cargar_directores")
+    .then(res => res.json())
+    .then(data => {
+        if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; }
+        if(data.status === "success") {
+            window.listaDirectoresCache = data.data;
+            const t = document.getElementById("tabla-directores-whatsapp-body");
+            t.innerHTML = "";
+            data.data.forEach((d, i) => {
+                let tel = d.telefono.trim(); if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
+                t.innerHTML += `<tr><td style="padding:10px;">${d.escuela}</td><td style="padding:10px;">${d.nombre}</td><td style="text-align:center;"><button onclick="window.location.href='whatsapp://send?phone=${tel}&text='+encodeURIComponent(document.getElementById('txt-alerta-whatsapp').value)" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button></td></tr>`;
+            });
         }
+    }).catch(err => { if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; } alert("❌ Error de red."); });
+};
 
-        // Cada vez que escribas un código nuevo (ej: 11214), el navegador lo recordará
-        inputCodigo.addEventListener("input", function() {
-            localStorage.setItem("ultimoCodigoEscolar", inputCodigo.value);
-        });
-    }
+window.limpiezaAbsoluta = function() {
+    var c = document.getElementById('txt-alerta-whatsapp'); if(c) c.value = '';
+    var t = document.getElementById('tabla-directores-whatsapp-body'); if(t) t.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:35px; color:#64748b;">Presiona Sincronizar.</td></tr>';
+};
 
-    // 2. INTERCEPTOR CORREGIDO PARA EL BOTÓN "CALCULAR GRÁFICAS"
-    const todosLosBotones = document.querySelectorAll("button, input[type='button'], .btn");
-    let botonEstadisticas = null;
-
-    todosLosBotones.forEach(btn => {
-      const textoBoton = btn.innerText ? btn.innerText.toLowerCase() : "";
-      if (textoBoton.includes("graf") || textoBoton.includes("estad") || textoBoton.includes("calcul")) {
-        botonEstadisticas = btn;
-      }
-    });
-
-    if (botonEstadisticas) {
-      botonEstadisticas.removeAttribute("onclick");
-      
-      botonEstadisticas.addEventListener("click", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Captura en tiempo real de lo que está escrito EXACTAMENTE en las casillas del navegador
-        const valorCodigoReal = inputCodigo ? inputCodigo.value.trim() : "14800";
-        const campoDesde  = document.getElementById('desdeFecha')?.value || document.getElementById('desde')?.value || '03/07/2026';
-        const campoHasta  = document.getElementById('hastaFecha')?.value || document.getElementById('hasta')?.value || '03/07/2026';
-
-        if (!valorCodigoReal) {
-            alert("Por favor, ingrese un Código Escolar válido antes de calcular.");
-            return;
+// =========================================================================
+// 5. GESTIÓN DE MEMORIA DOM
+// =========================================================================
+document.addEventListener("DOMContentLoaded", function() {
+    setInterval(() => {
+        const input = document.getElementById('codigoEscolar') || document.getElementById('codigo') || document.getElementById('est-codigo');
+        if (input && !input.hasAttribute('data-mem')) {
+            input.setAttribute('data-mem', 'true');
+            if(localStorage.getItem("codigo-escuela")) input.value = localStorage.getItem("codigo-escuela");
+            input.addEventListener("input", () => localStorage.setItem("codigo-escuela", input.value));
         }
-
-        const textoOriginal = botonEstadisticas.innerText;
-        botonEstadisticas.innerText = "⏳ Conectando con Google Sheets...";
-        botonEstadisticas.disabled = true;
-
-        // Construcción limpia de la URL de consulta hacia tu Apps Script
-        const urlBase = "https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec";
-        const urlFinal = `${urlBase}?accion=consultar&codigo=${valorCodigoReal}&desde=${campoDesde}&hasta=${campoHasta}`;
-
-        console.log("Petición enviada al servidor con URL:", urlFinal);
-
-        fetch(urlFinal)
-          .then(response => response.json())
-          .then(resultado => {
-            botonEstadisticas.innerText = textoOriginal;
-            botonEstadisticas.disabled = false;
-
-            if (resultado.status === "success" && resultado.data) {
-              // Limpieza y estandarización de las columnas devueltas por Google Sheets
-              const listaNormalizada = resultado.data.map(docente => ({
-                fecha: docente.fecha || "",
-                codigo: docente.codigo || "",
-                sede: docente.sede || "",
-                nip: docente.nip || "",
-                nombre: docente.nombre || "",
-                falto: docente.falto || docente.Falto || "No",
-                motivo: docente.motivo || docente.Motivo || "",
-                observacion: docente.observacion || docente.Observacion || ""
-              }));
-
-              // Buscamos las funciones internas del index.html para pintar los gráficos automáticamente
-              const funcionesGraficos = ["renderizarGraficosEstadisticos", "procesarYMostrarEstadisticas", "mostrarEstadisticas", "actualizarGraficos", "cargarEstadisticas"];
-              let ejecutadaConExito = false;
-
-              funcionesGraficos.forEach(nombreFuncion => {
-                if (typeof window[nombreFuncion] === "function" && !ejecutadaConExito) {
-                  window[nombreFuncion](listaNormalizada);
-                  ejecutadaConExito = true;
-                }
-              });
-
-              if (!ejecutadaConExito) {
-                console.log("Datos recuperados con éxito, pero la función visual requiere mapeo manual en consola.", listaNormalizada);
-                alert("Sincronización exitosa. Los datos se procesaron correctamente en el sistema.");
-              }
-            } else {
-              alert("Aviso: " + (resultado.message || "No se encontraron registros de asistencia para los filtros aplicados."));
-            }
-          })
-          .catch(errorConexion => {
-            console.error("Error crítico de transferencia:", errorConexion);
-            botonEstadisticas.innerText = textoOriginal;
-            botonEstadisticas.disabled = false;
-            alert("❌ Ocurrió un error al conectar con Google Sheets. Verifique la estructura de datos.");
-          });
-      });
-    }
+    }, 1000);
 });
-</script>
-<script>
-    window.limpiezaAbsoluta = function() {
-        var cajaTexto = document.getElementById('txt-alerta-whatsapp');
-        var tablaDirectores = document.getElementById('tabla-directores-whatsapp-body');
-        if (cajaTexto) { cajaTexto.value = ''; }
-        if (tablaDirectores) { tablaDirectores.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.</td></tr>'; }
-        window.listaDirectoresCache = [];
-    };
-</script>
-<script>
-    // 1. REPARACIÓN DEL BOTÓN SINCRONIZAR (Cero filas N/A)
-    window.cargarPanelDirectores = function(e) {
-        if(e) { e.preventDefault(); e.stopPropagation(); }
-        const t = document.getElementById("btn-cargar-wsp");
-        if(t) { t.innerText = "⏳ SINCRONIZANDO..."; t.disabled = true; }
-        
-        fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores", { method: "GET" })
-        .then(res => res.json())
-        .then(data => {
-            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
-            if (data.status === "success") {
-                window.listaDirectoresCache = data.data;
-                if(typeof window.renderizarTablaWhatsApp === 'function') window.renderizarTablaWhatsApp();
-            } else { alert("Error en Sheets: " + data.message); }
-        })
-        .catch(err => {
-            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
-            alert("❌ Error de conexión.");
-        });
-    };
-
-    // 2. CEREBRO DEL BOTÓN LIMPIAR
-    window.limpiezaAbsoluta = function() {
-        var cajaTexto = document.getElementById('txt-alerta-whatsapp');
-        var tablaDirectores = document.getElementById('tabla-directores-whatsapp-body');
-        if (cajaTexto) { cajaTexto.value = ''; }
-        if (tablaDirectores) { 
-            tablaDirectores.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.</td></tr>'; 
-        }
-        window.listaDirectoresCache = [];
-    };
 </script>
 </body>
 </html>
