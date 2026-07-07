@@ -6146,29 +6146,32 @@
                 </div>
             </div>
             
-            <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
-                <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
-                <div style="max-height: 270px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; background: white; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
-                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
-                        <thead>
-                            <tr style="background: #f1f5f9; color: #475569; border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; z-index: 10;">
-                                <th style="padding: 12px 10px; font-weight: 700;">Código</th>
-                                <th style="padding: 12px 10px; font-weight: 700;">Director</th>
-                                <th style="padding: 12px 10px; text-align: center; font-weight: 700;">Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-directores-whatsapp-body">
-                            <tr>
-                                <td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">
-                                    Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel si requieres realizar envíos individuales.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-        </div>
+           <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
+    <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
+    
+    <div style="max-height: 270px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; background: white; margin-bottom: 15px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
+            <thead>
+                <tr style="background: #f1f5f9; color: #475569; border-bottom: 2px solid #cbd5e1;">
+                    <th style="padding: 12px 10px; font-weight: 700;">Código</th>
+                    <th style="padding: 12px 10px; font-weight: 700;">Director</th>
+                    <th style="padding: 12px 10px; text-align: center; font-weight: 700;">Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-directores-whatsapp-body">
+                <tr>
+                    <td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">
+                        Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="text-align: right;">
+        <button type="button" onclick="window.limpiezaAbsoluta()" style="background: #64748b; color: white; border: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer;">
+            🧹 Limpiar 
+        </button>
     </div>
 </div>
 
@@ -7857,6 +7860,48 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
 });
+</script>
+<script>
+    window.limpiezaAbsoluta = function() {
+        var cajaTexto = document.getElementById('txt-alerta-whatsapp');
+        var tablaDirectores = document.getElementById('tabla-directores-whatsapp-body');
+        if (cajaTexto) { cajaTexto.value = ''; }
+        if (tablaDirectores) { tablaDirectores.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.</td></tr>'; }
+        window.listaDirectoresCache = [];
+    };
+</script>
+<script>
+    // 1. REPARACIÓN DEL BOTÓN SINCRONIZAR (Cero filas N/A)
+    window.cargarPanelDirectores = function(e) {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        const t = document.getElementById("btn-cargar-wsp");
+        if(t) { t.innerText = "⏳ SINCRONIZANDO..."; t.disabled = true; }
+        
+        fetch("https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec?accion=cargar_directores", { method: "GET" })
+        .then(res => res.json())
+        .then(data => {
+            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
+            if (data.status === "success") {
+                window.listaDirectoresCache = data.data;
+                if(typeof window.renderizarTablaWhatsApp === 'function') window.renderizarTablaWhatsApp();
+            } else { alert("Error en Sheets: " + data.message); }
+        })
+        .catch(err => {
+            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
+            alert("❌ Error de conexión.");
+        });
+    };
+
+    // 2. CEREBRO DEL BOTÓN LIMPIAR
+    window.limpiezaAbsoluta = function() {
+        var cajaTexto = document.getElementById('txt-alerta-whatsapp');
+        var tablaDirectores = document.getElementById('tabla-directores-whatsapp-body');
+        if (cajaTexto) { cajaTexto.value = ''; }
+        if (tablaDirectores) { 
+            tablaDirectores.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.</td></tr>'; 
+        }
+        window.listaDirectoresCache = [];
+    };
 </script>
 </body>
 </html>
