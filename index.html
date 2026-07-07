@@ -7078,140 +7078,112 @@
     </script>
 <script>
 // =========================================================================
-// FUNCIÓN DE ENVÍO DE INCIDENCIAS (VERSIÓN SUPREMA CON COMPRESIÓN DE FOTOS)
-// =========================================================================
-function enviarReporte(event, mainForm) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    
-    var btn = mainForm.querySelector('.btn-submit'); 
-    if(btn) {
-        btn.innerText = '⏳ OPTIMIZANDO IMÁGENES Y ENVIANDO...'; 
-        btn.disabled = true; 
-    }
+    // FUNCIÓN DE ENVÍO DE INCIDENCIAS (CON ESCÁNER DE DIAGNÓSTICO)
+    // =========================================================================
+    function enviarReporte(event, mainForm) {
+        if (event) { event.preventDefault(); event.stopPropagation(); }
+        var btn = mainForm.querySelector('.btn-submit'); 
+        if(btn) { btn.innerText = '⏳ OPTIMIZANDO Y ENVIANDO...'; btn.disabled = true; }
 
-    var prios = []; 
-    for(var i = 1; i <= 6; i++) {
-        var cb = document.getElementById('p' + i); 
-        if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
-    } 
+        var prios = []; 
+        for(var i = 1; i <= 6; i++) {
+            var cb = document.getElementById('p' + i); 
+            if(cb && cb.checked) prios.push(cb.nextElementSibling.innerText);
+        } 
 
-    var correoDirector = document.getElementById('director-email') ? document.getElementById('director-email').innerText : '';
-    var inputFotos = document.getElementById('lluvias-fotos');
+        // CORRECCIÓN: Leemos el correo de forma a prueba de fallos (sea texto o input)
+        var correoEl = document.getElementById('director-email');
+        var correoDirector = correoEl ? (correoEl.value || correoEl.innerText || '').trim() : 'Sin Correo';
+        
+        var inputFotos = document.getElementById('lluvias-fotos');
+        var cantidadFotos = inputFotos && inputFotos.files ? inputFotos.files.length : 0;
 
-    function transmitirFlujoFinal(datosFotosJSON) {
-        var formData = new FormData();
-        formData.append('tipoFormulario', 'lluvias');
-        formData.append('Correo', correoDirector);
-        formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
-        formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
-        formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
-        formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
-        formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
-        formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
-        formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
-        formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
-        formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
-        formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
-        formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
-        formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
-        formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
-        formData.append('Prioridades', prios.join(' / '));
-        formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.',);
-        formData.append('datos_fotos', datosFotosJSON);
+        // 🚨 ESCÁNER DE DIAGNÓSTICO EN PANTALLA 🚨
+        alert("🔍 DIAGNÓSTICO ANTES DE ENVIAR:\n\n1. Correo detectado: " + correoDirector + "\n2. Fotos detectadas: " + cantidadFotos + "\n\nSi el correo dice 'Sin Correo' o está vacío, el PDF no se enviará. Da clic en Aceptar para continuar el envío.");
 
-        fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        })
-        .then(function() {
-            var contForm = document.getElementById('contenedor-formulario');
-            if(contForm) contForm.style.display = 'none'; 
-            
-            var dashMenu = document.getElementById('dashboard-menu');
-            if(dashMenu) dashMenu.style.display = ''; 
+        function transmitirFlujoFinal(datosFotosJSON) {
+            var formData = new FormData();
+            formData.append('tipoFormulario', 'lluvias');
+            formData.append('Correo', correoDirector);
+            formData.append('CentroEscolar', document.getElementById('rep-centro') ? document.getElementById('rep-centro').value : '');
+            formData.append('Codigo', document.getElementById('rep-codigo') ? document.getElementById('rep-codigo').value : '');
+            formData.append('Director', document.getElementById('rep-director') ? document.getElementById('rep-director').value : '');
+            formData.append('Telefono', document.getElementById('rep-telefono') ? document.getElementById('rep-telefono').value : '');
+            formData.append('Energia', document.getElementById('rep-energia') ? document.getElementById('rep-energia').value : '');
+            formData.append('Internet', document.getElementById('rep-internet') ? document.getElementById('rep-internet').value : '');
+            formData.append('Vias', document.getElementById('rep-vias') ? document.getElementById('rep-vias').value : '');
+            formData.append('Muros', document.getElementById('rep-muros') ? document.getElementById('rep-muros').value : '');
+            formData.append('AulasInundadas', document.getElementById('rep-aulas-inundadas') ? document.getElementById('rep-aulas-inundadas').value : '');
+            formData.append('Techos', document.getElementById('rep-techos') ? document.getElementById('rep-techos').value : '');
+            formData.append('Electrico', document.getElementById('rep-electrico') ? document.getElementById('rep-electrico').value : '');
+            formData.append('Tecnologia', document.getElementById('rep-tecnologia') ? document.getElementById('rep-tecnologia').value : '');
+            formData.append('Mobiliario', document.getElementById('rep-mobiliario') ? document.getElementById('rep-mobiliario').value : '');
+            formData.append('Prioridades', prios.join(' / '));
+            formData.append('Comentarios', (document.getElementById('rep-comentarios') && document.getElementById('rep-comentarios').value.trim() !== '') ? document.getElementById('rep-comentarios').value : 'Sin comentarios adicionales.');
+            formData.append('datos_fotos', datosFotosJSON);
 
-            mainForm.reset(); 
-            if(btn) {
-                btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-                btn.disabled = false; 
-            }
-            window.scrollTo(0,0); 
-            alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nLos datos y evidencias fotográficas han sido optimizados y guardados en el servidor distrital.");
-        })
-        .catch(function(error) {
-            console.error("Error en la transmission de datos:", error);
-            alert("⚠️ Error en el servidor. Por favor, verifica el peso de las imágenes e intenta de nuevo.");
-            if(btn) {
-                btn.innerText = '📤 Enviar Informe y Generar Documento'; 
-                btn.disabled = false; 
-            }
-        });
-    }
+            fetch('https://script.google.com/macros/s/AKfycbzXbYXZoxrXBvtNzgMml07gU9I5VpOfN4GVKw6_cn2kPVtVGNQFIroRHO76ivn0F3o5/exec', {
+                method: 'POST', body: formData, mode: 'no-cors'
+            })
+            .then(function() {
+                var contForm = document.getElementById('contenedor-formulario');
+                if(contForm) contForm.style.display = 'none'; 
+                var dashMenu = document.getElementById('dashboard-menu');
+                if(dashMenu) dashMenu.style.display = ''; 
 
-    // 4. --- COMPRESOR AUTOMÁTICO DE ALTA VELOCIDAD EN LÍNEA ---
-    if (inputFotos && inputFotos.files.length > 0) {
-        var maxFotos = Math.min(inputFotos.files.length, 3);
-        var fotosCargadas = [];
-        var procesadas = 0;
-
-        for (var f = 0; f < maxFotos; f++) {
-            (function(index) {
-                var archivo = inputFotos.files[index];
-                var reader = new FileReader();
-                reader.readAsDataURL(archivo);
-                reader.onload = function(e) {
-                    var img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        // Creamos un lienzo Canvas dinámico para la compresión
-                        var canvas = document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        
-                        // Forzamos una resolución máxima de 1200px de ancho guardando la proporción
-                        var MAX_WIDTH = 1200;
-                        var width = img.width;
-                        var height = img.height;
-                        
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
-                        }
-                        
-                        canvas.width = width;
-                        canvas.height = height;
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
-                        // Exportamos a Base64 reduciendo la calidad al 70% (baja el peso un 90%)
-                        var compressedBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-                        
-                        fotosCargadas.push({
-                            nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name.split('.')[0] + '.jpg',
-                            mimeType: 'image/jpeg',
-                            base64: compressedBase64
-                        });
-                        
-                        procesadas++;
-                        if (procesadas === maxFotos) {
-                            transmitirFlujoFinal(JSON.stringify(fotosCargadas));
-                        }
-                    };
-                };
-                reader.onerror = function() {
-                    procesadas++;
-                    if (procesadas === maxFotos) {
-                        transmitirFlujoFinal(JSON.stringify(fotosCargadas));
-                    }
-                };
-            })(f);
+                mainForm.reset(); 
+                if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
+                window.scrollTo(0,0); 
+                alert("✅ ¡REPORTE DE LLUVIAS ENVIADO CON ÉXITO!\n\nRevisa tu base de datos y tu correo.");
+            })
+            .catch(function(error) {
+                console.error("Error en la transmission:", error);
+                alert("⚠️ Error en la conexión de red al enviar el formulario.");
+                if(btn) { btn.innerText = '📤 Enviar Informe y Generar Documento'; btn.disabled = false; }
+            });
         }
-    } else {
-        transmitirFlujoFinal('');
+
+        if (cantidadFotos > 0) {
+            var maxFotos = Math.min(cantidadFotos, 3);
+            var fotosCargadas = [];
+            var procesadas = 0;
+
+            for (var f = 0; f < maxFotos; f++) {
+                (function(index) {
+                    var archivo = inputFotos.files[index];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(archivo);
+                    reader.onload = function(e) {
+                        var img = new Image();
+                        img.src = e.target.result;
+                        img.onload = function() {
+                            var canvas = document.createElement('canvas');
+                            var ctx = canvas.getContext('2d');
+                            var MAX_WIDTH = 1200;
+                            var width = img.width, height = img.height;
+                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                            canvas.width = width; canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
+                            var compressedBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
+                            
+                            fotosCargadas.push({
+                                nombre: 'Evidencia_' + (index + 1) + '_' + archivo.name.split('.')[0] + '.jpg',
+                                mimeType: 'image/jpeg', base64: compressedBase64
+                            });
+                            procesadas++;
+                            if (procesadas === maxFotos) transmitirFlujoFinal(JSON.stringify(fotosCargadas));
+                        };
+                    };
+                    reader.onerror = function() {
+                        procesadas++;
+                        if (procesadas === maxFotos) transmitirFlujoFinal(JSON.stringify(fotosCargadas));
+                    };
+                })(f);
+            }
+        } else {
+            transmitirFlujoFinal('');
+        }
     }
-}
 // =========================================================================
 // MÓDULO DE ASISTENCIA: VARIABLES Y LOGICA DE CONSULTA (Tu código original)
 // =========================================================================
