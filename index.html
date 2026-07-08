@@ -6948,54 +6948,50 @@
 
         // 1. REPARACIÓN DEL BOTÓN SINCRONIZAR (Conexión nativa sin bloqueos de Chrome)
     window.cargarPanelDirectores = function(e) {
-        if(e) { e.preventDefault(); e.stopPropagation(); }
-        const t = document.getElementById("btn-cargar-wsp");
-        if(t) { t.innerText = "⏳ SINCRONIZANDO..."; t.disabled = true; }
-        
-        // Fetch simple, sin candados extra que asusten al navegador
-        fetch("https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec?accion=cargar_directores")
-        .then(res => res.json())
-        .then(data => {
-            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
-            if (data.status === "success") {
-                window.listaDirectoresCache = data.data;
-                if(typeof window.renderizarTablaWhatsApp === 'function') window.renderizarTablaWhatsApp();
-            } else { alert("Error en Sheets: " + data.message); }
-        })
-        .catch(err => {
-            if(t) { t.innerText = "🔄 Sincronizar Lista para Mensajes Individuales"; t.disabled = false; }
-            alert("❌ Error de conexión.");
-        });
-    };
+    if(e) e.preventDefault();
+    const btn = document.getElementById("btn-cargar-wsp");
+    if(btn) { btn.innerText = "⏳ SINCRONIZANDO..."; btn.disabled = true; }
+    
+    fetch(URL_API_GOOGLE + "?accion=cargar_directores", { method: 'GET' })
+    .then(res => res.json())
+    .then(data => {
+        if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; }
+        if(data.status === "success") {
+            window.listaDirectoresCache = data.data;
+            const t = document.getElementById("tabla-directores-whatsapp-body");
+            t.innerHTML = "";
+            data.data.forEach((d, i) => {
+                let tel = d.telefono.trim(); 
+                if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
+                
+                // Aquí está el botón reparado con su ID y su nueva función
+                t.innerHTML += `<tr>
+                    <td style="padding:10px;">${d.escuela}</td>
+                    <td style="padding:10px;">${d.nombre}</td>
+                    <td style="text-align:center;">
+                        <button id="btn-wsp-${i}" onclick="marcarYEnviarWsp(this, '${tel}')" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button>
+                    </td>
+                </tr>`;
+            });
+        }
+    }).catch(err => { 
+        if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; } 
+        alert("❌ Error de red."); 
+    });
+};
 
-        window.renderizarTablaWhatsApp = function() {
-            const e = document.getElementById("tabla-directores-whatsapp-body");
-            e.innerHTML = "";
-            if (window.listaDirectoresCache && window.listaDirectoresCache.length !== 0) {
-                window.listaDirectoresCache.forEach(((t, n) => {
-                    const r = document.createElement("tr");
-                    r.style.borderBottom = "1px solid #f1f5f9";
-                    let o = t.telefono.trim();
-                    if (!o.startsWith("503") && 8 === o.length) { o = "503" + o; }
-                    r.innerHTML = `<td style="padding:10px 8px; font-weight:bold; color:#042444;">${t.escuela}</td><td style="padding:10px 8px; color:#334155;">${t.nombre}</td><td style="padding:10px 8px; text-align:center;"><button type="button" onclick="window.dispararWhatsApp(event, '${o}', '${t.nombre}', ${n})" id="btn-wsp-${n}" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:11px;">💬 Enviar</button></td>`;
-                    e.appendChild(r);
-                }));
-            } else {
-                e.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:15px; color:#64748b;">No hay registros válidos en Excel.</td></tr>';
-            }
-        };
-
-        // ACCIÓN C: DISPARAR MENSAJE A CHAT PRIVADO INDIVIDUAL
-        window.dispararWhatsApp = function(e, t, n, r) {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            var o = document.getElementById("txt-alerta-whatsapp").value.trim();
-            if (!o) return alert("⚠️ Por favor, escribe primero el mensaje en la caja de texto.");
-            
-            var a = "whatsapp://send?phone=" + t + "&text=" + encodeURIComponent(o);
-            var s = document.getElementById("btn-wsp-" + r);
-            if (s) { s.style.background = "#64748b"; s.innerText = "✅ Enviado"; }
-            window.location.href = a;
-        };
+// Esta es la función que hace la magia de cambiar el color
+window.marcarYEnviarWsp = function(botonHtml, telefono) {
+    var mensaje = document.getElementById('txt-alerta-whatsapp').value.trim();
+    if(!mensaje) return alert("⚠️ Escribe el mensaje primero en la caja de texto.");
+    
+    // 1. Cambia el diseño del botón
+    botonHtml.style.background = "#64748b";
+    botonHtml.innerText = "✅ Enviado";
+    
+    // 2. Lanza el mensaje a WhatsApp
+    window.location.href = "whatsapp://send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
+};
 
      /* --- CEREBRO DEL CONTADOR GLOBAL (ANTI-PARPADEO) --- */
         window.iniciarContadorPremium = function() {
