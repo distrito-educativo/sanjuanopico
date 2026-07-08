@@ -7330,7 +7330,6 @@ window.enviarAsistencia = function() {
         if (falto && !motivo) { 
             alert(`⚠️ Falta seleccionar el motivo de inasistencia de: ${docente.nombre}`); 
             validacionExitosa = false; 
-            return; 
         }
         datosEmpaquetados.push({
             nip: docente.nip, 
@@ -7346,21 +7345,24 @@ window.enviarAsistencia = function() {
     btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; 
     btn.disabled = true;
     
-    // 2. EMPAQUETADO EXACTO AL REPORTE DE LLUVIAS
-    var formData = new FormData();
-    formData.append('tipoFormulario', 'asistencia');
-    formData.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
-    formData.append('sede', document.getElementById('asis-sede-nombre').innerText);
-    formData.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
+    // 2. EMPAQUETADO BLINDADO: Convierte acentos y comillas al idioma de Google
+    const parametrosDeEnvio = new URLSearchParams();
+    parametrosDeEnvio.append('tipoFormulario', 'asistencia');
+    parametrosDeEnvio.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
+    parametrosDeEnvio.append('sede', document.getElementById('asis-sede-nombre').innerText);
+    parametrosDeEnvio.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
 
-    // 3. ENVÍO BLINDADO (con mode: 'no-cors')
+    // 3. ENVÍO DIRECTO AL CEREBRO
     fetch(URL_API_GOOGLE, { 
         method: 'POST', 
-        body: formData, 
-        mode: 'no-cors' 
+        body: parametrosDeEnvio,
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     })
     .then(function() {
-        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
+        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nRevisa tu archivo de Excel en la pestaña 'Asistencia'.");
         window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
         document.getElementById('dashboard-menu').style.display = '';
@@ -7370,7 +7372,7 @@ window.enviarAsistencia = function() {
     })
     .catch(function(error) {
         console.error("Error al guardar asistencia:", error);
-        alert("⚠️ Error en la conexión de red al enviar el formulario.");
+        alert("⚠️ Ocurrió un error en la red.");
         btn.innerText = "💾 Guardar Control de Asistencia"; 
         btn.disabled = false;
     });
