@@ -7455,16 +7455,51 @@ window.cargarPanelDirectores = function(e) {
             const t = document.getElementById("tabla-directores-whatsapp-body");
             t.innerHTML = "";
             data.data.forEach((d, i) => {
-                let tel = d.telefono.trim(); if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
-                t.innerHTML += `<tr><td style="padding:10px;">${d.escuela}</td><td style="padding:10px;">${d.nombre}</td><td style="text-align:center;"><button onclick="window.location.href='whatsapp://send?phone=${tel}&text='+encodeURIComponent(document.getElementById('txt-alerta-whatsapp').value)" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button></td></tr>`;
+                let tel = d.telefono.trim(); 
+                if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
+                
+                // ¡AQUÍ ESTÁ EL BOTÓN CORREGIDO CON SU ID Y TYPE="BUTTON"!
+                t.innerHTML += `<tr>
+                    <td style="padding:10px;">${d.escuela}</td>
+                    <td style="padding:10px;">${d.nombre}</td>
+                    <td style="text-align:center;">
+                        <button type="button" id="btn-wsp-${i}" onclick="window.dispararWhatsApp(event, '${tel}', ${i})" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button>
+                    </td>
+                </tr>`;
             });
         }
-    }).catch(err => { if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; } alert("❌ Error de red."); });
+    }).catch(err => { 
+        if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; } 
+        alert("❌ Error de red."); 
+    });
+};
+
+// ESTA ES LA FUNCIÓN NUEVA QUE CAMBIA EL COLOR
+window.dispararWhatsApp = function(e, telefono, index) {
+    if(e) { e.preventDefault(); e.stopPropagation(); }
+    
+    var mensaje = document.getElementById("txt-alerta-whatsapp").value.trim();
+    if (!mensaje) {
+        alert("⚠️ Por favor, escribe primero el mensaje en la caja de texto.");
+        return;
+    }
+    
+    // Cambiamos el color y el texto del botón al instante
+    var boton = document.getElementById("btn-wsp-" + index);
+    if (boton) { 
+        boton.style.background = "#64748b"; 
+        boton.innerText = "✅ Enviado"; 
+    }
+    
+    // Disparamos la aplicación de WhatsApp
+    var urlAppDirecta = "whatsapp://send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
+    window.location.href = urlAppDirecta;
 };
 
 window.limpiezaAbsoluta = function() {
     var c = document.getElementById('txt-alerta-whatsapp'); if(c) c.value = '';
     var t = document.getElementById('tabla-directores-whatsapp-body'); if(t) t.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:35px; color:#64748b;">Presiona Sincronizar.</td></tr>';
+    window.listaDirectoresCache = [];
 };
 
 // =========================================================================
