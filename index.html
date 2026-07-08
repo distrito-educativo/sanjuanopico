@@ -605,18 +605,24 @@
                     .soporte-header h2 { color: #0A2540; font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
                     .soporte-header p { color: #718096; font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
                     
-                    /* BOTONES DE ACCIÓN RÁPIDA */
-                    .quick-actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
-                    .action-card { background: #F4F6F9; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px 20px; text-align: center; transition: all 0.3s ease; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-                    .action-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(10,37,64,0.1); border-color: #D4AF37; }
-                    .action-icon { font-size: 3rem; margin-bottom: 15px; transition: transform 0.3s ease; }
-                    .action-card:hover .action-icon { transform: scale(1.1); }
-                    .action-card h3 { color: #0A2540; font-size: 1.2rem; margin: 0 0 5px 0; font-weight: 700; }
-                    .action-card p { color: #718096; font-size: 0.95rem; margin: 0; }
-                    
-                    .action-whatsapp { border-top: 4px solid #25D366; }
-                    .action-call { border-top: 4px solid #D4AF37; }
-                    .action-email { border-top: 4px solid #0A2540; }
+                    <!-- BLOQUE 1: ACCIONES RÁPIDAS -->
+                    <div class="quick-actions-grid">
+                        <a href="https://wa.me/50372489381" target="_blank" class="action-card action-whatsapp">
+                            <div class="action-icon">💬</div>
+                            <h3>WhatsApp Soporte</h3>
+                            <p>Respuesta rápida por chat</p>
+                        </a>
+                        <a href="tel:+50372489381" class="action-card action-call">
+                            <div class="action-icon">📞</div>
+                            <h3>Línea Directa</h3>
+                            <p>Asistencia telefónica inmediata</p>
+                        </a>
+                        <a href="mailto:jose.artiga.perez@clases.edu.sv" class="action-card action-email">
+                            <div class="action-icon">📧</div>
+                            <h3>Correo Institucional</h3>
+                            <p>Envío de solicitudes formales</p>
+                        </a>
+                    </div>
 
                     /* FORMULARIO DE TICKET SOS */
                     .ticket-section { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 35px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 5px solid #0A2540; }
