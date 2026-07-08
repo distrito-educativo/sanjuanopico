@@ -7696,165 +7696,201 @@ window.enviarAsistencia = function() {
     }, 2500); 
 };
 // =========================================================================
-// 3. MÓDULO DE ESTADÍSTICAS Y GRÁFICOS (POTENCIADO CON TABLA DE DETALLES)
+// 3. MÓDULO DE ESTADÍSTICAS Y GRÁFICOS (POTENCIADO CON MODO MONITOR DISTRITAL)
 // =========================================================================
 window.generarEstadisticas = function() {
-    const btn = document.getElementById('btn-generar-est');
-    const codigo = document.getElementById('est-codigo').value.trim();
-    const inicio = document.getElementById('est-inicio').value;
-    const fin = document.getElementById('est-fin').value;
+  const btn = document.getElementById('btn-generar-est');
+  const codigo = document.getElementById('est-codigo').value.trim();
+  const inicio = document.getElementById('est-inicio').value;
+  const fin = document.getElementById('est-fin').value;
 
-    if (!codigo || !inicio || !fin) return alert("⚠️ Ingrese el código escolar y seleccione ambas fechas.");
-    btn.innerText = "⏳ Procesando datos..."; btn.disabled = true;
+  if (!codigo || !inicio || !fin) return alert("⚠️ Ingrese el código escolar y seleccione ambas fechas.");
+  btn.innerText = "⏳ Procesando datos..."; btn.disabled = true;
 
-    const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
+  const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
 
-    fetch(urlConsulta, { method: 'GET' })
-    .then(res => res.json())
-    .then(data => {
-        btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false;
-        if (data.status === "error") return alert("❌ Error: " + data.message);
-        if (data.total === 0) {
-            document.getElementById('area-imprimible-est').style.display = 'none';
-            document.getElementById('btn-imprimir-est').style.display = 'none';
-            return alert("ℹ️ No hay registros para este código en estas fechas.");
-        }
-        
-        document.getElementById('area-imprimible-est').style.display = 'block';
-        document.getElementById('btn-imprimir-est').style.display = 'block';
-        document.getElementById('est-sede-nombre').innerText = data.sede;
-        document.getElementById('est-kpi-total').innerText = data.total;
-        document.getElementById('est-kpi-presentes').innerText = data.presentes;
-        document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
+  fetch(urlConsulta, { method: 'GET' })
+  .then(res => res.json())
+  .then(data => {
+      btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false;
+      if (data.status === "error") return alert("❌ Error: " + data.message);
+      if (data.total === 0) {
+          document.getElementById('area-imprimible-est').style.display = 'none';
+          document.getElementById('btn-imprimir-est').style.display = 'none';
+          return alert("ℹ️ No hay registros para este código en estas fechas.");
+      }
+      
+      document.getElementById('area-imprimible-est').style.display = 'block';
+      document.getElementById('btn-imprimir-est').style.display = 'block';
+      
+      // Mostrar el nombre de la sede o el título de Distrito
+      document.getElementById('est-sede-nombre').innerText = data.sede;
+      document.getElementById('est-kpi-total').innerText = data.total;
+      document.getElementById('est-kpi-presentes').innerText = data.presentes;
+      document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
 
-        // Registro del plugin de etiquetas para los gráficos
-        if (typeof ChartDataLabels !== 'undefined') Chart.register(ChartDataLabels);
-        if (window.miGraficoDona) window.miGraficoDona.destroy();
-        if (window.miGraficoBarras) window.miGraficoBarras.destroy();
+      // Registro del plugin de etiquetas para los gráficos
+      if (typeof ChartDataLabels !== 'undefined') Chart.register(ChartDataLabels);
+      if (window.miGraficoDona) window.miGraficoDona.destroy();
+      if (window.miGraficoBarras) window.miGraficoBarras.destroy();
 
-        // 1. GRÁFICO DE DONA (Asistencia General)
-        window.miGraficoDona = new Chart(document.getElementById('grafico-dona').getContext('2d'), {
-            type: 'doughnut', 
-            data: { 
-                labels: ['Presentes', 'Ausentes'], 
-                datasets: [{ data: [data.presentes, data.ausentes], backgroundColor: ['#16a34a', '#dc2626'] }] 
-            },
-            options: { 
-                responsive: true, 
-                plugins: { 
-                    datalabels: { 
-                        color: '#fff', 
-                        font: { weight: 'bold', size: 14 },
-                        formatter: (val, ctx) => ((val/ctx.chart._metasets[0].total)*100).toFixed(1) + '%' 
-                    } 
-                } 
-            }
-        });
+      // 1. GRÁFICO DE DONA (Asistencia General)
+      window.miGraficoDona = new Chart(document.getElementById('grafico-dona').getContext('2d'), {
+          type: 'doughnut', 
+          data: { 
+              labels: ['Presentes', 'Ausentes'], 
+              datasets: [{ data: [data.presentes, data.ausentes], backgroundColor: ['#16a34a', '#dc2626'] }] 
+          },
+          options: { 
+              responsive: true, 
+              plugins: { 
+                  datalabels: { 
+                      color: '#fff', 
+                      font: { weight: 'bold', size: 14 },
+                      formatter: (val, ctx) => ((val/ctx.chart._metasets[0].total)*100).toFixed(1) + '%' 
+                  } 
+              } 
+          }
+      });
 
-        // 2. GRÁFICO DE BARRAS (Motivos con colores distintos y etiquetas visibles)
-        const n = Object.keys(data.motivos); 
-        const c = Object.values(data.motivos);
-        const paletaColores = ['#0A2540', '#D4AF37', '#2563eb', '#9333ea', '#ea580c', '#0ea5e9', '#14b8a6', '#db2777', '#65a30d', '#dc2626'];
+      // 2. GRÁFICO DE BARRAS (Motivos con colores distintos y etiquetas visibles)
+      const n = Object.keys(data.motivos); 
+      const c = Object.values(data.motivos);
+      const paletaColores = ['#0A2540', '#D4AF37', '#2563eb', '#9333ea', '#ea580c', '#0ea5e9', '#14b8a6', '#db2777', '#65a30d', '#dc2626'];
 
-        window.miGraficoBarras = new Chart(document.getElementById('grafico-barras').getContext('2d'), {
-            type: 'bar', 
-            data: { 
-                labels: n.length ? n : ['Sin inasistencias'], 
-                datasets: [{ 
-                    data: c.length ? c : [0], 
-                    backgroundColor: paletaColores.slice(0, n.length || 1), // Asigna colores variados
-                    borderRadius: 4
-                }] 
-            },
-            options: { 
-                responsive: true, 
-                plugins: { 
-                    legend: { display: false },
-                    datalabels: { 
-                        display: true, // Hacemos visibles las etiquetas
-                        color: '#fff',
-                        font: { weight: 'bold' },
-                        anchor: 'center',
-                        align: 'center',
-                        formatter: (val) => {
-                            if (val === 0) return '';
-                            let pct = ((val / data.ausentes) * 100).toFixed(1);
-                            return `${val} (${pct}%)`; // Muestra "Cantidad (Porcentaje)"
-                        }
-                    } 
-                },
-                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
-            }
-        });
-        
-        // 3. GENERACIÓN DE LA TABLA DETALLADA DE INASISTENCIAS
-        let tablaInasistencias = '';
-        if (data.ausentes > 0) {
-            tablaInasistencias = `
-            <div style="margin-top: 30px; margin-bottom: 25px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
-                <h4 style="color: #0A2540; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; border-bottom: 2px solid #F4F6F9; padding-bottom: 10px;">📊 Desglose de Inasistencias por Categoría</h4>
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
-                    <thead>
-                        <tr style="background-color: #f8fafc; border-bottom: 2px solid #cbd5e1;">
-                            <th style="padding: 12px; border: 1px solid #e2e8f0; width: 45%;">Motivo / Criterio</th>
-                            <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; width: 15%;">Cantidad</th>
-                            <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: left; width: 40%;">Impacto (Del total de faltas)</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
+      window.miGraficoBarras = new Chart(document.getElementById('grafico-barras').getContext('2d'), {
+          type: 'bar', 
+          data: { 
+              labels: n.length ? n : ['Sin inasistencias'], 
+              datasets: [{ 
+                  data: c.length ? c : [0], 
+                  backgroundColor: paletaColores.slice(0, n.length || 1), // Asigna colores variados
+                  borderRadius: 4
+              }] 
+          },
+          options: { 
+              responsive: true, 
+              plugins: { 
+                  legend: { display: false },
+                  datalabels: { 
+                      display: true, // Hacemos visibles las etiquetas
+                      color: '#fff',
+                      font: { weight: 'bold' },
+                      anchor: 'center',
+                      align: 'center',
+                      formatter: (val) => {
+                          if (val === 0) return '';
+                          let pct = ((val / data.ausentes) * 100).toFixed(1);
+                          return `${val} (${pct}%)`; // Muestra "Cantidad (Porcentaje)"
+                      }
+                  } 
+              },
+              scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+          }
+      });
+      
+      // 3. GENERACIÓN DE LA TABLA DETALLADA DE INASISTENCIAS
+      let tablaInasistencias = '';
+      if (data.ausentes > 0) {
+          tablaInasistencias = `
+          <div style="margin-top: 30px; margin-bottom: 25px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+              <h4 style="color: #0A2540; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; border-bottom: 2px solid #F4F6F9; padding-bottom: 10px;">📊 Desglose de Inasistencias por Categoría</h4>
+              <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                  <thead>
+                      <tr style="background-color: #f8fafc; border-bottom: 2px solid #cbd5e1;">
+                          <th style="padding: 12px; border: 1px solid #e2e8f0; width: 45%;">Motivo / Criterio</th>
+                          <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; width: 15%;">Cantidad</th>
+                          <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: left; width: 40%;">Impacto (Del total de faltas)</th>
+                      </tr>
+                  </thead>
+                  <tbody>`;
 
-            // Ordenar los motivos de mayor a menor para que la tabla tenga sentido lógico
-            let motivosOrdenados = n.map((motivo, index) => {
-                return { nombre: motivo, cantidad: c[index] };
-            }).sort((a, b) => b.cantidad - a.cantidad);
+          // Ordenar los motivos de mayor a menor
+          let motivosOrdenados = n.map((motivo, index) => {
+              return { nombre: motivo, cantidad: c[index] };
+          }).sort((a, b) => b.cantidad - a.cantidad);
 
-            motivosOrdenados.forEach((item, i) => {
-                let porcentaje = ((item.cantidad / data.ausentes) * 100).toFixed(1);
-                let colorFila = paletaColores[i % paletaColores.length];
-                tablaInasistencias += `
-                    <tr style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'">
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: 500; color: #334155;">${item.nombre}</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: center; font-weight: 800; color: #0A2540;">${item.cantidad}</td>
-                        <td style="padding: 10px; border: 1px solid #e2e8f0;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="min-width: 45px; text-align: right; font-weight: bold; color: #475569;">${porcentaje}%</span>
-                                <div style="flex-grow: 1; max-width: 150px; background: #e2e8f0; border-radius: 4px; height: 10px; overflow: hidden;">
-                                    <div style="width: ${porcentaje}%; background: ${colorFila}; height: 100%; border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>`;
-            });
-            tablaInasistencias += `</tbody></table></div>`;
-        } else {
-            tablaInasistencias = `
-            <div style="margin-top: 30px; margin-bottom: 25px; padding: 15px; background: #f0fdf4; border: 1px dashed #16a34a; border-radius: 8px; color: #15803d; text-align: center; font-weight: bold;">
-                ✅ Asistencia perfecta. No se registraron inasistencias en el periodo consultado.
-            </div>`;
-        }
+          motivosOrdenados.forEach((item, i) => {
+              let porcentaje = ((item.cantidad / data.ausentes) * 100).toFixed(1);
+              let colorFila = paletaColores[i % paletaColores.length];
+              tablaInasistencias += `
+                  <tr style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'">
+                      <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: 500; color: #334155;">${item.nombre}</td>
+                      <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: center; font-weight: 800; color: #0A2540;">${item.cantidad}</td>
+                      <td style="padding: 10px; border: 1px solid #e2e8f0;">
+                          <div style="display: flex; align-items: center; gap: 10px;">
+                              <span style="min-width: 45px; text-align: right; font-weight: bold; color: #475569;">${porcentaje}%</span>
+                              <div style="flex-grow: 1; max-width: 150px; background: #e2e8f0; border-radius: 4px; height: 10px; overflow: hidden;">
+                                  <div style="width: ${porcentaje}%; background: ${colorFila}; height: 100%; border-radius: 4px;"></div>
+                              </div>
+                          </div>
+                      </td>
+                  </tr>`;
+          });
+          tablaInasistencias += `</tbody></table></div>`;
+      } else {
+          tablaInasistencias = `
+          <div style="margin-top: 30px; margin-bottom: 25px; padding: 15px; background: #f0fdf4; border: 1px dashed #16a34a; border-radius: 8px; color: #15803d; text-align: center; font-weight: bold;">
+              ✅ Asistencia perfecta. No se registraron inasistencias en el periodo consultado.
+          </div>`;
+      }
 
-        // 4. INSERCIÓN DE LA LEYENDA Y LA TABLA
-        let textoLeyenda = `
-            ${tablaInasistencias}
-            <p style="font-size: 1.05rem; color: #475569; line-height: 1.6; text-align: justify;">
-                El presente informe estadístico consolida un total de <strong style="color: #0A2540;">${data.total}</strong> registros validados en el sistema. 
-                Se muestra un índice de asistencia del <strong style="color: #16a34a;">${((data.presentes / data.total) * 100).toFixed(1)}%</strong> 
-                del personal docente frente a un <strong style="color: #dc2626;">${((data.ausentes / data.total) * 100).toFixed(1)}%</strong> de inasistencias generales.
-            </p>`;
-        
-        document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
+      // 3.5 GENERACIÓN DE LA MEGA-TABLA GERENCIAL (SOLO MODO DISTRITO)
+      let tablaGerencial = '';
+      if (data.esDistrital && data.ausentes > 0) {
+          tablaGerencial = `
+          <div style="margin-top: 30px; margin-bottom: 25px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+              <h4 style="color: #0A2540; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; border-bottom: 2px solid #F4F6F9; padding-bottom: 10px;">🏫 Detalle Gerencial por Centro Educativo</h4>
+              <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                  <thead>
+                      <tr style="background-color: #0A2540; color: #fff;">
+                          <th style="padding: 12px; border: 1px solid #0A2540;">Centro Educativo</th>
+                          <th style="padding: 12px; border: 1px solid #0A2540; text-align: center;">Total Faltas</th>
+                          <th style="padding: 12px; border: 1px solid #0A2540;">Motivos Desglosados</th>
+                      </tr>
+                  </thead>
+                  <tbody>`;
+          
+          // Ordenar escuelas de mayor a menor cantidad de faltas
+          let escuelasArray = Object.keys(data.escuelasDetalle).map(nombre => {
+              return { nombre: nombre, datos: data.escuelasDetalle[nombre] };
+          }).sort((a, b) => b.datos.totalFaltas - a.datos.totalFaltas);
 
-    })
-    .catch(err => { 
-        btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; 
-        alert("❌ Error conectando a la base de datos. Verifique su conexión."); 
-    });
+          escuelasArray.forEach(escuela => {
+              let detallesMotivos = Object.keys(escuela.datos.desglosado).map(m => `<b>${escuela.datos.desglosado[m]}</b> ${m}`).join(', ');
+              tablaGerencial += `
+                  <tr style="border-bottom: 1px solid #e2e8f0; transition: background 0.3s;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'">
+                      <td style="padding: 10px; font-weight: 500; color: #334155; border-right: 1px solid #e2e8f0;">${escuela.nombre}</td>
+                      <td style="padding: 10px; text-align: center; font-weight: bold; color: #dc2626; border-right: 1px solid #e2e8f0;">${escuela.datos.totalFaltas}</td>
+                      <td style="padding: 10px; color: #475569;">${detallesMotivos}</td>
+                  </tr>`;
+          });
+          tablaGerencial += `</tbody></table></div>`;
+      }
+
+      // 4. INSERCIÓN DE LA LEYENDA Y LAS TABLAS
+      let textoLeyenda = `
+          ${tablaInasistencias}
+          ${tablaGerencial}
+          <p style="font-size: 1.05rem; color: #475569; line-height: 1.6; text-align: justify;">
+              El presente informe estadístico consolida un total de <strong style="color: #0A2540;">${data.total}</strong> registros validados en el sistema. 
+              Se muestra un índice de asistencia del <strong style="color: #16a34a;">${((data.presentes / data.total) * 100).toFixed(1)}%</strong> 
+              del personal docente frente a un <strong style="color: #dc2626;">${((data.ausentes / data.total) * 100).toFixed(1)}%</strong> de inasistencias generales.
+          </p>`;
+      
+      document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
+
+  })
+  .catch(err => { 
+      btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; 
+      alert("❌ Error conectando a la base de datos. Verifique su conexión."); 
+  });
 };
 
 window.limpiarEstadisticas = function() {
-    document.getElementById('est-codigo').value = ""; document.getElementById('est-inicio').value = ""; document.getElementById('est-fin').value = "";
-    document.getElementById('area-imprimible-est').style.display = 'none'; document.getElementById('btn-imprimir-est').style.display = 'none';
-    if(window.miGraficoDona) window.miGraficoDona.destroy(); if(window.miGraficoBarras) window.miGraficoBarras.destroy();
+  document.getElementById('est-codigo').value = ""; document.getElementById('est-inicio').value = ""; document.getElementById('est-fin').value = "";
+  document.getElementById('area-imprimible-est').style.display = 'none'; document.getElementById('btn-imprimir-est').style.display = 'none';
+  if(window.miGraficoDona) window.miGraficoDona.destroy(); if(window.miGraficoBarras) window.miGraficoBarras.destroy();
 };
 
 // =========================================================================
