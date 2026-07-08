@@ -6408,12 +6408,30 @@
                                 <div class="form-group">
                                     <label>Detalle cualquier información relevante o aclaración sobre los daños reportados:</label>
                                     <textarea id="rep-comentarios" rows="4" placeholder="Escriba aquí sus observaciones (Opcional)..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical;"></textarea>
-<div style="margin-top: 20px; text-align: left;">
+<div style="margin-top: 20px; text-align: left; padding: 15px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px;">
     <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">
         📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
     </label>
-    <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; cursor: pointer;">
-    <small style="color: #64748b; display: block; margin-top: 4px;">Puedes seleccionar hasta 3 imágenes en formato JPG o PNG.</small>
+    <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff; cursor: pointer;" onchange="
+        var d = document.getElementById('contador-fotos');
+        var c = this.files.length;
+        if(c > 0) {
+            d.style.display = 'block';
+            if(c > 3) {
+                d.style.backgroundColor = '#fef2f2'; d.style.color = '#dc2626';
+                d.innerHTML = '⚠️ Has seleccionado ' + c + ' fotos. (Solo se enviarán las primeras 3).';
+            } else {
+                d.style.backgroundColor = '#f0fdf4'; d.style.color = '#16a34a';
+                d.innerHTML = '✅ Excelente. Has seleccionado ' + c + ' foto(s) correctamente.';
+            }
+        } else { d.style.display = 'none'; }
+    ">
+    <small style="color: #64748b; display: block; margin-top: 10px; line-height: 1.4;">
+        💡 <b>Truco para subir varias:</b> Selecciónalas <b>al mismo tiempo</b> en la ventana que se abre.<br>
+        - <i>En Celular:</i> Mantén presionada la primera foto por 1 segundo y luego toca las demás.<br>
+        - <i>En Computadora:</i> Mantén presionada la tecla <b>Ctrl</b> de tu teclado mientras haces clic en las fotos.
+    </small>
+    <div id="contador-fotos" style="margin-top: 12px; font-weight: bold; padding: 8px; border-radius: 4px; display: none;"></div>
 </div>
                                 </div>
                             </div>
