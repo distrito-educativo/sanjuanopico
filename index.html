@@ -668,6 +668,7 @@
                         </a>
                     </div>
 
+                   <!-- BLOQUE 2: GENERACIÓN DE TICKET -->
                     <div class="ticket-section">
                         <h3>🎟️ Generar Ticket de Asistencia</h3>
                         <form id="form-soporte" onsubmit="
@@ -675,35 +676,90 @@
                             const btn = this.querySelector('.btn-submit-ticket');
                             btn.innerText = '⏳ ENVIANDO TICKET...';
                             btn.disabled = true;
+
+                            // Túnel ciego para enviar el ticket a Google Sheets sin recargar la página
+                            var iframeName = 'iframe-ticket-' + Date.now();
+                            var iframe = document.createElement('iframe'); 
+                            iframe.name = iframeName; 
+                            iframe.style.display = 'none'; 
+                            document.body.appendChild(iframe); 
+
+                            var hiddenForm = document.createElement('form'); 
+                            hiddenForm.method = 'POST'; 
+                            hiddenForm.action = URL_API_GOOGLE; // Asegúrate de tener tu URL actualizada arriba
+                            hiddenForm.target = iframeName; 
+
+                            // Empaquetamos TODOS los datos, incluyendo Teléfono y Correo
+                            var data = { 
+                                tipoFormulario: 'ticket_soporte', 
+                                codigo: this.querySelector('#ticket-codigo').value.trim(), 
+                                telefono: this.querySelector('#ticket-tel').value.trim(),
+                                correo: this.querySelector('#ticket-correo').value.trim(),
+                                categoria: this.querySelector('#ticket-cat').value,
+                                descripcion: this.querySelector('#ticket-desc').value.trim()
+                            };
+
+                            for(var key in data) { 
+                                var input = document.createElement('input'); 
+                                input.type = 'hidden'; 
+                                input.name = key; 
+                                input.value = data[key]; 
+                                hiddenForm.appendChild(input); 
+                            } 
+                            
+                            document.body.appendChild(hiddenForm); 
+                            hiddenForm.submit();
+
                             setTimeout(() => {
-                                alert('✅ ¡Ticket enviado con éxito!\\n\\nTu solicitud ha sido registrada en el sistema. El equipo de soporte se pondrá en contacto contigo a la brevedad posible.');
+                                alert('✅ ¡Ticket enviado con éxito!\\n\\nTu solicitud ha sido registrada en el sistema y pronto nos pondremos en contacto contigo.');
                                 this.reset();
                                 btn.innerText = '📤 Enviar Ticket de Soporte';
                                 btn.disabled = false;
-                            }, 1500);
+                                
+                                // Limpieza de elementos invisibles
+                                setTimeout(() => {
+                                    if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                                    if(document.body.contains(iframe)) document.body.removeChild(iframe);
+                                }, 2000);
+                            }, 2500);
                         ">
+                            
+                            <!-- Fila 1: Código y Teléfono -->
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Código de Infraestructura *</label>
-                                    <input type="text" required placeholder="Ej. 14800">
+                                    <input type="text" id="ticket-codigo" required placeholder="Ej. 14800">
+                                </div>
+                                <div class="form-group">
+                                    <label>Teléfono de Contacto *</label>
+                                    <input type="tel" id="ticket-tel" required placeholder="Ej. 7000-0000">
+                                </div>
+                            </div>
+
+                            <!-- Fila 2: Correo y Categoría -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Correo Electrónico *</label>
+                                    <input type="email" id="ticket-correo" required placeholder="director@clases.edu.sv">
                                 </div>
                                 <div class="form-group">
                                     <label>Categoría del Problema *</label>
-                                    <select required>
+                                    <select id="ticket-cat" required>
                                         <option value="">Seleccione una categoría...</option>
-                                        <option value="Problemas con SIGES">Problemas con SIGES (Asistencia, Matrícula, Traslados, Evaluaciones)</option>
+                                        <option value="Problemas con SIGES">Problemas con SIGES (Notas, Matrícula)</option>
                                         <option value="Cuentas @clases.edu.sv">Cuentas @clases.edu.sv</option>
                                         <option value="Fallo en Portal Distrital">Fallo en el Portal Distrital Web</option>
                                         <option value="Equipo Informático">Equipo Informático (Laptops/Tablets)</option>
-                                        <option value="Conectividad">Conectividad a Internet en la Institución</option>
+                                        <option value="Conectividad">Conectividad a Internet en la Escuela</option>
                                         <option value="Otro">Otro (Especificar en descripción)</option>
                                     </select>
                                 </div>
                             </div>
                             
+                            <!-- Fila 3: Descripción -->
                             <div class="form-group">
                                 <label>Descripción detallada del problema *</label>
-                                <textarea rows="4" required placeholder="Explica el error que presenta tu pantalla, los pasos que realizaste y desde cuándo te ocurre esto..."></textarea>
+                                <textarea id="ticket-desc" rows="4" required placeholder="Explica el error que presenta tu pantalla, los pasos que realizaste y desde cuándo te ocurre esto..."></textarea>
                             </div>
 
                             <button type="submit" class="btn-submit-ticket">📤 Enviar Ticket de Soporte</button>
