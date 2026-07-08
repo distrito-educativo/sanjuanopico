@@ -7181,19 +7181,56 @@ window.limpiarFormularioLluvias = function() {
     if (formLluvias) formLluvias.reset();
 };
 
+// =========================================================================
+// SENSOR INTELIGENTE REFORZADO PARA LA CAJA DE FOTOS (CON CONTADOR VISUAL)
+// =========================================================================
 setInterval(function() {
     var txtBox = document.getElementById('rep-comentarios');
     if (txtBox && !document.getElementById('lluvias-fotos')) {
         var wrapper = document.createElement('div');
         wrapper.id = 'bloque-fotos-contenedor';
-        wrapper.style.marginTop = "15px"; wrapper.style.marginBottom = "15px";
-        wrapper.style.padding = "10px"; wrapper.style.background = "#f8fafc";
-        wrapper.style.border = "1px dashed #cbd5e1"; wrapper.style.borderRadius = "6px";
+        wrapper.style.marginTop = "15px";
+        wrapper.style.marginBottom = "15px";
+        wrapper.style.padding = "10px";
+        wrapper.style.background = "#f8fafc";
+        wrapper.style.border = "1px dashed #cbd5e1";
+        wrapper.style.borderRadius = "6px";
+        wrapper.style.textAlign = "left";
         wrapper.innerHTML = `
-            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px;">📸 Evidencias Fotográficas (Máx. 3 fotos):</label>
-            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 6px; cursor: pointer;">
+            <label style="font-weight: bold; color: #0A2540; display: block; margin-bottom: 8px; font-family: inherit;">
+                📸 Evidencias Fotográficas (Opcional - Máximo 3 fotos):
+            </label>
+            <input type="file" id="lluvias-fotos" accept="image/*" multiple style="width: 100%; padding: 6px; cursor: pointer; box-sizing: border-box;">
+            <small style="color: #64748b; display: block; margin-top: 8px; font-family: inherit; line-height: 1.4;">
+                💡 <b>Truco para subir varias:</b> Selecciónalas <b>al mismo tiempo</b>.<br>
+                - <i>En Celular:</i> Mantén presionada la primera foto y luego toca las otras.<br>
+                - <i>En Computadora:</i> Mantén presionada la tecla <b>Ctrl</b> mientras haces clic.
+            </small>
+            <div id="contador-fotos" style="margin-top: 12px; font-weight: bold; padding: 8px; border-radius: 4px; display: none;">
+            </div>
         `;
         txtBox.parentNode.insertBefore(wrapper, txtBox.nextSibling);
+
+        // Agregamos un vigilante para que cuente las fotos en vivo
+        document.getElementById('lluvias-fotos').addEventListener('change', function() {
+            var contadorDiv = document.getElementById('contador-fotos');
+            var cantidad = this.files.length;
+            
+            if(cantidad > 0) {
+                contadorDiv.style.display = 'block';
+                if(cantidad > 3) {
+                    contadorDiv.style.backgroundColor = '#fef2f2';
+                    contadorDiv.style.color = '#dc2626';
+                    contadorDiv.innerHTML = '⚠️ Has seleccionado ' + cantidad + ' fotos. (Solo se enviarán las primeras 3 en el reporte).';
+                } else {
+                    contadorDiv.style.backgroundColor = '#f0fdf4';
+                    contadorDiv.style.color = '#16a34a';
+                    contadorDiv.innerHTML = '✅ Excelente. Has seleccionado ' + cantidad + ' foto(s) correctamente.';
+                }
+            } else {
+                contadorDiv.style.display = 'none';
+            }
+        });
     }
 }, 500);
 
@@ -7345,37 +7382,53 @@ window.enviarAsistencia = function() {
     btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; 
     btn.disabled = true;
     
-    // 2. EMPAQUETADO BLINDADO: Convierte acentos y comillas al idioma de Google
-    const parametrosDeEnvio = new URLSearchParams();
-    parametrosDeEnvio.append('tipoFormulario', 'asistencia');
-    parametrosDeEnvio.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
-    parametrosDeEnvio.append('sede', document.getElementById('asis-sede-nombre').innerText);
-    parametrosDeEnvio.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
+    // 2. TÚNEL BLINDADO (Iframe y Formulario oculto)
+    var iframeName = 'iframe-asistencia-' + Date.now();
+    var iframe = document.createElement('iframe'); 
+    iframe.name = iframeName; 
+    iframe.style.display = 'none'; 
+    document.body.appendChild(iframe); 
 
-    // 3. ENVÍO DIRECTO AL CEREBRO
-    fetch(URL_API_GOOGLE, { 
-        method: 'POST', 
-        body: parametrosDeEnvio,
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
-    .then(function() {
-        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nRevisa tu archivo de Excel en la pestaña 'Asistencia'.");
+    var hiddenForm = document.createElement('form'); 
+    hiddenForm.method = 'POST'; 
+    // Usamos la URL_API_GOOGLE que ya definiste al inicio de tu script
+    hiddenForm.action = URL_API_GOOGLE; 
+    hiddenForm.target = iframeName; 
+
+    var data = { 
+        tipoFormulario: 'asistencia', 
+        codigo: document.getElementById('asis-codigo-buscar').value.trim(), 
+        sede: document.getElementById('asis-sede-nombre').innerText, 
+        datos_asistencia: JSON.stringify(datosEmpaquetados) 
+    };
+
+    for(var key in data) { 
+        var input = document.createElement('input'); 
+        input.type = 'hidden'; 
+        input.name = key; 
+        input.value = data[key]; 
+        hiddenForm.appendChild(input); 
+    } 
+    
+    document.body.appendChild(hiddenForm); 
+    hiddenForm.submit(); // Empuja los datos por el túnel
+
+    // 3. Confirmación y limpieza
+    setTimeout(function() { 
+        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados en la pestaña 'Asistencia'.");
         window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
         document.getElementById('dashboard-menu').style.display = '';
         btn.innerText = "💾 Guardar Control de Asistencia"; 
         btn.disabled = false;
         window.scrollTo(0,0);
-    })
-    .catch(function(error) {
-        console.error("Error al guardar asistencia:", error);
-        alert("⚠️ Ocurrió un error en la red.");
-        btn.innerText = "💾 Guardar Control de Asistencia"; 
-        btn.disabled = false;
-    });
+        
+        // Limpiamos la basura invisible
+        setTimeout(() => {
+            if(document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+            if(document.body.contains(iframe)) document.body.removeChild(iframe);
+        }, 2000);
+    }, 2500); 
 };
 // =========================================================================
 // 3. MÓDULO DE ESTADÍSTICAS Y GRÁFICOS
