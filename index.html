@@ -7069,12 +7069,11 @@
         }, 6000);
     </script>
 <script>
-<script>
 // =========================================================================
 // 🌐 CONFIGURACIÓN CENTRAL DE GOOGLE APPS SCRIPT
 // =========================================================================
 // 🚨 AQUÍ PEGAS TU NUEVO ENLACE DE GOOGLE UNA SOLA VEZ 🚨
-const URL_API_GOOGLE = 'https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec';
+const URL_API_GOOGLE = 'AQUI_PEGAS_TU_NUEVO_ENLACE_DE_APPS_SCRIPT';
 
 
 // =========================================================================
@@ -7214,7 +7213,8 @@ window.buscarDocentes = function() {
     
     btn.innerText = "⏳ BUSCANDO PLANTA..."; btn.disabled = true;
     
-    fetch(`${URL_API_GOOGLE}?codigo=${codigoInput}`)
+    // CORRECCIÓN CORS: Añadido '?accion=buscar_docentes'
+    fetch(`${URL_API_GOOGLE}?accion=buscar_docentes&codigo=${codigoInput}`, { method: 'GET' })
     .then(res => res.json())
     .then(result => {
         btn.innerText = "🔍 Buscar Planta Docente"; btn.disabled = false;
@@ -7339,26 +7339,27 @@ window.enviarAsistencia = function() {
     
     btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; btn.disabled = true;
     
-    var iframeName = 'iframe-asistencia-' + Date.now();
-    var iframe = document.createElement('iframe'); iframe.name = iframeName; iframe.style.display = 'none'; 
-    document.body.appendChild(iframe); 
+    var formData = new FormData();
+    formData.append('tipoFormulario', 'asistencia');
+    formData.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
+    formData.append('sede', document.getElementById('asis-sede-nombre').innerText);
+    formData.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
 
-    var hiddenForm = document.createElement('form'); hiddenForm.method = 'POST'; 
-    hiddenForm.action = URL_API_GOOGLE; hiddenForm.target = iframeName; 
-
-    var data = { tipoFormulario: 'asistencia', codigo: document.getElementById('asis-codigo-buscar').value, sede: document.getElementById('asis-sede-nombre').innerText, datos_asistencia: JSON.stringify(datosEmpaquetados) };
-    for(var key in data) { var input = document.createElement('input'); input.type = 'hidden'; input.name = key; input.value = data[key]; hiddenForm.appendChild(input); } 
-    
-    document.body.appendChild(hiddenForm); hiddenForm.submit(); 
-
-    setTimeout(function() { 
+    // CORRECCIÓN CORS: POST limpio
+    fetch(URL_API_GOOGLE, { method: 'POST', body: formData, mode: 'no-cors' })
+    .then(function() {
         alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!");
         window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
         document.getElementById('dashboard-menu').style.display = '';
         btn.innerText = "💾 Guardar Control de Asistencia"; btn.disabled = false;
         window.scrollTo(0,0);
-    }, 1500); 
+    })
+    .catch(function(error) {
+        console.error("Error al guardar asistencia:", error);
+        alert("⚠️ Error en la conexión de red.");
+        btn.innerText = "💾 Guardar Control de Asistencia"; btn.disabled = false;
+    });
 };
 
 // =========================================================================
@@ -7373,7 +7374,10 @@ window.generarEstadisticas = function() {
     if (!codigo || !inicio || !fin) return alert("⚠️ Ingrese el código escolar y seleccione ambas fechas.");
     btn.innerText = "⏳ Procesando datos..."; btn.disabled = true;
 
-    fetch(`${URL_API_GOOGLE}?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`)
+    // CORRECCIÓN CORS: Añadido método explícito y la acción correcta a la URL
+    const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
+
+    fetch(urlConsulta, { method: 'GET' })
     .then(res => res.json())
     .then(data => {
         btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false;
@@ -7405,8 +7409,15 @@ window.generarEstadisticas = function() {
             type: 'bar', data: { labels: n.length?n:['Sin inasistencias'], datasets: [{ data: c.length?c:[0], backgroundColor: '#042444' }] },
             options: { responsive: true, plugins: { datalabels: { display: false } } }
         });
+        
+        let textoLeyenda = `El presente informe estadístico consolida un total de <strong>${data.total}</strong> registros validados en el sistema. Se muestra un índice de asistencia del <strong>${((data.presentes / data.total) * 100).toFixed(1)}%</strong> del personal docente frente a un <strong>${((data.ausentes / data.total) * 100).toFixed(1)}%</strong> de inasistencias generales.`;
+        document.getElementById('leyenda-automatizada-pdf').innerHTML = textoLeyenda;
+
     })
-    .catch(err => { btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; alert("❌ Error conectando a Sheets."); });
+    .catch(err => { 
+        btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; 
+        alert("❌ Error conectando a la base de datos."); 
+    });
 };
 
 window.limpiarEstadisticas = function() {
@@ -7439,7 +7450,7 @@ window.cargarPanelDirectores = function(e) {
     const btn = document.getElementById("btn-cargar-wsp");
     if(btn) { btn.innerText = "⏳ SINCRONIZANDO..."; btn.disabled = true; }
     
-    fetch(URL_API_GOOGLE + "?accion=cargar_directores")
+    fetch(URL_API_GOOGLE + "?accion=cargar_directores", { method: 'GET' })
     .then(res => res.json())
     .then(data => {
         if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; }
