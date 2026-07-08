@@ -7320,9 +7320,10 @@ window.limpiarFormularioAsistencia = function() {
 
 window.enviarAsistencia = function() {
     const btn = document.getElementById('btn-guardar-asistencia');
-    let datosEmpaquetados = []; let validacionExitosa = true;
+    let datosEmpaquetados = []; 
+    let validacionExitosa = true;
     
-    // 1. Recolectamos la información de cada docente en la tabla
+    // 1. Recolectamos la información
     window.listaDocentesCargados.forEach((docente, index) => {
         const falto = document.getElementById(`falta-${index}`).checked;
         const motivo = document.getElementById(`motivo-${index}`).value;
@@ -7339,25 +7340,26 @@ window.enviarAsistencia = function() {
             observacion: document.getElementById(`obs-${index}`).value || "Sin observaciones"
         });
     });
+    
     if (!validacionExitosa) return;
     
     btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; 
     btn.disabled = true;
     
-    // 2. EMPAQUETADO SEGURO: Obligamos a usar el formato exacto de Google Apps Script
-    const parametrosGuardado = new URLSearchParams();
-    parametrosGuardado.append('tipoFormulario', 'asistencia');
-    parametrosGuardado.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
-    parametrosGuardado.append('sede', document.getElementById('asis-sede-nombre').innerText);
-    parametrosGuardado.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
+    // 2. EMPAQUETADO EXACTO AL REPORTE DE LLUVIAS
+    var formData = new FormData();
+    formData.append('tipoFormulario', 'asistencia');
+    formData.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
+    formData.append('sede', document.getElementById('asis-sede-nombre').innerText);
+    formData.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
 
-    // 3. Envío directo sin iframes ocultos
+    // 3. ENVÍO BLINDADO (con mode: 'no-cors')
     fetch(URL_API_GOOGLE, { 
         method: 'POST', 
-        body: parametrosGuardado 
+        body: formData, 
+        mode: 'no-cors' 
     })
-    .then(res => res.text()) // Leemos la respuesta cruda de Google
-    .then(respuesta => {
+    .then(function() {
         alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
         window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
@@ -7366,9 +7368,9 @@ window.enviarAsistencia = function() {
         btn.disabled = false;
         window.scrollTo(0,0);
     })
-    .catch(error => {
+    .catch(function(error) {
         console.error("Error al guardar asistencia:", error);
-        alert("⚠️ Hubo un fallo en la red, pero verifica tu base de datos, los datos pudieron haber pasado.");
+        alert("⚠️ Error en la conexión de red al enviar el formulario.");
         btn.innerText = "💾 Guardar Control de Asistencia"; 
         btn.disabled = false;
     });
