@@ -7322,42 +7322,57 @@ window.enviarAsistencia = function() {
     const btn = document.getElementById('btn-guardar-asistencia');
     let datosEmpaquetados = []; let validacionExitosa = true;
     
+    // 1. Recolectamos la información de cada docente en la tabla
     window.listaDocentesCargados.forEach((docente, index) => {
         const falto = document.getElementById(`falta-${index}`).checked;
         const motivo = document.getElementById(`motivo-${index}`).value;
-        if (falto && !motivo) { alert(`⚠️ Falta motivo de: ${docente.nombre}`); validacionExitosa = false; return; }
+        if (falto && !motivo) { 
+            alert(`⚠️ Falta seleccionar el motivo de inasistencia de: ${docente.nombre}`); 
+            validacionExitosa = false; 
+            return; 
+        }
         datosEmpaquetados.push({
-            nip: docente.nip, nombre: docente.nombre, falto: falto ? "SI" : "NO",
-            motivo: falto ? motivo : "N/A", observacion: document.getElementById(`obs-${index}`).value || "Sin observaciones"
+            nip: docente.nip, 
+            nombre: docente.nombre, 
+            falto: falto ? "SI" : "NO",
+            motivo: falto ? motivo : "N/A", 
+            observacion: document.getElementById(`obs-${index}`).value || "Sin observaciones"
         });
     });
     if (!validacionExitosa) return;
     
-    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; btn.disabled = true;
+    btn.innerText = "⏳ GUARDANDO EN LA BASE DE DATOS..."; 
+    btn.disabled = true;
     
-    var formData = new FormData();
-    formData.append('tipoFormulario', 'asistencia');
-    formData.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
-    formData.append('sede', document.getElementById('asis-sede-nombre').innerText);
-    formData.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
+    // 2. EMPAQUETADO SEGURO: Obligamos a usar el formato exacto de Google Apps Script
+    const parametrosGuardado = new URLSearchParams();
+    parametrosGuardado.append('tipoFormulario', 'asistencia');
+    parametrosGuardado.append('codigo', document.getElementById('asis-codigo-buscar').value.trim());
+    parametrosGuardado.append('sede', document.getElementById('asis-sede-nombre').innerText);
+    parametrosGuardado.append('datos_asistencia', JSON.stringify(datosEmpaquetados));
 
-    // CORRECCIÓN CORS: POST limpio
-    fetch(URL_API_GOOGLE, { method: 'POST', body: formData, mode: 'no-cors' })
-    .then(function() {
-        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!");
+    // 3. Envío directo sin iframes ocultos
+    fetch(URL_API_GOOGLE, { 
+        method: 'POST', 
+        body: parametrosGuardado 
+    })
+    .then(res => res.text()) // Leemos la respuesta cruda de Google
+    .then(respuesta => {
+        alert("✅ ¡ASISTENCIA GUARDADA CON ÉXITO!\n\nLos registros han sido asentados de manera oficial en la pestaña 'Asistencia'.");
         window.limpiarFormularioAsistencia();
         document.getElementById('modulo-asistencia').style.display = 'none';
         document.getElementById('dashboard-menu').style.display = '';
-        btn.innerText = "💾 Guardar Control de Asistencia"; btn.disabled = false;
+        btn.innerText = "💾 Guardar Control de Asistencia"; 
+        btn.disabled = false;
         window.scrollTo(0,0);
     })
-    .catch(function(error) {
+    .catch(error => {
         console.error("Error al guardar asistencia:", error);
-        alert("⚠️ Error en la conexión de red.");
-        btn.innerText = "💾 Guardar Control de Asistencia"; btn.disabled = false;
+        alert("⚠️ Hubo un fallo en la red, pero verifica tu base de datos, los datos pudieron haber pasado.");
+        btn.innerText = "💾 Guardar Control de Asistencia"; 
+        btn.disabled = false;
     });
 };
-
 // =========================================================================
 // 3. MÓDULO DE ESTADÍSTICAS Y GRÁFICOS
 // =========================================================================
