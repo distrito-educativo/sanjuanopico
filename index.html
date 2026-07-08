@@ -642,7 +642,7 @@
                         .form-row { grid-template-columns: 1fr; gap: 15px; }
                         .opico-soporte-container { padding: 20px; }
                     }
-/* ESTILOS DE ACORDEONES (FAQ) */
+                    /* ESTILOS DE ACORDEONES (FAQ) */
                     .faq-container { margin-top: 20px; }
                     .faq-item { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; background: #fff; }
                     .faq-btn { width: 100%; text-align: left; padding: 18px 20px; font-size: 1rem; font-weight: 700; color: #0A2540; background: #f8fafc; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
@@ -650,7 +650,7 @@
                     .faq-btn::after { content: '+'; font-size: 1.5rem; color: #D4AF37; transition: transform 0.3s; }
                     .faq-item.activa .faq-btn::after { transform: rotate(45deg); }
                     .faq-respuesta { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #fff; }
-                    .faq-item.activa .faq-respuesta { max-height: 300px; } /* Ajustar si el texto es muy largo */
+                    .faq-item.activa .faq-respuesta { max-height: 300px; } 
                     .faq-respuesta-inner { padding: 15px 20px; color: #475569; font-size: 0.95rem; line-height: 1.6; border-top: 1px solid #e2e8f0; }
                 </style>
 
@@ -660,6 +660,7 @@
                         <p>Centro de asistencia técnica distrital. Utiliza nuestras vías de comunicación rápida, genera un ticket de soporte o consulta nuestras herramientas de autogestión para resolver tu inconveniente al instante.</p>
                     </div>
 
+                    <!-- BLOQUE 1: ACCIONES RÁPIDAS -->
                     <div class="quick-actions-grid">
                         <a href="https://wa.me/50372489381" target="_blank" class="action-card action-whatsapp">
                             <div class="action-icon">💬</div>
@@ -678,9 +679,72 @@
                         </a>
                     </div>
 
-                   <!-- BLOQUE 2: GENERACIÓN DE TICKET -->
+                    <!-- BLOQUE 2: PREGUNTAS FRECUENTES (FAQ) -->
+                    <div class="ticket-section" style="border-left-color: #16a34a; margin-bottom: 40px;">
+                        <h3>💡 Soluciones Rápidas a Problemas Comunes</h3>
+                        <p style="color: #64748b; margin-bottom: 20px;">Antes de enviar un ticket, verifica si tu problema se puede resolver con uno de estos pasos:</p>
+                        
+                        <div class="faq-container">
+                            <div class="faq-item" onclick="this.classList.toggle('activa')">
+                                <button class="faq-btn" type="button">1. El portal o formulario no me carga correctamente</button>
+                                <div class="faq-respuesta">
+                                    <div class="faq-respuesta-inner">
+                                        Casi siempre se debe a datos viejos guardados en tu navegador (caché). Si estás en una computadora, presiona al mismo tiempo las teclas <strong>Ctrl + Shift + R</strong> para recargar el sistema a su última versión. Si estás en celular, cierra la pestaña y vuelve a ingresar.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item" onclick="this.classList.toggle('activa')">
+                                <button class="faq-btn" type="button">2. ¿Cómo recupero mi correo @clases.edu.sv?</button>
+                                <div class="faq-respuesta">
+                                    <div class="faq-respuesta-inner">
+                                        Las credenciales institucionales son manejadas directamente por el área de innovación. Utiliza el enlace de <strong>"Restablecer contraseñas"</strong> en el panel de autogestión de abajo, o envíanos un ticket detallando el NIE o nombre completo del usuario afectado.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="faq-item" onclick="this.classList.toggle('activa')">
+                                <button class="faq-btn" type="button">3. El SIGES me da un error al matricular o subir notas</button>
+                                <div class="faq-respuesta">
+                                    <div class="faq-respuesta-inner">
+                                        Verifica que el periodo de ingreso de notas no se haya cerrado a nivel nacional. Si el periodo está abierto y sigues viendo un error rojo en pantalla, toma una captura de pantalla y envía un correo directo al encargado distrital utilizando el botón de correo de la parte superior.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE 3: HERRAMIENTAS DE AUTOGESTIÓN -->
+                    <div class="ticket-section" style="border-left-color: #D4AF37;">
+                        <h3>🛠️ Herramientas de Autogestión</h3>
+                        <div class="self-service-grid">
+                            <a href="https://www.enlaces.edu.sv/estudiantes/reestablecer" target="_blank" class="ss-link">
+                                <div class="ss-icon">🔑</div>
+                                <div class="ss-text">Restablecer contraseñas de estudiantes</div>
+                                <div class="ss-arrow">➔</div>
+                            </a>
+                            <a href="https://www.enlaces.edu.sv/secciones/" target="_blank" class="ss-link">
+                                <div class="ss-icon">📦</div>
+                                <div class="ss-text">Restablecimiento masivo de aula (Clases)</div>
+                                <div class="ss-arrow">➔</div>
+                            </a>
+                            <a href="https://www.mined.gob.sv/tramites/" target="_blank" class="ss-link">
+                                <div class="ss-icon">⚡</div>
+                                <div class="ss-text">Ventanilla de Trámites en Línea</div>
+                                <div class="ss-arrow">➔</div>
+                            </a>
+                            <a href="#" data-target="biblioteca-home" class="ss-link">
+                                <div class="ss-icon">📚</div>
+                                <div class="ss-text">Consultar Manuales en Biblioteca</div>
+                                <div class="ss-arrow">➔</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE 4: GENERACIÓN DE TICKET -->
                     <div class="ticket-section">
                         <h3>🎟️ Generar Ticket de Asistencia</h3>
+                        <p style="color: #64748b; margin-bottom: 20px; font-style: italic;">¿No lograste resolverlo con las opciones anteriores? Llena este formulario y el equipo técnico se pondrá en contacto contigo.</p>
                         <form id="form-soporte" onsubmit="
                             event.preventDefault(); 
                             const btn = this.querySelector('.btn-submit-ticket');
@@ -774,67 +838,6 @@
 
                             <button type="submit" class="btn-submit-ticket">📤 Enviar Ticket de Soporte</button>
                         </form>
-                    </div>
-
-                    <div class="ticket-section" style="border-left-color: #D4AF37;">
-                        <h3>🛠️ Herramientas de Autogestión</h3>
-                        <div class="self-service-grid">
-                            <a href="https://www.enlaces.edu.sv/estudiantes/reestablecer" target="_blank" class="ss-link">
-                                <div class="ss-icon">🔑</div>
-                                <div class="ss-text">Restablecer contraseñas de estudiantes</div>
-                                <div class="ss-arrow">➔</div>
-                            </a>
-                            <a href="https://www.enlaces.edu.sv/secciones/" target="_blank" class="ss-link">
-                                <div class="ss-icon">📦</div>
-                                <div class="ss-text">Restablecimiento masivo de aula (Clases)</div>
-                                <div class="ss-arrow">➔</div>
-                            </a>
-                            <a href="https://www.mined.gob.sv/tramites/" target="_blank" class="ss-link">
-                                <div class="ss-icon">⚡</div>
-                                <div class="ss-text">Ventanilla de Trámites en Línea</div>
-                                <div class="ss-arrow">➔</div>
-                            </a>
-                            <a href="#" data-target="biblioteca-home" class="ss-link">
-                                <div class="ss-icon">📚</div>
-                                <div class="ss-text">Consultar Manuales en Biblioteca</div>
-                                <div class="ss-arrow">➔</div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- BLOQUE 4: PREGUNTAS FRECUENTES (FAQ) -->
-                    <div class="ticket-section" style="border-left-color: #16a34a; margin-top: 40px;">
-                        <h3>💡 Soluciones Rápidas a Problemas Comunes</h3>
-                        <p style="color: #64748b; margin-bottom: 20px;">Antes de enviar un ticket, verifica si tu problema se puede resolver con uno de estos pasos:</p>
-                        
-                        <div class="faq-container">
-                            <div class="faq-item" onclick="this.classList.toggle('activa')">
-                                <button class="faq-btn" type="button">1. El portal o formulario no me carga correctamente</button>
-                                <div class="faq-respuesta">
-                                    <div class="faq-respuesta-inner">
-                                        Casi siempre se debe a datos viejos guardados en tu navegador (caché). Si estás en una computadora, presiona al mismo tiempo las teclas <strong>Ctrl + Shift + R</strong> para recargar el sistema a su última versión. Si estás en celular, cierra la pestaña y vuelve a ingresar.
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="faq-item" onclick="this.classList.toggle('activa')">
-                                <button class="faq-btn" type="button">2. ¿Cómo recupero mi correo @clases.edu.sv?</button>
-                                <div class="faq-respuesta">
-                                    <div class="faq-respuesta-inner">
-                                        Las credenciales institucionales son manejadas directamente por el área de innovación. Utiliza el enlace de <strong>"Restablecer contraseñas"</strong> en el panel superior, o envíanos un ticket detallando el NIE o nombre completo del usuario afectado.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="faq-item" onclick="this.classList.toggle('activa')">
-                                <button class="faq-btn" type="button">3. El SIGES me da un error al matricular o subir notas</button>
-                                <div class="faq-respuesta">
-                                    <div class="faq-respuesta-inner">
-                                        Verifica que el periodo de ingreso de notas no se haya cerrado a nivel nacional. Si el periodo está abierto y sigues viendo un error rojo en pantalla, toma una captura de pantalla y envía un correo directo al encargado distrital utilizando el botón de correo de la parte superior.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
