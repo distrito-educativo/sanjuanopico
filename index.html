@@ -6811,14 +6811,24 @@
                             <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros Cronológicos</h3>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
                                 <div>
-                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Código Escolar: *</label>
-                                    <input type="text" id="est-codigo" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
+                                   <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Código Escolar: *</label>
+                                    <input type="text" id="est-codigo" placeholder="Ej. 11031 o DISTRITO" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
                                 </div>
-                                <div>
+                                
+                                <div style="margin-top: 15px;">
+                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Turno a evaluar: *</label>
+                                    <select id="est-turno-buscar" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; background-color: #fff;">
+                                        <option value="Todos">Global (Ambos Turnos)</option>
+                                        <option value="Matutino">Solo Matutino</option>
+                                        <option value="Vespertino">Solo Vespertino</option>
+                                    </select>
+                                </div>
+
+                                <div style="margin-top: 15px;">
                                     <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Desde la Fecha: *</label>
                                     <input type="date" id="est-inicio" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
                                 </div>
-                                <div>
+                                <div style="margin-top: 15px; margin-bottom: 20px;">
                                     <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Hasta la Fecha: *</label>
                                     <input type="date" id="est-fin" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
                                 </div>
@@ -6826,7 +6836,7 @@
                 <button type="button" onclick="window.limpiarEstadisticas()" style="background: #e2e8f0; color: #475569; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; flex: 1;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
                     🧹 Limpiar
                 </button>
-                <button type="button" id="btn-generar-est" onclick="generarEstadisticas()" style="background: #042444; color: white; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2;">
+                <button type="button" id="btn-generar-est" onclick="window.generarEstadisticas()" style="background: #042444; color: white; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2;">
                     📊 Calcular Gráficas
                 </button>
             </div>
@@ -7715,11 +7725,16 @@ window.generarEstadisticas = function() {
   const codigo = document.getElementById('est-codigo').value.trim();
   const inicio = document.getElementById('est-inicio').value;
   const fin = document.getElementById('est-fin').value;
+  
+  // ATRAPAMOS EL TURNO DEL SELECTOR
+  const selectorTurno = document.getElementById('est-turno-buscar');
+  const turno = selectorTurno ? selectorTurno.value : 'Todos';
 
   if (!codigo || !inicio || !fin) return alert("⚠️ Ingrese el código escolar y seleccione ambas fechas.");
   btn.innerText = "⏳ Procesando datos..."; btn.disabled = true;
 
-  const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
+  // ENVIAMOS EL TURNO A LA URL
+  const urlConsulta = URL_API_GOOGLE + `?accion=generar_estadisticas&codigo=${codigo}&fecha_inicio=${inicio}&fecha_fin=${fin}&turno=${turno}`;
 
   fetch(urlConsulta, { method: 'GET' })
   .then(res => res.json())
@@ -7729,14 +7744,14 @@ window.generarEstadisticas = function() {
       if (data.total === 0) {
           document.getElementById('area-imprimible-est').style.display = 'none';
           document.getElementById('btn-imprimir-est').style.display = 'none';
-          return alert("ℹ️ No hay registros para este código en estas fechas.");
+          return alert("ℹ️ No hay registros para este código en estas fechas y turno.");
       }
       
       document.getElementById('area-imprimible-est').style.display = 'block';
       document.getElementById('btn-imprimir-est').style.display = 'block';
       
-      // Mostrar el nombre de la sede o el título de Distrito
-      document.getElementById('est-sede-nombre').innerText = data.sede;
+      // Mostrar el nombre de la sede (y le agregamos el turno al título si aplica)
+      document.getElementById('est-sede-nombre').innerText = data.sede + (turno !== "Todos" ? ` (Turno ${turno})` : "");
       document.getElementById('est-kpi-total').innerText = data.total;
       document.getElementById('est-kpi-presentes').innerText = data.presentes;
       document.getElementById('est-kpi-ausentes').innerText = data.ausentes;
@@ -7897,12 +7912,6 @@ window.generarEstadisticas = function() {
       btn.innerText = "📊 Calcular Gráficas"; btn.disabled = false; 
       alert("❌ Error conectando a la base de datos. Verifique su conexión."); 
   });
-};
-
-window.limpiarEstadisticas = function() {
-  document.getElementById('est-codigo').value = ""; document.getElementById('est-inicio').value = ""; document.getElementById('est-fin').value = "";
-  document.getElementById('area-imprimible-est').style.display = 'none'; document.getElementById('btn-imprimir-est').style.display = 'none';
-  if(window.miGraficoDona) window.miGraficoDona.destroy(); if(window.miGraficoBarras) window.miGraficoBarras.destroy();
 };
 
 // =========================================================================
