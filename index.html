@@ -6807,39 +6807,52 @@
                             </button>
                         </div>
 
-                        <div class="no-print" style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px;">
-                            <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros Cronológicos</h3>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
-                                <div>
-                                   <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Código Escolar: *</label>
-                                    <input type="text" id="est-codigo" placeholder="Ej. 11031 o DISTRITO" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
-                                </div>
-                                
-                                <div style="margin-top: 15px;">
-                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Turno a evaluar: *</label>
-                                    <select id="est-turno-buscar" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; background-color: #fff;">
-                                        <option value="Todos">Global (Ambos Turnos)</option>
-                                        <option value="Matutino">Solo Matutino</option>
-                                        <option value="Vespertino">Solo Vespertino</option>
-                                    </select>
-                                </div>
+                        <!-- ========================================================================= -->
+<!-- MÓDULO DE FILTROS (DISEÑO GRID CORREGIDO) -->
+<!-- ========================================================================= -->
+<div style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+    <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros Cronológicos</h3>
+    
+    <!-- CUADRÍCULA DE CAMPOS (Se auto-ajusta en pantallas pequeñas) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        
+        <div>
+            <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Código Escolar: *</label>
+            <input type="text" id="est-codigo" placeholder="Ej. 14800 o DISTRITO" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; font-size: 0.95rem;">
+        </div>
+        
+        <div>
+            <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Turno a evaluar: *</label>
+            <select id="est-turno-buscar" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; font-size: 0.95rem; background-color: #fff;">
+                <option value="Todos">Global (Ambos Turnos)</option>
+                <option value="Matutino">Solo Matutino</option>
+                <option value="Vespertino">Solo Vespertino</option>
+            </select>
+        </div>
 
-                                <div style="margin-top: 15px;">
-                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Desde la Fecha: *</label>
-                                    <input type="date" id="est-inicio" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
-                                </div>
-                                <div style="margin-top: 15px; margin-bottom: 20px;">
-                                    <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Hasta la Fecha: *</label>
-                                    <input type="date" id="est-fin" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box;">
-                                </div>
-                                <div style="display: flex; gap: 10px;">
-                <button type="button" onclick="window.limpiarEstadisticas()" style="background: #e2e8f0; color: #475569; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; flex: 1;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-                    🧹 Limpiar
-                </button>
-                <button type="button" id="btn-generar-est" onclick="window.generarEstadisticas()" style="background: #042444; color: white; padding: 11px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 2;">
-                    📊 Calcular Gráficas
-                </button>
-            </div>
+        <div>
+            <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Desde la Fecha: *</label>
+            <input type="date" id="est-inicio" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; font-size: 0.95rem;">
+        </div>
+        
+        <div>
+            <label style="font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">Hasta la Fecha: *</label>
+            <input type="date" id="est-fin" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 100%; box-sizing: border-box; font-size: 0.95rem;">
+        </div>
+
+    </div>
+
+    <!-- BOTONES ALINEADOS A LA DERECHA -->
+    <div style="display: flex; gap: 10px; justify-content: flex-end; padding-top: 10px; border-top: 1px solid #e2e8f0;">
+        <button type="button" onclick="window.limpiarEstadisticas()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+            🧹 Limpiar
+        </button>
+        <button type="button" id="btn-generar-est" onclick="window.generarEstadisticas()" style="background: #0A2540; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+            📊 Calcular Gráficas
+        </button>
+    </div>
+</div>
+<!-- ========================================================================= -->
                             </div>
                         </div>
 
