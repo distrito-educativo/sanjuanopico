@@ -6698,18 +6698,29 @@
                             </button>
                         </div>
                         <div id="asistencia-buscador" style="margin-bottom: 25px; padding: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
-                            <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
-                            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-    <label style="font-weight: bold; color: #475569;">Código de Infraestructura: *</label>
-    <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px; font-size: 1rem;">
-    <button type="button" id="btn-buscar-docentes" onclick="buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
-        🔍 Buscar Planta Docente
-    </button>
-    <button type="button" onclick="window.limpiarFormularioAsistencia()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
-        &nbsp; Limpiar
-    </button>
+    <h3 style="margin-top:0; color:#1e293b; font-size:1.1rem; margin-bottom: 15px;">Filtros de Búsqueda</h3>
+    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        
+        <label style="font-weight: bold; color: #475569;">Código: *</label>
+        <input type="text" id="asis-codigo-buscar" placeholder="Ej. 11031" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px; font-size: 1rem;">
+        
+        <label style="font-weight: bold; color: #475569;">Turno: *</label>
+        <select id="asis-turno-buscar" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; width: 180px; font-size: 1rem; background-color: #fff;" required>
+            <option value="">-- Seleccionar --</option>
+            <option value="Matutino">☀ Matutino</option>
+            <option value="Vespertino">🌙 Vespertino</option>
+        </select>
+        
+        <button type="button" id="btn-buscar-docentes" onclick="window.buscarDocentes()" style="background: #042444; color: white; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+            🔍 Buscar Planta
+        </button>
+        
+        <button type="button" onclick="window.limpiarFormularioAsistencia()" style="background: #e2e8f0; color: #475569; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+            &nbsp; Limpiar
+        </button>
+        
+    </div>
 </div>
-                        </div>
 
                         <div id="asistencia-contenido" style="display: none;">
                             
@@ -7494,32 +7505,33 @@ setInterval(function() {
         });
     }
 }, 500);
-
 // =========================================================================
-// 2. MÓDULO DE ASISTENCIA DOCENTE
+// 2. MÓDULO DE ASISTENCIA DOCENTE (CON FILTRO DE TURNOS)
 // =========================================================================
 window.listaDocentesCargados = [];
 
 window.buscarDocentes = function() {
     const codigoInput = document.getElementById('asis-codigo-buscar').value.trim();
+    const turnoInput = document.getElementById('asis-turno-buscar').value; // NUEVO ATRAPADOR DE TURNO
     const btn = document.getElementById('btn-buscar-docentes');
-    if (!codigoInput) return alert("⚠️ Ingrese un código de infraestructura.");
+    
+    if (!codigoInput || !turnoInput) return alert("⚠️ Ingrese el código de infraestructura y seleccione el turno.");
     
     btn.innerText = "⏳ BUSCANDO PLANTA..."; btn.disabled = true;
     
-    // CORRECCIÓN CORS: Añadido '?accion=buscar_docentes'
-    fetch(`${URL_API_GOOGLE}?accion=buscar_docentes&codigo=${codigoInput}`, { method: 'GET' })
+    // CORRECCIÓN: Ahora enviamos el parámetro &turno= al servidor
+    fetch(`${URL_API_GOOGLE}?accion=buscar_docentes&codigo=${codigoInput}&turno=${turnoInput}`, { method: 'GET' })
     .then(res => res.json())
     .then(result => {
         btn.innerText = "🔍 Buscar Planta Docente"; btn.disabled = false;
         if (result.status === "success") {
             if (result.data.length === 0) {
-                alert("❌ No hay docentes registrados para este código.");
+                alert(`❌ No hay docentes registrados para el turno ${turnoInput} en este centro escolar.`);
                 document.getElementById('asistencia-contenido').style.display = 'none';
                 return;
             }
             window.listaDocentesCargados = result.data;
-            document.getElementById('asis-sede-nombre').innerText = result.sede;
+            document.getElementById('asis-sede-nombre').innerText = result.sede + ` (Turno ${turnoInput})`; // Agregamos el turno al título
             const hoy = new Date();
             document.getElementById('asis-fecha-hoy').innerText = hoy.toLocaleDateString('es-ES') + " " + hoy.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
             window.renderizarTablaDocentes(result.data);
@@ -7555,13 +7567,13 @@ window.renderizarTablaDocentes = function(docentes) {
                 <select id="motivo-${index}" style="padding: 6px; border-radius: 6px; margin: 0 10px;">
                     <option value="">--- Seleccionar ---</option>
                     <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
-						<option value="Consulta médica">Consulta médica</option>
-                                                <option value="Incapacidad médica">Incapacidad médica</option>
-                                                <option value="Permiso personal con goce">Permiso personal con goce</option>
-                                                <option value="Permiso personal sin goce">Permiso personal sin goce</option>
-                                                <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
-						<option value="Inasistencia por Duelo">Inasistencia por Duelo</option>
-                                                <option value="Inasistencia injustificada">Inasistencia injustificada</option>
+                    <option value="Consulta médica">Consulta médica</option>
+                    <option value="Incapacidad médica">Incapacidad médica</option>
+                    <option value="Permiso personal con goce">Permiso personal con goce</option>
+                    <option value="Permiso personal sin goce">Permiso personal sin goce</option>
+                    <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
+                    <option value="Inasistencia por Duelo">Inasistencia por Duelo</option>
+                    <option value="Inasistencia injustificada">Inasistencia injustificada</option>
                 </select>
                 <input type="text" id="obs-${index}" placeholder="Aclaraciones..." style="padding: 6px; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px;">
             </td>
@@ -7610,6 +7622,7 @@ window.recalcularEstadisticas = function() {
 
 window.limpiarFormularioAsistencia = function() {
     document.getElementById('asis-codigo-buscar').value = "";
+    document.getElementById('asis-turno-buscar').value = ""; // Limpiamos el nuevo desplegable
     document.getElementById('asistencia-contenido').style.display = 'none';
     document.getElementById('tabla-docentes-body').innerHTML = "";
     window.listaDocentesCargados = [];
@@ -7654,14 +7667,15 @@ window.enviarAsistencia = function() {
 
     var hiddenForm = document.createElement('form'); 
     hiddenForm.method = 'POST'; 
-    // Usamos la URL_API_GOOGLE que ya definiste al inicio de tu script
     hiddenForm.action = URL_API_GOOGLE; 
     hiddenForm.target = iframeName; 
 
+    // AQUÍ EMPAQUETAMOS EL TURNO PARA ENVIARLO AL EXCEL
     var data = { 
         tipoFormulario: 'asistencia', 
-        codigo: document.getElementById('asis-codigo-buscar').value.trim(), 
-        sede: document.getElementById('asis-sede-nombre').innerText, 
+        codigo: document.getElementById('asis-codigo-buscar').value.trim(),
+        turno: document.getElementById('asis-turno-buscar').value, // ENVIAMOS EL TURNO
+        sede: document.getElementById('asis-sede-nombre').innerText.split(' (')[0], // Limpiamos la cadena
         datos_asistencia: JSON.stringify(datosEmpaquetados) 
     };
 
@@ -7674,7 +7688,7 @@ window.enviarAsistencia = function() {
     } 
     
     document.body.appendChild(hiddenForm); 
-    hiddenForm.submit(); // Empuja los datos por el túnel
+    hiddenForm.submit();
 
     // 3. Confirmación y limpieza
     setTimeout(function() { 
