@@ -6366,59 +6366,105 @@
     </div>
 
     <div id="modulo-alertas-whatsapp" style="display: none; width: 100% !important;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
-            <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central Unificada de Avisos Distritales</h2>
-            <span class="badge" style="background: #025992; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">MÓDULO DUAL</span>
-        </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+        <h2 style="color: #042444; margin: 0; font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; gap: 10px;">📢 Central Unificada de Avisos Distritales</h2>
+        <span class="badge" style="background: #025992; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; letter-spacing: 0.5px;">MÓDULO DUAL AVANZADO</span>
+    </div>
+    
+    <div style="display: flex; gap: 25px; flex-wrap: wrap; margin-top: 15px; width: 100%;">
         
-        <div style="display: flex; gap: 25px; flex-wrap: wrap; margin-top: 15px; width: 100%;">
-            
-            <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📝 Redactar Alerta / Recordatorio:</label>
-                    <textarea id="txt-alerta-whatsapp" rows="7" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje institucional aquí... Se transmitirá exactamente lo que redactes en esta caja."></textarea>
-                </div>
+        <!-- ============================================================== -->
+        <!-- COLUMNA IZQUIERDA: REDACCIÓN Y PLANTILLAS                      -->
+        <!-- ============================================================== -->
+        <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">📝 Redactar Alerta / Recordatorio:</label>
                 
-                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <button type="button" onclick="enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
-                        👥 Despachar Aviso al Grupo Distrital
-                    </button>
-                    <button type="button" onclick="cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">
-                        🔄 Sincronizar Lista para Mensajes Individuales
-                    </button>
-                </div>
+                <!-- NUEVO: BANCO DE PLANTILLAS -->
+                <select id="wsp-plantillas" onchange="window.aplicarPlantillaWsp()" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 0.95rem; background: #f8fafc; color: #334155;">
+                    <option value="">-- Escribir mensaje desde cero --</option>
+                    <option value="Estimado/a docente, le recordamos actualizar el registro de asistencia del día de hoy en la plataforma. ¡Gracias por su labor!">📌 Recordatorio de Asistencia</option>
+                    <option value="Aviso Oficial: Por lineamientos del MINEDUCYT, se suspenden las clases presenciales por alerta climática. Favor acatar medidas.">⛈️ Suspensión por Lluvias</option>
+                    <option value="Estimado/a, le solicitamos presentarse a la reunión técnico-docente programada para el día de mañana.">📅 Convocatoria a Reunión</option>
+                </select>
+
+                <textarea id="txt-alerta-whatsapp" rows="6" style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 1.05rem; resize: vertical; line-height: 1.6; background: white;" placeholder="Escribe el mensaje institucional aquí... Se transmitirá exactamente lo que redactes en esta caja."></textarea>
             </div>
             
-           <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
-    <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
-    
-    <div style="max-height: 270px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; background: white; margin-bottom: 15px;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
-            <thead>
-                <tr style="background: #f1f5f9; color: #475569; border-bottom: 2px solid #cbd5e1;">
-                    <th style="padding: 12px 10px; font-weight: 700;">Código</th>
-                    <th style="padding: 12px 10px; font-weight: 700;">Director</th>
-                    <th style="padding: 12px 10px; text-align: center; font-weight: 700;">Acción</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-directores-whatsapp-body">
-                <tr>
-                    <td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">
-                        Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div style="text-align: right;">
-        <button type="button" onclick="window.limpiezaAbsoluta()" style="background: #64748b; color: white; border: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer;">
-            🧹 Limpiar 
-        </button>
-    </div>
-</div>
-            
+            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                <button type="button" onclick="window.enviarAlGrupoDistrital(event)" style="background: #25D366; color: white; border: none; padding: 14px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2); text-align: center;">
+                    👥 Despachar Aviso al Grupo Distrital
+                </button>
+                <button type="button" onclick="window.cargarPanelDirectores(event)" id="btn-cargar-wsp" style="background: #042444; color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(4,36,68,0.15);">
+                    🔄 Sincronizar Lista para Mensajes Individuales
+                </button>
+            </div>
         </div>
+        
+        <!-- ============================================================== -->
+        <!-- COLUMNA DERECHA: ENVÍOS INTELIGENTES (DOCENTES Y DIRECTORES)   -->
+        <!-- ============================================================== -->
+        <div id="panel-envio-directores" style="flex: 1.2; min-width: 350px;">
+            <label style="display: block; font-weight: bold; color: #1e293b; margin-bottom: 8px; font-size: 0.95rem;">👤 Envíos Individuales / Chat Directo:</label>
+            
+            <!-- NUEVO: SELECTOR DE TIPO DE DESTINATARIO -->
+            <div style="display: flex; gap: 15px; margin-bottom: 15px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; justify-content: center;">
+                <label style="cursor: pointer; font-weight: bold; color: #042444; font-size: 0.9rem;"><input type="radio" name="tipo_envio" value="director" onclick="window.cambiarModoEnvioWsp()" checked> Directores</label>
+                <label style="cursor: pointer; font-weight: bold; color: #042444; font-size: 0.9rem;"><input type="radio" name="tipo_envio" value="docente" onclick="window.cambiarModoEnvioWsp()"> Docentes</label>
+                <label style="cursor: pointer; font-weight: bold; color: #042444; font-size: 0.9rem;"><input type="radio" name="tipo_envio" value="numero" onclick="window.cambiarModoEnvioWsp()"> Manual</label>
+            </div>
+
+            <!-- PANEL 1: TABLA ORIGINAL DE DIRECTORES -->
+            <div id="panel-directores">
+                <div style="max-height: 220px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; background: white; margin-bottom: 15px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
+                        <thead style="position: sticky; top: 0; background: #f1f5f9; z-index: 10;">
+                            <tr style="color: #475569; border-bottom: 2px solid #cbd5e1;">
+                                <th style="padding: 12px 10px; font-weight: 700;">Código</th>
+                                <th style="padding: 12px 10px; font-weight: 700;">Director</th>
+                                <th style="padding: 12px 10px; text-align: center; font-weight: 700;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-directores-whatsapp-body">
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #64748b; padding: 35px;">
+                                    Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PANEL 2: BUSCADOR INTELIGENTE DE DOCENTES -->
+            <div id="caja-buscar-docente" style="display: none; position: relative; margin-bottom: 15px;">
+                <div style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px;">
+                    <label style="display: block; font-weight: bold; color: #475569; margin-bottom: 8px; font-size: 0.9rem;">Buscar Docente por Nombre:</label>
+                    <input type="text" id="input-buscar-docente" placeholder="🔍 Escriba al menos 3 letras..." onkeyup="window.filtrarDocentesWsp()" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 1rem; background: #f8fafc;">
+                    <div id="resultados-docentes" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #cbd5e1; border-radius: 6px; max-height: 180px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 8px 15px rgba(0,0,0,0.1);"></div>
+                </div>
+            </div>
+
+            <!-- PANEL 3: NÚMERO MANUAL -->
+            <div id="caja-numero-manual" style="display: none; margin-bottom: 15px;">
+                <div style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px;">
+                    <label style="display: block; font-weight: bold; color: #475569; margin-bottom: 8px; font-size: 0.9rem;">Digitar Número de Teléfono:</label>
+                    <input type="number" id="input-numero-manual" placeholder="📱 Ej. 70001111 (Sin guiones)" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 1rem; background: #f8fafc;">
+                </div>
+            </div>
+
+            <!-- BOTONES DE ACCIÓN (Derecha) -->
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" onclick="window.limpiezaAbsoluta()" style="background: #64748b; color: white; border: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer;">
+                    🧹 Limpiar 
+                </button>
+                <!-- BOTÓN OCULTO PARA ENVÍO INDIVIDUAL A DOCENTES/MANUAL -->
+                <button type="button" id="btn-enviar-individual" onclick="window.enviarWspIndividual(event)" style="display: none; background: #25D366; color: white; border: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(37,211,102,0.2);">
+                    💬 Enviar Mensaje Directo
+                </button>
+            </div>
+        </div>
+        
     </div>
 </div>
 
