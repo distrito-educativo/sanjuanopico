@@ -7977,13 +7977,8 @@ window.generarEstadisticas = function() {
 // 4. MÓDULO DE CENTRAL WHATSAPP (DIRECTORES Y DOCENTES)
 // =========================================================================
 
-// BASE DE DATOS TEMPORAL DE DOCENTES (Para el autocompletado inteligente)
-// Más adelante conectaremos esto a tu base de datos de Apps Script
-window.directorioDocentesWsp = [
-    { nombre: "JUAN PEREZ GONZALEZ", telefono: "71234567" },
-    { nombre: "MARIA LOPEZ RAMIREZ", telefono: "78901234" },
-    { nombre: "CARLOS ALBERTO MARTINEZ", telefono: "70001111" }
-];
+// BASE DE DATOS DE DOCENTES (Arranca vacía, se llenará automáticamente desde Excel)
+window.directorioDocentesWsp = [];
 
 // -------------------------------------------------------------------------
 // AUTENTICACIÓN
@@ -8012,7 +8007,7 @@ window.aplicarPlantillaWsp = function() {
 };
 
 // -------------------------------------------------------------------------
-// CONTROL DE VISTAS (MODO DE ENVÍO)
+// CONTROL DE VISTAS Y SINCRONIZACIÓN AUTOMÁTICA DE DOCENTES
 // -------------------------------------------------------------------------
 window.cambiarModoEnvioWsp = function() {
     const opcion = document.querySelector('input[name="tipo_envio"]:checked').value;
@@ -8029,8 +8024,32 @@ window.cambiarModoEnvioWsp = function() {
     if(cajaNumero) cajaNumero.style.display = (opcion === 'numero') ? 'block' : 'none';
     
     // El botón global de envío individual solo se muestra para Docentes o Números Manuales.
-    // Los directores tienen sus propios botones de envío dentro de la tabla.
     if(btnEnviarIndividual) btnEnviarIndividual.style.display = (opcion === 'director') ? 'none' : 'block';
+
+    // 🌟 MAGIA: Sincronización en segundo plano al seleccionar "Docentes"
+    if (opcion === 'docente' && window.directorioDocentesWsp.length === 0) {
+        const inputBuscar = document.getElementById('input-buscar-docente');
+        if (inputBuscar) {
+            inputBuscar.placeholder = "⏳ Sincronizando 500+ docentes desde Excel...";
+            inputBuscar.disabled = true; // Bloqueamos la caja mientras carga
+
+            fetch(URL_API_GOOGLE + "?accion=cargar_docentes_wsp", { method: 'GET' })
+            .then(res => res.json())
+            .then(data => {
+                inputBuscar.disabled = false;
+                if(data.status === "success") {
+                    window.directorioDocentesWsp = data.data;
+                    inputBuscar.placeholder = "🔍 Escriba al menos 3 letras para buscar...";
+                } else {
+                    inputBuscar.placeholder = "❌ Error: Revise la columna de Teléfono en Excel.";
+                    alert("Aviso Distrital: " + data.message);
+                }
+            }).catch(err => {
+                inputBuscar.disabled = false;
+                inputBuscar.placeholder = "❌ Error conectando con la base de datos distrital.";
+            });
+        }
+    }
 };
 
 // -------------------------------------------------------------------------
@@ -8080,7 +8099,7 @@ window.filtrarDocentesWsp = function() {
 // LÓGICA DE ENVÍOS (DISPARADORES A WHATSAPP)
 // -------------------------------------------------------------------------
 
-// Envío a Grupo Distrital (Abre WhatsApp Web/App con el texto, sin número)
+// Envío a Grupo Distrital
 window.enviarAlGrupoDistrital = function(e) {
     if(e) e.preventDefault();
     var m = document.getElementById("txt-alerta-whatsapp").value.trim();
@@ -8122,7 +8141,7 @@ window.dispararWhatsApp = function(e, telefono, index) {
         return;
     }
     
-    // Feedback visual (Cambiamos el color y texto del botón)
+    // Feedback visual
     var boton = document.getElementById("btn-wsp-" + index);
     if (boton) { 
         boton.style.background = "#64748b"; 
@@ -8174,22 +8193,18 @@ window.cargarPanelDirectores = function(e) {
 // LIMPIEZA DEL MÓDULO
 // -------------------------------------------------------------------------
 window.limpiezaAbsoluta = function() {
-    // 1. Limpiar Caja de Texto y Plantillas
     var c = document.getElementById('txt-alerta-whatsapp'); if(c) c.value = '';
     var sel = document.getElementById('wsp-plantillas'); if(sel) sel.value = '';
     
-    // 2. Limpiar Tabla de Directores
     var t = document.getElementById('tabla-directores-whatsapp-body'); 
-    if(t) t.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:35px; color:#64748b;">Presiona Sincronizar Lista</td></tr>';
+    if(t) t.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:40px 20px; color:#64748b;">Presiona el botón azul "Sincronizar Lista" para mapear los directores desde Excel.</td></tr>';
     window.listaDirectoresCache = [];
 
-    // 3. Limpiar Contenedores Inteligentes (Docentes y Manual)
     var bs = document.getElementById('input-buscar-docente'); 
     if(bs) { bs.value = ''; bs.dataset.telefonoElegido = ''; }
     var r = document.getElementById('resultados-docentes'); if(r) r.style.display = 'none';
     var mn = document.getElementById('input-numero-manual'); if(mn) mn.value = '';
     
-    // 4. Restaurar Selección Predeterminada a "Directores"
     const radioDirectores = document.querySelector('input[name="tipo_envio"][value="director"]');
     if(radioDirectores) {
         radioDirectores.checked = true;
