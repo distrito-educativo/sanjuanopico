@@ -7928,16 +7928,122 @@ window.generarEstadisticas = function() {
 };
 
 // =========================================================================
-// 4. MÓDULO DE CENTRAL WHATSAPP (DIRECTORES)
+// 4. MÓDULO DE CENTRAL WHATSAPP (DIRECTORES Y DOCENTES)
 // =========================================================================
+
+// BASE DE DATOS TEMPORAL DE DOCENTES (Para el autocompletado inteligente)
+window.directorioDocentesWsp = [
+    { nombre: "JUAN PEREZ GONZALEZ", telefono: "71234567" },
+    { nombre: "MARIA LOPEZ RAMIREZ", telefono: "78901234" },
+    { nombre: "CARLOS ALBERTO MARTINEZ", telefono: "70001111" }
+];
+
 window.verificarAccesoAlerta = function(e) {
     if(e) e.preventDefault();
     if(document.getElementById("pass-maestra-wsp").value.trim() === "Monitor2026*") {
         document.getElementById("wsp-bloque-candado").style.display = "none";
         document.getElementById("modulo-alertas-whatsapp").style.display = "block";
-    } else { alert("❌ Contraseña incorrecta."); document.getElementById("pass-maestra-wsp").value = ""; }
+    } else { 
+        alert("❌ Contraseña incorrecta."); 
+        document.getElementById("pass-maestra-wsp").value = ""; 
+    }
 };
 window.verificarAccAccessAlerta = window.verificarAccesoAlerta;
+
+// -------------------------------------------------------------------------
+// NUEVAS FUNCIONES: PLANTILLAS Y FILTROS INTELIGENTES
+// -------------------------------------------------------------------------
+
+window.aplicarPlantillaWsp = function() {
+    const selector = document.getElementById('wsp-plantillas');
+    const textarea = document.getElementById('txt-alerta-whatsapp');
+    if (selector && textarea) {
+        textarea.value = selector.value;
+    }
+};
+
+window.cambiarModoEnvioWsp = function() {
+    const opcion = document.querySelector('input[name="tipo_envio"]:checked').value;
+    
+    // Contenedores a mostrar/ocultar según la selección
+    const panelDirectores = document.getElementById('panel-directores'); // Asume que la tabla original está en este div
+    const cajaDocente = document.getElementById('caja-buscar-docente');
+    const cajaNumero = document.getElementById('caja-numero-manual');
+    const btnEnviarIndividual = document.getElementById('btn-enviar-individual');
+
+    if(panelDirectores) panelDirectores.style.display = (opcion === 'director') ? 'block' : 'none';
+    if(cajaDocente) cajaDocente.style.display = (opcion === 'docente') ? 'block' : 'none';
+    if(cajaNumero) cajaNumero.style.display = (opcion === 'numero') ? 'block' : 'none';
+    
+    // El botón individual solo se muestra si NO estamos en modo director (porque ellos tienen su propio botón en la tabla)
+    if(btnEnviarIndividual) btnEnviarIndividual.style.display = (opcion === 'director') ? 'none' : 'block';
+};
+
+window.filtrarDocentesWsp = function() {
+    const texto = document.getElementById('input-buscar-docente').value.toLowerCase();
+    const contenedor = document.getElementById('resultados-docentes');
+    
+    // Empieza a buscar si ha escrito al menos 3 letras
+    if (texto.length < 3) {
+        contenedor.style.display = 'none';
+        return;
+    }
+
+    const resultados = window.directorioDocentesWsp.filter(d => d.nombre.toLowerCase().includes(texto));
+    
+    contenedor.innerHTML = "";
+    if (resultados.length > 0) {
+        resultados.forEach(docente => {
+            const div = document.createElement('div');
+            div.style.padding = "10px 15px";
+            div.style.cursor = "pointer";
+            div.style.borderBottom = "1px solid #f1f5f9";
+            div.innerHTML = `<strong style="color:#0f2e50;">${docente.nombre}</strong> <br><small style="color:#64748b;">📱 ${docente.telefono}</small>`;
+            
+            div.onmouseover = () => div.style.background = "#f8fafc";
+            div.onmouseout = () => div.style.background = "transparent";
+            
+            // Al hacer clic, guardamos el teléfono de forma secreta en el input
+            div.onclick = () => {
+                document.getElementById('input-buscar-docente').value = `${docente.nombre}`;
+                document.getElementById('input-buscar-docente').dataset.telefonoElegido = docente.telefono; 
+                contenedor.style.display = 'none';
+            };
+            contenedor.appendChild(div);
+        });
+        contenedor.style.display = 'block';
+    } else {
+        contenedor.innerHTML = "<div style='padding: 15px; color: #dc2626;'>❌ Docente no encontrado. Revise el nombre.</div>";
+        contenedor.style.display = 'block';
+    }
+};
+
+window.enviarWspIndividual = function(e) {
+    if(e) e.preventDefault();
+    var mensaje = document.getElementById("txt-alerta-whatsapp").value.trim();
+    if (!mensaje) return alert("⚠️ Escribe el mensaje o selecciona una plantilla primero.");
+
+    const opcion = document.querySelector('input[name="tipo_envio"]:checked').value;
+    let telefono = "";
+
+    if (opcion === 'docente') {
+        telefono = document.getElementById('input-buscar-docente').dataset.telefonoElegido;
+        if (!telefono) return alert("⚠️ Busque y seleccione un docente de la lista que apareció.");
+    } else if (opcion === 'numero') {
+        telefono = document.getElementById('input-numero-manual').value.trim();
+        if (!telefono || telefono.length < 8) return alert("⚠️ Ingrese un número de teléfono válido (Ej. 70001111).");
+    }
+
+    // Asegurar código de país 503
+    if(!telefono.startsWith("503") && telefono.length === 8) telefono = "503" + telefono;
+
+    var urlAppDirecta = "whatsapp://send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
+    window.location.href = urlAppDirecta;
+};
+
+// -------------------------------------------------------------------------
+// FUNCIONES ORIGINALES RESTAURADAS (Directores)
+// -------------------------------------------------------------------------
 
 window.enviarAlGrupoDistrital = function(e) {
     if(e) e.preventDefault();
@@ -7958,20 +8064,21 @@ window.cargarPanelDirectores = function(e) {
         if(data.status === "success") {
             window.listaDirectoresCache = data.data;
             const t = document.getElementById("tabla-directores-whatsapp-body");
-            t.innerHTML = "";
-            data.data.forEach((d, i) => {
-                let tel = d.telefono.trim(); 
-                if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
-                
-                // ¡AQUÍ ESTÁ EL BOTÓN CORREGIDO CON SU ID Y TYPE="BUTTON"!
-                t.innerHTML += `<tr>
-                    <td style="padding:10px;">${d.escuela}</td>
-                    <td style="padding:10px;">${d.nombre}</td>
-                    <td style="text-align:center;">
-                        <button type="button" id="btn-wsp-${i}" onclick="window.dispararWhatsApp(event, '${tel}', ${i})" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button>
-                    </td>
-                </tr>`;
-            });
+            if(t) {
+                t.innerHTML = "";
+                data.data.forEach((d, i) => {
+                    let tel = d.telefono.trim(); 
+                    if(!tel.startsWith("503") && tel.length===8) tel="503"+tel;
+                    
+                    t.innerHTML += `<tr>
+                        <td style="padding:10px;">${d.escuela}</td>
+                        <td style="padding:10px;">${d.nombre}</td>
+                        <td style="text-align:center;">
+                            <button type="button" id="btn-wsp-${i}" onclick="window.dispararWhatsApp(event, '${tel}', ${i})" style="background:#25D366; color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;">💬 Enviar</button>
+                        </td>
+                    </tr>`;
+                });
+            }
         }
     }).catch(err => { 
         if(btn) { btn.innerText = "🔄 Sincronizar Lista"; btn.disabled = false; } 
@@ -7979,7 +8086,6 @@ window.cargarPanelDirectores = function(e) {
     });
 };
 
-// ESTA ES LA FUNCIÓN NUEVA QUE CAMBIA EL COLOR
 window.dispararWhatsApp = function(e, telefono, index) {
     if(e) { e.preventDefault(); e.stopPropagation(); }
     
@@ -8004,6 +8110,13 @@ window.dispararWhatsApp = function(e, telefono, index) {
 window.limpiezaAbsoluta = function() {
     var c = document.getElementById('txt-alerta-whatsapp'); if(c) c.value = '';
     var t = document.getElementById('tabla-directores-whatsapp-body'); if(t) t.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:35px; color:#64748b;">Presiona Sincronizar.</td></tr>';
+    
+    // Limpiamos los campos nuevos
+    var sel = document.getElementById('wsp-plantillas'); if(sel) sel.value = '';
+    var bs = document.getElementById('input-buscar-docente'); if(bs) { bs.value = ''; bs.dataset.telefonoElegido = ''; }
+    var mn = document.getElementById('input-numero-manual'); if(mn) mn.value = '';
+    var r = document.getElementById('resultados-docentes'); if(r) r.style.display = 'none';
+
     window.listaDirectoresCache = [];
 };
 
