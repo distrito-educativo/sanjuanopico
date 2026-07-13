@@ -6306,22 +6306,69 @@
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-biblioteca')">📖 Biblioteca Activa</button>
                     </div>
 
-                    <!-- CONTENIDO 1: NOTICIAS -->
-                    <div id="fe-tab-noticias" class="fe-tab-content active">
-                        <h3 style="margin-top: 0; color: #0f2e50;">Últimas Novedades</h3>
-                        
-                        <div class="fe-noticia-card">
-                            <span class="fe-noticia-fecha">12 de Julio, 2026</span>
-                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">¡Nuevo libro disponible para Segundo Ciclo!</strong>
-                            <p style="margin: 0;">Ya pueden comenzar la lectura guiada de "El misterio de la ciudad hundida" (Nivel 2). Recuerden que los alumnos pueden votar el destino de los personajes hasta el próximo viernes.</p>
-                        </div>
-                        
-                        <div class="fe-noticia-card" style="border-left-color: #3b82f6; background: #f0f9ff;">
-                            <span class="fe-noticia-fecha" style="color: #3b82f6;">05 de Julio, 2026</span>
-                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">Recordatorio de Capacitación Docente</strong>
-                            <p style="margin: 0;">El enlace para la sesión virtual sobre "Estrategias de comprensión lectora con Fiction Express" ha sido enviado a sus correos institucionales.</p>
-                        </div>
-                    </div>
+                    <!-- CONTENIDO 1: NOTICIAS Y LIBROS EN VIVO -->
+                            <div id="fe-tab-noticias" class="fe-tab-content active">
+                                
+                                <!-- SECCIÓN: LIBROS EN VIVO -->
+                                <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
+                                </h3>
+                                
+                                <div class="fe-grid-libros" style="margin-bottom: 35px;">
+                                    
+                                    <!-- LIBRO EN VIVO: NIVEL 1 -->
+                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_1" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_1" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 220px;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- LIBRO EN VIVO: NIVEL 2 -->
+                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_2" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 220px;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- LIBRO EN VIVO: NIVEL 3 -->
+                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_3" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_3" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 220px;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                                <!-- LÍNEA DIVISORIA VISUAL -->
+                                <hr style="border: 0; border-top: 2px dashed #e2e8f0; margin-bottom: 25px;">
+
+                                <!-- SECCIÓN: ÚLTIMAS NOVEDADES -->
+                                <h3 style="color: #0f2e50; margin-top: 0; margin-bottom: 20px;">Últimas Novedades</h3>
+                                
+                                <div class="fe-noticia-card">
+                                    <span class="fe-noticia-fecha">12 de Julio, 2026</span>
+                                    <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">¡Nuevo libro disponible para Segundo Ciclo!</strong>
+                                    <p style="margin: 0;">Ya pueden comenzar la lectura guiada de "El misterio de la ciudad hundida" (Nivel 2). Recuerden que los alumnos pueden votar el destino de los personajes hasta el próximo viernes.</p>
+                                </div>
+                                
+                                <div class="fe-noticia-card" style="border-left-color: #3b82f6; background: #f0f9ff;">
+                                    <span class="fe-noticia-fecha" style="color: #3b82f6;">05 de Julio, 2026</span>
+                                    <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">Recordatorio de Capacitación Docente</strong>
+                                    <p style="margin: 0;">El enlace para la sesión virtual sobre "Estrategias de comprensión lectora con Fiction Express" ha sido enviado a sus correos institucionales.</p>
+                                </div>
+                            </div>
 
                     <!-- CONTENIDO 2: ALINEACIÓN CURRICULAR (Acordeón) -->
                     <div id="fe-tab-alineacion" class="fe-tab-content">
