@@ -6237,7 +6237,213 @@
             'derechos-ninez': `<div class="page-header"><h1>Protección a la Niñez</h1></div>`,
             'derechos-mujer': `<div class="page-header"><h1>Unidad de la Mujer</h1></div>`,
             
-            'fiction-home': `<div class="page-header"><h1>Plataforma Fiction Express</h1></div>`,
+          'fiction-home': `
+                <style>
+                    /* Estilos Generales del Módulo */
+                    .fe-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; }
+                    .fe-header { display: flex; align-items: center; gap: 15px; border-bottom: 3px solid #7c2d82; padding-bottom: 15px; margin-bottom: 25px; }
+                    .fe-header h2 { margin: 0; color: #7c2d82; font-size: 1.8rem; font-weight: bold; } 
+                    
+                    /* Sistema de Pestañas (Tabs) */
+                    .fe-tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; overflow-x: auto; }
+                    .fe-tab-btn { background: #f8fafc; border: 1px solid #cbd5e1; border-bottom: none; padding: 12px 25px; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; color: #64748b; font-size: 1.05rem; transition: all 0.3s ease; white-space: nowrap; }
+                    .fe-tab-btn:hover { background: #e2e8f0; color: #0f2e50; }
+                    .fe-tab-btn.active { background: #7c2d82; color: white; border-color: #7c2d82; }
+                    .fe-tab-content { display: none; background: white; padding: 25px; border: 1px solid #e2e8f0; border-radius: 0 8px 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+                    .fe-tab-content.active { display: block; }
+
+                    /* Estilos - Tab Noticias */
+                    .fe-noticia-card { background: #fff8f1; border-left: 5px solid #f97316; padding: 15px 20px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+                    .fe-noticia-fecha { font-size: 0.85rem; color: #f97316; font-weight: bold; margin-bottom: 5px; display: block; }
+
+                    /* Estilos - Tab Alineación Curricular (Acordeón) */
+                    .fe-acordeon-item { margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; }
+                    .fe-acordeon-header { background: #f1f5f9; padding: 15px 20px; cursor: pointer; font-weight: bold; color: #0f2e50; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+                    .fe-acordeon-header:hover { background: #e2e8f0; }
+                    .fe-acordeon-header::after { content: '▼'; font-size: 0.9rem; color: #64748b; transition: transform 0.3s; }
+                    .fe-acordeon-item.active .fe-acordeon-header::after { transform: rotate(180deg); }
+                    .fe-acordeon-body { display: none; padding: 0; background: white; border-top: 1px solid #cbd5e1; }
+                    .fe-acordeon-item.active .fe-acordeon-body { display: block; }
+                    
+                    /* Tabla dentro de la Alineación */
+                    .fe-tabla-alineacion { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
+                    .fe-tabla-alineacion th, .fe-tabla-alineacion td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+                    .fe-tabla-alineacion th { background: #f8fafc; color: #475569; font-weight: bold; }
+                    .fe-tabla-alineacion tr:hover { background: #f8fafc; }
+                    .fe-tabla-alineacion a { color: #2563eb; text-decoration: none; font-weight: 500; }
+                    .fe-tabla-alineacion a:hover { text-decoration: underline; }
+
+                    /* Estilos - Tab Biblioteca (Cuadrícula y Filtros) */
+                    .fe-filtros-niveles { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
+                    .fe-filtro-btn { background: white; border: 2px solid #cbd5e1; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; color: #475569; transition: all 0.3s; }
+                    .fe-filtro-btn.active { background: #0f2e50; color: white; border-color: #0f2e50; }
+                    
+                    .fe-grid-libros { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+                    .fe-libro-card { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer;}
+                    .fe-libro-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+                    .fe-libro-info { padding: 12px; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-top: 1px solid #e2e8f0; }
+                    .fe-badge-nivel { background: #1e293b; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; }
+                    .fe-nivel-1 { background: #22c55e; } /* Verde */
+                    .fe-nivel-2 { background: #3b82f6; } /* Azul */
+                    .fe-nivel-3 { background: #dc2626; } /* Rojo */
+
+                    @media (max-width: 768px) {
+                        .fe-tab-content { padding: 15px; }
+                        .fe-acordeon-header { font-size: 1rem; }
+                    }
+                </style>
+
+                <div class="fe-container">
+                    <div class="fe-header">
+                        <span style="font-size: 2.5rem;">📚</span>
+                        <h2>Plataforma Fiction Express</h2>
+                    </div>
+
+                    <!-- BOTONES DE PESTAÑAS -->
+                    <div class="fe-tabs">
+                        <button class="fe-tab-btn active" onclick="window.abrirTabFE(event, 'fe-tab-noticias')">📰 Noticias y Avisos</button>
+                        <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-alineacion')">🎯 Alineación Curricular</button>
+                        <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-biblioteca')">📖 Biblioteca Activa</button>
+                    </div>
+
+                    <!-- CONTENIDO 1: NOTICIAS -->
+                    <div id="fe-tab-noticias" class="fe-tab-content active">
+                        <h3 style="margin-top: 0; color: #0f2e50;">Últimas Novedades</h3>
+                        
+                        <div class="fe-noticia-card">
+                            <span class="fe-noticia-fecha">12 de Julio, 2026</span>
+                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">¡Nuevo libro disponible para Segundo Ciclo!</strong>
+                            <p style="margin: 0;">Ya pueden comenzar la lectura guiada de "El misterio de la ciudad hundida" (Nivel 2). Recuerden que los alumnos pueden votar el destino de los personajes hasta el próximo viernes.</p>
+                        </div>
+                        
+                        <div class="fe-noticia-card" style="border-left-color: #3b82f6; background: #f0f9ff;">
+                            <span class="fe-noticia-fecha" style="color: #3b82f6;">05 de Julio, 2026</span>
+                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">Recordatorio de Capacitación Docente</strong>
+                            <p style="margin: 0;">El enlace para la sesión virtual sobre "Estrategias de comprensión lectora con Fiction Express" ha sido enviado a sus correos institucionales.</p>
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO 2: ALINEACIÓN CURRICULAR (Acordeón) -->
+                    <div id="fe-tab-alineacion" class="fe-tab-content">
+                        <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px;">Segundo Ciclo de Educación Básica</h3>
+                        
+                        <!-- Acordeón Cuarto Grado -->
+                        <div class="fe-acordeon-item active">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA CUARTO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr>
+                                                <th>Unidad</th>
+                                                <th>Título</th>
+                                                <th>Libro Relacionado</th>
+                                                <th>Objetivo del Proyecto</th>
+                                                <th>Proyecto Relacionado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>1</strong></td>
+                                                <td>Investigamos noticias</td>
+                                                <td><a href="#">El detective de gatos</a></td>
+                                                <td>Producción de noticias</td>
+                                                <td><a href="#">Robo a bordo del Titania</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>2</strong></td>
+                                                <td>Leemos narraciones</td>
+                                                <td><a href="#">Corazón de cobre</a></td>
+                                                <td>Producción de narraciones de aventura</td>
+                                                <td><a href="#">Viaje al centro del volcán</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>3</strong></td>
+                                                <td>Inventamos acrósticos</td>
+                                                <td><a href="#">Tú eres Ax</a></td>
+                                                <td>Producir carteles</td>
+                                                <td><a href="#">Tú eres Ax</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acordeón Quinto Grado (Ejemplo cerrado) -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA QUINTO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="padding: 20px; color: #64748b; text-align: center;">
+                                    <em>Información de alineación para Quinto Grado en construcción...</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO 3: BIBLIOTECA (Filtros y Cuadrícula) -->
+                    <div id="fe-tab-biblioteca" class="fe-tab-content">
+                        
+                        <!-- Filtros -->
+                        <div class="fe-filtros-niveles">
+                            <button class="fe-filtro-btn active" onclick="window.filtrarNivelFE('Todos', this)">Todos los Niveles</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 1', this)">Nivel 1</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 2', this)">Nivel 2</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 3', this)">Nivel 3</button>
+                        </div>
+
+                        <!-- Cuadrícula de Libros -->
+                        <div class="fe-grid-libros" id="fe-contenedor-libros">
+                            
+                            <!-- Libro 1 -->
+                            <div class="fe-libro-card" data-nivel="Nivel 1">
+                                <div style="background: #fb923c; width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; color: white; text-align: center; font-weight: bold; padding: 20px; box-sizing: border-box;">
+                                   <span style="font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Corazón de Cobre</span>
+                                </div>
+                                <div class="fe-libro-info">
+                                    <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                    <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                </div>
+                            </div>
+
+                            <!-- Libro 2 -->
+                            <div class="fe-libro-card" data-nivel="Nivel 1">
+                                <div style="background: #2dd4bf; width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; color: white; text-align: center; font-weight: bold; padding: 20px; box-sizing: border-box;">
+                                   <span style="font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Caro y Lucy en la Isla de Basura</span>
+                                </div>
+                                <div class="fe-libro-info">
+                                    <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                    <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                </div>
+                            </div>
+
+                            <!-- Libro 3 -->
+                            <div class="fe-libro-card" data-nivel="Nivel 3">
+                                <div style="background: #475569; width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; color: white; text-align: center; font-weight: bold; padding: 20px; box-sizing: border-box;">
+                                   <span style="font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">La Ciudad de las Chimeneas Encendidas</span>
+                                </div>
+                                <div class="fe-libro-info">
+                                    <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                    <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Tarjeta para Añadir/Descubrir Más -->
+                            <div class="fe-libro-card" style="justify-content: center; align-items: center; background: #f59e0b; border: none;">
+                                <div style="display: flex; flex-direction: column; align-items: center; color: white; padding: 40px 20px;">
+                                    <span style="font-size: 3rem; margin-bottom: 10px;">⊕</span>
+                                    <strong style="font-size: 1.2rem;">Descubrir más</strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            `,
             'fiction-orientaciones': `<div class="page-header"><h1>Orientaciones de Lectura</h1></div>`,
             'fiction-que-hacer': `<div class="page-header"><h1>Qué hacer cuando...</h1></div>`,
             'fiction-express-uso': `<div class="page-header"><h1>Uso de Express</h1></div>`,
@@ -8253,6 +8459,68 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }, 1000);
 });
+
+// =========================================================================
+// 6. MOTOR DE FICTION EXPRESS (Añadir a partir de aquí)
+// =========================================================================
+
+// 1. Función para cambiar entre pestañas (Noticias, Alineación, Biblioteca)
+window.abrirTabFE = function(evt, tabId) {
+    // Ocultar todos los contenidos
+    var tabContents = document.getElementsByClassName("fe-tab-content");
+    for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+        tabContents[i].classList.remove("active");
+    }
+
+    // Quitar la clase "active" de todos los botones
+    var tablinks = document.getElementsByClassName("fe-tab-btn");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // Mostrar el tab actual y añadir "active" al botón que lo abrió
+    document.getElementById(tabId).style.display = "block";
+    document.getElementById(tabId).classList.add("active");
+    if(evt) evt.currentTarget.classList.add("active");
+};
+
+// 2. Función para expandir/contraer el acordeón de Alineación
+window.toggleAcordeonFE = function(element) {
+    // Encontramos el contenedor padre (.fe-acordeon-item)
+    var parentItem = element.parentElement;
+    
+    // Alternamos la clase 'active' para abrir o cerrar
+    parentItem.classList.toggle("active");
+};
+
+// 3. Función para filtrar libros por Nivel en la Biblioteca
+window.filtrarNivelFE = function(nivelBuscado, btnElement) {
+    // Actualizar visualmente qué botón de filtro está activo
+    var botonesFiltro = document.getElementsByClassName("fe-filtro-btn");
+    for (var i = 0; i < botonesFiltro.length; i++) {
+        botonesFiltro[i].classList.remove("active");
+    }
+    if(btnElement) btnElement.classList.add("active");
+
+    // Filtrar las tarjetas de libros
+    var libros = document.getElementsByClassName("fe-libro-card");
+    for (var i = 0; i < libros.length; i++) {
+        var nivelLibro = libros[i].getAttribute("data-nivel");
+        
+        // Si el libro no tiene atributo nivel (como la tarjeta de "Descubrir más"), la mostramos siempre
+        if (!nivelLibro) {
+            libros[i].style.display = "flex";
+            continue;
+        }
+
+        if (nivelBuscado === "Todos" || nivelLibro === nivelBuscado) {
+            libros[i].style.display = "flex"; 
+        } else {
+            libros[i].style.display = "none";
+        }
+    }
+};
 </script>
 </body>
 </html>
