@@ -6231,39 +6231,26 @@
 
                 </div>
             `,
-            'derechos-home': `<div class="page-header"><h1>Derechos Humanos</h1><p>Entidad encargada de velar por el bienestar, la equidad y la seguridad.</p></div>`,
-            'derechos-denuncia': `<div class="page-header"><h1>Canales de Denuncia</h1></div>`,
-            'derechos-conoce': `<div class="page-header"><h1>Conoce tus Derechos</h1></div>`,
-            'derechos-ninez': `<div class="page-header"><h1>Protección a la Niñez</h1></div>`,
-            'derechos-mujer': `<div class="page-header"><h1>Unidad de la Mujer</h1></div>`,
-            
-          'fiction-home': `
-                <div class="page-header">
-                    <h1>Plataforma Fiction Express</h1>
-                    <p>Seleccione una opción del submenú lateral (como "Orientaciones de Lectura") para acceder a los recursos interactivos, biblioteca y noticias.</p>
+            'fiction-home': `
+                <div class="page-header" style="animation: fadeIn 0.4s ease;">
+                    <h1 style="color: #7c2d82;">📚 Plataforma Fiction Express</h1>
+                    <p style="font-size: 1.1rem; color: #64748b;">Seleccione una opción del submenú lateral (como "Orientaciones de Lectura") para acceder a los recursos interactivos, biblioteca y noticias.</p>
                 </div>
             `,
 
             'fiction-orientaciones': `
                 <style>
-                    /* Estilos Generales del Módulo */
                     .fe-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; }
                     .fe-header { display: flex; align-items: center; gap: 15px; border-bottom: 3px solid #7c2d82; padding-bottom: 15px; margin-bottom: 25px; }
                     .fe-header h2 { margin: 0; color: #7c2d82; font-size: 1.8rem; font-weight: bold; } 
-                    
-                    /* Sistema de Pestañas (Tabs) */
                     .fe-tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; overflow-x: auto; }
                     .fe-tab-btn { background: #f8fafc; border: 1px solid #cbd5e1; border-bottom: none; padding: 12px 25px; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; color: #64748b; font-size: 1.05rem; transition: all 0.3s ease; white-space: nowrap; }
                     .fe-tab-btn:hover { background: #e2e8f0; color: #0f2e50; }
                     .fe-tab-btn.active { background: #7c2d82; color: white; border-color: #7c2d82; }
                     .fe-tab-content { display: none; background: white; padding: 25px; border: 1px solid #e2e8f0; border-radius: 0 8px 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
                     .fe-tab-content.active { display: block; }
-
-                    /* Estilos - Tab Noticias */
                     .fe-noticia-card { background: #fff8f1; border-left: 5px solid #f97316; padding: 15px 20px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
                     .fe-noticia-fecha { font-size: 0.85rem; color: #f97316; font-weight: bold; margin-bottom: 5px; display: block; }
-
-                    /* Estilos - Tab Alineación Curricular (Acordeón) */
                     .fe-acordeon-item { margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; }
                     .fe-acordeon-header { background: #f1f5f9; padding: 15px 20px; cursor: pointer; font-weight: bold; color: #0f2e50; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
                     .fe-acordeon-header:hover { background: #e2e8f0; }
@@ -6271,29 +6258,23 @@
                     .fe-acordeon-item.active .fe-acordeon-header::after { transform: rotate(180deg); }
                     .fe-acordeon-body { display: none; padding: 0; background: white; border-top: 1px solid #cbd5e1; }
                     .fe-acordeon-item.active .fe-acordeon-body { display: block; }
-                    
-                    /* Tabla dentro de la Alineación */
                     .fe-tabla-alineacion { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
                     .fe-tabla-alineacion th, .fe-tabla-alineacion td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
                     .fe-tabla-alineacion th { background: #f8fafc; color: #475569; font-weight: bold; }
                     .fe-tabla-alineacion tr:hover { background: #f8fafc; }
                     .fe-tabla-alineacion a { color: #2563eb; text-decoration: none; font-weight: 500; }
                     .fe-tabla-alineacion a:hover { text-decoration: underline; }
-
-                    /* Estilos - Tab Biblioteca (Cuadrícula y Filtros) */
                     .fe-filtros-niveles { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
                     .fe-filtro-btn { background: white; border: 2px solid #cbd5e1; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; color: #475569; transition: all 0.3s; }
                     .fe-filtro-btn.active { background: #0f2e50; color: white; border-color: #0f2e50; }
-                    
                     .fe-grid-libros { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
                     .fe-libro-card { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer;}
                     .fe-libro-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
                     .fe-libro-info { padding: 12px; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-top: 1px solid #e2e8f0; }
                     .fe-badge-nivel { background: #1e293b; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; }
-                    .fe-nivel-1 { background: #22c55e; } /* Verde */
-                    .fe-nivel-2 { background: #3b82f6; } /* Azul */
-                    .fe-nivel-3 { background: #dc2626; } /* Rojo */
-
+                    .fe-nivel-1 { background: #22c55e; }
+                    .fe-nivel-2 { background: #3b82f6; }
+                    .fe-nivel-3 { background: #dc2626; }
                     @media (max-width: 768px) {
                         .fe-tab-content { padding: 15px; }
                         .fe-acordeon-header { font-size: 1rem; }
@@ -6306,82 +6287,64 @@
                         <h2>Plataforma Fiction Express</h2>
                     </div>
 
-                    <!-- BOTONES DE PESTAÑAS -->
                     <div class="fe-tabs">
                         <button class="fe-tab-btn active" onclick="window.abrirTabFE(event, 'fe-tab-noticias')">📰 Noticias y Avisos</button>
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-alineacion')">🎯 Alineación Curricular</button>
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-biblioteca')">📖 Biblioteca Activa</button>
                     </div>
 
-                    <!-- CONTENIDO 1: NOTICIAS Y LIBROS EN VIVO -->
-                            <div id="fe-tab-noticias" class="fe-tab-content active">
-                                
-                                <!-- SECCIÓN: LIBROS EN VIVO -->
-                                <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-                                    <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
-                                </h3>
-                                
-                                <div class="fe-grid-libros" style="margin-bottom: 35px;">
-                                    
-                                    <!-- LIBRO EN VIVO: NIVEL 1 -->
-                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_1" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                        <div class="fe-libro-card">
-                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_1" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 220px;">
-                                            <div class="fe-libro-info">
-                                                <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
-                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <!-- LIBRO EN VIVO: NIVEL 2 -->
-                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                        <div class="fe-libro-card">
-                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_2" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 220px;">
-                                            <div class="fe-libro-info">
-                                                <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
-                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <!-- LIBRO EN VIVO: NIVEL 3 -->
-                                    <a href="AQUÍ_LINK_LIBRO_NIVEL_3" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                        <div class="fe-libro-card">
-                                            <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_3" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 220px;">
-                                            <div class="fe-libro-info">
-                                                <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
-                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
+                    <div id="fe-tab-noticias" class="fe-tab-content active">
+                        <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
+                        </h3>
+                        
+                        <div class="fe-grid-libros" style="margin-bottom: 35px;">
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_1" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_1" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                    </div>
                                 </div>
-
-                                <!-- LÍNEA DIVISORIA VISUAL -->
-                                <hr style="border: 0; border-top: 2px dashed #e2e8f0; margin-bottom: 25px;">
-
-                                <!-- SECCIÓN: ÚLTIMAS NOVEDADES -->
-                                <h3 style="color: #0f2e50; margin-top: 0; margin-bottom: 20px;">Últimas Novedades</h3>
-                                
-                                <div class="fe-noticia-card">
-                                    <span class="fe-noticia-fecha">12 de Julio, 2026</span>
-                                    <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">¡Nuevo libro disponible para Segundo Ciclo!</strong>
-                                    <p style="margin: 0;">Ya pueden comenzar la lectura guiada de "El misterio de la ciudad hundida" (Nivel 2). Recuerden que los alumnos pueden votar el destino de los personajes hasta el próximo viernes.</p>
+                            </a>
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_2" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
+                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                    </div>
                                 </div>
-                                
-                                <div class="fe-noticia-card" style="border-left-color: #3b82f6; background: #f0f9ff;">
-                                    <span class="fe-noticia-fecha" style="color: #3b82f6;">05 de Julio, 2026</span>
-                                    <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">Recordatorio de Capacitación Docente</strong>
-                                    <p style="margin: 0;">El enlace para la sesión virtual sobre "Estrategias de comprensión lectora con Fiction Express" ha sido enviado a sus correos institucionales.</p>
+                            </a>
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_3" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_3" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
+                        </div>
 
-                    <!-- CONTENIDO 2: ALINEACIÓN CURRICULAR (Acordeón) -->
+                        <hr style="border: 0; border-top: 2px dashed #e2e8f0; margin-bottom: 25px;">
+
+                        <h3 style="color: #0f2e50; margin-top: 0; margin-bottom: 20px;">Últimas Novedades</h3>
+                        <div class="fe-noticia-card">
+                            <span class="fe-noticia-fecha">12 de Julio, 2026</span>
+                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">¡Nuevo libro disponible para Segundo Ciclo!</strong>
+                            <p style="margin: 0;">Ya pueden comenzar la lectura guiada de "El misterio de la ciudad hundida" (Nivel 2).</p>
+                        </div>
+                        <div class="fe-noticia-card" style="border-left-color: #3b82f6; background: #f0f9ff;">
+                            <span class="fe-noticia-fecha" style="color: #3b82f6;">05 de Julio, 2026</span>
+                            <strong style="display: block; margin-bottom: 5px; font-size: 1.1rem;">Recordatorio de Capacitación Docente</strong>
+                            <p style="margin: 0;">El enlace para la sesión virtual sobre "Estrategias de comprensión lectora" ha sido enviado a sus correos.</p>
+                        </div>
+                    </div>
+
                     <div id="fe-tab-alineacion" class="fe-tab-content">
                         <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px;">Segundo Ciclo de Educación Básica</h3>
-                        
-                        <!-- Acordeón Cuarto Grado -->
                         <div class="fe-acordeon-item active">
                             <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
                                 ALINEACIÓN CURRICULAR PARA CUARTO GRADO
@@ -6391,117 +6354,67 @@
                                     <table class="fe-tabla-alineacion">
                                         <thead>
                                             <tr>
-                                                <th>Unidad</th>
-                                                <th>Título</th>
-                                                <th>Libro Relacionado</th>
-                                                <th>Objetivo del Proyecto</th>
-                                                <th>Proyecto Relacionado</th>
+                                                <th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><strong>1</strong></td>
-                                                <td>Investigamos noticias</td>
-                                                <td><a href="#">El detective de gatos</a></td>
-                                                <td>Producción de noticias</td>
-                                                <td><a href="#">Robo a bordo del Titania</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>2</strong></td>
-                                                <td>Leemos narraciones</td>
-                                                <td><a href="#">Corazón de cobre</a></td>
-                                                <td>Producción de narraciones de aventura</td>
-                                                <td><a href="#">Viaje al centro del volcán</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>3</strong></td>
-                                                <td>Inventamos acrósticos</td>
-                                                <td><a href="#">Tú eres Ax</a></td>
-                                                <td>Producir carteles</td>
-                                                <td><a href="#">Tú eres Ax</a></td>
+                                                <td><strong>1</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Acordeón Quinto Grado (Ejemplo cerrado) -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA QUINTO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="padding: 20px; color: #64748b; text-align: center;">
-                                    <em>Información de alineación para Quinto Grado en construcción...</em>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- CONTENIDO 3: BIBLIOTECA (Filtros y Cuadrícula) -->
                     <div id="fe-tab-biblioteca" class="fe-tab-content">
-                        
-                        <!-- Filtros -->
                         <div class="fe-filtros-niveles">
-                            <button class="fe-filtro-btn active" onclick="window.filtrarNivelFE('Todos', this)">Todos los Niveles</button>
+                            <button class="fe-filtro-btn active" onclick="window.filtrarNivelFE('Todos', this)">Todos</button>
                             <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 1', this)">Nivel 1</button>
                             <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 2', this)">Nivel 2</button>
                             <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 3', this)">Nivel 3</button>
                         </div>
-
-                        <!-- Cuadrícula de Libros -->
-                            <div class="fe-grid-libros" id="fe-contenedor-libros">
-                                
-                                <!-- Libro 1 -->
-                                <a href="https://lat.fictionexpress.com/libro/corazon-de-cobre/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                    <div class="fe-libro-card" data-nivel="Nivel 1">
-                                        <img src="https://i.postimg.cc/SQghLvD5/Corazon-de-cobre.png" alt="Corazón de Cobre" class="fe-libro-portada">
-                                        <div class="fe-libro-info">
-                                            <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
-                                            <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
-                                        </div>
+                        <div class="fe-grid-libros" id="fe-contenedor-libros">
+                            <a href="https://lat.fictionexpress.com/libro/corazon-de-cobre/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 1">
+                                    <img src="https://i.postimg.cc/SQghLvD5/Corazon-de-cobre.png" alt="Corazón de Cobre" class="fe-libro-portada" style="height: 260px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
                                     </div>
-                                </a>
-
-                                <!-- Libro 2 -->
-                                <a href="https://lat.fictionexpress.com/libro/caro-y-lucy-en-la-isla-de-basura/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                    <div class="fe-libro-card" data-nivel="Nivel 1">
-                                        <img src="https://i.postimg.cc/vHxN1qj2/Caro-y-Luci-en-la-isla-de-la-basura.png" alt="Caro y Lucy en la Isla de Basura" class="fe-libro-portada">
-                                        <div class="fe-libro-info">
-                                            <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
-                                            <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
-                                        </div>
+                                </div>
+                            </a>
+                            <a href="https://lat.fictionexpress.com/libro/caro-y-lucy-en-la-isla-de-basura/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 1">
+                                    <img src="https://i.postimg.cc/vHxN1qj2/Caro-y-Luci-en-la-isla-de-la-basura.png" alt="Caro y Lucy" class="fe-libro-portada" style="height: 260px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
                                     </div>
-                                </a>
-
-                                <!-- Libro 3 -->
-                                <a href="https://lat.fictionexpress.com/libro/la-ciudad-de-las-chimeneas-encendidas/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                    <div class="fe-libro-card" data-nivel="Nivel 3">
-                                        <img src="https://i.postimg.cc/nc9PsR5R/La-Ciudad-de-las-Chimeneas-encendidas.png" alt="La Ciudad de las Chimeneas Encendidas" class="fe-libro-portada">
-                                        <div class="fe-libro-info">
-                                            <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
-                                            <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
-                                        </div>
+                                </div>
+                            </a>
+                            <a href="https://lat.fictionexpress.com/libro/la-ciudad-de-las-chimeneas-encendidas/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 3">
+                                    <img src="https://i.postimg.cc/nc9PsR5R/La-Ciudad-de-las-Chimeneas-encendidas.png" alt="La Ciudad" class="fe-libro-portada" style="height: 260px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
                                     </div>
-                                </a>
-                                
-                                <!-- Tarjeta para Añadir/Descubrir Más -->
-                                <a href="AQUÍ_VA_EL_LINK_AL_CATÁLOGO" target="_blank" style="text-decoration: none; display: block; height: 100%;">
-                                    <div class="fe-libro-card" style="justify-content: center; align-items: center; background: #f59e0b; border: none; height: 100%;">
-                                        <div style="display: flex; flex-direction: column; align-items: center; color: white; padding: 40px 20px;">
-                                            <span style="font-size: 3rem; margin-bottom: 10px;">⊕</span>
-                                            <strong style="font-size: 1.2rem;">Descubrir más</strong>
-                                        </div>
+                                </div>
+                            </a>
+                            <a href="AQUÍ_VA_EL_LINK_AL_CATÁLOGO" target="_blank" style="text-decoration: none; display: block; height: 100%;">
+                                <div class="fe-libro-card" style="justify-content: center; align-items: center; background: #f59e0b; border: none; height: 100%;">
+                                    <div style="display: flex; flex-direction: column; align-items: center; color: white; padding: 40px 20px;">
+                                        <span style="font-size: 3rem; margin-bottom: 10px;">⊕</span>
+                                        <strong style="font-size: 1.2rem;">Descubrir más</strong>
                                     </div>
-                                </a>
-
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             `,
-            'fiction-orientaciones': `<div class="page-header"><h1>Orientaciones de Lectura</h1></div>`,
             'fiction-que-hacer': `<div class="page-header"><h1>Qué hacer cuando...</h1></div>`,
             'fiction-express-uso': `<div class="page-header"><h1>Uso de Express</h1></div>`,
             'fiction-starter': `<div class="page-header"><h1>Uso de Starter</h1></div>`,
