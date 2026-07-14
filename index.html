@@ -740,7 +740,7 @@
                         </div>
                     </div>
 
-                    <!-- BLOQUE 4: GENERACIÓN DE TICKET -->
+<!-- BLOQUE 4: GENERACIÓN DE TICKET -->
                     <div class="ticket-section">
                         <h3>🎟️ Generar Ticket de Asistencia</h3>
                         <p style="color: #64748b; margin-bottom: 20px; font-style: italic;">¿No lograste resolverlo con las opciones anteriores? Llena este formulario y el equipo técnico se pondrá en contacto contigo.</p>
@@ -801,7 +801,36 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Código de Infraestructura *</label>
-                                    <input type="text" id="ticket-codigo" required placeholder="Ej. 14800">
+                                    <select id="ticket-codigo" required style="width: 100%; padding: 14px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #f8fafc; font-family: inherit; font-size: 1rem; box-sizing: border-box; transition: border-color 0.3s;">
+                                        <option value="">Seleccione el código...</option>
+                                        <option value="10130">10130</option>
+                                        <option value="11031">11031</option>
+                                        <option value="11073">11073</option>
+                                        <option value="11190">11190</option>
+                                        <option value="11204">11204</option>
+                                        <option value="11212">11212</option>
+                                        <option value="11213">11213</option>
+                                        <option value="11214">11214</option>
+                                        <option value="11215">11215</option>
+                                        <option value="11216">11216</option>
+                                        <option value="11217">11217</option>
+                                        <option value="11232">11232</option>
+                                        <option value="11233">11233</option>
+                                        <option value="11239">11239</option>
+                                        <option value="11241">11241</option>
+                                        <option value="12624">12624</option>
+                                        <option value="14800">14800</option>
+                                        <option value="14869">14869</option>
+                                        <option value="60121">60121</option>
+                                        <option value="60127">60127</option>
+                                        <option value="68008">68008</option>
+                                        <option value="68110">68110</option>
+                                        <option value="68111">68111</option>
+                                        <option value="68114">68114</option>
+                                        <option value="68122">68122</option>
+                                        <option value="68123">68123</option>
+                                        <option value="68126">68126</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Teléfono de Contacto *</label>
@@ -820,13 +849,12 @@
                                     <select id="ticket-cat" required>
                                         <option value="">Seleccione una categoría...</option>
                                         <option value="Problemas con SIGES">Problemas con SIGES (Notas, Matrícula)</option>
-					<option value="Problemas con PDH">Problemas con PDH (Plataforma de Desarrollo Humano)</option>
-					<option value="Cuentas @clases.edu.sv">Cuentas @clases.edu.sv</option>
+                                        <option value="Problemas con PDH">Problemas con PDH (Plataforma de Desarrollo Humano)</option>
+                                        <option value="Cuentas @clases.edu.sv">Cuentas @clases.edu.sv</option>
                                         <option value="Fallo en Portal Distrital">Fallo en el Portal Distrital Web</option>
                                         <option value="Equipo Informático">Equipo Informático (Laptops/Tablets)</option>
                                         <option value="Conectividad">Conectividad a Internet en la Escuela</option>
                                         <option value="Otro">Otro (Especificar en descripción)</option>
-
                                     </select>
                                 </div>
                             </div>
