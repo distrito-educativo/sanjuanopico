@@ -6305,7 +6305,7 @@
                     <div class="fh-grid">
                         <div class="fh-card express">
                             <h3 style="color: #3b82f6;"><span>🚀</span> Fiction Express</h3>
-                            <p>Diseñada para estudiantes de <strong>Segundo y Tercer Ciclo de Básica y Primero y Segundo de Educación Media</strong>. Esta plataforma innovadora publica libros originales en capítulos semanales. Al final de cada entrega, los alumnos votan para decidir el rumbo de la historia, conectando su proceso creativo en tiempo real con autores profesionales. Además, integra foros de discusión, cuestionarios de comprensión y un glosario contextualizado que amplía su vocabulario.</p>
+                            <p>Diseñada para estudiantes de <strong>Segundo y Tercer Ciclo de Básica y Primero y Segundo año de Educación Media</strong>. Esta plataforma innovadora publica libros originales en capítulos semanales. Al final de cada entrega, los alumnos votan para decidir el rumbo de la historia, conectando su proceso creativo en tiempo real con autores profesionales. Además, integra foros de discusión, cuestionarios de comprensión y un glosario contextualizado que amplía su vocabulario.</p>
                         </div>
                         
                         <div class="fh-card starter">
@@ -6397,40 +6397,75 @@
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-biblioteca')">📖 Biblioteca Activa</button>
                     </div>
 
-                    <!-- CONTENIDO 1: NOTICIAS Y LIBROS EN VIVO -->
+                    <!-- CONTENIDO 1: NOTICIAS, LIBROS EN VIVO Y FESTIVAL -->
                     <div id="fe-tab-noticias" class="fe-tab-content active">
-                        <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-                            <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
-                        </h3>
                         
-                        <div class="fe-grid-libros" style="margin-bottom: 35px;">
-                            <a href="https://lat.fictionexpress.com/libro/la-llegada-de-los-magos/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/525qzkCh/La-llegada-de-los-magos.png" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
-                                    <div class="fe-libro-info">
-                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
-                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
-                                    </div>
+                        <!-- CONTENEDOR DUAL: LIBROS (Izquierda) + FESTIVAL (Derecha) -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px;">
+                            
+                            <!-- COLUMNA IZQUIERDA: LIBROS EN VIVO -->
+                            <div style="flex: 1 1 500px;">
+                                <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
+                                </h3>
+                                <div class="fe-grid-libros">
+                                    <a href="https://lat.fictionexpress.com/libro/la-llegada-de-los-magos/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="https://i.postimg.cc/525qzkCh/La-llegada-de-los-magos.png" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="https://lat.fictionexpress.com/libro/la-niebla-del-bosque/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="https://i.postimg.cc/VvM4VsJs/La-Niebla-del-Bosque.png" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="https://lat.fictionexpress.com/libro/el-amo-de-los-dragones/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                        <div class="fe-libro-card">
+                                            <img src="https://i.postimg.cc/MTfYnZbQ/El-Amo-de-los-Dragones.png" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
+                                            <div class="fe-libro-info">
+                                                <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                                <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                            <a href="https://lat.fictionexpress.com/libro/la-niebla-del-bosque/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/VvM4VsJs/La-Niebla-del-Bosque.png" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
-                                    <div class="fe-libro-info">
-                                        <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
-                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                            </div>
+
+                            <!-- COLUMNA DERECHA: FESTIVAL LECTOESCRITURA -->
+                            <div style="flex: 1 1 350px;">
+                                <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease;">
+                                    
+                                    <!-- Imagen Destacada del Festival -->
+                                    <div style="height: 160px; background: #e2e8f0; position: relative;">
+                                        <img src="AQUI_LINK_IMAGEN_FESTIVAL" alt="Festival Fiction Express" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(15, 46, 80, 0.9)); padding: 25px 15px 10px;">
+                                            <span style="background: #3b82f6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px;">25 DE OCTUBRE DE 2024</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <a href="https://lat.fictionexpress.com/libro/el-amo-de-los-dragones/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-                                <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/MTfYnZbQ/El-Amo-de-los-Dragones.png" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
-                                    <div class="fe-libro-info">
-                                        <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
-                                        <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
+                                    
+                                    <!-- Contenido del Festival -->
+                                    <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
+                                        <h3 style="margin: 0 0 5px 0; color: #0f2e50; font-size: 1.25rem; line-height: 1.3;">FESTIVAL LECTOESCRITURA FICTION EXPRESS</h3>
+                                        <p style="font-size: 0.8rem; color: #3b82f6; margin-top: 0; font-weight: 700; margin-bottom: 15px;">Instituciones educativas del distrito 0506 de San Juan Opico</p>
+                                        
+                                        <!-- Caja con Scroll para el texto largo -->
+                                        <div style="font-size: 0.9rem; color: #475569; line-height: 1.6; max-height: 180px; overflow-y: auto; padding-right: 10px; text-align: justify; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                                            <p style="margin-top: 0;">Este evento de Lectoescritura, es un espacio dedicado al encuentro con las palabras, donde celebramos el poder transformador de la lectura y la escritura. No solo es una oportunidad para compartir textos y descubrir nuevas historias, sino también para fortalecer nuestra capacidad de expresar ideas y pensamientos por medio de la palabra escrita.</p>
+                                            <p>La lectoescritura es mucho más que una herramienta académica: Es una ventana al conocimiento, un puente entre culturas y un camino hacia la creatividad. Leer nos permite explorar universos infinitos. A través de la lectura, somos capaces de viajar a universos lejanos, conocer personajes inolvidables y vivir aventuras que nos hacen crecer como personas mientras que escribir nos da la posibilidad de plasmar nuestras ideas, emociones y sueños inmortalizadas en el papel marcadas por la tinta.</p>
+                                            <p style="margin-bottom: 0;">En un mundo donde la información fluye rápidamente, donde a menudo lo inmediato parece prevalecer sobre lo profundo, es vital detenernos y valorar el tiempo que dedicamos a la lectura. Estos momentos de pausa nos permiten reflexionar, aprender y crecer. Nos invitan a mirar más allá de lo evidente, a cuestionar y a imaginar nuevas posibilidades.</p>
+                                        </div>
                                     </div>
+
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
                         <hr style="border: 0; border-top: 2px dashed #e2e8f0; margin-bottom: 25px;">
@@ -6672,17 +6707,16 @@
                                     </div>
                                 </div>
                             </a>
-			    <!-- Libro Nivel 2 (Corregido) -->
-			   <a href="LINK_AL_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-    				<div class="fe-libro-card" data-nivel="Nivel 2">
-        			     <img src="LINK_A_TU_IMAGEN" alt="Título del Libro" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
-        			<div class="fe-libro-info">
-            				<span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
-            				<span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
-        				</div>
-    				</div>
-			</a>
-
+                            <!-- Libro Nivel 2 (Corregido) -->
+                            <a href="LINK_AL_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 2">
+                                     <img src="LINK_A_TU_IMAGEN" alt="Título del Libro" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                    </div>
+                                </div>
+                            </a>
                             <a href="https://lat.fictionexpress.com/libro/la-ciudad-de-las-chimeneas-encendidas/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
                                 <div class="fe-libro-card" data-nivel="Nivel 3">
                                     <img src="https://i.postimg.cc/nc9PsR5R/La-Ciudad-de-las-Chimeneas-encendidas.png" alt="La Ciudad" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
