@@ -6374,13 +6374,7 @@
                     </div>
 
                     <div id="fe-tab-alineacion" class="fe-tab-content">
-                        
-                        <!-- ========================================== -->
-                        <!-- SEGUNDO CICLO                              -->
-                        <!-- ========================================== -->
-                        <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Segundo Ciclo de Educación Básica</h3>
-                        
-                        <!-- Acordeón Cuarto Grado -->
+                        <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px;">Segundo Ciclo de Educación Básica</h3>
                         <div class="fe-acordeon-item active">
                             <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
                                 ALINEACIÓN CURRICULAR PARA CUARTO GRADO
@@ -6397,25 +6391,25 @@
                                             <tr>
                                                 <td><strong>1</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+					    <tr>
                                                 <td><strong>2</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+						<tr>
                                                 <td><strong>3</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+					    <tr>
                                                 <td><strong>4</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+						<tr>
                                                 <td><strong>5</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+					    <tr>
                                                 <td><strong>6</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+						<tr>
                                                 <td><strong>7</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-                                            <tr>
+					    <tr>
                                                 <td><strong>8</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
                                         </tbody>
@@ -6423,151 +6417,210 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Acordeón Quinto Grado -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA QUINTO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
+                    <div id="fe-tab-biblioteca" class="fe-tab-content">
+                        <div class="fe-filtros-niveles">
+                            <button class="fe-filtro-btn active" onclick="window.filtrarNivelFE('Todos', this)">Todos</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 1', this)">Nivel 1</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 2', this)">Nivel 2</button>
+                            <button class="fe-filtro-btn" onclick="window.filtrarNivelFE('Nivel 3', this)">Nivel 3</button>
+                        </div>
+                        <div class="fe-grid-libros" id="fe-contenedor-libros">
+                            <a href="https://lat.fictionexpress.com/libro/corazon-de-cobre/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 1">
+                                    <img src="https://i.postimg.cc/SQghLvD5/Corazon-de-cobre.png" alt="Corazón de Cobre" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
+                            <a href="https://lat.fictionexpress.com/libro/caro-y-lucy-en-la-isla-de-basura/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 1">
+                                    <img src="https://i.postimg.cc/vHxN1qj2/Caro-y-Luci-en-la-isla-de-la-basura.png" alt="Caro y Lucy" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://lat.fictionexpress.com/libro/la-ciudad-de-las-chimeneas-encendidas/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="fe-libro-card" data-nivel="Nivel 3">
+                                    <img src="https://i.postimg.cc/nc9PsR5R/La-Ciudad-de-las-Chimeneas-encendidas.png" alt="La Ciudad" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <div class="fe-libro-info">
+                                        <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
+                                        <span style="font-size: 0.8rem; color: #64748b;">Ver detalles →</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="AQUÍ_VA_EL_LINK_AL_CATÁLOGO" target="_blank" style="text-decoration: none; display: block; height: 100%;">
+                                <div class="fe-libro-card" style="justify-content: center; align-items: center; background: #f59e0b; border: none; height: 100%;">
+                                    <div style="display: flex; flex-direction: column; align-items: center; color: white; padding: 40px 20px;">
+                                        <span style="font-size: 3rem; margin-bottom: 10px;">⊕</span>
+                                        <strong style="font-size: 1.2rem;">Descubrir más</strong>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'fiction-que-hacer': `
+                <style>
+                    .fq-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; padding: 10px;}
+                    .fq-header { border-bottom: 3px solid #f59e0b; padding-bottom: 15px; margin-bottom: 25px; }
+                    .fq-header h2 { margin: 0; color: #0f2e50; font-size: 2rem; font-weight: bold; }
+                    .fq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+                    .fq-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #f97316; display: flex; flex-direction: column; transition: transform 0.3s; }
+                    .fq-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+                    .fq-icon { font-size: 2.5rem; margin-bottom: 15px; }
+                    .fq-title { font-size: 1.2rem; font-weight: bold; color: #0f2e50; margin-bottom: 15px; line-height: 1.3; }
+                    .fq-step { margin-bottom: 10px; font-size: 0.95rem; color: #475569; padding-left: 25px; position: relative; }
+                    .fq-step::before { content: '✔️'; position: absolute; left: 0; color: #10b981; font-weight: bold; font-size: 0.85rem; top: 2px; }
+                    .fq-btn { display: inline-block; margin-top: auto; padding: 12px 20px; background: #fff7ed; color: #ea580c; border: 1px solid #ea580c; text-decoration: none; border-radius: 6px; font-weight: bold; text-align: center; width: 100%; box-sizing: border-box; transition: all 0.2s; }
+                    .fq-btn:hover { background: #ea580c; color: white; }
+                </style>
+                <div class="fq-container">
+                    <div class="fq-header">
+                        <h2>🛠️ ¿Qué hacer cuando...?</h2>
+                        <p style="color: #64748b; font-size: 1.1rem; margin-top: 10px;">Guía rápida de soporte y solución a los problemas más frecuentes de directores y docentes en la plataforma.</p>
+                    </div>
+                    <div class="fq-grid">
+                        
+                        <div class="fq-card">
+                            <div class="fq-icon">🔑</div>
+                            <div class="fq-title">Un alumno olvidó su contraseña</div>
+                            <div class="fq-step">Ingresa a tu panel docente principal.</div>
+                            <div class="fq-step">Ve a la pestaña <strong>"Mis Alumnos"</strong>.</div>
+                            <div class="fq-step">Busca el nombre del alumno y haz clic en el ícono del candado para generar una nueva.</div>
+                            <br>
+                            <a href="LINK_VIDEO_AQUI" target="_blank" class="fq-btn">▶ Ver Videotutorial</a>
                         </div>
 
-                        <!-- Acordeón Sexto Grado -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA SEXTO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="fq-card" style="border-top-color: #3b82f6;">
+                            <div class="fq-icon">📱</div>
+                            <div class="fq-title">El libro no carga en la Tablet/Laptop</div>
+                            <div class="fq-step">Verifica que el dispositivo esté conectado a internet.</div>
+                            <div class="fq-step">Presiona <strong>Ctrl + Shift + R</strong> para limpiar la memoria caché del navegador.</div>
+                            <div class="fq-step">Si usas la App, verifica que esté actualizada desde la Play Store.</div>
+                            <br>
+                            <a href="LINK_GUIA_AQUI" target="_blank" class="fq-btn" style="color: #3b82f6; border-color: #3b82f6; background: #eff6ff;">📄 Descargar Guía Visual</a>
                         </div>
 
-                        <!-- ========================================== -->
-                        <!-- TERCER CICLO                               -->
-                        <!-- ========================================== -->
-                        <h3 style="margin-top: 35px; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Tercer Ciclo de Educación Básica</h3>
-
-                        <!-- Acordeón Séptimo Grado -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA SÉPTIMO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Acordeón Octavo Grado -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA OCTAVO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Acordeón Noveno Grado -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA NOVENO GRADO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ========================================== -->
-                        <!-- EDUCACIÓN MEDIA                            -->
-                        <!-- ========================================== -->
-                        <h3 style="margin-top: 35px; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Educación Media</h3>
-
-                        <!-- Acordeón Primer Año Bachillerato -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA PRIMER AÑO DE BACHILLERATO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Acordeón Segundo Año Bachillerato -->
-                        <div class="fe-acordeon-item">
-                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
-                                ALINEACIÓN CURRICULAR PARA SEGUNDO AÑO DE BACHILLERATO
-                            </div>
-                            <div class="fe-acordeon-body">
-                                <div style="overflow-x: auto;">
-                                    <table class="fe-tabla-alineacion">
-                                        <thead>
-                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="fq-card" style="border-top-color: #10b981;">
+                            <div class="fq-icon">📊</div>
+                            <div class="fq-title">No veo el progreso de mis alumnos</div>
+                            <div class="fq-step">Asegúrate de haber asignado los libros correctos a tu clase.</div>
+                            <div class="fq-step">Verifica que los alumnos hayan finalizado el capítulo y el cuestionario.</div>
+                            <div class="fq-step">Entra a <strong>"Estadísticas"</strong> para actualizar la tabla.</div>
+                            <br>
+                            <a href="LINK_VIDEO_AQUI" target="_blank" class="fq-btn" style="color: #10b981; border-color: #10b981; background: #f0fdf4;">▶ Ver Videotutorial</a>
                         </div>
 
                     </div>
+                </div>
+            `,
+
+            'fiction-express-uso': `
+                <style>
+                    .fx-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; padding: 10px;}
+                    .fx-header { border-bottom: 3px solid #3b82f6; padding-bottom: 15px; margin-bottom: 25px; }
+                    .fx-header h2 { margin: 0; color: #0f2e50; font-size: 2rem; font-weight: bold; }
+                    .fx-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 30px; border: 2px solid #e2e8f0; background: #000;}
+                    .fx-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+                    .fx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+                    .fx-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; text-align: center; border-bottom: 4px solid #3b82f6; transition: transform 0.3s; display: flex; flex-direction: column;}
+                    .fx-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+                    .fx-icon { font-size: 3.5rem; margin-bottom: 15px; }
+                    .fx-btn { display: inline-block; margin-top: auto; padding: 12px 20px; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; width: 100%; box-sizing: border-box; transition: background 0.3s;}
+                    .fx-btn:hover { background: #1d4ed8; }
+                </style>
+                <div class="fx-container">
+                    <div class="fx-header">
+                        <h2>🚀 Uso de Fiction Express</h2>
+                        <p style="color: #64748b; font-size: 1.1rem; margin-top: 10px;">Plataforma dirigida a estudiantes de Segundo y Tercer Ciclo. Aprende a dinamizar la lectura cocreada y gestionar foros.</p>
+                    </div>
+                    
+                    <div class="fx-video-wrapper">
+                        <!-- Coloca aquí el link de YouTube de tu capacitación -->
+                        <iframe src="https://www.youtube.com/embed/n_5N7va6y5s" title="Tutorial Express" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="fx-grid">
+                        <div class="fx-card">
+                            <div class="fx-icon">👨‍🏫</div>
+                            <h3 style="margin:0 0 10px 0; color:#0f2e50;">Manual del Docente</h3>
+                            <p style="color:#64748b; font-size:0.95rem; margin-bottom: 20px;">Cómo crear tus secciones, asignar lecturas y evaluar en tiempo real.</p>
+                            <a href="LINK_PDF_DOCENTE" target="_blank" class="fx-btn">📥 Descargar PDF</a>
+                        </div>
+                        
+                        <div class="fx-card" style="border-bottom-color: #f59e0b;">
+                            <div class="fx-icon">🎒</div>
+                            <h3 style="margin:0 0 10px 0; color:#0f2e50;">Manual del Estudiante</h3>
+                            <p style="color:#64748b; font-size:0.95rem; margin-bottom: 20px;">Guía gráfica para el alumno: cómo leer, hacer el test y votar.</p>
+                            <a href="LINK_PDF_ESTUDIANTE" target="_blank" class="fx-btn" style="background: #f59e0b;">📥 Descargar PDF</a>
+                        </div>
+
+                        <div class="fx-card" style="border-bottom-color: #10b981;">
+                            <div class="fx-icon">💬</div>
+                            <h3 style="margin:0 0 10px 0; color:#0f2e50;">Gestión de Foros</h3>
+                            <p style="color:#64748b; font-size:0.95rem; margin-bottom: 20px;">Aprende a comunicarte con los autores en vivo y moderar comentarios.</p>
+                            <a href="LINK_PDF_FOROS" target="_blank" class="fx-btn" style="background: #10b981;">📥 Descargar PDF</a>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            'fiction-starter': `
+                <style>
+                    .fs-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; padding: 10px;}
+                    .fs-header { border-bottom: 3px solid #22c55e; padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px;}
+                    .fs-header h2 { margin: 0; color: #0f2e50; font-size: 2rem; font-weight: bold; }
+                    .fs-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 30px; border: 2px solid #e2e8f0; background: #000;}
+                    .fs-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+                    .fs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+                    .fs-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 25px; display: flex; align-items: center; gap: 20px; transition: transform 0.3s;}
+                    .fs-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #22c55e;}
+                    .fs-icon { font-size: 3rem; }
+                    .fs-btn { display: inline-block; padding: 10px 20px; background: #22c55e; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.3s; margin-top: 10px;}
+                    .fs-btn:hover { background: #16a34a; }
+                </style>
+                <div class="fs-container">
+                    <div class="fs-header">
+                        <div>
+                            <h2>🌱 Uso de Fiction Express Starter</h2>
+                            <p style="color: #64748b; font-size: 1.1rem; margin-top: 10px;">La versión inicial para estudiantes de Primer Ciclo y educación temprana.</p>
+                        </div>
+                        <span style="background: #22c55e; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">Niveles 1 y 2</span>
+                    </div>
+                    
+                    <div class="fs-video-wrapper">
+                        <!-- Coloca aquí el link de YouTube de tu capacitación de Starter -->
+                        <iframe src="https://www.youtube.com/embed/n_5N7va6y5s" title="Tutorial Starter" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="fs-grid">
+                        <div class="fs-card">
+                            <div class="fs-icon">🧩</div>
+                            <div>
+                                <h3 style="margin:0 0 5px 0; color:#0f2e50;">Metodología Lúdica</h3>
+                                <p style="color:#64748b; font-size:0.9rem; margin: 0;">Actividades gamificadas y glosario interactivo para los más pequeños.</p>
+                                <a href="LINK_GUIA_LUDICA" target="_blank" class="fs-btn">Descargar Guía</a>
+                            </div>
+                        </div>
+
+                        <div class="fs-card" style="background: #eff6ff; border-color: #bfdbfe;">
+                            <div class="fs-icon">📖</div>
+                            <div>
+                                <h3 style="margin:0 0 5px 0; color:#0f2e50;">Audiolibros y Lectura Guiada</h3>
+                                <p style="color:#64748b; font-size:0.9rem; margin: 0;">Cómo aprovechar la narración sincronizada para mejorar la dicción.</p>
+                                <a href="LINK_GUIA_AUDIO" target="_blank" class="fs-btn" style="background: #3b82f6;">Ver Módulo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
             
             'valores-home': `<div class="page-header"><h1>Formación en Valores</h1></div>`,
             'workspace-home': `<div class="page-header"><h1>Formación Google WorkSpace</h1></div>`,
