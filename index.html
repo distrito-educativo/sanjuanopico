@@ -6270,17 +6270,24 @@
 
             'fiction-orientaciones': `
                 <style>
+                    /* Estilos Generales del Módulo */
                     .fe-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; }
                     .fe-header { display: flex; align-items: center; gap: 15px; border-bottom: 3px solid #7c2d82; padding-bottom: 15px; margin-bottom: 25px; }
                     .fe-header h2 { margin: 0; color: #7c2d82; font-size: 1.8rem; font-weight: bold; } 
+                    
+                    /* Sistema de Pestañas (Tabs) */
                     .fe-tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; overflow-x: auto; }
                     .fe-tab-btn { background: #f8fafc; border: 1px solid #cbd5e1; border-bottom: none; padding: 12px 25px; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; color: #64748b; font-size: 1.05rem; transition: all 0.3s ease; white-space: nowrap; }
                     .fe-tab-btn:hover { background: #e2e8f0; color: #0f2e50; }
                     .fe-tab-btn.active { background: #7c2d82; color: white; border-color: #7c2d82; }
                     .fe-tab-content { display: none; background: white; padding: 25px; border: 1px solid #e2e8f0; border-radius: 0 8px 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
                     .fe-tab-content.active { display: block; }
+
+                    /* Estilos - Tab Noticias */
                     .fe-noticia-card { background: #fff8f1; border-left: 5px solid #f97316; padding: 15px 20px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
                     .fe-noticia-fecha { font-size: 0.85rem; color: #f97316; font-weight: bold; margin-bottom: 5px; display: block; }
+
+                    /* Estilos - Tab Alineación Curricular (Acordeón) */
                     .fe-acordeon-item { margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; }
                     .fe-acordeon-header { background: #f1f5f9; padding: 15px 20px; cursor: pointer; font-weight: bold; color: #0f2e50; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
                     .fe-acordeon-header:hover { background: #e2e8f0; }
@@ -6288,23 +6295,29 @@
                     .fe-acordeon-item.active .fe-acordeon-header::after { transform: rotate(180deg); }
                     .fe-acordeon-body { display: none; padding: 0; background: white; border-top: 1px solid #cbd5e1; }
                     .fe-acordeon-item.active .fe-acordeon-body { display: block; }
+                    
+                    /* Tabla dentro de la Alineación */
                     .fe-tabla-alineacion { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
                     .fe-tabla-alineacion th, .fe-tabla-alineacion td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
                     .fe-tabla-alineacion th { background: #f8fafc; color: #475569; font-weight: bold; }
                     .fe-tabla-alineacion tr:hover { background: #f8fafc; }
                     .fe-tabla-alineacion a { color: #2563eb; text-decoration: none; font-weight: 500; }
                     .fe-tabla-alineacion a:hover { text-decoration: underline; }
+
+                    /* Estilos - Tab Biblioteca (Cuadrícula y Filtros) */
                     .fe-filtros-niveles { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
                     .fe-filtro-btn { background: white; border: 2px solid #cbd5e1; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; color: #475569; transition: all 0.3s; }
                     .fe-filtro-btn.active { background: #0f2e50; color: white; border-color: #0f2e50; }
+                    
                     .fe-grid-libros { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
                     .fe-libro-card { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer;}
                     .fe-libro-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
                     .fe-libro-info { padding: 12px; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-top: 1px solid #e2e8f0; }
                     .fe-badge-nivel { background: #1e293b; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; }
-                    .fe-nivel-1 { background: #22c55e; }
-                    .fe-nivel-2 { background: #3b82f6; }
-                    .fe-nivel-3 { background: #dc2626; }
+                    .fe-nivel-1 { background: #22c55e; } /* Verde */
+                    .fe-nivel-2 { background: #3b82f6; } /* Azul */
+                    .fe-nivel-3 { background: #dc2626; } /* Rojo */
+
                     @media (max-width: 768px) {
                         .fe-tab-content { padding: 15px; }
                         .fe-acordeon-header { font-size: 1rem; }
@@ -6317,39 +6330,41 @@
                         <h2>Plataforma Fiction Express</h2>
                     </div>
 
+                    <!-- BOTONES DE PESTAÑAS -->
                     <div class="fe-tabs">
                         <button class="fe-tab-btn active" onclick="window.abrirTabFE(event, 'fe-tab-noticias')">📰 Noticias y Avisos</button>
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-alineacion')">🎯 Alineación Curricular</button>
                         <button class="fe-tab-btn" onclick="window.abrirTabFE(event, 'fe-tab-biblioteca')">📖 Biblioteca Activa</button>
                     </div>
 
+                    <!-- CONTENIDO 1: NOTICIAS Y LIBROS EN VIVO -->
                     <div id="fe-tab-noticias" class="fe-tab-content active">
                         <h3 style="margin-top: 0; color: #7c2d82; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                             <span style="font-size: 1.4rem;">🔥</span> Libros Leyéndose en Vivo
                         </h3>
                         
                         <div class="fe-grid-libros" style="margin-bottom: 35px;">
-                            <a href="https://lat.fictionexpress.com/libro/la-llegada-de-los-magos/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_1" target="_blank" style="text-decoration: none; color: inherit; display: block;">
                                 <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/525qzkCh/La-llegada-de-los-magos.png" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_1" alt="Libro Nivel 1" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
                                     <div class="fe-libro-info">
                                         <span class="fe-badge-nivel fe-nivel-1">NIVEL 1</span>
                                         <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
                                     </div>
                                 </div>
                             </a>
-                            <a href="https://lat.fictionexpress.com/libro/la-niebla-del-bosque/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_2" target="_blank" style="text-decoration: none; color: inherit; display: block;">
                                 <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/VvM4VsJs/La-Niebla-del-Bosque.png" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_2" alt="Libro Nivel 2" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
                                     <div class="fe-libro-info">
                                         <span class="fe-badge-nivel fe-nivel-2">NIVEL 2</span>
                                         <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
                                     </div>
                                 </div>
                             </a>
-                            <a href="https://lat.fictionexpress.com/libro/el-amo-de-los-dragones/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                            <a href="AQUÍ_LINK_LIBRO_NIVEL_3" target="_blank" style="text-decoration: none; color: inherit; display: block;">
                                 <div class="fe-libro-card">
-                                    <img src="https://i.postimg.cc/MTfYnZbQ/El-Amo-de-los-Dragones.png" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 350px; object-fit: cover; width: 100%;">
+                                    <img src="AQUÍ_IMAGEN_PORTADA_NIVEL_3" alt="Libro Nivel 3" class="fe-libro-portada" style="height: 220px; object-fit: cover; width: 100%;">
                                     <div class="fe-libro-info">
                                         <span class="fe-badge-nivel fe-nivel-3">NIVEL 3</span>
                                         <span style="font-size: 0.85rem; color: #0f2e50; font-weight: bold;">Leer capítulo →</span>
@@ -6373,8 +6388,15 @@
                         </div>
                     </div>
 
+                    <!-- CONTENIDO 2: ALINEACIÓN CURRICULAR (Acordeón) -->
                     <div id="fe-tab-alineacion" class="fe-tab-content">
-                        <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px;">Segundo Ciclo de Educación Básica</h3>
+                        
+                        <!-- ========================================== -->
+                        <!-- SEGUNDO CICLO                              -->
+                        <!-- ========================================== -->
+                        <h3 style="margin-top: 0; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Segundo Ciclo de Educación Básica</h3>
+                        
+                        <!-- Acordeón Cuarto Grado -->
                         <div class="fe-acordeon-item active">
                             <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
                                 ALINEACIÓN CURRICULAR PARA CUARTO GRADO
@@ -6391,25 +6413,25 @@
                                             <tr>
                                                 <td><strong>1</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-					    <tr>
+                                            <tr>
                                                 <td><strong>2</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-						<tr>
+                                            <tr>
                                                 <td><strong>3</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-					    <tr>
+                                            <tr>
                                                 <td><strong>4</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-						<tr>
+                                            <tr>
                                                 <td><strong>5</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-					    <tr>
+                                            <tr>
                                                 <td><strong>6</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-						<tr>
+                                            <tr>
                                                 <td><strong>7</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
-					    <tr>
+                                            <tr>
                                                 <td><strong>8</strong></td><td>Investigamos noticias</td><td><a href="#">El detective de gatos</a></td><td>Producción de noticias</td><td><a href="#">Robo en el Titania</a></td>
                                             </tr>
                                         </tbody>
@@ -6417,8 +6439,153 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Acordeón Quinto Grado -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA QUINTO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acordeón Sexto Grado -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA SEXTO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ========================================== -->
+                        <!-- TERCER CICLO                               -->
+                        <!-- ========================================== -->
+                        <h3 style="margin-top: 35px; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Tercer Ciclo de Educación Básica</h3>
+
+                        <!-- Acordeón Séptimo Grado -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA SÉPTIMO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acordeón Octavo Grado -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA OCTAVO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acordeón Noveno Grado -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA NOVENO GRADO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ========================================== -->
+                        <!-- EDUCACIÓN MEDIA                            -->
+                        <!-- ========================================== -->
+                        <h3 style="margin-top: 35px; color: #0f2e50; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Educación Media</h3>
+
+                        <!-- Acordeón Primer Año Bachillerato -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA PRIMER AÑO DE BACHILLERATO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acordeón Segundo Año Bachillerato -->
+                        <div class="fe-acordeon-item">
+                            <div class="fe-acordeon-header" onclick="window.toggleAcordeonFE(this)">
+                                ALINEACIÓN CURRICULAR PARA SEGUNDO AÑO DE BACHILLERATO
+                            </div>
+                            <div class="fe-acordeon-body">
+                                <div style="overflow-x: auto;">
+                                    <table class="fe-tabla-alineacion">
+                                        <thead>
+                                            <tr><th>Unidad</th><th>Título</th><th>Libro Relacionado</th><th>Objetivo</th><th>Proyecto</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><strong>1</strong></td><td>[Título aquí]</td><td><a href="#">[Libro aquí]</a></td><td>[Objetivo aquí]</td><td><a href="#">[Proyecto aquí]</a></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
+                    <!-- CONTENIDO 3: BIBLIOTECA (Filtros y Cuadrícula) -->
                     <div id="fe-tab-biblioteca" class="fe-tab-content">
                         <div class="fe-filtros-niveles">
                             <button class="fe-filtro-btn active" onclick="window.filtrarNivelFE('Todos', this)">Todos</button>
@@ -6466,6 +6633,7 @@
                     </div>
                 </div>
             `,
+
             'fiction-que-hacer': `
                 <style>
                     .fq-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; color: #334155; animation: fadeIn 0.4s ease; padding: 10px;}
