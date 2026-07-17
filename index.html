@@ -895,10 +895,16 @@
                                 </div>
                             </div>
                             
-                            <!-- Fila 3: Descripción -->
+                            <!-- Fila 3: Descripción con Micrófono -->
                             <div class="form-group">
-                                <label>Descripción detallada del problema *</label>
-                                <textarea id="ticket-desc" rows="4" required placeholder="Explica el error que presenta tu pantalla, los pasos que realizaste y desde cuándo te ocurre esto..."></textarea>
+                                <label style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                                    <span>Descripción detallada del problema *</span>
+                                    <button type="button" id="btn-dictado" onclick="window.iniciarDictado()" style="background: #e2e8f0; border: none; border-radius: 20px; padding: 6px 15px; cursor: pointer; font-size: 0.85rem; color: #0A2540; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                        <span style="font-size: 1.1rem;">🎤</span> <span id="texto-btn-dictado">Dictar por voz</span>
+                                    </button>
+                                </label>
+                                <textarea id="ticket-desc" rows="4" required placeholder="Explica el error que presenta tu pantalla o presiona el botón 'Dictar por voz' para hablar..." style="margin-top: 8px;"></textarea>
+                                <small id="estado-dictado" style="color: #dc2626; font-weight: bold; display: none; margin-top: 8px; font-size: 0.9rem; animation: fadeIn 0.3s ease;">🔴 Escuchando... Habla ahora claro y fuerte.</small>
                             </div>
 
                             <button type="submit" class="btn-submit-ticket">📤 Enviar Ticket de Soporte</button>
@@ -9230,6 +9236,65 @@ window.limpiarEstadisticas = function() {
 
     if (areaResultados) areaResultados.style.display = 'none';
     if (btnImprimir) btnImprimir.style.display = 'none';
+};
+
+// Función para habilitar el dictado por voz (Speech-to-Text)
+window.iniciarDictado = function() {
+    // 1. Verificamos si el navegador del usuario soporta esta tecnología
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("⚠️ Tu navegador actual no soporta el dictado por voz. Te recomendamos usar Google Chrome o Edge actualizado.");
+        return;
+    }
+
+    // 2. Configuramos el motor de reconocimiento
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    
+    recognition.lang = 'es-SV'; // Configurado con acento de El Salvador
+    recognition.interimResults = false; // Espera a que el usuario termine la frase
+    recognition.maxAlternatives = 1;
+
+    const btn = document.getElementById('btn-dictado');
+    const textoBtn = document.getElementById('texto-btn-dictado');
+    const textarea = document.getElementById('ticket-desc');
+    const estado = document.getElementById('estado-dictado');
+
+    // 3. ¿Qué pasa cuando empieza a escuchar?
+    recognition.onstart = function() {
+        estado.style.display = 'block';
+        btn.style.background = '#fecaca'; // Se pone rojo claro
+        textoBtn.innerText = 'Grabando...';
+    };
+
+    // 4. ¿Qué pasa cuando el usuario termina de hablar?
+    recognition.onresult = function(event) {
+        const transcripcion = event.results[0][0].transcript;
+        
+        // Si el textarea ya tenía texto, agregamos un espacio y luego la nueva frase
+        if(textarea.value.length > 0) {
+            textarea.value += ' ' + transcripcion;
+        } else {
+            textarea.value = transcripcion;
+        }
+    };
+
+    // 5. Manejo de errores (por si no le dan permiso al micrófono)
+    recognition.onerror = function(event) {
+        console.error("Error en micrófono: " + event.error);
+        if(event.error === 'not-allowed') {
+            alert("🔒 Debes darle permiso al navegador para usar el micrófono.");
+        }
+    };
+
+    // 6. Restaurar el botón al terminar
+    recognition.onend = function() {
+        estado.style.display = 'none';
+        btn.style.background = '#e2e8f0'; // Vuelve a su color gris original
+        textoBtn.innerText = 'Dictar por voz';
+    };
+
+    // 7. ¡Arrancamos el micrófono!
+    recognition.start();
 };
 </script>
 </body>
