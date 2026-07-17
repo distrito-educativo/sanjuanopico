@@ -7221,53 +7221,39 @@
                     </div>
                     <!-- FIN: DIRECTORIO DDE LA LIBERTAD -->
 
-<style>
-    /* Efecto flotante para las tarjetas principales */
-    .tarjeta-flotante {
-        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        border-radius: 12px;
-        padding: 25px; /* Aseguramos el espaciado interno */
-    }
-    .tarjeta-flotante:hover {
-        transform: translateY(-8px) !important;
-        box-shadow: 0 15px 30px rgba(10, 37, 64, 0.12) !important;
-    }
-</style>
-
-<div class="card-grid" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                       <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
     
-    <div class="card tarjeta-flotante" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
+    <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">DIARIO</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Asistencia</h3>
-        <p style="color: #64748b; font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe sobre el control de asistencia del personal docente y validación de justificaciones correspondientes.</p>
         <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-asistencia').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
             📝 Iniciar Reporte
         </button>
     </div>
 
-    <div class="card tarjeta-flotante" style="border-top: 4px solid #0A2540; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
+    <div class="card" style="border-top: 4px solid #0A2540; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
         <span class="badge" style="background: #0A2540; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ACOMPAÑAMIENTO</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Rendimiento Distrital</h3>
-        <p style="color: #64748b; font-size: 10pt; margin-top: 10px;">Consulta gráficas estadísticas de asistencia por rangos de fecha y exporta el reporte a PDF oficial.</p>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Consulta gráficas estadísticas de asistencia por rangos de fecha y exporta el reporte a PDF oficial.</p>
         <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('modulo-estadisticas').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
             📊 Ver Estadísticas
         </button>
     </div>
 
-    <div class="card tarjeta-flotante" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
+    <div class="card" style="border-top: 4px solid #D4AF37; background: linear-gradient(to bottom, #ffffff, #fdfbf4);">
         <span class="badge" style="background: #D4AF37; color: #0A2540; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">URGENTE</span>
         <h3 style="margin-top: 10px; color: #0A2540;">Reporte de Lluvias</h3>
-        <p style="color: #64748b; font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Informe oficial de incidencias en infraestructura y daños por eventos climáticos.</p>
         <button type="button" onclick="document.getElementById('dashboard-menu').style.display='none'; document.getElementById('contenedor-formulario').style.display='block'; window.scrollTo(0,0);" style="margin-top: 15px; background: #0A2540; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.3s;">
             📝 Iniciar Reporte
         </button>
     </div>
 
-    <div class="card tarjeta-flotante" style="border-top: 4px solid #94a3b8; background: linear-gradient(to bottom, #ffffff, #f8fafc); opacity: 0.85;">
+    <div class="card" style="border-top: 4px solid #94a3b8; background: linear-gradient(to bottom, #ffffff, #f8fafc); opacity: 0.85;">
         <span class="badge" style="background: #94a3b8; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">MÓDULO</span>
         <h3 style="margin-top: 10px; color: #475569;">Próximo Reporte</h3>
-        <p style="color: #64748b; font-size: 10pt; margin-top: 10px;">Espacio reservado para la implementación de nuevas herramientas de gestión y recolección de datos distritales.</p>
+        <p style="color: var(--text-muted); font-size: 10pt; margin-top: 10px;">Espacio reservado para la implementación de nuevas herramientas de gestión y recolección de datos distritales.</p>
         <button type="button" disabled style="margin-top: 15px; background: #cbd5e1; color: #64748b; border: 1px solid #cbd5e1; padding: 12px 20px; border-radius: 6px; cursor: not-allowed; width: 100%; font-weight: bold;">
             ⏳ Módulo en Construcción
         </button>
@@ -7305,13 +7291,13 @@
                 <!-- NUEVO: BANCO DE PLANTILLAS -->
                 <select id="wsp-plantillas" onchange="window.aplicarPlantillaWsp()" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: sans-serif; font-size: 0.95rem; background: #f8fafc; color: #334155;">
                     <option value="">-- Escribir mensaje desde cero --</option>
-            <option value="*RECORDATORIO - REGISTRO DE EVIDENCIAS DE LUNES CÍVICOS*.
+		    <option value="*RECORDATORIO - REGISTRO DE EVIDENCIAS DE LUNES CÍVICOS*.
 https://forms.gle/XSdNGWwPWw89jHaUA
 
 Estimados directores: 
 
 Compartimos el presente formulario para reportar fotografías que evidencien la realización de los Lunes cívicos en sus respectivos centros educativos."> 🇸🇻 Recordatorio de Evidencias de Lunes Cívicos</option>
-            <option value="*REGISTRO DE DEMÉRITOS - LA LIBERTAD*
+		    <option value="*REGISTRO DE DEMÉRITOS - LA LIBERTAD*
 _En el marco del Reglamento para la Promoción de la Cortesía Escolar_
 
 https://forms.gle/v4s1Mujiw1GSz8rf8
@@ -7522,16 +7508,16 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                                         <option value="JUAN PABLO OLIVARES CLAVEL">JUAN PABLO OLIVARES CLAVEL</option>
                                         <option value="JULIAN EDGARDO GALDAMEZ PACHECO">JULIAN EDGARDO GALDAMEZ PACHECO</option>
                                         <option value="LAURA CECILIA MENA">LAURA CECILIA MENA</option>
-                    <option value="LUZ BERNARDA CABRERA">LUZ BERNARDA CABRERA</option>
+					<option value="LUZ BERNARDA CABRERA">LUZ BERNARDA CABRERA</option>
                                         <option value="MARCOS ELMER ORELLANA LONE">MARCOS ELMER ORELLANA LONE</option>
                                         <option value="MIRNA CRISTELA MENA VALENCIA">MIRNA CRISTELA MENA VALENCIA</option>
                                         <option value="OSCAR AMILCAR FLORES ARGUETA">OSCAR AMILCAR FLORES ARGUETA</option>
                                         <option value="RAUL AMILCAR LANDAVERDE MEJIA">RAUL AMILCAR LANDAVERDE MEJIA</option>
                                         <option value="RINA ELIZABETH MARTINEZ">RINA ELIZABETH MARTINEZ</option>
                                         <option value="ROBERTO ANTONIO GUIROLA ERROA">ROBERTO ANTONIO GUIROLA ERROA</option>
-                    <option value="ROSA ESTHER YANES">ROSA ESTHER YANES</option>
+					<option value="ROSA ESTHER YANES">ROSA ESTHER YANES</option>
                                         <option value="ROSA MARIA URIAS CHICAS">ROSA MARIA URIAS CHICAS</option>
-                    <option value="XIOMARA GUADALUPE CACERES">XIOMARA GUADALUPE CACERES</option>
+					<option value="XIOMARA GUADALUPE CACERES">XIOMARA GUADALUPE CACERES</option>
                                      </select>
                                 </div>
                                 <div class="form-group"><label>¿Cuenta actualmente con energía eléctrica?</label><select id="rep-energia" required>
@@ -7749,12 +7735,12 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                                             <select id="bulk_motivo" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">
                                                 <option value="">--- Seleccionar ---</option>
                                                 <option value="Suspensión oficial por lluvias">Suspensión oficial por lluvias</option>
-                        <option value="Consulta médica">Consulta médica</option>
+						<option value="Consulta médica">Consulta médica</option>
                                                 <option value="Incapacidad médica">Incapacidad médica</option>
                                                 <option value="Permiso personal con goce">Permiso personal con goce</option>
                                                 <option value="Permiso personal sin goce">Permiso personal sin goce</option>
                                                 <option value="Convocatoria técnico-docente">Convocatoria técnico-docente</option>
-                        <option value="Inasistencia por Duelo">Inasistencia por Duelo</option>
+						<option value="Inasistencia por Duelo">Inasistencia por Duelo</option>
                                                 <option value="Inasistencia injustificada">Inasistencia injustificada</option>
                                             </select>
                                         </div>
@@ -7931,6 +7917,7 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                             🖨️ Imprimir / Guardar Oficial en PDF
                         </button>
                     </div>
+            `,
             'mapa-home': `
                 <style>
                     /* CONTENEDOR DEL MAPA */
