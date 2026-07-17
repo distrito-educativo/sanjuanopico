@@ -9209,6 +9209,26 @@ window.filtrarNivelFE = function(nivelBuscado, btnElement) {
         }
     }
 };
+// Función para limpiar el formulario y gráficas de Estadísticas
+window.limpiarEstadisticas = function() {
+    // 1. Limpiar los campos de texto y fechas
+    const inputCodigo = document.getElementById('est-codigo');
+    const inputTurno = document.getElementById('est-turno-buscar');
+    const inputInicio = document.getElementById('est-inicio');
+    const inputFin = document.getElementById('est-fin');
+
+    if (inputCodigo) inputCodigo.value = '';
+    if (inputTurno) inputTurno.value = 'Todos'; // Valor por defecto
+    if (inputInicio) inputInicio.value = '';
+    if (inputFin) inputFin.value = '';
+
+    // 2. Ocultar el área de las gráficas y el botón de imprimir
+    const areaResultados = document.getElementById('area-imprimible-est');
+    const btnImprimir = document.getElementById('btn-imprimir-est');
+
+    if (areaResultados) areaResultados.style.display = 'none';
+    if (btnImprimir) btnImprimir.style.display = 'none';
+};
 </script>
 </body>
 </html>
