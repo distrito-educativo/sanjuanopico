@@ -1360,7 +1360,25 @@
 </div>
 <!-- FIN: PLATAFORMAS EDUCATIVAS OFICIALES -->
 
-                    <!-- INICIO DE SECCIÓN DE NOTICIAS -->
+<!-- ESTILOS PARA EFECTOS DE IMÁGENES -->
+<style>
+    .floating-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .floating-img:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    }
+</style>
+
+<!-- INICIO DE SECCIÓN DE NOTICIAS -->
 <div>
     
     <!-- NOTICIA 1: FORMACIÓN CIUDADANA -->
@@ -1441,14 +1459,13 @@
             
             <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 2 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
-                <img src="https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png" alt="Taller Primera Infancia 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <img src="https://i.postimg.cc/25bWSgB7/Taller-innovacion-en-la-practica-docente-2.png" alt="Taller Primera Infancia 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <img src="https://i.postimg.cc/SK29xHzr/Taller-innovacion-en-la-practica-docente-3.png" alt="Taller Primera Infancia 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <img src="https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png" alt="Taller Primera Infancia 1" class="floating-img">
+                <img src="https://i.postimg.cc/25bWSgB7/Taller-innovacion-en-la-practica-docente-2.png" alt="Taller Primera Infancia 2" class="floating-img">
+                <img src="https://i.postimg.cc/SK29xHzr/Taller-innovacion-en-la-practica-docente-3.png" alt="Taller Primera Infancia 3" class="floating-img">
             </div>
             <!-- FIN GALERÍA DE IMÁGENES NOTICIA 2 -->
 
             <div style="margin-top: 25px; text-align: center;">
-                <!-- RECUERDA: Cambia el "#" por el enlace a tu galería de fotos -->
                 <a href="#" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
             </div>
 
@@ -1508,14 +1525,13 @@
             
             <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 3 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
-                <img src="https://i.postimg.cc/43qSKCLL/Taller-valores-1.png" alt="Formación Sociales 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <img src="https://i.postimg.cc/SNckkdsQ/Taller-valores-2.png" alt="Formación Sociales 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" alt="Formación Sociales 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <img src="https://i.postimg.cc/vBy523c8/Taller-valores-1.png" alt="Formación Sociales 1" class="floating-img">
+                <img src="https://i.postimg.cc/WbzgyDbK/Taller-valores-2.png" alt="Formación Sociales 2" class="floating-img">
+                <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" alt="Formación Sociales 3" class="floating-img">
             </div>
             <!-- FIN GALERÍA DE IMÁGENES NOTICIA 3 -->
 
             <div style="margin-top: 25px; text-align: center;">
-                <!-- RECUERDA: Cambia el "#" por el enlace a tu galería de fotos -->
                 <a href="https://drive.google.com/drive/folders/1yOPQx8dDi0oCBo5_owksfgkQgnR6TgDm?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
             </div>
 
