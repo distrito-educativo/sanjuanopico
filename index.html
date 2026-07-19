@@ -1262,22 +1262,103 @@
 </div>
 <!-- FIN DEL COMPONENTE DE AVISO DOCENTE -->
 
-                    <div class="banners-wrapper">
-                        <div class="banners-grid">
-                            <a href="https://www.mined.gob.sv/ciencia-educativa/" target="_blank" class="banner-pill">
-                                <img src="https://i.postimg.cc/FRbtRYfs/Ciencias.png" alt="Ciencia y Tecnología">
-                            </a>
-                            <a href="https://sites.google.com/clases.edu.sv/eslengua/p%C3%A1gina-principal" target="_blank" class="banner-pill">
-                                <img src="https://i.postimg.cc/hvq2XMF4/Lenguaje.png" alt="Lenguaje">
-                            </a>
-                            <a href="https://formaciondocente.edu.sv/" target="_blank" class="banner-pill">
-                                <img src="https://i.postimg.cc/Dyp1D5CW/Formacion.png" alt="Formación Docente">
-                            </a>
-                            <a href="https://sites.google.com/clases.edu.sv/englishmineducyt/home" target="_blank" class="banner-pill">
-                                <img src="https://i.postimg.cc/SQvsb5pt/Ingles.png" alt="Inglés">
-                            </a>
-                        </div>
-                    </div>
+                    <style>
+    /* Estilos del Contenedor de Enlaces Oficiales */
+    .enlaces-oficiales-wrapper {
+        background: #f8fafc; /* Fondo gris muy claro para diferenciarlo del aviso azul */
+        border-left: 8px solid #334155; /* Borde izquierdo oscuro y elegante */
+        border-radius: 8px;
+        padding: 25px 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .enlaces-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        border-bottom: 2px dashed #cbd5e1;
+        padding-bottom: 12px;
+    }
+
+    .enlaces-header h3 {
+        margin: 0;
+        color: #1e293b;
+        font-size: 1.25rem;
+        font-weight: 800;
+    }
+
+    .enlaces-icono {
+        font-size: 1.5rem;
+    }
+
+    /* Grid responsiva para los banners */
+    .banners-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        align-items: center;
+    }
+
+    /* Estilo de cada imagen/botón (pill) */
+    .banner-pill {
+        display: block;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .banner-pill img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    /* Efecto al pasar el mouse por los banners */
+    .banner-pill:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    /* Adaptación para celulares */
+    @media (max-width: 768px) {
+        .enlaces-oficiales-wrapper {
+            padding: 20px;
+        }
+    }
+</style>
+
+<!-- INICIO: PLATAFORMAS EDUCATIVAS OFICIALES -->
+<div class="enlaces-oficiales-wrapper">
+    
+    <!-- Encabezado de la sección -->
+    <div class="enlaces-header">
+        <span class="enlaces-icono">🔗</span>
+        <h3>Plataformas Educativas Oficiales</h3>
+    </div>
+
+    <!-- Cuadrícula de Banners -->
+    <div class="banners-grid">
+        <a href="https://www.mined.gob.sv/ciencia-educativa/" target="_blank" class="banner-pill">
+            <img src="https://i.postimg.cc/FRbtRYfs/Ciencias.png" alt="Ciencia y Tecnología">
+        </a>
+        <a href="https://sites.google.com/clases.edu.sv/eslengua/p%C3%A1gina-principal" target="_blank" class="banner-pill">
+            <img src="https://i.postimg.cc/hvq2XMF4/Lenguaje.png" alt="Lenguaje">
+        </a>
+        <a href="https://formaciondocente.edu.sv/" target="_blank" class="banner-pill">
+            <img src="https://i.postimg.cc/Dyp1D5CW/Formacion.png" alt="Formación Docente">
+        </a>
+        <a href="https://sites.google.com/clases.edu.sv/englishmineducyt/home" target="_blank" class="banner-pill">
+            <img src="https://i.postimg.cc/SQvsb5pt/Ingles.png" alt="Inglés">
+        </a>
+    </div>
+    
+</div>
+<!-- FIN: PLATAFORMAS EDUCATIVAS OFICIALES -->
 
                     <div class="featured-article-container">
                         <div class="article-header">
