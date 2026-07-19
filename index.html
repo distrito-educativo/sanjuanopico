@@ -1083,13 +1083,15 @@
                     </div>
 
 <style>
-    /* Estilos del Banner de Circular Ministerial */
+    /* ======================================================= */
+    /* 1. Estilos del Banner de Circular Ministerial (URGENTE) */
+    /* ======================================================= */
     .alerta-ministerial-wrapper {
         background-color: #112942; /* Azul oscuro institucional */
         border-left: 8px solid #eab308; /* Borde lateral amarillo/dorado */
         border-radius: 8px; 
         padding: 20px 30px;
-        margin: 40px 0; /* Espacio exacto entre la galería y los banners inferiores */
+        margin: 40px 0 20px 0; /* Espacio modificado para agrupar con el aviso inferior */
         display: flex;
         align-items: center;
         gap: 30px;
@@ -1155,8 +1157,58 @@
         font-size: 1.05rem;
         line-height: 1.5;
     }
+
+    /* ======================================================= */
+    /* 2. Estilos del Aviso de Orientaciones Pedagógicas (INFO)*/
+    /* ======================================================= */
+    .aviso-docente-wrapper {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-left: 8px solid #0ea5e9; /* Azul claro/celeste */
+        border-radius: 8px;
+        padding: 20px 30px;
+        margin-bottom: 40px; /* Margen inferior para separar de los banners de asignaturas */
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1);
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .aviso-icono {
+        font-size: 2.5rem;
+    }
+
+    .aviso-texto {
+        flex: 1;
+    }
+
+    .aviso-texto h4 {
+        color: #0369a1;
+        margin: 0 0 8px 0;
+        font-size: 1.2rem;
+        font-weight: 800;
+    }
+
+    .aviso-texto p {
+        color: #334155;
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .badge-menu {
+        background-color: #0284c7;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
     
-    /* Adaptación para pantallas de celulares */
+    /* ======================================================= */
+    /* 3. Adaptación para pantallas de celulares               */
+    /* ======================================================= */
     @media (max-width: 768px) {
         .alerta-ministerial-wrapper {
             flex-direction: column;
@@ -1167,16 +1219,29 @@
         .alerta-izq {
             width: 100%;
         }
+        .aviso-docente-wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 15px;
+        }
+        .aviso-icono {
+            margin-bottom: -10px;
+        }
+        .badge-menu {
+            display: inline-block;
+            margin-top: 5px;
+        }
     }
 </style>
 
-<!-- INICIO DEL COMPONENTE DE ALERTA -->
+<!-- INICIO DEL COMPONENTE DE ALERTA MINISTERIAL -->
 <div class="alerta-ministerial-wrapper">
     <!-- Lado Izquierdo: Etiqueta y Botón -->
     <div class="alerta-izq">
         <span class="alerta-badge">¡NUEVO DOCUMENTO!</span>
         <!-- Recuerda cambiar el símbolo "#" por el enlace de Google Drive o PDF real de la circular -->
-        <a href="https://drive.google.com/file/d/1LgzN7LIPUz6-KM7sp-KmPb6NsNTQaJht/view?usp=drive_link" target="_blank" class="alerta-btn">Ver Documento Oficial ➔</a>
+        <a href="#" target="_blank" class="alerta-btn">Ver Documento Oficial ➔</a>
     </div>
     
     <!-- Lado Derecho: Textos -->
@@ -1185,7 +1250,17 @@
         <p>Medidas preventivas urgentes de bioseguridad y activación de los cuatro filtros escolares en el distrito.</p>
     </div>
 </div>
-<!-- FIN DEL COMPONENTE DE ALERTA -->
+<!-- FIN DEL COMPONENTE DE ALERTA MINISTERIAL -->
+
+<!-- INICIO DEL COMPONENTE DE AVISO DOCENTE -->
+<div class="aviso-docente-wrapper">
+    <div class="aviso-icono">💡</div>
+    <div class="aviso-texto">
+        <h4>Aviso para Docentes y Directores</h4>
+        <p>¿Buscan los enlaces para la entrega de evidencias de los Bloques de Formación Docente? Pueden encontrarlos en el menú principal superior, ingresando a la sección de <span class="badge-menu">Orientaciones Pedagógicas</span>.</p>
+    </div>
+</div>
+<!-- FIN DEL COMPONENTE DE AVISO DOCENTE -->
 
                     <div class="banners-wrapper">
                         <div class="banners-grid">
