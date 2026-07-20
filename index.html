@@ -1544,7 +1544,7 @@
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
         `,
             'noticias-home': `
-                <!-- INICIO: ESTILOS GENERALES (BANNER + TARJETAS INTEGRADAS) -->
+                <!-- INICIO: ESTILOS GENERALES (BANNER + TARJETAS) -->
                 <style>
                     /* 1. Estilos del Banner Principal */
                     .news-hero-container {
@@ -1639,24 +1639,23 @@
                         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                         gap: 25px;
                         max-width: 1100px;
-                        margin: 45px auto 0 auto; /* Margen superior para separarlo del texto */
-                        position: relative;
-                        z-index: 2; /* Para que esté por encima del fondo azul y los círculos */
+                        margin: 0 auto 40px auto;
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
                     }
                     .quick-link-card {
                         background: #ffffff;
                         border-radius: 16px;
                         padding: 35px 25px;
                         text-align: center;
-                        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+                        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
                         transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
                         display: flex;
                         flex-direction: column;
                         border-top: 5px solid transparent;
                     }
                     .quick-link-card:hover {
-                        transform: translateY(-8px);
-                        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+                        transform: translateY(-12px);
+                        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
                     }
                     
                     /* Colores por tarjeta */
@@ -1666,18 +1665,18 @@
                     
                     .quick-link-icon {
                         font-size: 3rem;
-                        margin-bottom: 15px;
+                        margin-bottom: 20px;
                     }
                     .quick-link-title {
                         font-size: 1.4rem;
                         color: #1e293b;
                         font-weight: 800;
-                        margin-bottom: 10px;
+                        margin-bottom: 15px;
                         line-height: 1.2;
                     }
                     .quick-link-desc {
                         color: #64748b;
-                        font-size: 0.95rem;
+                        font-size: 1rem;
                         line-height: 1.6;
                         flex-grow: 1;
                         margin-bottom: 25px;
@@ -1714,55 +1713,21 @@
                             50% { transform: translateX(20px); }
                             100% { transform: translateX(-20px); }
                         }
+                        .quick-links-container { padding: 0 15px; }
                     }
                 </style>
                 <!-- FIN: ESTILOS GENERALES -->
 
-                <!-- CAJA DE BIENVENIDA UNIFICADA -->
+                <!-- ENCABEZADO DE BIENVENIDA -->
                 <div class="news-hero-container">
-                    <!-- Textos principales -->
                     <span class="news-tag">🗞️ Espacio Informativo</span>
                     <h1 class="news-title">Conectando la <span>Innovación</span> y la Excelencia Educativa</h1>
                     <p class="news-description">
                         Bienvenidos a la sección oficial de noticias del Distrito Educativo de San Juan Opico. En este portal mantenemos a nuestra comunidad docente y directiva al tanto del latir de nuestras escuelas: desde proyectos pedagógicos innovadores y lineamientos oficiales, hasta eventos relevantes que marcan la diferencia en nuestras aulas. Juntos, seguimos construyendo el futuro de la educación en La Libertad.
                     </p>
                     <div class="news-divider"></div>
-
-                    <!-- TARJETAS FLOTANTES INTEGRADAS DENTRO DE LA CAJA AZUL -->
-                    <div class="quick-links-container">
-                        
-                        <!-- Tarjeta 1: Avisos -->
-                        <div class="quick-link-card card-avisos">
-                            <div class="quick-link-icon">📌</div>
-                            <h3 class="quick-link-title">Avisos del Distrito</h3>
-                            <p class="quick-link-desc">Mantente al día con las últimas directrices, comunicados urgentes y orientaciones oficiales para directores y docentes.</p>
-                            <!-- El enlace usa la función de JavaScript para cambiar de vista -->
-                            <a href="javascript:void(0);" onclick="cargarPagina('noticias-avisos');" class="quick-link-btn btn-avisos">Ir a los Avisos &rarr;</a>
-                        </div>
-
-                        <!-- Tarjeta 2: Boletín -->
-                        <div class="quick-link-card card-boletin">
-                            <div class="quick-link-icon">📖</div>
-                            <h3 class="quick-link-title">Boletín Mensual</h3>
-                            <p class="quick-link-desc">Descubre "El Faro Educativo". Nuestro resumen mensual con los logros, proyectos y avances más destacados del distrito.</p>
-                            <!-- El enlace usa la función de JavaScript para cambiar de vista -->
-                            <a href="javascript:void(0);" onclick="cargarPagina('noticias-boletin');" class="quick-link-btn btn-boletin">Leer el Boletín &rarr;</a>
-                        </div>
-
-                        <!-- Tarjeta 3: Eventos -->
-                        <div class="quick-link-card card-eventos">
-                            <div class="quick-link-icon">🎭</div>
-                            <h3 class="quick-link-title">Eventos Culturales</h3>
-                            <p class="quick-link-desc">Explora nuestra agenda de actividades cívicas, ferias de logros y festivales que celebran el talento de nuestros estudiantes.</p>
-                            <!-- El enlace usa la función de JavaScript para cambiar de vista -->
-                            <a href="javascript:void(0);" onclick="cargarPagina('noticias-eventos');" class="quick-link-btn btn-eventos">Ver la Agenda &rarr;</a>
-                        </div>
-
-                    </div>
-                    <!-- FIN: Tarjetas Integradas -->
                 </div>
-                <!-- FIN: CAJA DE BIENVENIDA UNIFICADA -->
-            `,
+		`,
             
             'noticias-avisos': `
                 <!-- INICIO: SECCIÓN DE AVISOS DEL DISTRITO -->
