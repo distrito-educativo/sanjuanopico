@@ -1543,7 +1543,114 @@
 </div>
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
         `,
-            'noticias-home': `<div class="page-header"><h1>Sección de Noticias</h1></div>`,
+            'noticias-home': `
+                <!-- INICIO: ENCABEZADO DE BIENVENIDA - SECCIÓN NOTICIAS -->
+                <style>
+                    .news-hero-container {
+                        background: linear-gradient(135deg, #112942 0%, #1a365d 100%);
+                        border-radius: 12px;
+                        padding: 50px 30px;
+                        text-align: center;
+                        color: white;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                        margin-bottom: 40px;
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .news-hero-container::before {
+                        content: "";
+                        position: absolute;
+                        top: -60px;
+                        left: -60px;
+                        width: 180px;
+                        height: 180px;
+                        background: rgba(14, 165, 233, 0.15); 
+                        border-radius: 50%;
+                        z-index: 0;
+                    }
+                    .news-hero-container::after {
+                        content: "";
+                        position: absolute;
+                        bottom: -80px;
+                        right: -50px;
+                        width: 250px;
+                        height: 250px;
+                        background: rgba(234, 179, 8, 0.08); 
+                        border-radius: 50%;
+                        z-index: 0;
+                    }
+                    .news-tag {
+                        background-color: #0ea5e9;
+                        color: white;
+                        font-size: 0.85rem;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                        letter-spacing: 1.5px;
+                        padding: 6px 18px;
+                        border-radius: 20px;
+                        display: inline-block;
+                        margin-bottom: 25px;
+                        position: relative;
+                        z-index: 1;
+                        box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
+                    }
+                    .news-title {
+                        font-size: 2.4rem;
+                        font-weight: 800;
+                        margin: 0 0 20px 0;
+                        line-height: 1.3;
+                        position: relative;
+                        z-index: 1;
+                        letter-spacing: -0.5px;
+                    }
+                    .news-title span {
+                        color: #eab308;
+                    }
+                    .news-description {
+                        font-size: 1.15rem;
+                        line-height: 1.7;
+                        color: #cbd5e1; 
+                        max-width: 850px;
+                        margin: 0 auto 35px auto;
+                        position: relative;
+                        z-index: 1;
+                    }
+                    .news-divider {
+                        width: 80px;
+                        height: 4px;
+                        background-color: #eab308;
+                        margin: 0 auto;
+                        border-radius: 2px;
+                        position: relative;
+                        z-index: 1;
+                    }
+                    @media (max-width: 768px) {
+                        .news-hero-container {
+                            padding: 40px 20px;
+                        }
+                        .news-title {
+                            font-size: 1.8rem;
+                        }
+                        .news-description {
+                            font-size: 1.05rem;
+                        }
+                    }
+                </style>
+
+                <div class="news-hero-container">
+                    <span class="news-tag">🗞️ Espacio Informativo</span>
+                    
+                    <h1 class="news-title">Conectando la <span>Innovación</span> y la Excelencia Educativa</h1>
+                    
+                    <p class="news-description">
+                        Bienvenidos a la sección oficial de noticias del Distrito Educativo de San Juan Opico. En este portal mantenemos a nuestra comunidad docente y directiva al tanto del latir de nuestras escuelas: desde proyectos pedagógicos innovadores y lineamientos oficiales, hasta eventos relevantes que marcan la diferencia en nuestras aulas. Juntos, seguimos construyendo el futuro de la educación en La Libertad.
+                    </p>
+                    
+                    <div class="news-divider"></div>
+                </div>
+                <!-- FIN: ENCABEZADO DE BIENVENIDA - SECCIÓN NOTICIAS -->
+            `,
             'noticias-avisos': `<div class="page-header"><h1>Avisos del Distrito</h1></div>`,
             'noticias-boletin': `<div class="page-header"><h1>Boletín Mensual</h1></div>`,
             'noticias-eventos': `<div class="page-header"><h1>Eventos Culturales</h1></div>`,
