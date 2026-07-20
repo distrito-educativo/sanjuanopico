@@ -1960,7 +1960,7 @@
                     @media (max-width: 768px) { 
                         .boletin-body { grid-template-columns: 1fr; padding: 25px; } 
                         .boletin-header { flex-direction: column; text-align: center; gap: 20px; } 
-                        .boletin-main-article img { height: 250px; }
+                        .boletin-main-article img { height: 320px; }
                     }
                 </style>
 
@@ -2017,7 +2017,262 @@
                 </div>
                 <!-- FIN: SECCIÓN BOLETÍN MENSUAL -->
             `,
-            'noticias-eventos': `<div class="page-header"><h1>Eventos Culturales</h1></div>`,
+            'noticias-eventos': `
+                <!-- INICIO: SECCIÓN EVENTOS CULTURALES -->
+                <style>
+                    .cultural-wrapper {
+                        max-width: 1200px;
+                        margin: 0 auto 50px auto;
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                    }
+
+                    /* Banner Superior */
+                    .cultural-header {
+                        background: linear-gradient(135deg, #112942 0%, #9a3412 100%);
+                        border-radius: 12px;
+                        padding: 40px 30px;
+                        text-align: center;
+                        color: white;
+                        box-shadow: 0 10px 25px rgba(154, 52, 18, 0.2);
+                        margin-bottom: 40px;
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .cultural-header::before {
+                        content: "🎭";
+                        position: absolute;
+                        font-size: 150px;
+                        opacity: 0.1;
+                        right: -20px;
+                        top: -30px;
+                        transform: rotate(15deg);
+                    }
+                    .cultural-header h2 {
+                        font-size: 2.5rem;
+                        font-weight: 800;
+                        margin: 0 0 10px 0;
+                        position: relative;
+                        z-index: 1;
+                    }
+                    .cultural-header p {
+                        font-size: 1.15rem;
+                        color: #fdba74;
+                        margin: 0;
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    /* Evento Destacado Principal */
+                    .featured-event {
+                        display: flex;
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                        margin-bottom: 50px;
+                        border-right: 6px solid #ea580c;
+                        transition: transform 0.3s ease;
+                    }
+                    .featured-event:hover {
+                        transform: translateY(-5px);
+                    }
+                    .featured-img-container {
+                        flex: 1;
+                        min-height: 300px;
+                        background-image: url('https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png'); /* CAMBIA ESTA IMAGEN */
+                        background-size: cover;
+                        background-position: center;
+                        position: relative;
+                    }
+                    .featured-content {
+                        flex: 1.2;
+                        padding: 40px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                    .date-badge-large {
+                        display: inline-block;
+                        background: #ea580c;
+                        color: white;
+                        padding: 8px 16px;
+                        border-radius: 30px;
+                        font-weight: 800;
+                        font-size: 0.9rem;
+                        text-transform: uppercase;
+                        margin-bottom: 15px;
+                        align-self: flex-start;
+                        letter-spacing: 1px;
+                    }
+                    .featured-content h3 {
+                        font-size: 1.9rem;
+                        color: #0f172a;
+                        margin: 0 0 15px 0;
+                        line-height: 1.2;
+                    }
+                    .featured-content p {
+                        color: #475569;
+                        font-size: 1.05rem;
+                        line-height: 1.6;
+                        margin-bottom: 25px;
+                    }
+                    .event-meta {
+                        display: flex;
+                        gap: 20px;
+                        color: #64748b;
+                        font-size: 0.95rem;
+                        font-weight: 600;
+                    }
+                    .event-meta span { display: flex; align-items: center; gap: 6px; }
+
+                    /* Cuadrícula de Próximos Eventos */
+                    .section-title {
+                        font-size: 1.8rem;
+                        color: #112942;
+                        font-weight: 800;
+                        margin-bottom: 25px;
+                        border-left: 4px solid #eab308;
+                        padding-left: 12px;
+                    }
+                    .events-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: 25px;
+                    }
+                    .event-card {
+                        background: white;
+                        border-radius: 12px;
+                        padding: 25px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                        border-top: 4px solid #0ea5e9;
+                        position: relative;
+                        transition: box-shadow 0.3s ease;
+                    }
+                    .event-card:hover {
+                        box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+                    }
+                    
+                    /* Mini Calendario en tarjeta */
+                    .calendar-icon {
+                        position: absolute;
+                        top: 25px;
+                        right: 25px;
+                        background: #f1f5f9;
+                        border-radius: 8px;
+                        text-align: center;
+                        overflow: hidden;
+                        width: 55px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                    }
+                    .calendar-month { background: #0ea5e9; color: white; font-size: 0.7rem; font-weight: 800; padding: 4px 0; text-transform: uppercase; }
+                    .calendar-day { color: #0f172a; font-size: 1.4rem; font-weight: 800; padding: 5px 0; background: white;}
+                    
+                    .event-card h4 {
+                        font-size: 1.2rem;
+                        color: #1e293b;
+                        margin: 0 0 10px 0;
+                        padding-right: 60px; /* Espacio para el calendario */
+                        line-height: 1.3;
+                    }
+                    .event-card p {
+                        color: #64748b;
+                        font-size: 0.95rem;
+                        line-height: 1.5;
+                        margin-bottom: 20px;
+                    }
+                    .btn-outline {
+                        display: inline-block;
+                        padding: 8px 18px;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 6px;
+                        color: #475569;
+                        font-weight: 700;
+                        text-decoration: none;
+                        font-size: 0.9rem;
+                        transition: all 0.2s ease;
+                    }
+                    .btn-outline:hover {
+                        border-color: #0ea5e9;
+                        color: #0ea5e9;
+                        background: #f0f9ff;
+                    }
+
+                    /* Adaptación para Celulares */
+                    @media (max-width: 768px) {
+                        .featured-event { flex-direction: column; }
+                        .featured-img-container { min-height: 200px; }
+                        .featured-content { padding: 25px; }
+                        .event-meta { flex-direction: column; gap: 10px; }
+                        .cultural-header h2 { font-size: 2rem; }
+                    }
+                </style>
+
+                <div class="cultural-wrapper">
+                    
+                    <!-- ENCABEZADO -->
+                    <div class="cultural-header">
+                        <h2>Eventos Culturales y Cívicos</h2>
+                        <p>Celebrando nuestra identidad, arte y talento estudiantil en San Juan Opico</p>
+                    </div>
+
+                    <!-- EVENTO DESTACADO -->
+                    <div class="featured-event">
+                        <!-- Imagen representativa (Modificar URL) -->
+                        <div class="featured-img-container" style="background-image: url('https://i.postimg.cc/43qSKCLL/Taller-valores-1.png');"></div>
+                        
+                        <div class="featured-content">
+                            <span class="date-badge-large">Gran Lanzamiento</span>
+                            <h3>Inauguración del Mes Cívico 2026: "Rumbo al Bicentenario +5"</h3>
+                            <p>El distrito educativo de San Juan Opico se prepara para vestir de azul y blanco nuestras instituciones. Invitamos a todos los directores y comités cívicos al acto oficial de apertura, donde presentaremos los lineamientos artísticos, culturales y de marchas para este septiembre.</p>
+                            
+                            <div class="event-meta">
+                                <span>📅 <strong>Fecha:</strong> Lunes, 24 de Agosto 2026</span>
+                                <span>📍 <strong>Lugar:</strong> Plaza Central de San Juan Opico</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AGENDA DE PRÓXIMOS EVENTOS -->
+                    <h3 class="section-title">Agenda Cultural del Distrito</h3>
+                    <div class="events-grid">
+                        
+                        <!-- Evento 1 -->
+                        <div class="event-card">
+                            <div class="calendar-icon">
+                                <div class="calendar-month">Ago</div>
+                                <div class="calendar-day">12</div>
+                            </div>
+                            <h4>Festival de Danza Regional Escolar</h4>
+                            <p>Demostración de talento coreográfico y rescate de nuestras danzas folclóricas. Participan centros educativos de primaria y tercer ciclo.</p>
+                            <a href="#" class="btn-outline">Ver Bases y Registro</a>
+                        </div>
+
+                        <!-- Evento 2 -->
+                        <div class="event-card" style="border-top-color: #eab308;">
+                            <div class="calendar-icon">
+                                <div class="calendar-month" style="background: #eab308;">Ago</div>
+                                <div class="calendar-day">28</div>
+                            </div>
+                            <h4>Certamen de Oratoria: "Identidad Salvadoreña"</h4>
+                            <p>Concurso distrital de oratoria enfocado en el rescate de valores cívicos y la historia de nuestra nación. Dirigido a Educación Media.</p>
+                            <a href="#" class="btn-outline">Descargar Temario</a>
+                        </div>
+
+                        <!-- Evento 3 -->
+                        <div class="event-card" style="border-top-color: #10b981;">
+                            <div class="calendar-icon">
+                                <div class="calendar-month" style="background: #10b981;">Sep</div>
+                                <div class="calendar-day">05</div>
+                            </div>
+                            <h4>Exposición de Arte y Pintura Estudiantil</h4>
+                            <p>Galería abierta con obras creadas por estudiantes destacados en la materia de Educación Artística. El tema de este año es: "Mi querido El Salvador".</p>
+                            <a href="#" class="btn-outline">Más Información</a>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- FIN: SECCIÓN EVENTOS CULTURALES -->
+            `,
             
             'estudiar-home': `
                 <style>
