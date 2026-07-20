@@ -1841,7 +1841,182 @@
                 </div>
                 <!-- FIN: SECCIÓN DE AVISOS DEL DISTRITO -->
             `,
-            'noticias-boletin': `<div class="page-header"><h1>Boletín Mensual</h1></div>`,
+            'noticias-boletin': `
+                <!-- INICIO: SECCIÓN BOLETÍN MENSUAL -->
+                <style>
+                    .boletin-wrapper {
+                        max-width: 1100px;
+                        margin: 0 auto 40px auto;
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                        background: #f8fafc;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+                    }
+                    .boletin-header {
+                        background: linear-gradient(135deg, #112942 0%, #1e3a8a 100%);
+                        color: white;
+                        padding: 30px 40px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border-bottom: 5px solid #eab308;
+                    }
+                    .boletin-title h2 { 
+                        margin: 0; 
+                        font-size: 2.2rem; 
+                        font-weight: 800; 
+                    }
+                    .boletin-title p { 
+                        margin: 5px 0 0 0; 
+                        color: #38bdf8; 
+                        font-weight: bold; 
+                        letter-spacing: 1.5px; 
+                        text-transform: uppercase; 
+                        font-size: 0.9rem;
+                    }
+                    .boletin-date { 
+                        background: rgba(255,255,255,0.1); 
+                        padding: 10px 25px; 
+                        border-radius: 8px; 
+                        text-align: center; 
+                        backdrop-filter: blur(5px);
+                    }
+                    .boletin-date span { 
+                        display: block; 
+                        font-size: 1.8rem; 
+                        color: #eab308; 
+                        font-weight: 900;
+                        line-height: 1;
+                    }
+                    .boletin-date small {
+                        font-size: 0.9rem;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        font-weight: 600;
+                    }
+                    .boletin-body { 
+                        display: grid; 
+                        grid-template-columns: 2fr 1fr; 
+                        gap: 35px; 
+                        padding: 40px; 
+                    }
+                    .boletin-main-article img { 
+                        width: 100%; 
+                        height: 350px; 
+                        object-fit: cover; 
+                        border-radius: 8px; 
+                        margin-bottom: 20px; 
+                        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    }
+                    .boletin-main-article h3 { 
+                        color: #0f172a; 
+                        font-size: 1.8rem; 
+                        margin: 0 0 15px 0; 
+                        line-height: 1.2;
+                    }
+                    .boletin-main-article p { 
+                        color: #475569; 
+                        line-height: 1.7; 
+                        font-size: 1.05rem; 
+                        margin-bottom: 15px;
+                    }
+                    .boletin-sidebar { 
+                        display: flex; 
+                        flex-direction: column; 
+                        gap: 20px; 
+                    }
+                    .sidebar-card { 
+                        background: white; 
+                        padding: 25px; 
+                        border-radius: 8px; 
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+                        border-left: 4px solid #0ea5e9; 
+                        transition: transform 0.2s ease;
+                    }
+                    .sidebar-card:hover {
+                        transform: translateX(5px);
+                    }
+                    .sidebar-card h4 { 
+                        margin: 0 0 10px 0; 
+                        color: #0f172a; 
+                        font-size: 1.15rem; 
+                    }
+                    .sidebar-card p { 
+                        margin: 0; 
+                        color: #64748b; 
+                        font-size: 0.95rem; 
+                        line-height: 1.6; 
+                    }
+                    .boletin-footer { 
+                        background: #e2e8f0; 
+                        padding: 20px; 
+                        text-align: center; 
+                        color: #64748b; 
+                        font-size: 0.9rem; 
+                        font-weight: 600;
+                    }
+                    
+                    @media (max-width: 768px) { 
+                        .boletin-body { grid-template-columns: 1fr; padding: 25px; } 
+                        .boletin-header { flex-direction: column; text-align: center; gap: 20px; } 
+                        .boletin-main-article img { height: 250px; }
+                    }
+                </style>
+
+                <div class="boletin-wrapper">
+                    <!-- ENCABEZADO DEL BOLETÍN -->
+                    <div class="boletin-header">
+                        <div class="boletin-title">
+                            <h2>El Faro Educativo</h2>
+                            <p>Distrito Escolar • San Juan Opico</p>
+                        </div>
+                        <div class="boletin-date">
+                            <span>Julio</span>
+                            <small>2026</small>
+                        </div>
+                    </div>
+
+                    <!-- CUERPO DEL BOLETÍN -->
+                    <div class="boletin-body">
+                        
+                        <!-- ARTÍCULO PRINCIPAL (IZQUIERDA) -->
+                        <div class="boletin-main-article">
+                            <!-- Puedes cambiar esta imagen por una foto real del equipo directivo o estudiantes -->
+                            <img src="https://i.postimg.cc/wMX0LrLP/Valores3.png" alt="Campaña de Valores Julio">
+                            <h3>Transformación Social desde el Aula: Un mes de valores y convivencia</h3>
+                            <p>Durante este mes de julio, el distrito de San Juan Opico ha brillado por su compromiso con la recuperación del tejido social. La implementación de la <strong>Campaña de Formación en Valores</strong> ha marcado un antes y un después en nuestras instituciones, demostrando que la educación integral es el único camino hacia el desarrollo sostenible.</p>
+                            <p>Desde el Complejo Educativo "Soldado Oscar Antonio Ortiz Reyes" hasta el Instituto Nacional de Tecpán, nuestros docentes han integrado magistralmente los preceptos de <em>"El Camino a la Felicidad"</em> en el día a día. El fomento de la empatía, el rescate de las palabras de cortesía y la resolución pacífica de conflictos están preparando a las nuevas generaciones para ser los ciudadanos excepcionales que nuestro país necesita.</p>
+                        </div>
+
+                        <!-- RESUMEN LATERAL (DERECHA) -->
+                        <div class="boletin-sidebar">
+                            
+                            <div class="sidebar-card">
+                                <h4>👶🏻 Logros en Primera Infancia</h4>
+                                <p>Celebramos el éxito del reciente taller presencial, donde se dotó a nuestras maestras de Educación Inicial de herramientas clave para gestionar las emociones y promover la autonomía en los más pequeños.</p>
+                            </div>
+                            
+                            <div class="sidebar-card" style="border-left-color: #16a34a;">
+                                <h4>📗 Enfoque Estratégico</h4>
+                                <p>La estrategia <strong>"Aprendamos a Estudiar"</strong> se encuentra en su fase de mayor impacto. Invitamos a la comunidad docente a seguir implementando los cuadernillos de este mes en sus planificaciones.</p>
+                            </div>
+                            
+                            <div class="sidebar-card" style="border-left-color: #eab308;">
+                                <h4>📊 Eficiencia Administrativa</h4>
+                                <p>La transición a los reportes de desarrollo directamente en <strong>SIGES</strong> ha agilizado los procesos, permitiendo a nuestros equipos directivos y docentes enfocarse en lo verdaderamente importante: la pedagogía.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- PIE DE BOLETÍN -->
+                    <div class="boletin-footer">
+                        Producido por el equipo de Gestión Escolar | Distrito Educativo de San Juan Opico, La Libertad
+                    </div>
+                </div>
+                <!-- FIN: SECCIÓN BOLETÍN MENSUAL -->
+            `,
             'noticias-eventos': `<div class="page-header"><h1>Eventos Culturales</h1></div>`,
             
             'estudiar-home': `
