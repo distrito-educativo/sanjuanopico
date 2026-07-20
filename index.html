@@ -1544,8 +1544,9 @@
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
         `,
             'noticias-home': `
-                <!-- INICIO: ENCABEZADO DE BIENVENIDA - SECCIÓN NOTICIAS -->
+                <!-- INICIO: ESTILOS GENERALES (BANNER + TARJETAS) -->
                 <style>
+                    /* 1. Estilos del Banner Principal */
                     .news-hero-container {
                         background: linear-gradient(135deg, #112942 0%, #1a365d 100%);
                         border-radius: 12px;
@@ -1554,7 +1555,7 @@
                         color: white;
                         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
                         font-family: 'Helvetica Neue', Arial, sans-serif;
-                        margin-bottom: 40px;
+                        margin-bottom: 50px;
                         position: relative;
                         overflow: hidden;
                     }
@@ -1616,14 +1617,11 @@
                         position: relative;
                         z-index: 1;
                     }
-                    
-                    /* Nueva Animación para la línea dorada */
                     @keyframes moverLinea {
                         0% { transform: translateX(-40px); }
                         50% { transform: translateX(40px); }
                         100% { transform: translateX(-40px); }
                     }
-
                     .news-divider {
                         width: 80px;
                         height: 4px;
@@ -1632,40 +1630,135 @@
                         border-radius: 2px;
                         position: relative;
                         z-index: 1;
-                        /* Se aplica la animación aquí */
                         animation: moverLinea 3s ease-in-out infinite;
                     }
+
+                    /* 2. Estilos de las Tarjetas Flotantes (NUEVO) */
+                    .quick-links-container {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                        gap: 25px;
+                        max-width: 1100px;
+                        margin: 0 auto 40px auto;
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                    }
+                    .quick-link-card {
+                        background: #ffffff;
+                        border-radius: 16px;
+                        padding: 35px 25px;
+                        text-align: center;
+                        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+                        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+                        display: flex;
+                        flex-direction: column;
+                        border-top: 5px solid transparent;
+                    }
+                    .quick-link-card:hover {
+                        transform: translateY(-12px);
+                        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+                    }
                     
+                    /* Colores por tarjeta */
+                    .card-avisos { border-top-color: #0ea5e9; }
+                    .card-boletin { border-top-color: #eab308; }
+                    .card-eventos { border-top-color: #ea580c; }
+                    
+                    .quick-link-icon {
+                        font-size: 3rem;
+                        margin-bottom: 20px;
+                    }
+                    .quick-link-title {
+                        font-size: 1.4rem;
+                        color: #1e293b;
+                        font-weight: 800;
+                        margin-bottom: 15px;
+                        line-height: 1.2;
+                    }
+                    .quick-link-desc {
+                        color: #64748b;
+                        font-size: 1rem;
+                        line-height: 1.6;
+                        flex-grow: 1;
+                        margin-bottom: 25px;
+                    }
+                    .quick-link-btn {
+                        display: inline-block;
+                        padding: 12px 25px;
+                        border-radius: 8px;
+                        font-weight: 700;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        font-size: 0.95rem;
+                        cursor: pointer;
+                        border: none;
+                        width: 100%;
+                    }
+                    
+                    /* Efectos de los botones */
+                    .btn-avisos { background: #f0f9ff; color: #0284c7; }
+                    .btn-avisos:hover { background: #0ea5e9; color: white; }
+                    
+                    .btn-boletin { background: #fefce8; color: #a16207; }
+                    .btn-boletin:hover { background: #eab308; color: white; }
+                    
+                    .btn-eventos { background: #fff7ed; color: #c2410c; }
+                    .btn-eventos:hover { background: #ea580c; color: white; }
+
                     @media (max-width: 768px) {
-                        .news-hero-container {
-                            padding: 40px 20px;
-                        }
-                        .news-title {
-                            font-size: 1.8rem;
-                        }
-                        .news-description {
-                            font-size: 1.05rem;
-                        }
+                        .news-hero-container { padding: 40px 20px; }
+                        .news-title { font-size: 1.8rem; }
+                        .news-description { font-size: 1.05rem; }
                         @keyframes moverLinea {
                             0% { transform: translateX(-20px); }
                             50% { transform: translateX(20px); }
                             100% { transform: translateX(-20px); }
                         }
+                        .quick-links-container { padding: 0 15px; }
                     }
                 </style>
+                <!-- FIN: ESTILOS GENERALES -->
 
+                <!-- ENCABEZADO DE BIENVENIDA -->
                 <div class="news-hero-container">
                     <span class="news-tag">🗞️ Espacio Informativo</span>
-                    
                     <h1 class="news-title">Conectando la <span>Innovación</span> y la Excelencia Educativa</h1>
-                    
                     <p class="news-description">
                         Bienvenidos a la sección oficial de noticias del Distrito Educativo de San Juan Opico. En este portal mantenemos a nuestra comunidad docente y directiva al tanto del latir de nuestras escuelas: desde proyectos pedagógicos innovadores y lineamientos oficiales, hasta eventos relevantes que marcan la diferencia en nuestras aulas. Juntos, seguimos construyendo el futuro de la educación en La Libertad.
                     </p>
-                    
                     <div class="news-divider"></div>
                 </div>
-                <!-- FIN: ENCABEZADO DE BIENVENIDA - SECCIÓN NOTICIAS -->
+
+                <!-- TARJETAS FLOTANTES DE NAVEGACIÓN RÁPIDA -->
+                <div class="quick-links-container">
+                    
+                    <!-- Tarjeta 1: Avisos -->
+                    <div class="quick-link-card card-avisos">
+                        <div class="quick-link-icon">📌</div>
+                        <h3 class="quick-link-title">Avisos del Distrito</h3>
+                        <p class="quick-link-desc">Mantente al día con las últimas directrices, comunicados urgentes y orientaciones oficiales para directores y docentes.</p>
+                        <!-- NOTA: Cambia el "#" por la función de navegación de tu sistema, ej: onclick="cargarPagina('noticias-avisos')" -->
+                        <a href="#" class="quick-link-btn btn-avisos">Ir a los Avisos &rarr;</a>
+                    </div>
+
+                    <!-- Tarjeta 2: Boletín -->
+                    <div class="quick-link-card card-boletin">
+                        <div class="quick-link-icon">📖</div>
+                        <h3 class="quick-link-title">Boletín Mensual</h3>
+                        <p class="quick-link-desc">Descubre "El Faro Educativo". Nuestro resumen mensual con los logros, proyectos y avances más destacados del distrito.</p>
+                        <!-- NOTA: Cambia el "#" por tu función -->
+                        <a href="#" class="quick-link-btn btn-boletin">Leer el Boletín &rarr;</a>
+                    </div>
+
+                    <!-- Tarjeta 3: Eventos -->
+                    <div class="quick-link-card card-eventos">
+                        <div class="quick-link-icon">🎭</div>
+                        <h3 class="quick-link-title">Eventos Culturales</h3>
+                        <p class="quick-link-desc">Explora nuestra agenda de actividades cívicas, ferias de logros y festivales que celebran el talento de nuestros estudiantes.</p>
+                        <!-- NOTA: Cambia el "#" por tu función -->
+                        <a href="#" class="quick-link-btn btn-eventos">Ver la Agenda &rarr;</a>
+                    </div>
+
+                </div>
             `,
             
             'noticias-avisos': `
