@@ -1616,6 +1616,14 @@
                         position: relative;
                         z-index: 1;
                     }
+                    
+                    /* Nueva Animación para la línea dorada */
+                    @keyframes moverLinea {
+                        0% { transform: translateX(-40px); }
+                        50% { transform: translateX(40px); }
+                        100% { transform: translateX(-40px); }
+                    }
+
                     .news-divider {
                         width: 80px;
                         height: 4px;
@@ -1624,7 +1632,10 @@
                         border-radius: 2px;
                         position: relative;
                         z-index: 1;
+                        /* Se aplica la animación aquí */
+                        animation: moverLinea 3s ease-in-out infinite;
                     }
+                    
                     @media (max-width: 768px) {
                         .news-hero-container {
                             padding: 40px 20px;
@@ -1634,6 +1645,11 @@
                         }
                         .news-description {
                             font-size: 1.05rem;
+                        }
+                        @keyframes moverLinea {
+                            0% { transform: translateX(-20px); }
+                            50% { transform: translateX(20px); }
+                            100% { transform: translateX(-20px); }
                         }
                     }
                 </style>
@@ -1650,7 +1666,7 @@
                     <div class="news-divider"></div>
                 </div>
                 <!-- FIN: ENCABEZADO DE BIENVENIDA - SECCIÓN NOTICIAS -->
-            `,
+                   `,
             'noticias-avisos': `<div class="page-header"><h1>Avisos del Distrito</h1></div>`,
             'noticias-boletin': `<div class="page-header"><h1>Boletín Mensual</h1></div>`,
             'noticias-eventos': `<div class="page-header"><h1>Eventos Culturales</h1></div>`,
