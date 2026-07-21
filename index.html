@@ -1390,7 +1390,67 @@
 <!-- INICIO DE SECCIÓN DE NOTICIAS -->
 <div>
     
-    <!-- NOTICIA 1: FORMACIÓN CIUDADANA -->
+   <!-- ESTILOS PARA EFECTOS DE IMÁGENES -->
+<style>
+    .floating-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .floating-img:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    }
+</style>
+
+<!-- INICIO DE SECCIÓN DE NOTICIAS -->
+<div>
+
+    <!-- NOTICIA 1 (NUEVA): CLAUSURA CAMPAÑA DE VALORES -->
+    <div class="featured-article-container">
+        <div class="article-header">
+            <span class="article-tag" style="background-color: #eab308; color: #112942; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Evento Distrital</span>
+            <h2 class="article-title">Clausura de la Campaña de Valores: "El Camino a la Felicidad"</h2>
+        </div>
+        
+        <div class="article-body">
+            <p><strong>El Distrito Escolar LL-12 de San Juan Opico culmina con éxito un esfuerzo sin precedentes por la reconstrucción del tejido social.</strong></p>
+            
+            <p>Tras dos meses y medio de intensa labor formativa, el <strong>Instituto Nacional de Tecpán</strong> y el <strong>Complejo Educativo Soldado Oscar Antonio Ortiz Reyes</strong> se vistieron de gala para celebrar la clausura oficial de la campaña de valores basada en los preceptos del libro <em>"El Camino a la Felicidad"</em>. Esta iniciativa, implementada a través de la plataforma de la fundación <strong>Empower El Salvador</strong>, marca un hito en la educación integral de nuestra juventud.</p>
+            
+            <div style="float: right; width: 45%; max-width: 400px; margin: 0 0 20px 30px;">
+                <img src="https://i.postimg.cc/ZK2xKB84/Clausura-1.png" alt="Clausura de Valores" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Acto oficial de clausura en San Juan Opico.</p>
+            </div>
+
+            <p>El evento de cierre contó con la participación de invitados de honor, destacando la presencia de la <strong>Ing. Nelly Rodríguez</strong>, representante de Empower El Salvador; la <strong>Licda. Yanet Bran</strong>, Gobernadora por el departamento de La Libertad, y una distinguida comisión de delegados que brindaron su total respaldo y acompañamiento a la celebración.</p>
+            
+            <h3 class="article-subtitle">El Arte como Reflejo del Aprendizaje Ético</h3>
+            <p>Durante la jornada, las y los adolescentes de ambas instituciones educativas se convirtieron en los verdaderos protagonistas. A través de creativos sociodramas, elocuentes intervenciones de oratoria y dinámicos espectáculos artísticos, demostraron cómo han interiorizado y concebido los 21 preceptos de sentido común que componen la obra.</p>
+            
+            <p>Reglas fundamentales como <em>"Da un buen ejemplo"</em>, <em>"Sé industrioso"</em> y <em>"Protege y mejora tu medioambiente"</em> cobraron vida en el escenario, evidenciando un profundo análisis ético por parte de los estudiantes y su capacidad para aplicar estas lecciones en su entorno familiar y comunitario.</p>
+            
+            <h3 class="article-subtitle">Alineación Curricular Estratégica</h3>
+            <p>El éxito sostenido de esta campaña radica en su perfecta integración con el currículo nacional. Los contenidos desarrollados en la plataforma no fueron un esfuerzo aislado, sino que se alinearon de forma estratégica con el área de <strong>Ciudadanía y Valores</strong>, siendo impartidos de manera transversal por los docentes especialistas del distrito LL-12.</p>
+            
+            <div class="quote-block" style="border-left-color: #eab308; clear: both;">
+                <p class="quote-text">"La formación del carácter y la promoción de valores universales son el pilar fundamental para construir ciudadanos íntegros, productivos y socialmente responsables."</p>
+            </div>
+            
+            <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 20 de julio de 2026</p>
+        </div>
+    </div>
+    <!-- FIN NOTICIA 1 -->
+
+    <!-- SEPARADOR VISUAL -->
+    <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
+
+    <!-- NOTICIA 2: FORMACIÓN CIUDADANA (Antigua Noticia 1) -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1439,12 +1499,12 @@
             <p>Apostamos por una educación integral donde la técnica, la administración y el corazón de la comunidad educativa marchen hacia el mismo rumbo: la excelencia.</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 1 -->
+    <!-- FIN NOTICIA 2 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 2: PRIMERA INFANCIA -->
+    <!-- NOTICIA 3: PRIMERA INFANCIA (Antigua Noticia 2) -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1466,13 +1526,13 @@
             
             <p>Hoy celebramos la disposición y el entusiasmo de las docentes participantes. Al fortalecer sus competencias técnicas, aseguramos que el salto hacia la innovación pedagógica sea una realidad tangible.</p>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 2 -->
+            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 3 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png" alt="Taller Primera Infancia 1" class="floating-img">
                 <img src="https://i.postimg.cc/Pr0pF27H/Taller-innovacion-en-la-practica-docente-2.png" alt="Taller Primera Infancia 2" class="floating-img">
                 <img src="https://i.postimg.cc/SK29xHzr/Taller-innovacion-en-la-practica-docente-3.png" alt="Taller Primera Infancia 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 2 -->
+            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 3 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/18Bg2m2AOzGOS4KeRH0LwmYRWgzZ9TC1M?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1481,12 +1541,12 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 15 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 2 -->
+    <!-- FIN NOTICIA 3 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 3: CAMPAÑA VALORES SOCIALES -->
+    <!-- NOTICIA 4: CAMPAÑA VALORES SOCIALES (Antigua Noticia 3) -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1532,13 +1592,13 @@
                 <li class="reason-item"><strong>Prevención:</strong> Un joven formado en valores es un ciudadano con pensamiento crítico, menos propenso a conductas de riesgo y más orientado al desarrollo comunitario.</li>
             </ul>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 3 -->
+            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 4 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/vBy523c8/Taller-valores-1.png" alt="Formación Sociales 1" class="floating-img">
                 <img src="https://i.postimg.cc/WbzgyDbK/Taller-valores-2.png" alt="Formación Sociales 2" class="floating-img">
                 <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" alt="Formación Sociales 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 3 -->
+            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 4 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/1yOPQx8dDi0oCBo5_owksfgkQgnR6TgDm?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1547,11 +1607,11 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 08 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 3 -->
+    <!-- FIN NOTICIA 4 -->
 
 </div>
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
-        `,
+
             'noticias-home': `
                 <!-- INICIO: ESTILOS GENERALES (BANNER + TARJETAS) -->
                 <style>
