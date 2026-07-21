@@ -1045,6 +1045,17 @@
                         <div class="digit-box" id="digit-6">&nbsp;</div>
                     </div>
                 </div>
+<!-- INICIO: CÓDIGO ACTUALIZADO DE TARJETAS CON EFECTO DE AMPLIACIÓN -->
+<style>
+    /* Estilos necesarios para el visor de pantalla completa en la página de inicio */
+    .modal-visor-calendario { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(10, 37, 64, 0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column; }
+    .modal-contenido-calendario { max-width: 100%; max-height: 100%; animation: zoomModal 0.3s ease; object-fit: contain; background-color: #000; border: none; }
+    @keyframes zoomModal { from {transform: scale(0.8); opacity: 0} to {transform: scale(1); opacity: 1} }
+    .cerrar-modal-calendario { position: absolute; top: 15px; right: 30px; color: #fff; font-size: 50px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 100000; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    .cerrar-modal-calendario:hover { color: #D4AF37; transform: scale(1.15); }
+    .modal-instruccion { color: #cbd5e1; margin-top: 15px; font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+</style>
+
 <div class="premium-container">
     <div class="gallery-grid">
         
@@ -1090,6 +1101,14 @@
 
     </div>
 </div>
+
+<!-- EL "PROYECTOR" INVISIBLE (Necesario para que la imagen se amplíe en esta pantalla) -->
+<div id="modalVisorCalendario" class="modal-visor-calendario" onclick="window.cerrarModalCalendario()">
+    <span class="cerrar-modal-calendario">&times;</span>
+    <img class="modal-contenido-calendario" id="imagenAmpliadaCalendario" alt="Imagen Ampliada" />
+    <span class="modal-instruccion">Haz clic en cualquier parte o presiona "ESC" para cerrar</span>
+</div>
+<!-- FIN: CÓDIGO ACTUALIZADO -->
 
 <style>
     /* ======================================================= */
