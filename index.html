@@ -1402,10 +1402,24 @@
             
             <p>Tras dos meses y medio de intensa labor formativa, el <strong>Instituto Nacional de Tecpán</strong> y el <strong>Complejo Educativo Soldado Oscar Antonio Ortiz Reyes</strong> se vistieron de gala para celebrar la clausura oficial de la campaña de valores basada en los preceptos del libro <em>"El Camino a la Felicidad"</em>. Esta iniciativa, implementada a través de la plataforma de la fundación <strong>Empower El Salvador</strong>, marca un hito en la educación integral de nuestra juventud.</p>
             
+            <!-- NUEVO CARRUSEL INTEGRADO E INDEPENDIENTE -->
             <div style="float: right; width: 45%; max-width: 400px; margin: 0 0 20px 30px;">
-                <img src="https://i.postimg.cc/ZK2xKB84/Clausura-1.png" alt="Clausura de Valores" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                <div class="carousel" style="height: 280px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                    <div class="carousel-slides">
+                        <img src="https://i.postimg.cc/ZK2xKB84/Clausura-1.png" class="clausura-slide" alt="Clausura 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; z-index: 2; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/vBy523c8/Taller-valores-1.png" class="clausura-slide" alt="Clausura 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/WbzgyDbK/Taller-valores-2.png" class="clausura-slide" alt="Clausura 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" class="clausura-slide" alt="Clausura 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/nr40BWBS/Valores1.png" class="clausura-slide" alt="Clausura 5" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/kGQfKHKp/Valores2.png" class="clausura-slide" alt="Clausura 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                    </div>
+                    <!-- Botones con lógica aislada -->
+                    <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.clausura-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.clausura-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
+                </div>
                 <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Acto oficial de clausura en San Juan Opico.</p>
             </div>
+            <!-- FIN CARRUSEL -->
 
             <p>El evento de cierre contó con la participación de invitados de honor, destacando la presencia de la <strong>Ing. Nelly Rodríguez</strong>, representante de Empower El Salvador; la <strong>Licda. Yanet Bran</strong>, Gobernadora por el departamento de La Libertad, y una distinguida comisión de delegados que brindaron su total respaldo y acompañamiento a la celebración.</p>
             
