@@ -1045,26 +1045,11 @@
                         <div class="digit-box" id="digit-6">&nbsp;</div>
                     </div>
                 </div>
-<!-- INICIO: CÓDIGO ACTUALIZADO DE TARJETAS CON EFECTO LIGHTBOX REDUCIDO -->
-<style>
-    /* Estilos para el visor flotante "reducido" y elegante */
-    .modal-visor-inicio { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; flex-direction: column; }
-    
-    /* Aquí controlamos el tamaño máximo para que no ocupe toda la pantalla */
-    .modal-contenido-inicio { max-width: 75%; max-height: 75vh; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); animation: popModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); object-fit: contain; background-color: #fff; padding: 8px;}
-    
-    @keyframes popModal { from {transform: scale(0.8); opacity: 0} to {transform: scale(1); opacity: 1} }
-    
-    .cerrar-modal-inicio { position: absolute; top: 20px; right: 40px; color: #fff; font-size: 45px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 100000; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-    .cerrar-modal-inicio:hover { color: #D4AF37; transform: scale(1.15); }
-    .modal-instruccion-inicio { color: #f8fafc; margin-top: 20px; font-size: 1.05rem; font-weight: 600; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-</style>
-
 <div class="premium-container">
     <div class="gallery-grid">
         
         <!-- 1. Clausura programa de valores -->
-        <div class="premium-card" onclick="window.abrirModalInicio(this)" style="cursor: zoom-in;">
+        <div class="premium-card" onclick="window.abrirModalCalendario(this)" style="cursor: pointer;">
             <img src="https://i.postimg.cc/ZK2xKB84/Clausura-1.png" alt="Gobierno" class="card-image">
             <div class="glass-panel">
                 <span class="card-date">20 JUL 2026</span>
@@ -1074,7 +1059,7 @@
         </div>
 
         <!-- 2. Formación en valores -->
-        <div class="premium-card" onclick="window.abrirModalInicio(this)" style="cursor: zoom-in;">
+        <div class="premium-card" onclick="window.abrirModalCalendario(this)" style="cursor: pointer;">
             <img src="https://i.postimg.cc/0QPcWLhN/Img06.png" alt="Formación en valores" class="card-image">
             <div class="glass-panel">
                 <span class="card-date">19 MAY 2026</span>
@@ -1084,7 +1069,7 @@
         </div>
 
         <!-- 3. Innovación Docente -->
-        <div class="premium-card" onclick="window.abrirModalInicio(this)" style="cursor: zoom-in;">
+        <div class="premium-card" onclick="window.abrirModalCalendario(this)" style="cursor: pointer;">
             <img src="https://i.postimg.cc/KvGDg6Mv/Taller-I-img2.png" alt="Taller Innovación" class="card-image">
             <div class="glass-panel">
                 <span class="card-date">15 MAY 2026</span>
@@ -1094,7 +1079,7 @@
         </div>
 
         <!-- 4. Camino a la Felicidad -->
-        <div class="premium-card" onclick="window.abrirModalInicio(this)" style="cursor: zoom-in;">
+        <div class="premium-card" onclick="window.abrirModalCalendario(this)" style="cursor: pointer;">
             <img src="https://i.postimg.cc/x19h8p0Z/Screenshot-1.png" alt="Felicidad" class="card-image">
             <div class="glass-panel">
                 <span class="card-date">08 MAY 2026</span>
@@ -1105,29 +1090,6 @@
 
     </div>
 </div>
-
-<!-- EL "PROYECTOR" FLOTANTE -->
-<div id="modalVisorInicio" class="modal-visor-inicio" onclick="this.style.display='none'; document.body.style.overflow='auto';">
-    <span class="cerrar-modal-inicio">&times;</span>
-    <img class="modal-contenido-inicio" id="imgAmpliadaInicio" alt="Imagen Ampliada" />
-    <span class="modal-instruccion-inicio">Haz clic en cualquier parte para cerrar</span>
-</div>
-
-<script>
-    /* Minifunción para abrir el Lightbox sin usar Pantalla Completa nativa */
-    window.abrirModalInicio = function(elemento) {
-        var modal = document.getElementById("modalVisorInicio");
-        var imgModal = document.getElementById("imgAmpliadaInicio");
-        var imgTarjeta = elemento.querySelector("img");
-        
-        if(modal && imgModal && imgTarjeta) {
-            imgModal.src = imgTarjeta.src;
-            modal.style.display = "flex";
-            document.body.style.overflow = "hidden"; /* Evita que el usuario haga scroll mientras ve la foto */
-        }
-    };
-</script>
-<!-- FIN: CÓDIGO ACTUALIZADO CON EFECTO LIGHTBOX -->
 
 <style>
     /* ======================================================= */
