@@ -150,12 +150,17 @@
             display: none !important;
         }
         
-        /* Ocultar el texto de los enlaces dejando solo el ícono central */
+       /* Ocultar el texto de los enlaces dejando solo el ícono central */
         body.sidebar-collapsed .nav-link-content {
-            width: 20px;
-            overflow: hidden;
-            white-space: nowrap;
+            font-size: 0 !important; /* La clave para desaparecer el texto suelto */
+            justify-content: center;
+            width: 100%;
             gap: 0;
+        }
+        
+        body.sidebar-collapsed .nav-link-content svg {
+            margin: 0 auto; /* Centra perfectamente el ícono */
+            display: block;
         }
         
         body.sidebar-collapsed .nav-link {
