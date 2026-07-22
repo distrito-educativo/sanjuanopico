@@ -133,15 +133,102 @@
             .overlay.active { display: block; }
         }
     </style>
+<!-- ESTILOS: EFECTO CONTRAER MENÚ LATERAL -->
+    <style>
+        .sidebar {
+            /* Añadimos la transición de ancho para que sea suave */
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        body.sidebar-collapsed {
+            --sidebar-width: 80px; /* Al cambiar esta variable, todo el sitio se ajusta automáticamente */
+        }
+        
+        body.sidebar-collapsed .brand-text,
+        body.sidebar-collapsed .arrow-icon,
+        body.sidebar-collapsed .submenu {
+            display: none !important;
+        }
+        
+        /* Ocultar el texto de los enlaces dejando solo el ícono central */
+        body.sidebar-collapsed .nav-link-content {
+            width: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            gap: 0;
+        }
+        
+        body.sidebar-collapsed .nav-link {
+            padding: 14px 0;
+            justify-content: center;
+        }
+        
+        body.sidebar-collapsed .sidebar-header {
+            flex-direction: column;
+            padding: 20px 0;
+            gap: 15px;
+        }
+        
+        /* Reducir el botón de Soporte Técnico a un círculo */
+        body.sidebar-collapsed .sidebar-footer {
+            padding: 24px 0;
+        }
+        body.sidebar-collapsed .btn-cta {
+            width: 44px;
+            height: 44px;
+            padding: 12px;
+            border-radius: 50%;
+            margin: 0 auto;
+            overflow: hidden;
+            color: transparent; 
+        }
+        
+        /* Diseño del Botón de Doble Flecha */
+        .collapse-toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s, background 0.2s;
+        }
+        .collapse-toggle-btn:hover {
+            color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        .collapse-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Efecto de inversión de la flecha al contraer */
+        body.sidebar-collapsed .collapse-toggle-btn {
+            transform: rotate(180deg);
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 
     <div class="overlay" id="overlay"></div>
 
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header" data-target="inicio">
-            <div class="brand-icon">G</div>
-            <div class="brand-text">Gestión<span>Escolar</span></div>
+        <div class="sidebar-header">
+            <!-- Mantenemos el logo clicable hacia Inicio -->
+            <div style="display: flex; align-items: center; gap: 12px; cursor: pointer; flex-grow: 1;" data-target="inicio">
+                <div class="brand-icon">G</div>
+                <div class="brand-text">Gestión<span>Escolar</span></div>
+            </div>
+            <!-- Nuevo botón de contraer -->
+            <button class="collapse-toggle-btn" id="btnContraerMenu" title="Contraer/Expandir Menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="11 17 6 12 11 7"></polyline>
+                    <polyline points="18 17 13 12 18 7"></polyline>
+                </svg>
+            </button>
         </div>
 
         <ul class="sidebar-menu">
@@ -11260,5 +11347,20 @@ window.iniciarDictado = function() {
     recognition.start();
 };
 </script>
+
+<!-- MOTOR DE MENÚ COLAPSABLE -->
+    <script>
+        document.getElementById('btnContraerMenu').addEventListener('click', function() {
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // Cierra cualquier submenú que haya quedado abierto al contraer
+            if(document.body.classList.contains('sidebar-collapsed')) {
+                var openItems = document.querySelectorAll('.nav-item.open');
+                openItems.forEach(function(item) {
+                    item.classList.remove('open');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
