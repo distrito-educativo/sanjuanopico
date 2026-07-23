@@ -1482,7 +1482,67 @@
 <!-- INICIO DE SECCIÓN DE NOTICIAS -->
 <div>
 
-    <!-- NOTICIA 1 (NUEVA): CLAUSURA CAMPAÑA DE VALORES -->
+    <!-- NOTICIA 1 (NUEVA ESTELAR): GALA HOTEL BARCELÓ -->
+    <div class="featured-article-container">
+        <div class="article-header">
+            <span class="article-tag" style="background-color: #0f172a; color: #eab308; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Gala de Premiación</span>
+            <h2 class="article-title">"Florece y Prospera": Gala de Premiación del "Camino a la Felicidad" en La Libertad</h2>
+        </div>
+        
+        <div class="article-body">
+            <p><strong>El Salvador se posiciona en la mirada del mundo al transformar su tejido social desde las bases educativas, celebrando los frutos de una educación fundamentada en valores.</strong></p>
+            
+            <p>En un ambiente cargado de entusiasmo y visión de futuro, las majestuosas instalaciones del <strong>Hotel Barceló</strong> en El Salvador fueron el escenario perfecto para llevar a cabo el evento de clausura y premiación a los actores más destacados en la implementación de los 21 preceptos de la obra <em>"El Camino a la Felicidad"</em>.</p>
+            
+            <!-- NUEVO CARRUSEL INTEGRADO (HOTEL BARCELÓ) CON AUTOPLAY 2 SEGUNDOS -->
+            <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
+                <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <div class="carousel-slides">
+                        <img src="https://i.postimg.cc/x1DT2bfc/img.png" class="gala-slide" alt="Gala 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; z-index: 2; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/t4QCjVqT/img-3.png" class="gala-slide" alt="Gala 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/3xXrJJN3/img-4.png" class="gala-slide" alt="Gala 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/QdQNxxCX/img-5.png" class="gala-slide" alt="Gala 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/Nj6GffFG/img-6.png" class="gala-slide" alt="Gala 5" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/CxTLgfhR/img-1.png" class="gala-slide" alt="Gala 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/L8K6pZ95/img-2.png" class="gala-slide" alt="Gala 7" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                    </div>
+                    
+                    <!-- Motor Automático Invisible (Temporizador de 2 segundos) -->
+                    <img src="trigger_invisible_gala.jpg" style="display:none;" onerror="if(window.timerGala) clearInterval(window.timerGala); window.timerGala = setInterval(function(){ var btn = document.getElementById('btn-next-gala'); if(btn) btn.click(); }, 2000); this.remove();">
+
+                    <!-- Botones con lógica aislada -->
+                    <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.gala-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
+                    <button id="btn-next-gala" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.gala-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
+                </div>
+                <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Hotel Barceló, San Salvador - Ceremonia de premiación departamental.</p>
+            </div>
+            <!-- FIN CARRUSEL GALA -->
+
+            <p>La ceremonia congregó a directores y docentes de las instituciones educativas más sobresalientes del departamento de La Libertad. El acto fue presidido por autoridades de primer nivel, contando con la participación del <strong>Licdo. Juan Carlos Arteaga Mena</strong>, Director Departamental y pilar fundamental en el desarrollo educativo de la región, así como el invaluable acompañamiento de la <strong>Licda. Yaneth Bran</strong>, Gobernadora por el departamento de La Libertad.</p>
+            
+            <p>Como invitada estelar, la gala se enorgulleció de recibir a la <strong>Ing. Nelly Rodríguez</strong>, Directora Ejecutiva de <em>Empower El Salvador</em>, institución aliada en la exitosa articulación de esta estrategia cívica y moral.</p>
+
+            <h3 class="article-subtitle">Un Evento de Altura y Profundo Impacto</h3>
+            <p>Desde muy temprano, las distintas comitivas fueron llegando al recinto, siendo recibidas por un equipo de apoyo logístico que se encargó en todo momento de brindar una cálida bienvenida a cada uno de los asistentes, marcando la pauta de excelencia que caracterizó la jornada.</p>
+            
+            <p>La agenda protocolar estuvo llena de momentos memorables: desde las emotivas palabras de apertura y la solemne entrega de galardones, hasta la presentación estratégica de la próxima campaña a implementar. Sin embargo, el verdadero clímax de la actividad se alcanzó al revelarse las estadísticas actuales y los resultados del <strong>impacto real logrado en el comportamiento de los estudiantes y la convivencia familiar</strong> tras descubrir este poderoso modelo de vida.</p>
+
+            <h3 class="article-subtitle">La Visión de un Nuevo País</h3>
+            <p>Es innegable que el rotundo éxito de estas campañas se encuentra íntimamente vinculado con la visión de ciudadano integral y de sociedad ejemplar que persigue la administración del <strong>Presidente Nayib Bukele</strong>.</p>
+            
+            <div class="quote-block" style="border-left-color: #0f172a;">
+                <p class="quote-text">"Poner a El Salvador en la mirada crítica y objetiva del resto de sociedades del mundo ha sido todo un reto. Hoy, superando las adversidades de un pasado difícil, vemos materializado el precepto 21: nuestro país 'Florece y Prospera', transitando con paso firme por el mejor camino."</p>
+            </div>
+            
+            <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 22 de julio de 2026</p>
+        </div>
+    </div>
+    <!-- FIN NOTICIA 1 -->
+
+    <!-- SEPARADOR VISUAL -->
+    <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
+
+    <!-- NOTICIA 2: CLAUSURA CAMPAÑA DE VALORES TECPÁN -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #eab308; color: #112942; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Evento Distrital</span>
@@ -1494,7 +1554,7 @@
             
             <p>Tras dos meses y medio de intensa labor formativa, el <strong>Instituto Nacional de Tecpán</strong> y el <strong>Complejo Educativo Soldado Oscar Antonio Ortiz Reyes</strong> se vistieron de gala para celebrar la clausura oficial de la campaña de valores basada en los preceptos del libro <em>"El Camino a la Felicidad"</em>. Esta iniciativa, implementada a través de la plataforma de la fundación <strong>Empower El Salvador</strong>, marca un hito en la educación integral de nuestra juventud.</p>
             
-            <!-- NUEVO CARRUSEL INTEGRADO E INDEPENDIENTE (CON AUTOPLAY) -->
+            <!-- CARRUSEL INTEGRADO E INDEPENDIENTE (CON AUTOPLAY) -->
             <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
                 <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
                     <div class="carousel-slides">
@@ -1534,12 +1594,12 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 20 de julio de 2026</p>
         </div>
     </div>
-<!-- FIN NOTICIA 1 -->
+    <!-- FIN NOTICIA 2 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 2: FORMACIÓN CIUDADANA (Antigua Noticia 1) -->
+    <!-- NOTICIA 3: FORMACIÓN CIUDADANA -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1588,12 +1648,12 @@
             <p>Apostamos por una educación integral donde la técnica, la administración y el corazón de la comunidad educativa marchen hacia el mismo rumbo: la excelencia.</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 2 -->
+    <!-- FIN NOTICIA 3 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 3: PRIMERA INFANCIA (Antigua Noticia 2) -->
+    <!-- NOTICIA 4: PRIMERA INFANCIA -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1615,13 +1675,13 @@
             
             <p>Hoy celebramos la disposición y el entusiasmo de las docentes participantes. Al fortalecer sus competencias técnicas, aseguramos que el salto hacia la innovación pedagógica sea una realidad tangible.</p>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 3 -->
+            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 4 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png" alt="Taller Primera Infancia 1" class="floating-img">
                 <img src="https://i.postimg.cc/Pr0pF27H/Taller-innovacion-en-la-practica-docente-2.png" alt="Taller Primera Infancia 2" class="floating-img">
                 <img src="https://i.postimg.cc/SK29xHzr/Taller-innovacion-en-la-practica-docente-3.png" alt="Taller Primera Infancia 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 3 -->
+            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 4 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/18Bg2m2AOzGOS4KeRH0LwmYRWgzZ9TC1M?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1630,12 +1690,12 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 15 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 3 -->
+    <!-- FIN NOTICIA 4 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 4: CAMPAÑA VALORES SOCIALES (Antigua Noticia 3) -->
+    <!-- NOTICIA 5: CAMPAÑA VALORES SOCIALES -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1681,13 +1741,13 @@
                 <li class="reason-item"><strong>Prevención:</strong> Un joven formado en valores es un ciudadano con pensamiento crítico, menos propenso a conductas de riesgo y más orientado al desarrollo comunitario.</li>
             </ul>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 4 -->
+            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 5 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/vBy523c8/Taller-valores-1.png" alt="Formación Sociales 1" class="floating-img">
                 <img src="https://i.postimg.cc/WbzgyDbK/Taller-valores-2.png" alt="Formación Sociales 2" class="floating-img">
                 <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" alt="Formación Sociales 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 4 -->
+            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 5 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/1yOPQx8dDi0oCBo5_owksfgkQgnR6TgDm?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1696,7 +1756,7 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 08 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 4 -->
+    <!-- FIN NOTICIA 5 -->
 
 </div>
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
