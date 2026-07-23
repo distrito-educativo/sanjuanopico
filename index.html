@@ -11494,7 +11494,62 @@ window.iniciarDictado = function() {
         });
     </script>
 
+<!-- MOTOR GLOBAL: GALERÍA DE DERECHOS HUMANOS -->
+    <script>
+        const videosDerechos = [
+            "tp64vrtXdhI", "qo_wEQZYO4g", "kERwIqSqxMw", "WJaKn5isXdM", "wWHYq1uTyHI", 
+            "YPDPwrW4Vo8", "-cceLjfBrJ8", "Gpo6nT-aAgQ", "-vfNZUn4RYE", "8F8yUUF_Yjw", 
+            "z78n5hOrhRU", "TJjCOExjbM8", "PyjTsznEc2Y", "btfRgImPpgE", "uaGS9Ee2NEc", 
+            "ngjW7Ls6dxw", "f-CiDn_TTc8", "TRM8RCFOubI", "f8RBzwx3d5c", "pAzVwgVwKoI", 
+            "tnaqtzgxOt4", "Wj8H3a-EVrE", "uW2r_rYn7xY", "qyL9uwU3XWY", "r7-Ia8bncZ4", 
+            "wEBxI8m9m-A", "R_2yaBVW5xw", "qTbPJhkE8KM", "1aZn6WRR8cs", "a2FWVJkevCE", 
+            "dbJIfirZFGk"
+        ];
 
+        function cargarGaleriaDerechos() {
+            const contenedorGrid = document.getElementById('rightsGrid');
+            if(!contenedorGrid) return;
+            
+            let htmlGaleria = '';
+            videosDerechos.forEach((idVideo, index) => {
+                let titulo = index === 0 ? "Introducción a los Derechos Humanos" : `Derecho Humano N° ${index}`;
+                let miniaturaUrl = `https://img.youtube.com/vi/${idVideo}/hqdefault.jpg`;
+                
+                htmlGaleria += `
+                    <div class="video-card" onclick="abrirVideoModal('${idVideo}')">
+                        <div class="video-thumbnail-container">
+                            <img src="${miniaturaUrl}" alt="${titulo}" class="video-thumbnail" loading="lazy">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        <h3 class="video-title">${titulo}</h3>
+                    </div>
+                `;
+            });
+            contenedorGrid.innerHTML = htmlGaleria;
+        }
+
+        function abrirVideoModal(idVideo) {
+            const modalVideo = document.getElementById('ytVideoModal');
+            const iframeVideo = document.getElementById('ytIframe');
+            if(modalVideo && iframeVideo) {
+                iframeVideo.src = `https://www.youtube.com/embed/${idVideo}?autoplay=1&rel=0`;
+                modalVideo.classList.add('active');
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        function cerrarVideoModal(evento) {
+            const modalVideo = document.getElementById('ytVideoModal');
+            const iframeVideo = document.getElementById('ytIframe');
+            if(evento.target === modalVideo || evento.target.classList.contains('close-video-modal')) {
+                modalVideo.classList.remove('active');
+                iframeVideo.src = ""; 
+                document.body.style.overflow = 'auto'; 
+            }
+        }
+    </script>
 <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
          ======================================================== -->
