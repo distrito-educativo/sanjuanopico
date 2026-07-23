@@ -10228,25 +10228,11 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
             
             'derechos-conoce': `
                 <style>
-                    /* Estilos Generales */
                     .rights-section { padding: 30px 10px; border-radius: 16px; margin-bottom: 40px; }
                     .rights-header { text-align: center; margin-bottom: 30px; }
-                    .rights-header h2 { color: #0f172a; font-size: 2.2rem; margin-bottom: 10px; }
+                    .rights-header h2 { color: #0f172a; font-size: 2rem; margin-bottom: 10px; }
                     .rights-header p { color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
-                    
-                    /* Historia y Video Intro (Flexbox) */
-                    .history-container { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; margin-top: 30px; text-align: left; background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-                    .history-text { flex: 1; min-width: 300px; color: #334155; line-height: 1.7; font-size: 1.05rem; }
-                    .history-text h3 { color: #0f172a; border-left: 4px solid #eab308; padding-left: 12px; margin-top: 25px; margin-bottom: 10px; font-size: 1.3rem; }
-                    .history-text h3:first-child { margin-top: 0; }
-                    .intro-video-wrapper { width: 100%; max-width: 400px; flex-shrink: 0; position: sticky; top: 20px; }
-                    
-                    /* Noticia DDHH */
-                    .article-ddhh { background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin: 40px 0; text-align: left; }
-                    .article-ddhh-title { font-size: 1.8rem; color: #0f172a; margin-bottom: 15px; line-height: 1.3; }
-                    
-                    /* Grid de Videos */
-                    .rights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 30px;}
+                    .rights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
                     .video-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
                     .video-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
                     .video-thumbnail-container { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; }
@@ -10256,8 +10242,6 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                     .video-card:hover .play-icon { transform: translate(-50%, -50%) scale(1.15); background-color: #eab308; }
                     .play-icon svg { width: 24px; height: 24px; fill: #112942; margin-left: 4px; }
                     .video-title { padding: 15px; font-size: 0.95rem; font-weight: 600; color: #1e293b; text-align: center; margin: 0; }
-                    
-                    /* Modal (Reproductor) */
                     .video-modal { display: none; position: fixed; z-index: 9999999; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
                     .video-modal.active { display: flex; opacity: 1; }
                     .video-modal-content { width: 90%; max-width: 900px; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
@@ -10269,91 +10253,13 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                 <div class="rights-section">
                     <div class="rights-header">
                         <span style="background-color: #0ea5e9; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Educación Cívica</span>
-                        <h2>Conoce tus Derechos</h2>
-                        <p>Explora la historia y los principios fundamentales que nos protegen a todos por igual, para construir una sociedad más justa, empática y pacífica.</p>
+                        <h2>Los 30 Derechos Humanos Universales</h2>
+                        <p>Explora a través de esta galería audiovisual los principios fundamentales que nos protegen a todos por igual, para construir una sociedad más justa, empática y pacífica.</p>
                     </div>
                     
-                    <!-- 1. HISTORIA Y VIDEO INTRO -->
-                    <div class="history-container">
-                        <div class="history-text">
-                            <h3>Orígenes Antiguos y Medievales</h3>
-                            <p><strong>El Cilindro de Ciro (539 aC):</strong> Considerado por algunos como el primer antecedente de los derechos humanos. Tras conquistar Babilonia, Ciro el Grande, rey de Persia, liberó a los esclavos, permitió la libertad de religión y permitió a las personas volver a sus hogares. Estos principios se grabaron en un cilindro de arcilla, y se dice que sus ideas se extendieron a la India y Grecia.</p>
-                            
-                            <h3>La Ilustración y las Declaraciones Modernas</h3>
-                            <p>La verdadera concepción de los derechos humanos como los conocemos hoy, es decir, como derechos subjetivos e inherentes al individuo, emergió durante la Ilustración. Filósofos como John Locke o Jean-Jacques Rousseau, con sus ideas sobre los derechos naturales, sentaron las bases para los movimientos revolucionarios.</p>
-                            <ul style="margin-left: 20px; margin-bottom: 15px;">
-                                <li style="margin-bottom: 8px;"><strong>Declaración de Independencia de los Estados Unidos (1776):</strong> Escrita por Thomas Jefferson, proclamó que todos los hombres son creados iguales y que tienen ciertos derechos inalienables, como la vida, la libertad y la búsqueda de la felicidad.</li>
-                                <li><strong>Declaración de los Derechos del Hombre y del Ciudadano (1789):</strong> Durante la Revolución Francesa, este documento proclamó que "los hombres nacen y permanecen libres e iguales en derechos". Garantizó derechos como la libertad, la propiedad, la seguridad y la resistencia a la opresión. Sin embargo, estas declaraciones se limitaban a los "hombres", dejando fuera a mujeres y otros grupos.</li>
-                            </ul>
-
-                            <h3>La Creación de las Naciones Unidas y la Declaración Universal</h3>
-                            <p>El punto culminante de este proceso histórico fue el final de la Segunda Guerra Mundial. Las atrocidades cometidas por los nazis, como el Holocausto, evidenciaron la urgente necesidad de un marco legal internacional que protegiera la dignidad humana.</p>
-                            <ul style="margin-left: 20px;">
-                                <li style="margin-bottom: 8px;"><strong>Creación de las Naciones Unidas (1945):</strong> Cincuenta naciones se unieron para fundar la ONU con el objetivo de promover la paz y la seguridad internacionales, y proteger y promover los derechos humanos.</li>
-                                <li style="margin-bottom: 8px;"><strong>Declaración Universal de los Derechos Humanos (DUDH) (1948):</strong> Este es el documento más trascendental en la historia de los derechos humanos. Fue redactado por un comité presidido por Eleanor Roosevelt y adoptado por la Asamblea General de la ONU. La DUDH es el primer documento que proclama los 30 derechos básicos (civiles, políticos, económicos, sociales y culturales) a los que todo ser humano tiene derecho. Su redacción fue un desafío, ya que buscaba un terreno común entre diversas culturas y filosofías.</li>
-                                <li><strong>Pactos Internacionales (1966):</strong> Para hacer cumplir los principios de la DUDH, la ONU creó dos tratados vinculantes: el Pacto Internacional de Derechos Civiles y Políticos, y el Pacto Internacional de Derechos Económicos, Sociales y Culturales. Estos, junto con la DUDH, forman la Carta Internacional de Derechos Humanos.</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- VIDEO INTRODUCTORIO FIJADO A LA DERECHA -->
-                        <div class="intro-video-wrapper">
-                            <div class="video-card" onclick="abrirVideoModal('tp64vrtXdhI')" style="border: 2px solid #eab308;">
-                                <div class="video-thumbnail-container">
-                                    <img src="https://img.youtube.com/vi/tp64vrtXdhI/hqdefault.jpg" alt="Historia de los Derechos Humanos" class="video-thumbnail">
-                                    <div class="play-icon">
-                                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    </div>
-                                </div>
-                                <h3 class="video-title" style="background-color: #0f172a; color: white;">¿Qué son los Derechos Humanos?</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. NOTICIA DEL TALLER CON CARRUSEL -->
-                    <div class="article-ddhh">
-                        <span style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
-                        <h2 class="article-ddhh-title" style="margin-top: 15px;">EDUCACIÓN EN DERECHOS HUMANOS, VALORES Y PREVENCIÓN DEL CONSUMO DE DROGAS</h2>
-                        
-                        <div style="float: right; width: 45%; max-width: 450px; margin: 0 0 20px 30px;">
-                            <div class="carousel" style="height: 300px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
-                                <div class="carousel-slides">
-                                    <img src="https://i.postimg.cc/prqS8ZYk/Taller-img-3.png" class="ddhh-slide" alt="Taller 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; z-index: 2; transition: opacity 0.5s ease;">
-                                    <img src="https://i.postimg.cc/c4z9S6DJ/Taller-img-6.png" class="ddhh-slide" alt="Taller 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
-                                    <img src="https://i.postimg.cc/jqgvHLY3/Taller-img-9.png" class="ddhh-slide" alt="Taller 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
-                                    <img src="https://i.postimg.cc/MKZmPLQP/Taller-img-1.png" class="ddhh-slide" alt="Taller 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
-                                    <img src="https://i.postimg.cc/dtQjHfyx/Taller-img-2.png" class="ddhh-slide" alt="Taller 5" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
-                                    <img src="https://i.postimg.cc/0250W4wt/Taller-img-4.png" class="ddhh-slide" alt="Taller 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
-                                </div>
-                                
-                                <img src="trigger_ddhh.jpg" style="display:none;" onerror="if(window.timerDDHH) clearInterval(window.timerDDHH); window.timerDDHH = setInterval(function(){ var btn = document.getElementById('btn-next-ddhh'); if(btn) btn.click(); }, 2000); this.remove();">
-
-                                <button class="carousel-btn prev-btn" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; border-radius: 50%; z-index: 10;" onclick="var s=this.parentElement.querySelectorAll('.ddhh-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
-                                <button id="btn-next-ddhh" class="carousel-btn next-btn" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; border-radius: 50%; z-index: 10;" onclick="var s=this.parentElement.querySelectorAll('.ddhh-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
-                            </div>
-                        </div>
-
-                        <p>El departamento de La Libertad fue el escenario de una jornada de formación crucial para el equipo de Gestores Pedagógicos y Gestores de Centros Educativos. Con el objetivo de fortalecer las herramientas de los educadores, se llevó a cabo un taller intensivo sobre temas fundamentales para la juventud salvadoreña: Derechos Humanos, Programas de Valores y Prevención del Consumo de Drogas.</p>
-                        
-                        <h3 style="color: #0284c7; margin-top: 20px; font-size: 1.15rem;">Fortaleciendo la Educación en La Libertad</h3>
-                        <p>La capacitación fue posible gracias a la valiosa colaboración de los ponentes <strong>Nelly Rodríguez, Mario Chirinos y Trish Duggan</strong>, aliados estratégicos comprometidos con el futuro de El Salvador y el impacto positivo de estas iniciativas. Su experiencia permitió ofrecer una visión integral sobre cómo abordar estos temas con los estudiantes, promoviendo una cultura de respeto, responsabilidad y paz.</p>
-                        
-                        <p>El evento contó con la distinguida presencia de la Gobernadora Departamental, <strong>Yanet Bran</strong>, y el Director Departamental de Educación de La Libertad, <strong>Lic. Juan Carlos Arteaga Mena</strong>, lo que subraya la importancia de este esfuerzo a nivel gubernamental. Este proyecto, respaldado directamente por el Vicepresidente de la República, <strong>Félix Ulloa</strong>, busca equipar a los educadores con el conocimiento necesario para que puedan transmitir a docentes y directores la importancia de vivir los valores, asumir responsabilidades y, en última instancia, construir una sociedad más segura y pacífica.</p>
-                        
-                        <div style="background-color: #f1f5f9; padding: 15px; border-left: 4px solid #0ea5e9; margin-top: 25px; font-style: italic;">
-                            Especiales agradecimientos al Doctor y Empresario Roberto Fogelbach, por su valioso apoyo y compromiso con El Salvador.
-                        </div>
-                        
-                        <p style="margin-top: 20px; color: #64748b; text-align: right; font-weight: bold;">📅 26 de agosto de 2025</p>
-                        <div style="clear: both;"></div>
-                    </div>
-
-                    <!-- 3. GALERÍA DE LOS 30 DERECHOS -->
-                    <div style="text-align: center; margin-top: 50px;">
-                        <h2 style="color: #0f172a; font-size: 2.2rem;">Los 30 Derechos Universales</h2>
-                        <p style="color: #64748b; margin-bottom: 30px;">Selecciona un video para reproducirlo en el visor cinematográfico.</p>
-                    </div>
-                    
+                    <!-- Gatillo invisible que dibuja las tarjetas apenas el usuario abre esta sección -->
                     <img src="trigger_galeria.jpg" style="display:none;" onerror="if(typeof cargarGaleriaDerechos === 'function') cargarGaleriaDerechos(); this.remove();">
+                    
                     <div id="rightsGrid" class="rights-grid"></div>
                 </div>
 
@@ -11588,33 +11494,7 @@ window.iniciarDictado = function() {
         });
     </script>
 
-<!-- MOTOR GLOBAL: GALERÍA DE DERECHOS HUMANOS -->
-function cargarGaleriaDerechos() {
-            const contenedorGrid = document.getElementById('rightsGrid');
-            if(!contenedorGrid) return;
-            
-            let htmlGaleria = '';
-            
-            // Utilizamos .slice(1) para omitir el ID del primer video (Introducción)
-            videosDerechos.slice(1).forEach((idVideo, index) => {
-                let numeroDerecho = index + 1;
-                let titulo = `Derecho Humano N° ${numeroDerecho}`;
-                let miniaturaUrl = `https://img.youtube.com/vi/${idVideo}/hqdefault.jpg`;
-                
-                htmlGaleria += `
-                    <div class="video-card" onclick="abrirVideoModal('${idVideo}')">
-                        <div class="video-thumbnail-container">
-                            <img src="${miniaturaUrl}" alt="${titulo}" class="video-thumbnail" loading="lazy">
-                            <div class="play-icon">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                        </div>
-                        <h3 class="video-title">${titulo}</h3>
-                    </div>
-                `;
-            });
-            contenedorGrid.innerHTML = htmlGaleria;
-        }
+
 <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
          ======================================================== -->
