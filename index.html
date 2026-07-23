@@ -11448,5 +11448,59 @@ window.iniciarDictado = function() {
             }
         });
     </script>
+
+
+<!-- ========================================================
+         ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
+         ======================================================== -->
+    <script>
+        // 1. Bloquear el menú contextual (clic derecho)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 2. Bloquear combinaciones de teclas para herramientas de desarrollador y copiado
+        document.onkeydown = function(e) {
+            // Bloquear tecla F12
+            if (e.keyCode == 123) {
+                return false;
+            }
+            // Bloquear Ctrl+Shift+I (Inspeccionar)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            // Bloquear Ctrl+Shift+C (Inspeccionar elemento)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            // Bloquear Ctrl+Shift+J (Consola)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            // Bloquear Ctrl+U (Ver código fuente)
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+            // Bloquear Ctrl+S (Guardar página web)
+            if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+                return false;
+            }
+        };
+
+        // 3. Bloquear selección de texto e imágenes mediante CSS dinámico
+        var style = document.createElement('style');
+        style.innerHTML = `
+            body {
+                -webkit-user-select: none; /* Safari */
+                -moz-user-select: none;    /* Firefox */
+                -ms-user-select: none;     /* IE10+/Edge */
+                user-select: none;         /* Standard */
+            }
+            img {
+                pointer-events: none;      /* Evita arrastrar o seleccionar imágenes */
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
