@@ -8807,10 +8807,10 @@
                 <!-- ========================================== -->
                 <div class="dir-search-box">
                     <span class="dir-search-icon">🔍</span>
-                    <input type="text" class="dir-search-input" placeholder="Escribe para buscar (Ej. Bomberos, Cruz Roja, 911)..." onkeyup="if(window.filtrarDirectorio) window.filtrarDirectorio(this.value)">
+                    <input type="text" class="dir-search-input" placeholder="Escribe para buscar (Ej. Bomberos, Cruz Roja, CONAPINA)..." onkeyup="if(window.filtrarDirectorio) window.filtrarDirectorio(this.value)">
                 </div>
 
-                <!-- Motor JS Inyectado (Se autodestruye visualmente tras cargar) -->
+                <!-- Motor JS Inyectado -->
                 <img src="trigger_search.jpg" style="display:none;" onerror="
                     window.filtrarDirectorio = function(texto) {
                         let query = texto.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
@@ -8851,7 +8851,7 @@
                     <h3 class="dir-category-title" style="color: #991b1b; border-bottom-color: #fecaca;">
                         🚨 Directorio de Emergencias
                     </h3>
-                    <p class="dir-category-desc" style="color: #7f1d1d;">Contactos de primera respuesta. Haz clic en cualquier botón desde un celular para iniciar la llamada inmediatamente.</p>
+                    <p class="dir-category-desc" style="color: #7f1d1d;">Contactos de primera respuesta. Haz clic en cualquier botón desde un celular para iniciar la llamada inmediatamente al número principal.</p>
                     
                     <div class="dir-grid">
                         <a href="tel:911" class="dir-link" style="border-left-color: #dc2626;">
@@ -8864,23 +8864,23 @@
                         </a>
                         <a href="tel:132" class="dir-link" style="border-left-color: #dc2626;">
                             <div class="dir-icon" style="background: #fee2e2; color: #dc2626;">🚑</div>
-                            <div class="dir-text">Emergencias Médicas<br><span style="color: #dc2626; font-size: 1.1rem; font-weight: 800;">132</span></div>
+                            <div class="dir-text">Sistema de Emergencias Médicas<br><span style="color: #dc2626; font-size: 1.1rem; font-weight: 800;">132</span></div>
                         </a>
-                        <a href="tel:22810888" class="dir-link" style="border-left-color: #f59e0b;">
+                        <a href="tel:22012424" class="dir-link" style="border-left-color: #f59e0b;">
                             <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚨</div>
-                            <div class="dir-text">Protección Civil<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2281-0888</span></div>
+                            <div class="dir-text">Protección Civil<br><span style="color: #d97706; font-size: 0.95rem; font-weight: 700;">2201-2424 / 2281-0888</span></div>
                         </a>
-                        <a href="tel:22225155" class="dir-link" style="border-left-color: #dc2626;">
+                        <a href="tel:22394930" class="dir-link" style="border-left-color: #dc2626;">
                             <div class="dir-icon" style="background: #fee2e2; color: #dc2626;">✚</div>
-                            <div class="dir-text">Cruz Roja Salvadoreña<br><span style="color: #dc2626; font-size: 1rem; font-weight: 700;">2222-5155</span></div>
+                            <div class="dir-text">Cruz Roja Salvadoreña<br><span style="color: #dc2626; font-size: 0.95rem; font-weight: 700;">2239-4930 / 2222-5155</span></div>
                         </a>
                         <a href="tel:22845792" class="dir-link" style="border-left-color: #16a34a;">
                             <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">⛑️</div>
-                            <div class="dir-text">Cruz Verde Salvadoreña<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2284-5792</span></div>
+                            <div class="dir-text">Cruz Verde Salvadoreña<br><span style="color: #16a34a; font-size: 0.95rem; font-weight: 700;">2284-5792 / 2242-5735</span></div>
                         </a>
                         <a href="tel:21330000" class="dir-link" style="border-left-color: #f59e0b;">
                             <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚁</div>
-                            <div class="dir-text">Comandos de Salvamento<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2133-0000</span></div>
+                            <div class="dir-text">Comandos de Salvamento<br><span style="color: #d97706; font-size: 0.95rem; font-weight: 700;">2133-0000 / 2221-1310</span></div>
                         </a>
                     </div>
                 </div>
@@ -8900,7 +8900,6 @@
                             <div class="dir-text">DDE La Libertad (Despacho)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2443-1899</span></div>
                         </a>
                         
-                        <!-- Plantillas para futuras unidades de la DDE -->
                         <a href="#" class="dir-link" style="border-left-color: #94a3b8; opacity: 0.7;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">📂</div>
                             <div class="dir-text">Unidad de Registro Escalafonario<br><span style="color: #64748b; font-size: 0.9rem; font-style: italic;">Próximamente</span></div>
@@ -8923,10 +8922,18 @@
                     <h3 class="dir-category-title" style="color: #334155;">
                         🏛️ Directorio de Instituciones
                     </h3>
-                    <p class="dir-category-desc">Otras carteras de estado, ministerios, municipalidad y proveedores de servicios básicos.</p>
+                    <p class="dir-category-desc">Otras carteras de estado, salvaguarda de derechos, municipalidad y proveedores de servicios.</p>
                     
                     <div class="dir-grid">
-                        <!-- Salud, Derechos y Gobierno -->
+                        <!-- Protección, Salud y Derechos (Añadidos CONAPINA e ISDEMU) -->
+                        <a href="tel:119" class="dir-link" style="border-left-color: #8b5cf6;">
+                            <div class="dir-icon" style="background: #ede9fe; color: #8b5cf6;">👶</div>
+                            <div class="dir-text">CONAPINA (Niñez y Adolescencia)<br><span style="color: #8b5cf6; font-size: 1.1rem; font-weight: 800;">119</span></div>
+                        </a>
+                        <a href="tel:126" class="dir-link" style="border-left-color: #ec4899;">
+                            <div class="dir-icon" style="background: #fce7f3; color: #ec4899;">👩</div>
+                            <div class="dir-text">ISDEMU (Atención a la Mujer)<br><span style="color: #ec4899; font-size: 1rem; font-weight: 700;">126 <span style="font-size: 0.85rem; font-weight: normal; color:#64748b;">| WA: 7854-9521</span></span></div>
+                        </a>
                         <a href="tel:22222008" class="dir-link" style="border-left-color: #0ea5e9;">
                             <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏫</div>
                             <div class="dir-text">MINEDUCYT (Central)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2222-2008</span></div>
@@ -8935,24 +8942,32 @@
                             <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">🏥</div>
                             <div class="dir-text">Ministerio de Salud<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">2413-1268</span></div>
                         </a>
-                        <a href="tel:24134516" class="dir-link" style="border-left-color: #475569;">
+                        <a href="tel:25204300" class="dir-link" style="border-left-color: #475569;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🤝</div>
-                            <div class="dir-text">Procuraduría (PDDH)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2413-4516</span></div>
+                            <div class="dir-text">Procuraduría (PDDH)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2520-4300</span></div>
                         </a>
-                        <a href="tel:24874800" class="dir-link" style="border-left-color: #475569;">
-                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🏛️</div>
-                            <div class="dir-text">Alcaldía Municipal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2487-4800</span></div>
-                        </a>
-                        <a href="tel:78561276" class="dir-link" style="border-left-color: #475569;">
+                        <a href="tel:25937000" class="dir-link" style="border-left-color: #475569;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #475569;">⚖️</div>
-                            <div class="dir-text">Fiscalía General (FGR)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">7856-1276</span></div>
+                            <div class="dir-text">Fiscalía General (FGR)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2593-7000</span></div>
                         </a>
                         <a href="tel:25298600" class="dir-link" style="border-left-color: #475569;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🔬</div>
                             <div class="dir-text">Medicina Legal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2529-8600</span></div>
                         </a>
+                        <a href="tel:24874800" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🏛️</div>
+                            <div class="dir-text">Alcaldía Municipal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2487-4800</span></div>
+                        </a>
                         
                         <!-- Infraestructura y Medio Ambiente -->
+                        <a href="tel:22644999" class="dir-link" style="border-left-color: #f59e0b;">
+                            <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚧</div>
+                            <div class="dir-text">FOVIAL (Emergencia en Vías)<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2264-4999</span></div>
+                        </a>
+                        <a href="tel:25283000" class="dir-link" style="border-left-color: #64748b;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🏗️</div>
+                            <div class="dir-text">Obras Públicas (MOP)<br><span style="color: #64748b; font-size: 1rem; font-weight: 700;">2528-3000</span></div>
+                        </a>
                         <a href="tel:21326276" class="dir-link" style="border-left-color: #16a34a;">
                             <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌳</div>
                             <div class="dir-text">Medio Ambiente (MARN)<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2132-6276</span></div>
@@ -8965,27 +8980,19 @@
                             <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌾</div>
                             <div class="dir-text">Ministerio Agricultura<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2210-1700</span></div>
                         </a>
-                        <a href="tel:25283000" class="dir-link" style="border-left-color: #64748b;">
-                            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🏗️</div>
-                            <div class="dir-text">Obras Públicas (MOP)<br><span style="color: #64748b; font-size: 1rem; font-weight: 700;">2528-3000</span></div>
-                        </a>
-                        <a href="tel:22058300" class="dir-link" style="border-left-color: #f59e0b;">
-                            <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚧</div>
-                            <div class="dir-text">FOVIAL<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2205-8300</span></div>
-                        </a>
                         
                         <!-- Servicios Básicos -->
-                        <a href="tel:915" class="dir-link" style="border-left-color: #0284c7;">
-                            <div class="dir-icon" style="background: #e0f2fe; color: #0284c7;">💧</div>
-                            <div class="dir-text">ANDA (Agua)<br><span style="color: #0284c7; font-size: 1rem; font-weight: 700;">915</span></div>
+                        <a href="tel:25069000" class="dir-link" style="border-left-color: #eab308;">
+                            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">⚡</div>
+                            <div class="dir-text">AES El Salvador<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2506-9000</span></div>
                         </a>
                         <a href="tel:22335600" class="dir-link" style="border-left-color: #eab308;">
                             <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">💡</div>
                             <div class="dir-text">DELSUR<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2233-5600</span></div>
                         </a>
-                        <a href="tel:25069000" class="dir-link" style="border-left-color: #eab308;">
-                            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">⚡</div>
-                            <div class="dir-text">AEES El Salvador<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2506-9000</span></div>
+                        <a href="tel:915" class="dir-link" style="border-left-color: #0284c7;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0284c7;">💧</div>
+                            <div class="dir-text">ANDA (Agua)<br><span style="color: #0284c7; font-size: 1rem; font-weight: 700;">915</span></div>
                         </a>
                         <a href="tel:22574444" class="dir-link" style="border-left-color: #475569;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #475569;">📡</div>
@@ -9009,7 +9016,6 @@
                             <div class="dir-text">ISSS (Seguro Social)<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">127</span></div>
                         </a>
                         
-                        <!-- Plantillas sugeridas de soporte -->
                         <a href="#" class="dir-link" style="border-left-color: #94a3b8; opacity: 0.7;">
                             <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">⚕️</div>
                             <div class="dir-text">ISBM (Bienestar Magisterial)<br><span style="color: #64748b; font-size: 0.9rem; font-style: italic;">Pendiente de agregar</span></div>
