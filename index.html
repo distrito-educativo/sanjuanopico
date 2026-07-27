@@ -12173,13 +12173,14 @@ window.enviarAlertaTemprana = function(event, formElement) {
     // 6. Enviar al Servidor (AQUÍ VA TU URL DE APPS SCRIPT)
     var URL_SCRIPT = window.URL_WEB_APP || "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
 
+    // 🛡️ MODO NO-CORS ACTIVADO PARA EVITAR EL BLOQUEO DEL NAVEGADOR
     fetch(URL_SCRIPT, {
         method: 'POST',
-        body: formData
+        body: formData,
+        mode: 'no-cors' 
     })
-    .then(response => response.text())
-    .then(respuestaServidor => {
-        // 7. Borrar el formulario y mostrar un mensaje de éxito gigante
+    .then(() => {
+        // 7. Borrar el formulario y mostrar un mensaje de éxito gigante de inmediato
         formElement.innerHTML = `
             <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; background: white; border-radius: 12px;">
                 <div style="font-size: 5rem; margin-bottom: 15px;">✅🚨</div>
@@ -12194,7 +12195,7 @@ window.enviarAlertaTemprana = function(event, formElement) {
         `;
     })
     .catch(error => {
-        alert("❌ Hubo un problema de conexión con el servidor. Reintente por favor.");
+        alert("❌ Sin conexión a internet. Verifique su red y reintente.");
         btnSubmit.innerHTML = textoOriginal;
         btnSubmit.disabled = false;
     });
