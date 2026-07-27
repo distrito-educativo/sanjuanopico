@@ -9961,6 +9961,108 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                             🖨️ Imprimir / Guardar Oficial en PDF
                         </button>
                     </div>
+<!-- ========================================== -->
+                    <!-- 5. FORMULARIO DE INCIDENCIAS (ALERTA TEMPRANA) -->
+                    <!-- ========================================== -->
+                    <div id="contenedor-incidencias" style="display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto;">
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button type="button" class="btn-volver" style="margin-bottom: 0;" onclick="document.getElementById('contenedor-incidencias').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);">
+                                &larr; Volver al Panel Principal
+                            </button>
+                        </div>
+
+                        <div class="card" style="background: linear-gradient(135deg, #ea580c 0%, #9a3412 100%); color: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(234, 88, 12, 0.3);">
+                            <h2 style="color: #fffbeb; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">🚨 Alerta Temprana de Incidencias</h2>
+                            <p style="margin: 0; color: #ffedd5; font-size: 0.95rem; line-height: 1.5;">Complete este reporte de carácter <b>URGENTE</b>. La información será notificada inmediatamente a la Dirección Departamental y a Jefaturas Superiores para la pronta intervención del distrito.</p>
+                        </div>
+
+                        <form id="form-alerta-temprana" onsubmit="window.enviarAlertaTemprana(event, this)">
+                            
+                            <!-- Sección 1: Datos Generales -->
+                            <div class="form-section" style="border-top-color: #ea580c;">
+                                <h3 style="color: #ea580c;">1. Ubicación y Tiempo del Evento</h3>
+                                <div class="form-group">
+                                    <label>Código del Centro Escolar</label>
+                                    <input type="number" id="alerta-codigo" placeholder="Ej. 11031 (Digite su código para validación rápida)" required>
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                    <div class="form-group">
+                                        <label>Fecha de la incidencia</label>
+                                        <input type="date" id="alerta-fecha" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Hora aproximada</label>
+                                        <input type="time" id="alerta-hora" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sección 2: Clasificación del Evento -->
+                            <div class="form-section" style="border-top-color: #ea580c;">
+                                <h3 style="color: #ea580c;">2. Clasificación y Nivel de Gravedad</h3>
+                                <div class="form-group">
+                                    <label>Categoría Principal de la Incidencia</label>
+                                    <select id="alerta-categoria" required style="border-color: #fdba74;">
+                                        <option value="">Seleccione el tipo de evento ocurrido...</option>
+                                        <option value="Seguridad y Violencia (Riñas, amenazas, robos, hurtos)">Seguridad y Violencia (Riñas, amenazas, robos, hurtos)</option>
+                                        <option value="Emergencia Médica o Salud (Accidentes de estudiantes/docentes, brotes epidémicos)">Emergencia Médica o Salud (Accidentes, brotes epidémicos)</option>
+                                        <option value="Vulneración de Derechos (Casos CONAPINA / ISDEMU)">Vulneración de Derechos (Casos CONAPINA / ISDEMU)</option>
+                                        <option value="Infraestructura Crítica (Colapsos, incendios, riesgos inminentes)">Infraestructura Crítica (Colapsos, incendios, riesgos inminentes)</option>
+                                        <option value="Fallas de Servicios Básicos (Suspensión prolongada de agua/energía)">Fallas de Servicios Básicos (Suspensión de agua/energía que impide clases)</option>
+                                        <option value="Crisis de Relaciones Públicas (Denuncias en redes sociales / medios)">Crisis Reputacional (Denuncias en redes sociales o medios)</option>
+                                        <option value="Otro">Otro (Especificar en la descripción)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group" style="background: #fff7ed; padding: 15px; border-radius: 8px; border: 1px dashed #fdba74;">
+                                    <label style="color: #9a3412;">Nivel de Urgencia Institucional</label>
+                                    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+                                        <label style="cursor: pointer; color: #dc2626; font-weight: bold; display: flex; align-items: center; gap: 5px;">
+                                            <input type="radio" name="alerta-gravedad" value="CRÍTICA" required> 🔴 CRÍTICA (Requiere intervención inmediata o suspensión)
+                                        </label>
+                                        <label style="cursor: pointer; color: #d97706; font-weight: bold; display: flex; align-items: center; gap: 5px;">
+                                            <input type="radio" name="alerta-gravedad" value="ALTA"> 🟠 ALTA (Situación controlada pero requiere seguimiento)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sección 3: Descripción Objetiva -->
+                            <div class="form-section" style="border-top-color: #ea580c;">
+                                <h3 style="color: #ea580c;">3. Relato de los Hechos e Intervención</h3>
+                                <div class="form-group">
+                                    <label>Descripción detallada y objetiva (¿Qué, cómo y dónde ocurrió?)</label>
+                                    <textarea id="alerta-descripcion" rows="4" placeholder="Describa la situación de forma clara, sin suposiciones. Mencione grados o áreas afectadas..." required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Acciones inmediatas tomadas por la Dirección Escolar</label>
+                                    <textarea id="alerta-acciones" rows="3" placeholder="Ej. Se evacuó el pabellón, se activaron los protocolos de primeros auxilios, se citó a los padres..." required></textarea>
+                                </div>
+                                
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label>¿Se solicitó apoyo a instituciones de emergencia externas?</label>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 10px; background: #f8fafc; padding: 15px; border-radius: 8px;">
+                                        <label><input type="checkbox" class="alerta-inst" value="Policía Nacional Civil (PNC)"> 🚓 PNC</label>
+                                        <label><input type="checkbox" class="alerta-inst" value="Sistema de Emergencias (132/MINSAL)"> 🚑 SEM / MINSAL</label>
+                                        <label><input type="checkbox" class="alerta-inst" value="Cuerpo de Bomberos"> 🚒 Bomberos</label>
+                                        <label><input type="checkbox" class="alerta-inst" value="CONAPINA / ISDEMU"> ⚖️ CONAPINA / ISDEMU</label>
+                                        <label><input type="checkbox" class="alerta-inst" value="Ninguna todavía"> ❌ Ninguna todavía</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botón de Envío -->
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                <button type="button" onclick="this.form.reset()" style="flex: 1; min-width: 150px; background: #e2e8f0; color: #475569; padding: 15px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: background 0.3s;" onmouseover="this.style.background='#cbd5e1'" onmouseout="this.style.background='#e2e8f0'">
+                                    &nbsp; Limpiar
+                                </button>
+                                <button type="submit" class="btn-submit" style="flex: 3; min-width: 250px; background: #ea580c; box-shadow: 0 4px 6px rgba(234, 88, 12, 0.2);" onmouseover="this.style.background='#c2410c'" onmouseout="this.style.background='#ea580c'">
+                                    🚨 DESPACHAR ALERTA Y GENERAR PDF URGENTE
+                                </button>
+                            </div>
+                        </form>
+                    </div>
 
                 </div> <!-- CIERRE DEL PRIVATE DASHBOARD -->
             `,
