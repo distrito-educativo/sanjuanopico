@@ -12133,7 +12133,73 @@ window.iniciarDictado = function() {
         }
     </script>
 
+<script>
+window.enviarAlertaTemprana = function(event, formElement) {
+    // 1. Detiene la recarga de la página
+    event.preventDefault(); 
 
+    // 2. Bloquear el botón y cambiar el texto
+    var btnSubmit = formElement.querySelector('.btn-submit');
+    var textoOriginal = btnSubmit.innerHTML;
+    btnSubmit.innerHTML = '⏳ Procesando Alerta y Generando PDF...';
+    btnSubmit.disabled = true;
+
+    // 3. Recolectar las instituciones marcadas en los checkboxes
+    var checks = formElement.querySelectorAll('.alerta-inst:checked');
+    var institucionesSel = [];
+    checks.forEach(function(chk) { institucionesSel.push(chk.value); });
+    var institucionesStr = institucionesSel.length > 0 ? institucionesSel.join(", ") : "Ninguna";
+
+    // 4. Capturar el correo del Director
+    var correoDir = document.getElementById('director-email') ? document.getElementById('director-email').innerText : 'Sin Correo';
+
+    // 5. Empaquetar los datos
+    var formData = new URLSearchParams();
+    formData.append('tipoFormulario', 'alerta_temprana');
+    formData.append('codigo', document.getElementById('alerta-codigo').value);
+    formData.append('fecha', document.getElementById('alerta-fecha').value);
+    formData.append('hora', document.getElementById('alerta-hora').value);
+    formData.append('categoria', document.getElementById('alerta-categoria').value);
+    
+    var gravedadElement = formElement.querySelector('input[name="alerta-gravedad"]:checked');
+    var gravedadStr = gravedadElement ? gravedadElement.value : 'No especificada';
+    formData.append('gravedad', gravedadStr);
+    
+    formData.append('descripcion', document.getElementById('alerta-descripcion').value);
+    formData.append('acciones', document.getElementById('alerta-acciones').value);
+    formData.append('instituciones', institucionesStr);
+    formData.append('correo', correoDir);
+
+    // 6. Enviar al Servidor (AQUÍ VA TU URL DE APPS SCRIPT)
+    var URL_SCRIPT = window.URL_WEB_APP || "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
+
+    fetch(URL_SCRIPT, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(respuestaServidor => {
+        // 7. Borrar el formulario y mostrar un mensaje de éxito gigante
+        formElement.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; background: white; border-radius: 12px;">
+                <div style="font-size: 5rem; margin-bottom: 15px;">✅🚨</div>
+                <h2 style="color: #16a34a; font-size: 1.8rem; margin-top: 0;">¡Alerta Despachada con Éxito!</h2>
+                <p style="color: #475569; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                    La jefatura departamental ha sido notificada al instante. Se ha enviado una copia oficial de la alerta en formato <b>PDF</b> a su correo institucional como respaldo de su gestión.
+                </p>
+                <button type="button" onclick="document.getElementById('contenedor-incidencias').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);" style="margin-top: 30px; background: #0A2540; color: white; padding: 15px 35px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    🔙 Volver al Panel Principal
+                </button>
+            </div>
+        `;
+    })
+    .catch(error => {
+        alert("❌ Hubo un problema de conexión con el servidor. Reintente por favor.");
+        btnSubmit.innerHTML = textoOriginal;
+        btnSubmit.disabled = false;
+    });
+};
+</script>
 <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
          ======================================================== -->
