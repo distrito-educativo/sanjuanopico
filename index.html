@@ -10014,17 +10014,28 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                                     </select>
                                 </div>
                                 
-                                <div class="form-group" style="background: #fff7ed; padding: 15px; border-radius: 8px; border: 1px dashed #fdba74;">
-    <label style="color: #9a3412;">Nivel de urgencia institucional</label>
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
-        <label style="cursor: pointer; color: #dc2626; font-weight: bold; display: flex; align-items: center; gap: 5px;">
-            <input type="radio" name="alerta-gravedad" value="CRÍTICA" required> 🔴 CRÍTICA (Requiere intervención inmediata o suspensión)
+                                <div class="form-group" style="background: #fff7ed; padding: 20px; border-radius: 8px; border: 1px dashed #fdba74;">
+    <label style="color: #9a3412; font-weight: bold; display: block; margin-bottom: 15px; font-size: 1.05rem;">
+        Nivel de urgencia institucional
+    </label>
+    
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <!-- Opción Crítica -->
+        <label style="cursor: pointer; color: #dc2626; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
+            <input type="radio" name="alerta-gravedad" value="CRÍTICA" required style="margin-top: 3px; transform: scale(1.2);"> 
+            <span><strong>🔴 CRÍTICA</strong> <br><span style="font-size: 0.9rem; color: #ef4444;">(Requiere intervención inmediata o suspensión)</span></span>
         </label>
-        <label style="cursor: pointer; color: #d97706; font-weight: bold; display: flex; align-items: center; gap: 5px;">
-            <input type="radio" name="alerta-gravedad" value="ALTA"> 🟠 ALTA (Situación controlada pero requiere seguimiento)
+        
+        <!-- Opción Alta -->
+        <label style="cursor: pointer; color: #d97706; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
+            <input type="radio" name="alerta-gravedad" value="ALTA" style="margin-top: 3px; transform: scale(1.2);"> 
+            <span><strong>🟠 ALTA</strong> <br><span style="font-size: 0.9rem; color: #f59e0b;">(Situación controlada pero requiere seguimiento)</span></span>
         </label>
-        <label style="cursor: pointer; color: #ca8a04; font-weight: bold; display: flex; align-items: center; gap: 5px;">
-            <input type="radio" name="alerta-gravedad" value="MODERADA"> 🟡 MODERADA (Situación controlada con acompañamiento interno)
+        
+        <!-- Opción Moderada -->
+        <label style="cursor: pointer; color: #ca8a04; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
+            <input type="radio" name="alerta-gravedad" value="MODERADA" style="margin-top: 3px; transform: scale(1.2);"> 
+            <span><strong>🟡 MODERADA</strong> <br><span style="font-size: 0.9rem; color: #eab308;">(Situación controlada con acompañamiento interno)</span></span>
         </label>
     </div>
 </div>
