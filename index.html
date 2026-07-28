@@ -8913,7 +8913,7 @@
                     <a href="#dir-emergencias">🚨 Emergencias</a>
                     <a href="#dir-institucional">🏢 DDE La Libertad</a>
                     <a href="#dir-instituciones">🏛️ Otras Instituciones</a>
-                    <a href="#dir-soporte">💻 Soporte Técnico</a>
+                    <a href="javascript:void(0);" onclick="document.getElementById('dir-soporte').scrollIntoView({behavior: 'smooth'});">Soporte Técnico</a>
                 </div>
 
                <!-- ========================================== -->
@@ -12322,17 +12322,24 @@ window.enviarAlertaTemprana = function(event, formElement) {
 <!-- ========================================================
          LIMPIADOR AUTOMATICO DE URL
          ======================================================== -->
-</script>
 <script>
-    // Limpiador automático de URLs estéticas para el Distrito
+    // Limpiador Supremo de URLs para el Distrito (Elimina '?' y '#')
     window.addEventListener('DOMContentLoaded', (event) => {
-        if (window.location.search) {
-            // Reconstruye la URL limpia (manteniendo el #dir-soporte si existe)
-            const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+        // Si la URL tiene parámetros (?) o anclas (#)
+        if (window.location.search || window.location.hash) {
             
-            // Reemplaza la URL sucia por la limpia en el historial del navegador sin recargar
-            window.history.replaceState({path: urlLimpia}, '', urlLimpia);
+            // Construye la URL absolutamente limpia (solo dominio y ruta)
+            const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            
+            // Limpia la barra de direcciones instantáneamente sin recargar la página
+            window.history.replaceState(null, '', urlLimpia);
         }
+    });
+
+    // 🛡️ Extra: Detectar cambios de ancla en tiempo real
+    window.addEventListener('hashchange', () => {
+        const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState(null, '', urlLimpia);
     });
 </script>
 <!-- ========================================================
