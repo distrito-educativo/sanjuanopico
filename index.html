@@ -12322,27 +12322,48 @@ window.enviarAlertaTemprana = function(event, formElement) {
 <!-- ========================================================
          LIMPIADOR AUTOMATICO DE URL
          ======================================================== -->
+<!-- ========================================== -->
+<!-- BLINDAJE ABSOLUTO DE URL PARA EL DISTRITO  -->
+<!-- ========================================== -->
 <script>
-    // Limpiador Supremo de URLs para el Distrito (Elimina '?' y '#')
-    window.addEventListener('DOMContentLoaded', (event) => {
-        // Si la URL tiene parámetros (?) o anclas (#)
+    // 1. FUNCIÓN PARA FIJAR LA URL EXACTA
+    function mantenerUrlInmaculada() {
+        // Obtenemos solo el dominio y la ruta base (ignorando ? y #)
+        const urlBase = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        
+        // Si hay basura en la URL, la reemplazamos silenciosamente
         if (window.location.search || window.location.hash) {
-            
-            // Construye la URL absolutamente limpia (solo dominio y ruta)
-            const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            
-            // Limpia la barra de direcciones instantáneamente sin recargar la página
-            window.history.replaceState(null, '', urlLimpia);
+            window.history.replaceState(null, '', urlBase);
         }
-    });
+    }
 
-    // 🛡️ Extra: Detectar cambios de ancla en tiempo real
-    window.addEventListener('hashchange', () => {
-        const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.history.replaceState(null, '', urlLimpia);
+    // Limpiar al cargar la página o si el navegador intenta forzar un cambio
+    window.addEventListener('DOMContentLoaded', mantenerUrlInmaculada);
+    window.addEventListener('hashchange', mantenerUrlInmaculada);
+
+    // 2. INTERCEPTOR DE CLICS DEL MENÚ (LA SOLUCIÓN DE RAÍZ)
+    document.addEventListener('DOMContentLoaded', () => {
+        // Busca TODOS los enlaces de tu página que comiencen con "#"
+        const enlacesMenu = document.querySelectorAll('a[href^="#"]');
+        
+        enlacesMenu.forEach(enlace => {
+            enlace.addEventListener('click', function (evento) {
+                // ¡ALTO AHÍ! Bloquea el comportamiento por defecto del navegador (escribir el # en la URL)
+                evento.preventDefault(); 
+                
+                // Lee a qué sección querías ir (ej: "dir-soporte")
+                const idDestino = this.getAttribute('href').substring(1);
+                const seccionDestino = document.getElementById(idDestino);
+                
+                // Hace el viaje hacia la sección con un efecto suave y profesional
+                if (seccionDestino) {
+                    seccionDestino.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     });
 </script>
-<!-- ========================================================
+  <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
          ======================================================== -->
     <script>
