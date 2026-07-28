@@ -10130,7 +10130,7 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
 <div class="form-section" style="border-top-color: #ea580c;">
     <h3 style="color: #ea580c;">1. Ubicación y tiempo del evento</h3>
     
-    <!-- Fila 1: Menú Desplegable Inteligente (Código y Nombre) -->
+    <!-- Fila 1: Menú Desplegable Inteligente (Código, Nombre y Director) -->
     <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px;">
         <div class="form-group">
             <label>Seleccione su Centro Escolar</label>
@@ -10139,31 +10139,32 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                     onchange="
                         document.getElementById('alerta-codigo').value = this.value; 
                         document.getElementById('alerta-nombre-ce').value = this.options[this.selectedIndex].getAttribute('data-nombre');
+                        document.getElementById('alerta-director').value = this.options[this.selectedIndex].getAttribute('data-director');
                     ">
                 <option value="">Despliegue la lista y elija su institución...</option>
-                <option value="10130" data-nombre="CENTRO ESCOLAR HACIENDA CHANMICO">10130 - CENTRO ESCOLAR HACIENDA CHANMICO</option>
-                <option value="11190" data-nombre="CENTRO ESCOLAR CANTON EL MATAZANO">11190 - CENTRO ESCOLAR CANTON EL MATAZANO</option>
-                <option value="11204" data-nombre="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES">11204 - COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES</option>
-                <option value="11212" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"'>11212 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"</option>
-                <option value="11213" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"'>11213 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"</option>
-                <option value="11214" data-nombre='CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"'>11214 - CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"</option>
-                <option value="11215" data-nombre='CENTRO ESCOLAR "LA NUEVA ESPERANZA"'>11215 - CENTRO ESCOLAR "LA NUEVA ESPERANZA"</option>
-                <option value="11216" data-nombre='CENTRO ESCOLAR "CANTON JABALINCITO"'>11216 - CENTRO ESCOLAR "CANTON JABALINCITO"</option>
-                <option value="11217" data-nombre='CENTRO ESCOLAR "CANTÓN LAS DELICIAS"'>11217 - CENTRO ESCOLAR "CANTÓN LAS DELICIAS"</option>
-                <option value="11232" data-nombre='CENTRO ESCOLAR "CANTON CHANMICO"'>11232 - CENTRO ESCOLAR "CANTON CHANMICO"</option>
-                <option value="11239" data-nombre='CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"'>11239 - CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"</option>
-                <option value="11241" data-nombre="CENTRO ESCOLAR CASTO VALLADARES">11241 - CENTRO ESCOLAR CASTO VALLADARES</option>
-                <option value="12624" data-nombre='ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "'>12624 - ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "</option>
-                <option value="14800" data-nombre="INSTITUTO NACIONAL DE SAN JUAN OPICO">14800 - INSTITUTO NACIONAL DE SAN JUAN OPICO</option>
-                <option value="14869" data-nombre='INSTITUTO NACIONAL "TECPAN"'>14869 - INSTITUTO NACIONAL "TECPAN"</option>
-                <option value="60121" data-nombre="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO">60121 - CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO</option>
-                <option value="60127" data-nombre="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO">60127 - CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO</option>
-                <option value="68008" data-nombre="CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO">68008 - CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO</option>
-                <option value="68110" data-nombre="CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO">68110 - CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO</option>
-                <option value="68111" data-nombre='CENTRO ESCOLAR CASERIO "EL JABALINCITO"'>68111 - CENTRO ESCOLAR CASERIO "EL JABALINCITO"</option>
-                <option value="68114" data-nombre="CENTRO ESCOLAR CANTÓN EL JABALINÓN">68114 - CENTRO ESCOLAR CANTÓN EL JABALINÓN</option>
-                <option value="68122" data-nombre="CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO">68122 - CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO</option>
-                <option value="68123" data-nombre="CENTRO ESCOLAR CANTÓN SITIO GRANDE">68123 - CENTRO ESCOLAR CANTÓN SITIO GRANDE</option>
+                <option value="10130" data-nombre="CENTRO ESCOLAR HACIENDA CHANMICO" data-director="MARCOS ELMER ORELLANA LONE">10130 - CENTRO ESCOLAR HACIENDA CHANMICO</option>
+                <option value="11190" data-nombre="CENTRO ESCOLAR CANTON EL MATAZANO" data-director="CARLOS HUMBERTO AREVALO RUIZ">11190 - CENTRO ESCOLAR CANTON EL MATAZANO</option>
+                <option value="11204" data-nombre="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES" data-director="JUAN PABLO OLIVARES CLAVEL">11204 - COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES</option>
+                <option value="11212" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"' data-director="XIOMARA GUADALUPE CACERES DE LEMUS">11212 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"</option>
+                <option value="11213" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"' data-director="ROSA ESTER YANES DE PEÑA">11213 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"</option>
+                <option value="11214" data-nombre='CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"' data-director="ROBERTO ANTONIO GUIROLA ERROA">11214 - CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"</option>
+                <option value="11215" data-nombre='CENTRO ESCOLAR "LA NUEVA ESPERANZA"' data-director="CESAR ROLANDO ORTIZ">11215 - CENTRO ESCOLAR "LA NUEVA ESPERANZA"</option>
+                <option value="11216" data-nombre='CENTRO ESCOLAR "CANTON JABALINCITO"' data-director="ELENA ROSIBEL VALDIZÓN">11216 - CENTRO ESCOLAR "CANTON JABALINCITO"</option>
+                <option value="11217" data-nombre='CENTRO ESCOLAR "CANTÓN LAS DELICIAS"' data-director="RAUL AMILCAR LANDAVERDE MEJIA">11217 - CENTRO ESCOLAR "CANTÓN LAS DELICIAS"</option>
+                <option value="11232" data-nombre='CENTRO ESCOLAR "CANTON CHANMICO"' data-director="ERMELINDA ARACELY GARCIA MORAN">11232 - CENTRO ESCOLAR "CANTON CHANMICO"</option>
+                <option value="11239" data-nombre='CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"' data-director="JULIAN EDGARDO GALDAMEZ PACHECO">11239 - CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"</option>
+                <option value="11241" data-nombre="CENTRO ESCOLAR CASTO VALLADARES" data-director="CLAUDIA EVELYN MENDOZA">11241 - CENTRO ESCOLAR CASTO VALLADARES</option>
+                <option value="12624" data-nombre='ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "' data-director="RINA ELIZABETH MARTINEZ">12624 - ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "</option>
+                <option value="14800" data-nombre="INSTITUTO NACIONAL DE SAN JUAN OPICO" data-director="ALEJANDRA DANIELA ABREGO CARCAMO">14800 - INSTITUTO NACIONAL DE SAN JUAN OPICO</option>
+                <option value="14869" data-nombre='INSTITUTO NACIONAL "TECPAN"' data-director="ISSA LORENA PERDOMO PEREZ">14869 - INSTITUTO NACIONAL "TECPAN"</option>
+                <option value="60121" data-nombre="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO" data-director="CLIDE RUTH LOPEZ DE CLAVEL">60121 - CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO</option>
+                <option value="60127" data-nombre="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO" data-director="MIRNA CRISTELA MENA VALENCIA">60127 - CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO</option>
+                <option value="68008" data-nombre="CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO" data-director="AURA LILI CORTEZ DE QUIJADA">68008 - CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO</option>
+                <option value="68110" data-nombre="CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO" data-director="OSCAR AMILCAR FLORES ARGUETA">68110 - CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO</option>
+                <option value="68111" data-nombre='CENTRO ESCOLAR CASERIO "EL JABALINCITO"' data-director="LAURA CECILIA MENA">68111 - CENTRO ESCOLAR CASERIO "EL JABALINCITO"</option>
+                <option value="68114" data-nombre="CENTRO ESCOLAR CANTÓN EL JABALINÓN" data-director="BLANCA LIDIA PENADO GAITAN">68114 - CENTRO ESCOLAR CANTÓN EL JABALINÓN</option>
+                <option value="68122" data-nombre="CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO" data-director="ROSA MARIA URIAS CHICAS">68122 - CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO</option>
+                <option value="68123" data-nombre="CENTRO ESCOLAR CANTÓN SITIO GRANDE" data-director="DANIEL OMAR MELGAR RODRIGUEZ">68123 - CENTRO ESCOLAR CANTÓN SITIO GRANDE</option>
             </select>
         </div>
     </div>
@@ -10171,6 +10172,7 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
     <!-- Campos Ocultos (Alimentan la Base de Datos automáticamente) -->
     <input type="hidden" id="alerta-codigo" value="">
     <input type="hidden" id="alerta-nombre-ce" value="">
+    <input type="hidden" id="alerta-director" value="">
 
     <!-- Fila 2: Teléfono y Correo -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
@@ -12530,6 +12532,7 @@ window.enviarAlertaTemprana = function(event, formElement) {
     // --- DATOS DEL CENTRO ESCOLAR Y CONTACTO ---
     formData.append('codigo', document.getElementById('alerta-codigo').value);
     formData.append('nombre_ce', document.getElementById('alerta-nombre-ce').value);
+    formData.append('director', document.getElementById('alerta-director').value); // NUEVO
     formData.append('telefono', document.getElementById('alerta-telefono').value);
     formData.append('correo', document.getElementById('alerta-correo').value); 
     
