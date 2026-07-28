@@ -10048,7 +10048,7 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                             <p style="margin: 0; color: #ffedd5; font-size: 0.95rem; line-height: 1.5;">Complete este reporte de carácter <b>URGENTE</b>. La información será notificada inmediatamente a la Dirección Departamental y a Jefaturas Superiores para la pronta intervención del distrito.</p>
                         </div>
 
-                        <form id="form-alerta-temprana" onsubmit="window.enviarAlertaTemprana(event, this)">
+                        <form id="form-alerta-temprana" onsubmit="event.preventDefault(); enviarAlertaTemprana(event, this); return false;">
                             
                             <!-- Sección 1: Datos Generales -->
                             <div class="form-section" style="border-top-color: #ea580c;">
@@ -12319,6 +12319,21 @@ window.enviarAlertaTemprana = function(event, formElement) {
         btnSubmit.disabled = false;
     });
 };
+<!-- ========================================================
+         LIMPIADOR AUTOMATICO DE URL
+         ======================================================== -->
+</script>
+<script>
+    // Limpiador automático de URLs estéticas para el Distrito
+    window.addEventListener('DOMContentLoaded', (event) => {
+        if (window.location.search) {
+            // Reconstruye la URL limpia (manteniendo el #dir-soporte si existe)
+            const urlLimpia = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+            
+            // Reemplaza la URL sucia por la limpia en el historial del navegador sin recargar
+            window.history.replaceState({path: urlLimpia}, '', urlLimpia);
+        }
+    });
 </script>
 <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
