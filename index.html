@@ -1497,9 +1497,151 @@
 </style>
 
 <!-- INICIO DE SECCIÓN DE NOTICIAS -->
-<div>
+<div style="display: flex; flex-direction: column; width: 100%; overflow-x: hidden;">
 
-    <!-- NOTICIA 1 (NUEVA ESTELAR): GALA HOTEL BARCELÓ -->
+    <!-- ========================================== -->
+    <!-- NOTICIA DESTACADA (NUEVA): EMPOWER EL SALVADOR Y VICEPRESIDENCIA -->
+    <!-- ========================================== -->
+    <div class="card-noticia-destacada" style="background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); margin-bottom: 20px; overflow: hidden; border-top: 5px solid #0A2540;">
+        
+        <!-- CARRUSEL DE IMÁGENES -->
+        <div class="carrusel-contenedor" style="position: relative; width: 100%; max-height: 500px; overflow: hidden; background: #1e293b;">
+            
+            <div class="carrusel-slides" id="noticia-slides" style="display: flex; width: 100%; transition: transform 0.5s ease-in-out;">
+                <img src="https://i.postimg.cc/7P90gJYX/Reunion-Vice-Presidencia-img1.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 1">
+                <img src="https://i.postimg.cc/nV2Bv9ck/Reunion-Vice-Presidencia-img2.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 2">
+                <img src="https://i.postimg.cc/1RBwpV5J/Reunion-Vice-Presidencia-img3.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 3">
+                <img src="https://i.postimg.cc/Df6Lq4y6/Reunion-Vice-Presidencia-img4.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 4">
+                <img src="https://i.postimg.cc/XNLdwB7P/Reunion-Vice-Presidencia-img5.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 5">
+                <img src="https://i.postimg.cc/J7xZbH42/Reunion-Vice-Presidencia-img6.png" style="width: 100%; object-fit: cover; flex-shrink: 0;" alt="Reunión Vicepresidencia 6">
+            </div>
+
+            <!-- Botones de Navegación del Carrusel -->
+            <button onclick="window.moverCarruselEmpower(-1)" style="position: absolute; top: 50%; left: 15px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; z-index: 10;">&#10094;</button>
+            <button onclick="window.moverCarruselEmpower(1)" style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; z-index: 10;">&#10095;</button>
+            
+            <!-- Indicadores (Puntitos) -->
+            <div style="position: absolute; bottom: 15px; width: 100%; text-align: center; z-index: 10;" id="carrusel-indicadores">
+                <!-- Se generan dinámicamente con JS -->
+            </div>
+        </div>
+
+        <!-- CUERPO DE LA NOTICIA -->
+        <div class="noticia-contenido" style="padding: 30px;">
+            <span class="badge" style="background: #0ea5e9; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Gestión Estratégica</span>
+            
+            <h2 style="color: #0A2540; margin-top: 15px; font-size: 1.8rem; line-height: 1.3;">
+                El Modelo de Desarrollo Juvenil de La Libertad se Prepara para su Expansión a Nivel Nacional
+            </h2>
+            
+            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px;">
+                <strong>Publicado:</strong> Julio de 2026 | <strong>Distrito:</strong> San Juan Opico
+            </p>
+
+            <div style="color: #334155; font-size: 1.05rem; line-height: 1.7; text-align: justify;">
+                <p style="margin-bottom: 15px;">
+                    Bajo la visión transformadora del <strong>Presidente de la República, Nayib Bukele</strong>, cuyo liderazgo y excelente administración han posicionado a El Salvador como un referente de innovación, seguridad y desarrollo ante los ojos del mundo, las estrategias de fortalecimiento educativo y social continúan rindiendo frutos sin precedentes.
+                </p>
+                
+                <p style="margin-bottom: 15px;">
+                    En una serie de fructíferas reuniones estratégicas, la <strong>Gobernadora Departamental de La Libertad, Yaneth Bran</strong>, y la <strong>Gobernadora Departamental de Ahuachapán, Isis Cuéllar</strong>, sostuvieron un encuentro clave con la Presidenta Ejecutiva de <strong>Empower El Salvador</strong>. El objetivo primordial de esta mesa de trabajo fue socializar los extraordinarios resultados y el impacto positivo directo que esta alianza ha tenido en el desarrollo integral de los jóvenes de las comunidades educativas en La Libertad.
+                </p>
+
+                <p style="margin-bottom: 15px;">
+                    Esta exitosa propuesta de formación integral cuenta con el respaldo y el impulso directo desde la Vicepresidencia de la República. El <strong>Vicepresidente, Dr. Félix Ulloa</strong>, se reunió previamente con la Directora Ejecutiva de Empower El Salvador para evaluar de primera mano los avances en materia de implementación territorial. Durante dicho encuentro, se presentaron evidencias tangibles y datos estadísticos cuantitativos que reflejan la gran cobertura y eficacia de la campaña en nuestras escuelas.
+                </p>
+
+                <div style="background: #f8fafc; border-left: 4px solid #0ea5e9; padding: 15px 20px; margin: 25px 0; border-radius: 0 8px 8px 0; font-style: italic;">
+                    "Los resultados obtenidos en el departamento de La Libertad y en nuestro distrito de San Juan Opico son la prueba irrefutable de que la inversión en la juventud transforma comunidades. Ahora, el propósito es ampliar este beneficio y extender la formación integral a los jóvenes de todo el país."
+                </div>
+
+                <p style="margin-bottom: 0;">
+                    Como distrito educativo, celebramos estos avances que reafirman el compromiso de las instituciones del Estado y de las organizaciones aliadas para garantizar un futuro lleno de oportunidades, habilidades y valores para la nueva generación de salvadoreños.
+                </p>
+                
+                <!-- BOTONES DE REDES SOCIALES EMPOWER EL SALVADOR -->
+                <div style="margin-top: 35px; padding-top: 25px; border-top: 1px dashed #cbd5e1; text-align: center;">
+                    <p style="font-weight: bold; color: #0A2540; margin-bottom: 15px; font-size: 1.1rem;">¡Sigue de cerca las iniciativas de Empower El Salvador!</p>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                        <!-- Botón Facebook -->
+                        <a href="https://www.facebook.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background-color: #1877F2; color: white; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                            Facebook
+                        </a>
+                        
+                        <!-- Botón Instagram -->
+                        <a href="https://www.instagram.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                            @empowerelsalvador
+                        </a>
+                    </div>
+                </div>
+                <!-- FIN BOTONES REDES SOCIALES -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DEL CARRUSEL DE EMPOWER (Aislado para no chocar con otros scripts) -->
+    <script>
+        (function() {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll("#noticia-slides img");
+            const totalSlides = slides.length;
+            const indicadoresContainer = document.getElementById("carrusel-indicadores");
+
+            if (slides.length > 0) {
+                // Generar indicadores
+                for (let i = 0; i < totalSlides; i++) {
+                    let dot = document.createElement("span");
+                    dot.style.cssText = "display: inline-block; width: 10px; height: 10px; margin: 0 5px; background-color: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: background-color 0.3s;";
+                    dot.onclick = () => window.irASlideEmpower(i);
+                    indicadoresContainer.appendChild(dot);
+                }
+                
+                const dots = indicadoresContainer.children;
+
+                function actualizarCarruselEmpower() {
+                    const slideWidth = 100; // Porcentaje
+                    document.getElementById("noticia-slides").style.transform = `translateX(-${slideIndex * slideWidth}%)`;
+                    
+                    // Actualizar puntos
+                    for (let i = 0; i < dots.length; i++) {
+                        dots[i].style.backgroundColor = "rgba(255,255,255,0.5)";
+                    }
+                    if(dots[slideIndex]) dots[slideIndex].style.backgroundColor = "white";
+                }
+
+                window.moverCarruselEmpower = function(n) {
+                    slideIndex += n;
+                    if (slideIndex >= totalSlides) { slideIndex = 0; }
+                    if (slideIndex < 0) { slideIndex = totalSlides - 1; }
+                    actualizarCarruselEmpower();
+                }
+
+                window.irASlideEmpower = function(n) {
+                    slideIndex = n;
+                    actualizarCarruselEmpower();
+                }
+
+                // Rotación automática cada 4 segundos
+                setInterval(() => {
+                    window.moverCarruselEmpower(1);
+                }, 4000);
+
+                // Inicializar
+                actualizarCarruselEmpower();
+            }
+        })();
+    </script>
+    <!-- FIN NUEVA NOTICIA -->
+
+    <!-- SEPARADOR VISUAL -->
+    <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
+
+    <!-- ========================================== -->
+    <!-- NOTICIA 1 : GALA HOTEL BARCELÓ -->
+    <!-- ========================================== -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0f172a; color: #eab308; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Gala de Premiación</span>
@@ -1511,7 +1653,7 @@
             
             <p>En un ambiente cargado de entusiasmo y visión de futuro, las majestuosas instalaciones del <strong>Hotel Barceló</strong> en El Salvador fueron el escenario perfecto para llevar a cabo el evento de clausura y premiación a los actores más destacados en la implementación de los 21 preceptos de la obra <em>"El Camino a la Felicidad"</em>.</p>
             
-            <!-- NUEVO CARRUSEL INTEGRADO (HOTEL BARCELÓ) CON AUTOPLAY 2 SEGUNDOS -->
+            <!-- CARRUSEL INTEGRADO (HOTEL BARCELÓ) CON AUTOPLAY 2 SEGUNDOS -->
             <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
                 <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
                     <div class="carousel-slides">
@@ -1562,7 +1704,9 @@
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
+    <!-- ========================================== -->
     <!-- NOTICIA 2: CLAUSURA CAMPAÑA DE VALORES TECPÁN -->
+    <!-- ========================================== -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #eab308; color: #112942; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Evento Distrital</span>
@@ -1622,7 +1766,9 @@
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
+    <!-- ========================================== -->
     <!-- NOTICIA 3: FORMACIÓN CIUDADANA -->
+    <!-- ========================================== -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1671,13 +1817,14 @@
             <p>Apostamos por una educación integral donde la técnica, la administración y el corazón de la comunidad educativa marchen hacia el mismo rumbo: la excelencia.</p>
         </div>
     </div>
-
     <!-- FIN NOTICIA 3 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
+    <!-- ========================================== -->
     <!-- NOTICIA 4: PRIMERA INFANCIA -->
+    <!-- ========================================== -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1685,7 +1832,7 @@
         </div>
         
         <div class="article-body">
-            <p>Con el firme compromiso de elevar los estándares de calidad educativa y promover una mejora continua en nuestras instituciones, este día se marcó un hito en el distrito educativo de San Juan Opico. El Complejo Educativo "Soldado Oscar Antonio Ortiz Reyes" abrió sus puertas para recibir a las docentes de Educación Inicial y Parvularia en el primer taller presencial: <strong>"Innovación en la práctica docente en Primera Infancia"</strong>.</p>
+            <p>Con el firme compromiso de elevar los estándares de calidad educativa y promover una mejora continua en nuestras institutions, este día se marcó un hito en el distrito educativo de San Juan Opico. El Complejo Educativo "Soldado Oscar Antonio Ortiz Reyes" abrió sus puertas para recibir a las docentes de Educación Inicial y Parvularia en el primer taller presencial: <strong>"Innovación en la práctica docente en Primera Infancia"</strong>.</p>
             
             <h3 class="article-subtitle">Compromiso con el futuro: Transformando el Aula a través del Diálogo</h3>
             <p>La sesión inaugural se centró en un pilar crítico para el éxito pedagógico: la <strong>Gestión de la Convivencia y Resolución de Conflictos en el Aula</strong>. Entendiendo que un entorno armonioso es el suelo fértil donde florece el aprendizaje, las docentes profundizaron en estrategias para mediar situaciones cotidianas, transformando el conflicto en una oportunidad de aprendizaje socioemocional.</p>
@@ -1719,7 +1866,9 @@
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
+    <!-- ========================================== -->
     <!-- NOTICIA 5: CAMPAÑA VALORES SOCIALES -->
+    <!-- ========================================== -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
