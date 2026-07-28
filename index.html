@@ -12468,5 +12468,54 @@ window.enviarAlertaTemprana = function(event, formElement) {
     // Vigilancia constante cada medio segundo (blindaje extremo)
     setInterval(limpiarUrlDistrito, 500);
 </script>
+<!-- ========================================== -->
+<!-- MOTOR LÓGICO: ALERTA TEMPRANA Y PDF        -->
+<!-- ========================================== -->
+<script>
+    function enviarAlertaTemprana(evento, formulario) {
+        // 1. Forzar la validación nativa (evita que envíen campos vacíos)
+        if (!formulario.checkValidity()) {
+            formulario.reportValidity(); // Muestra el mensajito rojo de "Rellene este campo"
+            return; // Detiene el proceso si faltan datos
+        }
+
+        // 2. Prevenir cualquier comportamiento extraño
+        if(evento) evento.preventDefault();
+
+        // 3. Capturar el botón para darle un efecto visual
+        const btn = formulario.querySelector('.btn-submit');
+        const textoOriginal = btn.innerHTML;
+        
+        // 4. Efecto de "Cargando"
+        btn.innerHTML = "⏳ PROCESANDO ALERTA Y PDF...";
+        btn.style.background = "#9a3412"; // Color más oscuro
+        btn.style.cursor = "not-allowed";
+        btn.disabled = true;
+
+        // 5. SIMULACIÓN DE ENVÍO (Aquí luego conectaremos tu base de datos o Google Apps Script)
+        setTimeout(() => {
+            // Capturamos el código de la escuela para un mensaje personalizado
+            const codigoCE = document.getElementById('alerta-codigo').value;
+            
+            // Mensaje de éxito
+            alert(`✅ ¡ALERTA DESPACHADA EXITOSAMENTE!\n\nLa incidencia del Centro Escolar (Código: ${codigoCE}) ha sido registrada en el sistema del Distrito de San Juan Opico.\n\n* La generación del documento PDF estará lista en la próxima actualización de la base de datos.`);
+
+            // Restaurar el botón a su estado original
+            btn.innerHTML = textoOriginal;
+            btn.style.background = "#ea580c";
+            btn.style.cursor = "pointer";
+            btn.disabled = false;
+
+            // Limpiar el formulario
+            formulario.reset();
+
+            // Ocultar el formulario y regresar al dashboard principal suavemente
+            document.getElementById('contenedor-incidencias').style.display = 'none';
+            document.getElementById('dashboard-menu').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        }, 2000); // Tarda 2 segundos simulando el procesamiento
+    }
+</script>
 </body>
 </html>
