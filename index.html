@@ -12469,52 +12469,87 @@ window.enviarAlertaTemprana = function(event, formElement) {
     setInterval(limpiarUrlDistrito, 500);
 </script>
 <!-- ========================================== -->
-<!-- MOTOR LÓGICO: ALERTA TEMPRANA Y PDF        -->
+<!-- MOTOR LÓGICO AVANZADO: ALERTA TEMPRANA     -->
 <!-- ========================================== -->
 <script>
     function enviarAlertaTemprana(evento, formulario) {
-        // 1. Forzar la validación nativa (evita que envíen campos vacíos)
+        // 1. Forzar validación de campos obligatorios
         if (!formulario.checkValidity()) {
-            formulario.reportValidity(); // Muestra el mensajito rojo de "Rellene este campo"
-            return; // Detiene el proceso si faltan datos
+            formulario.reportValidity();
+            return; 
         }
 
-        // 2. Prevenir cualquier comportamiento extraño
+        // 2. Prevenir recarga de página
         if(evento) evento.preventDefault();
 
-        // 3. Capturar el botón para darle un efecto visual
+        // 3. Efecto visual de "Procesando"
         const btn = formulario.querySelector('.btn-submit');
         const textoOriginal = btn.innerHTML;
-        
-        // 4. Efecto de "Cargando"
-        btn.innerHTML = "⏳ PROCESANDO ALERTA Y PDF...";
-        btn.style.background = "#9a3412"; // Color más oscuro
+        btn.innerHTML = "⏳ CONECTANDO CON BASE DE DATOS...";
+        btn.style.background = "#9a3412";
         btn.style.cursor = "not-allowed";
         btn.disabled = true;
 
-        // 5. SIMULACIÓN DE ENVÍO (Aquí luego conectaremos tu base de datos o Google Apps Script)
-        setTimeout(() => {
-            // Capturamos el código de la escuela para un mensaje personalizado
-            const codigoCE = document.getElementById('alerta-codigo').value;
-            
-            // Mensaje de éxito
-            alert(`✅ ¡ALERTA DESPACHADA EXITOSAMENTE!\n\nLa incidencia del Centro Escolar (Código: ${codigoCE}) ha sido registrada en el sistema del Distrito de San Juan Opico.\n\n* La generación del documento PDF estará lista en la próxima actualización de la base de datos.`);
+        // 4. EMPAQUETAR LOS DATOS REALES DEL FORMULARIO
+        const formData = new FormData();
+        formData.append("codigo", document.getElementById("alerta-codigo").value);
+        formData.append("fecha", document.getElementById("alerta-fecha").value);
+        formData.append("hora", document.getElementById("alerta-hora").value);
+        formData.append("categoria", document.getElementById("alerta-categoria").value);
+        
+        // Capturar la gravedad (radio button)
+        const gravedad = document.querySelector('input[name="alerta-gravedad"]:checked');
+        formData.append("gravedad", gravedad ? gravedad.value : "No especificada");
+        
+        formData.append("descripcion", document.getElementById("alerta-descripcion").value);
+        formData.append("acciones", document.getElementById("alerta-acciones").value);
 
-            // Restaurar el botón a su estado original
+        // Capturar múltiples instituciones (checkboxes)
+        const checkboxes = document.querySelectorAll('.alerta-inst:checked');
+        let instituciones = [];
+        checkboxes.forEach(cb => instituciones.push(cb.value));
+        formData.append("instituciones", instituciones.join(", ") || "Ninguna requerida");
+
+        // =======================================================
+        // 🚨 ENLACE DE CONEXIÓN (AQUÍ PONDREMOS TU URL DE GOOGLE)
+        // =======================================================
+        const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
+
+        /* 
+        ==================================================================
+        CÓDIGO DE TRANSMISIÓN REAL (Activaremos esto en el siguiente paso)
+        ==================================================================
+        fetch(URL_WEB_APP, { method: "POST", body: formData })
+        .then(response => response.text())
+        .then(data => {
+            alert("✅ ¡ALERTA DESPACHADA Y GUARDADA!\n\nLa información ya está en la base de datos y el correo ha sido enviado.");
+            // Restaurar y limpiar
             btn.innerHTML = textoOriginal;
             btn.style.background = "#ea580c";
             btn.style.cursor = "pointer";
             btn.disabled = false;
-
-            // Limpiar el formulario
             formulario.reset();
-
-            // Ocultar el formulario y regresar al dashboard principal suavemente
             document.getElementById('contenedor-incidencias').style.display = 'none';
             document.getElementById('dashboard-menu').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(error => {
+            alert("❌ Hubo un error de conexión con la base de datos.");
+            btn.innerHTML = textoOriginal;
+            btn.style.background = "#ea580c";
+            btn.style.cursor = "pointer";
+            btn.disabled = false;
+        });
+        */
 
-        }, 2000); // Tarda 2 segundos simulando el procesamiento
+       // Simulación temporal para comprobar que sí está empaquetando los datos
+       setTimeout(() => {
+            alert(`⚠️ MODO DE INTEGRACIÓN ACTIVO\n\nEl sistema capturó los datos correctamente (Ej. Código CE: ${formData.get("codigo")}), pero hace falta conectar la base de datos para realizar el envío final.`);
+            btn.innerHTML = textoOriginal;
+            btn.style.background = "#ea580c";
+            btn.style.cursor = "pointer";
+            btn.disabled = false;
+        }, 1500);
     }
 </script>
 </body>
