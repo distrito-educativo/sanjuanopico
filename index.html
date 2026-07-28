@@ -12288,118 +12288,6 @@ window.iniciarDictado = function() {
             }
         }
     </script>
-
-<script>
-window.enviarAlertaTemprana = function(event, formElement) {
-    // 1. Detiene la recarga de la página
-    event.preventDefault(); 
-
-    // 2. Bloquear el botón y cambiar el texto
-    var btnSubmit = formElement.querySelector('.btn-submit');
-    var textoOriginal = btnSubmit.innerHTML;
-    btnSubmit.innerHTML = '⏳ Procesando Alerta y Generando PDF...';
-    btnSubmit.disabled = true;
-
-    // 3. Recolectar las instituciones marcadas en los checkboxes
-    var checks = formElement.querySelectorAll('.alerta-inst:checked');
-    var institucionesSel = [];
-    checks.forEach(function(chk) { institucionesSel.push(chk.value); });
-    var institucionesStr = institucionesSel.length > 0 ? institucionesSel.join(", ") : "Ninguna";
-
-    // 4. Capturar el correo del Director
-    var correoDir = document.getElementById('director-email') ? document.getElementById('director-email').innerText : 'Sin Correo';
-
-    // 5. Empaquetar los datos
-    var formData = new URLSearchParams();
-    formData.append('tipoFormulario', 'alerta_temprana');
-    formData.append('codigo', document.getElementById('alerta-codigo').value);
-    formData.append('fecha', document.getElementById('alerta-fecha').value);
-    formData.append('hora', document.getElementById('alerta-hora').value);
-    formData.append('categoria', document.getElementById('alerta-categoria').value);
-    
-    var gravedadElement = formElement.querySelector('input[name="alerta-gravedad"]:checked');
-    var gravedadStr = gravedadElement ? gravedadElement.value : 'No especificada';
-    formData.append('gravedad', gravedadStr);
-    
-    formData.append('descripcion', document.getElementById('alerta-descripcion').value);
-    formData.append('acciones', document.getElementById('alerta-acciones').value);
-    formData.append('instituciones', institucionesStr);
-    formData.append('correo', correoDir);
-
-    // 6. Enviar al Servidor
-    var URL_SCRIPT = window.URL_WEB_APP || "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
-
-    // 🛡️ MODO NO-CORS ACTIVADO
-    fetch(URL_SCRIPT, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors' 
-    })
-    .then(() => {
-        // 7. OCULTAR el formulario (NO destruirlo)
-        formElement.style.display = 'none';
-        
-        // Crear o buscar el contenedor del mensaje de éxito
-        var successContainer = document.getElementById('msg-exito-alerta');
-        if (!successContainer) {
-            successContainer = document.createElement('div');
-            successContainer.id = 'msg-exito-alerta';
-            formElement.parentNode.appendChild(successContainer);
-        }
-        
-        // Inyectar el mensaje de éxito en el nuevo contenedor
-        successContainer.innerHTML = `
-            <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; background: white; border-radius: 12px;">
-                <div style="font-size: 5rem; margin-bottom: 15px;">✅🚨</div>
-                <h2 style="color: #16a34a; font-size: 1.8rem; margin-top: 0;">¡Alerta Despachada con Éxito!</h2>
-                <p style="color: #475569; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
-                    La jefatura departamental ha sido notificada al instante. Se ha enviado una copia oficial de la alerta en formato <b>PDF</b> a su correo institucional como respaldo de su gestión.
-                </p>
-                <button type="button" onclick="
-                    // 🛑 AQUI ESTÁ LA MAGIA DEL REINICIO
-                    document.getElementById('contenedor-incidencias').style.display='none'; 
-                    document.getElementById('dashboard-menu').style.display='block'; 
-                    
-                    // Restauramos el formulario original
-                    document.getElementById('form-alerta-temprana').reset();
-                    document.getElementById('form-alerta-temprana').style.display='block';
-                    
-                    // Ocultamos el mensaje de éxito
-                    document.getElementById('msg-exito-alerta').style.display='none';
-                    
-                    // Restauramos el botón de enviar
-                    var btn = document.getElementById('form-alerta-temprana').querySelector('.btn-submit');
-                    btn.innerHTML = '🚨 DESPACHAR ALERTA Y GENERAR PDF URGENTE';
-                    btn.disabled = false;
-                    
-                    window.scrollTo(0,0);
-                " style="margin-top: 30px; background: #0A2540; color: white; padding: 15px 35px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                    🔙 Volver al Panel Principal
-                </button>
-            </div>
-        `;
-        successContainer.style.display = 'block';
-    })
-    .catch(error => {
-        alert("❌ Sin conexión a internet. Verifique su red y reintente.");
-        btnSubmit.innerHTML = textoOriginal;
-        btnSubmit.disabled = false;
-    });
-};
-<!-- ========================================================
-         LIMPIADOR AUTOMATICO DE URL
-         ======================================================== -->
-<script>
-    // CENTINELA DE URL - UBICACIÓN SEGURA
-    function mantenerUrlInmaculada() {
-        const urlBase = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        if (window.location.search || window.location.hash) {
-            window.history.replaceState(null, '', urlBase);
-        }
-    }
-    window.addEventListener('DOMContentLoaded', mantenerUrlInmaculada);
-    window.addEventListener('hashchange', mantenerUrlInmaculada);
-</script>
   <!-- ========================================================
          ESCUDO BÁSICO DE PROTECCIÓN DE CÓDIGO E INTERFAZ
          ======================================================== -->
@@ -12551,6 +12439,133 @@ window.enviarAlertaTemprana = function(event, formElement) {
             btn.disabled = false;
         }, 1500);
     }
+</script>
+<!-- ========================================================
+     MOTOR LÓGICO Y CONEXIÓN REAL (RESTAURADO)
+     + LIMPIADOR DE URL
+     ======================================================== -->
+<script>
+window.enviarAlertaTemprana = function(event, formElement) {
+    // 1. Detiene la recarga de la página e impide manchar la URL
+    if (event) event.preventDefault(); 
+
+    // 2. Validación de seguridad (por si acaso el botón no es submit)
+    if (!formElement.checkValidity()) {
+        formElement.reportValidity();
+        return;
+    }
+
+    // 3. Bloquear el botón y cambiar el texto
+    var btnSubmit = formElement.querySelector('.btn-submit');
+    var textoOriginal = btnSubmit.innerHTML;
+    btnSubmit.innerHTML = '⏳ Procesando Alerta y Generando PDF...';
+    btnSubmit.style.background = "#9a3412"; // Color más oscuro visual
+    btnSubmit.disabled = true;
+
+    // 4. Recolectar las instituciones marcadas en los checkboxes
+    var checks = formElement.querySelectorAll('.alerta-inst:checked');
+    var institucionesSel = [];
+    checks.forEach(function(chk) { institucionesSel.push(chk.value); });
+    var institucionesStr = institucionesSel.length > 0 ? institucionesSel.join(", ") : "Ninguna";
+
+    // 5. Capturar el correo del Director
+    var correoDir = document.getElementById('director-email') ? document.getElementById('director-email').innerText : 'Sin Correo';
+
+    // 6. Empaquetar los datos reales
+    var formData = new URLSearchParams();
+    formData.append('tipoFormulario', 'alerta_temprana');
+    formData.append('codigo', document.getElementById('alerta-codigo').value);
+    formData.append('fecha', document.getElementById('alerta-fecha').value);
+    formData.append('hora', document.getElementById('alerta-hora').value);
+    formData.append('categoria', document.getElementById('alerta-categoria').value);
+    
+    var gravedadElement = formElement.querySelector('input[name="alerta-gravedad"]:checked');
+    var gravedadStr = gravedadElement ? gravedadElement.value : 'No especificada';
+    formData.append('gravedad', gravedadStr);
+    
+    formData.append('descripcion', document.getElementById('alerta-descripcion').value);
+    formData.append('acciones', document.getElementById('alerta-acciones').value);
+    formData.append('instituciones', institucionesStr);
+    formData.append('correo', correoDir);
+
+    // 7. Enviar al Servidor REAL (Google Apps Script)
+    // Usamos la URL que encontraste en tu código maestro
+    var URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
+
+    // 🛡️ MODO NO-CORS ACTIVADO (Para App Script)
+    fetch(URL_SCRIPT, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' 
+    })
+    .then(() => {
+        // 8. PROCESO DE ÉXITO (Simulado porque no-cors no devuelve respuesta legible)
+        
+        // Ocultar el formulario
+        formElement.style.display = 'none';
+        
+        // Crear o buscar el contenedor del mensaje de éxito
+        var successContainer = document.getElementById('msg-exito-alerta');
+        if (!successContainer) {
+            successContainer = document.createElement('div');
+            successContainer.id = 'msg-exito-alerta';
+            formElement.parentNode.appendChild(successContainer);
+        }
+        
+        // Inyectar el mensaje de éxito profesional
+        successContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="font-size: 5rem; margin-bottom: 15px;">✅🚨</div>
+                <h2 style="color: #16a34a; font-size: 1.8rem; margin-top: 0;">¡Alerta Despachada con Éxito!</h2>
+                <p style="color: #475569; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                    La jefatura departamental ha sido notificada al instante. Se ha enviado una copia oficial de la alerta en formato <b>PDF</b> a su correo institucional como respaldo de su gestión.
+                </p>
+                <button type="button" onclick="
+                    // 🔙 VOLVER AL PANEL PRINCIPAL Y REINICIAR
+                    document.getElementById('contenedor-incidencias').style.display='none'; 
+                    document.getElementById('dashboard-menu').style.display='block'; 
+                    
+                    // Restauramos el formulario original
+                    document.getElementById('form-alerta-temprana').reset();
+                    document.getElementById('form-alerta-temprana').style.display='block';
+                    
+                    // Ocultamos el mensaje de éxito
+                    document.getElementById('msg-exito-alerta').style.display='none';
+                    
+                    // Restauramos el botón de enviar
+                    var btn = document.getElementById('form-alerta-temprana').querySelector('.btn-submit');
+                    btn.innerHTML = '🚨 DESPACHAR ALERTA Y GENERAR PDF URGENTE';
+                    btn.style.background = '#ea580c';
+                    btn.disabled = false;
+                    
+                    window.scrollTo(0,0);
+                " style="margin-top: 30px; background: #0A2540; color: white; padding: 15px 35px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    🔙 Volver al Panel Principal
+                </button>
+            </div>
+        `;
+        successContainer.style.display = 'block';
+    })
+    .catch(error => {
+        // 9. MANEJO DE ERRORES DE RED
+        alert("❌ Error de conexión. Verifique su internet e intente nuevamente.");
+        btnSubmit.innerHTML = textoOriginal;
+        btnSubmit.style.background = "#ea580c";
+        btnSubmit.disabled = false;
+    });
+};
+
+// ========================================================
+// LIMPIADOR AUTOMATICO DE URL (CENTINELA)
+// ========================================================
+function mantenerUrlInmaculada() {
+    const urlBase = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    if (window.location.search || window.location.hash) {
+        window.history.replaceState(null, '', urlBase);
+    }
+}
+window.addEventListener('DOMContentLoaded', mantenerUrlInmaculada);
+window.addEventListener('hashchange', mantenerUrlInmaculada);
 </script>
 </body>
 </html>
