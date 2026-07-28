@@ -12170,29 +12170,59 @@ window.enviarAlertaTemprana = function(event, formElement) {
     formData.append('instituciones', institucionesStr);
     formData.append('correo', correoDir);
 
-    // 6. Enviar al Servidor (AQUÍ VA TU URL DE APPS SCRIPT)
+    // 6. Enviar al Servidor
     var URL_SCRIPT = window.URL_WEB_APP || "https://script.google.com/macros/s/AKfycbyHJ2NmRMrIiXsje0E4FeqcHsBgfAum67rj9mFqJvWzchRrx3oPCkr-0HOVGIFxkTrmvw/exec"; 
 
-    // 🛡️ MODO NO-CORS ACTIVADO PARA EVITAR EL BLOQUEO DEL NAVEGADOR
+    // 🛡️ MODO NO-CORS ACTIVADO
     fetch(URL_SCRIPT, {
         method: 'POST',
         body: formData,
         mode: 'no-cors' 
     })
     .then(() => {
-        // 7. Borrar el formulario y mostrar un mensaje de éxito gigante de inmediato
-        formElement.innerHTML = `
+        // 7. OCULTAR el formulario (NO destruirlo)
+        formElement.style.display = 'none';
+        
+        // Crear o buscar el contenedor del mensaje de éxito
+        var successContainer = document.getElementById('msg-exito-alerta');
+        if (!successContainer) {
+            successContainer = document.createElement('div');
+            successContainer.id = 'msg-exito-alerta';
+            formElement.parentNode.appendChild(successContainer);
+        }
+        
+        // Inyectar el mensaje de éxito en el nuevo contenedor
+        successContainer.innerHTML = `
             <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; background: white; border-radius: 12px;">
                 <div style="font-size: 5rem; margin-bottom: 15px;">✅🚨</div>
                 <h2 style="color: #16a34a; font-size: 1.8rem; margin-top: 0;">¡Alerta Despachada con Éxito!</h2>
                 <p style="color: #475569; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
                     La jefatura departamental ha sido notificada al instante. Se ha enviado una copia oficial de la alerta en formato <b>PDF</b> a su correo institucional como respaldo de su gestión.
                 </p>
-                <button type="button" onclick="document.getElementById('contenedor-incidencias').style.display='none'; document.getElementById('dashboard-menu').style.display='block'; window.scrollTo(0,0);" style="margin-top: 30px; background: #0A2540; color: white; padding: 15px 35px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <button type="button" onclick="
+                    // 🛑 AQUI ESTÁ LA MAGIA DEL REINICIO
+                    document.getElementById('contenedor-incidencias').style.display='none'; 
+                    document.getElementById('dashboard-menu').style.display='block'; 
+                    
+                    // Restauramos el formulario original
+                    document.getElementById('form-alerta-temprana').reset();
+                    document.getElementById('form-alerta-temprana').style.display='block';
+                    
+                    // Ocultamos el mensaje de éxito
+                    document.getElementById('msg-exito-alerta').style.display='none';
+                    
+                    // Restauramos el botón de enviar
+                    var btn = document.getElementById('form-alerta-temprana').querySelector('.btn-submit');
+                    btn.innerHTML = '🚨 DESPACHAR ALERTA Y GENERAR PDF URGENTE';
+                    btn.disabled = false;
+                    
+                    window.scrollTo(0,0);
+                " style="margin-top: 30px; background: #0A2540; color: white; padding: 15px 35px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                     🔙 Volver al Panel Principal
                 </button>
             </div>
         `;
+        successContainer.style.display = 'block';
     })
     .catch(error => {
         alert("❌ Sin conexión a internet. Verifique su red y reintente.");
