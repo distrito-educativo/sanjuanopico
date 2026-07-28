@@ -12378,5 +12378,21 @@ window.enviarAlertaTemprana = function(event, formElement) {
         `;
         document.head.appendChild(style);
     </script>
+<script>
+    // Centinela de URL para San Juan Opico
+    function limpiarUrlDistrito() {
+        if (window.location.search || window.location.hash) {
+            const urlInmaculada = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState(null, document.title, urlInmaculada);
+        }
+    }
+
+    // Ejecutar al cargar la página
+    window.addEventListener('DOMContentLoaded', limpiarUrlDistrito);
+    // Ejecutar si el menú intenta cambiar la URL
+    window.addEventListener('hashchange', limpiarUrlDistrito);
+    // Vigilancia constante cada medio segundo (blindaje extremo)
+    setInterval(limpiarUrlDistrito, 500);
+</script>
 </body>
 </html>
