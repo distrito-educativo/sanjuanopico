@@ -10014,28 +10014,38 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                                     </select>
                                 </div>
                                 
-                                <div class="form-group" style="background: #fff7ed; padding: 20px; border-radius: 8px; border: 1px dashed #fdba74;">
+                               <div class="form-group" style="background: #fff7ed; padding: 20px; border-radius: 8px; border: 1px dashed #fdba74;">
     <label style="color: #9a3412; font-weight: bold; display: block; margin-bottom: 15px; font-size: 1.05rem;">
         Nivel de urgencia institucional
     </label>
     
-    <div style="display: flex; flex-direction: column; gap: 15px;">
+    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+        
         <!-- Opción Crítica -->
-        <label style="cursor: pointer; color: #dc2626; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
-            <input type="radio" name="alerta-gravedad" value="CRÍTICA" required style="margin-top: 3px; transform: scale(1.2);"> 
-            <span><strong>🔴 CRÍTICA</strong> <br><span style="font-size: 0.9rem; color: #ef4444;">(Requiere intervención inmediata o suspensión)</span></span>
+        <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 15px; background: #fef2f2; padding: 15px; border-radius: 8px; border: 1px solid #fecaca; width: 100%; box-sizing: border-box;">
+            <input type="radio" name="alerta-gravedad" value="CRÍTICA" required style="margin-top: 3px; transform: scale(1.3); flex-shrink: 0; cursor: pointer;"> 
+            <div style="display: flex; flex-direction: column;">
+                <span style="color: #dc2626; font-weight: bold; font-size: 1rem;">🔴 CRÍTICA</span>
+                <span style="font-size: 0.85rem; color: #ef4444; margin-top: 4px; line-height: 1.3;">(Requiere intervención inmediata o suspensión)</span>
+            </div>
         </label>
         
         <!-- Opción Alta -->
-        <label style="cursor: pointer; color: #d97706; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
-            <input type="radio" name="alerta-gravedad" value="ALTA" style="margin-top: 3px; transform: scale(1.2);"> 
-            <span><strong>🟠 ALTA</strong> <br><span style="font-size: 0.9rem; color: #f59e0b;">(Situación controlada pero requiere seguimiento)</span></span>
+        <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 15px; background: #fffbeb; padding: 15px; border-radius: 8px; border: 1px solid #fde68a; width: 100%; box-sizing: border-box;">
+            <input type="radio" name="alerta-gravedad" value="ALTA" style="margin-top: 3px; transform: scale(1.3); flex-shrink: 0; cursor: pointer;"> 
+            <div style="display: flex; flex-direction: column;">
+                <span style="color: #d97706; font-weight: bold; font-size: 1rem;">🟠 ALTA</span>
+                <span style="font-size: 0.85rem; color: #f59e0b; margin-top: 4px; line-height: 1.3;">(Situación controlada pero requiere seguimiento)</span>
+            </div>
         </label>
         
         <!-- Opción Moderada -->
-        <label style="cursor: pointer; color: #ca8a04; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
-            <input type="radio" name="alerta-gravedad" value="MODERADA" style="margin-top: 3px; transform: scale(1.2);"> 
-            <span><strong>🟡 MODERADA</strong> <br><span style="font-size: 0.9rem; color: #eab308;">(Situación controlada con acompañamiento interno)</span></span>
+        <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 15px; background: #fefce8; padding: 15px; border-radius: 8px; border: 1px solid #fef08a; width: 100%; box-sizing: border-box;">
+            <input type="radio" name="alerta-gravedad" value="MODERADA" style="margin-top: 3px; transform: scale(1.3); flex-shrink: 0; cursor: pointer;"> 
+            <div style="display: flex; flex-direction: column;">
+                <span style="color: #ca8a04; font-weight: bold; font-size: 1rem;">🟡 MODERADA</span>
+                <span style="font-size: 0.85rem; color: #eab308; margin-top: 4px; line-height: 1.3;">(Situación controlada con acompañamiento interno)</span>
+            </div>
         </label>
     </div>
 </div>
