@@ -10127,23 +10127,75 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
     <form id="form-alerta-temprana">
         
         <!-- Sección 1: Datos Generales -->
-        <div class="form-section" style="border-top-color: #ea580c;">
-            <h3 style="color: #ea580c;">1. Ubicación y tiempo del evento</h3>
-            <div class="form-group">
-                <label>Código del Centro Escolar</label>
-                <input type="number" id="alerta-codigo" placeholder="Ej. 11031 (Digite su código para validación rápida)" required>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div class="form-group">
-                    <label>Fecha de la incidencia</label>
-                    <input type="date" id="alerta-fecha" required>
-                </div>
-                <div class="form-group">
-                    <label>Hora aproximada</label>
-                    <input type="time" id="alerta-hora" required>
-                </div>
-            </div>
+<div class="form-section" style="border-top-color: #ea580c;">
+    <h3 style="color: #ea580c;">1. Ubicación y tiempo del evento</h3>
+    
+    <!-- Fila 1: Menú Desplegable Inteligente (Código y Nombre) -->
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px;">
+        <div class="form-group">
+            <label>Seleccione su Centro Escolar</label>
+            <select required 
+                    style="width: 100%; border: 1px solid #fdba74; padding: 12px; border-radius: 8px; font-size: 1rem; color: #334155; background-color: #fff;"
+                    onchange="
+                        document.getElementById('alerta-codigo').value = this.value; 
+                        document.getElementById('alerta-nombre-ce').value = this.options[this.selectedIndex].getAttribute('data-nombre');
+                    ">
+                <option value="">Despliegue la lista y elija su institución...</option>
+                <option value="10130" data-nombre="CENTRO ESCOLAR HACIENDA CHANMICO">10130 - CENTRO ESCOLAR HACIENDA CHANMICO</option>
+                <option value="11190" data-nombre="CENTRO ESCOLAR CANTON EL MATAZANO">11190 - CENTRO ESCOLAR CANTON EL MATAZANO</option>
+                <option value="11204" data-nombre="COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES">11204 - COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES</option>
+                <option value="11212" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"'>11212 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA CHANMICO"</option>
+                <option value="11213" data-nombre='ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"'>11213 - ESCUELA DE EDUCACION PARVULARIA "HACIENDA SAN ANDRES"</option>
+                <option value="11214" data-nombre='CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"'>11214 - CENTRO ESCOLAR "CANTON SITIO DEL NIÑO"</option>
+                <option value="11215" data-nombre='CENTRO ESCOLAR "LA NUEVA ESPERANZA"'>11215 - CENTRO ESCOLAR "LA NUEVA ESPERANZA"</option>
+                <option value="11216" data-nombre='CENTRO ESCOLAR "CANTON JABALINCITO"'>11216 - CENTRO ESCOLAR "CANTON JABALINCITO"</option>
+                <option value="11217" data-nombre='CENTRO ESCOLAR "CANTÓN LAS DELICIAS"'>11217 - CENTRO ESCOLAR "CANTÓN LAS DELICIAS"</option>
+                <option value="11232" data-nombre='CENTRO ESCOLAR "CANTON CHANMICO"'>11232 - CENTRO ESCOLAR "CANTON CHANMICO"</option>
+                <option value="11239" data-nombre='CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"'>11239 - CENTRO ESCOLAR "CANTON AGUA ESCONDIDA"</option>
+                <option value="11241" data-nombre="CENTRO ESCOLAR CASTO VALLADARES">11241 - CENTRO ESCOLAR CASTO VALLADARES</option>
+                <option value="12624" data-nombre='ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "'>12624 - ESCUELA DE EDUCACION PARVULARIA " CANTON CHANMICO "</option>
+                <option value="14800" data-nombre="INSTITUTO NACIONAL DE SAN JUAN OPICO">14800 - INSTITUTO NACIONAL DE SAN JUAN OPICO</option>
+                <option value="14869" data-nombre='INSTITUTO NACIONAL "TECPAN"'>14869 - INSTITUTO NACIONAL "TECPAN"</option>
+                <option value="60121" data-nombre="CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO">60121 - CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO</option>
+                <option value="60127" data-nombre="CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO">60127 - CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO</option>
+                <option value="68008" data-nombre="CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO">68008 - CENTRO ESCOLAR CASERÍO COMUNIDAD TECPAN, CANTÓN SITIO DEL NIÑO</option>
+                <option value="68110" data-nombre="CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO">68110 - CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO</option>
+                <option value="68111" data-nombre='CENTRO ESCOLAR CASERIO "EL JABALINCITO"'>68111 - CENTRO ESCOLAR CASERIO "EL JABALINCITO"</option>
+                <option value="68114" data-nombre="CENTRO ESCOLAR CANTÓN EL JABALINÓN">68114 - CENTRO ESCOLAR CANTÓN EL JABALINÓN</option>
+                <option value="68122" data-nombre="CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO">68122 - CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO</option>
+                <option value="68123" data-nombre="CENTRO ESCOLAR CANTÓN SITIO GRANDE">68123 - CENTRO ESCOLAR CANTÓN SITIO GRANDE</option>
+            </select>
         </div>
+    </div>
+
+    <!-- Campos Ocultos (Alimentan la Base de Datos automáticamente) -->
+    <input type="hidden" id="alerta-codigo" value="">
+    <input type="hidden" id="alerta-nombre-ce" value="">
+
+    <!-- Fila 2: Teléfono y Correo -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+        <div class="form-group">
+            <label>Teléfono de Contacto del Director/a</label>
+            <input type="tel" id="alerta-telefono" placeholder="Ej. 7777-8888" required>
+        </div>
+        <div class="form-group">
+            <label>Correo Electrónico (Para recibir el PDF)</label>
+            <input type="email" id="alerta-correo" placeholder="director@escuela.edu.sv" required>
+        </div>
+    </div>
+
+    <!-- Fila 3: Fecha y Hora -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div class="form-group">
+            <label>Fecha de la incidencia</label>
+            <input type="date" id="alerta-fecha" required>
+        </div>
+        <div class="form-group">
+            <label>Hora aproximada</label>
+            <input type="time" id="alerta-hora" required>
+        </div>
+    </div>
+</div>
 
         <!-- Sección 2: Clasificación del Evento -->
         <div class="form-section" style="border-top-color: #ea580c;">
@@ -12474,7 +12526,14 @@ window.enviarAlertaTemprana = function(event, formElement) {
     // 6. Empaquetar los datos reales
     var formData = new URLSearchParams();
     formData.append('tipoFormulario', 'alerta_temprana');
+    
+    // --- DATOS DEL CENTRO ESCOLAR Y CONTACTO ---
     formData.append('codigo', document.getElementById('alerta-codigo').value);
+    formData.append('nombre_ce', document.getElementById('alerta-nombre-ce').value);
+    formData.append('telefono', document.getElementById('alerta-telefono').value);
+    formData.append('correo', document.getElementById('alerta-correo').value); 
+    
+    // --- DATOS DE LA INCIDENCIA ---
     formData.append('fecha', document.getElementById('alerta-fecha').value);
     formData.append('hora', document.getElementById('alerta-hora').value);
     formData.append('categoria', document.getElementById('alerta-categoria').value);
@@ -12486,7 +12545,6 @@ window.enviarAlertaTemprana = function(event, formElement) {
     formData.append('descripcion', document.getElementById('alerta-descripcion').value);
     formData.append('acciones', document.getElementById('alerta-acciones').value);
     formData.append('instituciones', institucionesStr);
-    formData.append('correo', correoDir);
 
     // 7. Enviar al Servidor REAL (Google Apps Script)
     // Usamos la URL que encontraste en tu código maestro
