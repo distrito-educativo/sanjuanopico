@@ -1350,20 +1350,20 @@
 
     .badge-intermitente {
         animation: pulso-alerta 1.5s infinite ease-in-out;
+        display: inline-block; /* Garantiza estabilidad de animación en móviles */
     }
 </style>
 
 <div class="alerta-ministerial-wrapper">
-    <!-- Lado Izquierdo: Etiqueta y Botón -->
+    <!-- Lado Izquierdo: Etiqueta Animada y Botón de Acceso -->
     <div class="alerta-izq">
-        <!-- Etiqueta animada de alta visibilidad -->
-        <span class="alerta-badge badge-intermitente" style="background-color: #dc2626; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; display: inline-block;">¡NUEVO DOCUMENTO!</span>
+        <span class="alerta-badge badge-intermitente" style="background-color: #dc2626; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">¡NUEVO DOCUMENTO!</span>
         
-        <!-- Nuevo enlace al documento oficial -->
+        <!-- Enlace actualizado al nuevo archivo oficial de Google Drive -->
         <a href="https://drive.google.com/file/d/1u1yDJrqZoxBESXdG70EmZKciUQBWs7Er/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="alerta-btn">Ver Documento Oficial ➔</a>
     </div>
     
-    <!-- Lado Derecho: Textos Informativos -->
+    <!-- Lado Derecho: Textos Informativos Institucionales -->
     <div class="alerta-der">
         <h3>Disposiciones para la organización del desfile cívico estudiantil 2026</h3>
         <p>La conmemoración de la independencia centroamericana cada mes de septiembre, es una ocasión para que las calles de El Salvador se llenen de colorido, música y orgullo patrio.</p>
@@ -3156,21 +3156,52 @@
                     </div>
                   </div>
 
-                  <div class="indice-nuevo-alert-banner">
-                    <div class="alert-banner-left">
-                      <div class="badge-pulse-container">
-                        <span class="badge-nuevo">¡NUEVO DOCUMENTO!</span>
-                        <span class="pulse-ring"></span>
-                      </div>
-                      <div class="alert-banner-text">
-                        <h4>Circular Ministerial N° 001 / 2026</h4>
-                        <p>Medidas preventivas urgentes de bioseguridad y activación de los cuatro filtros escolares en el distrito.</p>
-                      </div>
-                    </div>
-                    <div class="alert-banner-right">
-                      <a href="https://drive.google.com/file/d/1LgzN7LIPUz6-KM7sp-KmPb6NsNTQaJht/view?usp=drive_link" target="_blank" class="btn-alert-action">Ver Documento Oficial ➔</a>
-                    </div>
-                  </div>
+<!-- BANNER DE ALERTA DE NUEVO DOCUMENTO - DISTRITO SAN JUAN OPICO -->
+<style>
+    /* Animación de parpadeo suave y pulso visual para llamar la atención */
+    @keyframes parpadeo-estimulante {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        }
+        50% {
+            opacity: 0.5;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 4px rgba(220, 38, 38, 0.4);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+        }
+    }
+
+    /* Aplicación de la animación a la etiqueta "NUEVO DOCUMENTO" */
+    .badge-nuevo-parpadeo {
+        animation: parpadeo-estimulante 1.4s infinite ease-in-out;
+        display: inline-block;
+        will-change: transform, opacity;
+    }
+</style>
+
+<div class="indice-nuevo-alert-banner">
+    <div class="alert-banner-left">
+      <div class="badge-pulse-container">
+        <!-- Se agregó la clase badge-nuevo-parpadeo para activar el estímulo visual -->
+        <span class="badge-nuevo badge-nuevo-parpadeo">¡NUEVO DOCUMENTO!</span>
+        <span class="pulse-ring"></span>
+      </div>
+      <div class="alert-banner-text">
+        <h4>Disposiciones para el Desfile Cívico Estudiantil 2026</h4>
+        <p>Lineamientos oficiales para la organización, orden y participación de la comunidad educativa en las fiestas patrias de septiembre.</p>
+      </div>
+    </div>
+    <div class="alert-banner-right">
+      <a href="https://drive.google.com/file/d/1u1yDJrqZoxBESXdG70EmZKciUQBWs7Er/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-alert-action">Ver Documento Oficial ➔</a>
+    </div>
+</div>
+<!-- FIN DE BANNER DE ALERTA DE NUEVO DOCUMENTO - DISTRITO SAN JUAN OPICO -->
                   
                   <div class="indice-search-box">
                     <input type="text" id="indiceSearchInput" onkeyup="window.filterIndice()" placeholder="🔍 Buscar un tema o trámite específico... (Ej. BINAES, Licencias)">
