@@ -1339,7 +1339,7 @@
     }
 </style>
 
-<!-- INICIO DEL COMPONENTE DE ALERTA MINISTERIAL -->
+<!-- INICIO DEL COMPONENTE DE ALERTA MINISTERIAL - DISTRITO SAN JUAN OPICO -->
 <style>
     /* Efecto de intermitencia (parpadeo suave) para llamar la atención */
     @keyframes pulso-alerta {
@@ -1350,26 +1350,27 @@
 
     .badge-intermitente {
         animation: pulso-alerta 1.5s infinite ease-in-out;
-        /* Si tu .alerta-badge ya tiene color, esto lo respetará, pero le añade la animación */
     }
 </style>
 
 <div class="alerta-ministerial-wrapper">
     <!-- Lado Izquierdo: Etiqueta y Botón -->
     <div class="alerta-izq">
-        <!-- Se agregó la clase 'badge-intermitente' para activar la animación -->
-        <span class="alerta-badge badge-intermitente" style="background-color: #dc2626; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">¡NUEVO DOCUMENTO!</span>
+        <!-- Etiqueta animada de alta visibilidad -->
+        <span class="alerta-badge badge-intermitente" style="background-color: #dc2626; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; display: inline-block;">¡NUEVO DOCUMENTO!</span>
         
-        <a href="https://drive.google.com/file/d/1BZDcIwto5bjfJKXIqxfzZMFGby6PMmPQ/view?usp=drive_link" target="_blank" class="alerta-btn">Ver Documento Oficial ➔</a>
+        <!-- Nuevo enlace al documento oficial -->
+        <a href="https://drive.google.com/file/d/1u1yDJrqZoxBESXdG70EmZKciUQBWs7Er/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="alerta-btn">Ver Documento Oficial ➔</a>
     </div>
     
-    <!-- Lado Derecho: Textos -->
+    <!-- Lado Derecho: Textos Informativos -->
     <div class="alerta-der">
         <h3>Disposiciones para la organización del desfile cívico estudiantil 2026</h3>
         <p>La conmemoración de la independencia centroamericana cada mes de septiembre, es una ocasión para que las calles de El Salvador se llenen de colorido, música y orgullo patrio.</p>
     </div>
 </div>
 <!-- FIN DEL COMPONENTE DE ALERTA MINISTERIAL -->
+
 <!-- INICIO DEL COMPONENTE DE AVISO DOCENTE -->
 <div class="aviso-docente-wrapper">
     <div class="aviso-icono">💡</div>
