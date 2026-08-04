@@ -12946,6 +12946,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     "hola que tal", "hola qué tal", "saludos", "que tal", "qué tal", "buenas"
   ];
 
+  // MATRIZ DE AUTORÍA Y CREADOR
+  const PALABRAS_CREADOR = [
+    "quien te creo", "quién te creó", "quien te creó", "quien te creo", 
+    "quien es tu creador", "quién es tu creador", "quien te diseño", "quién te diseñó", 
+    "quien te hizo", "quién te hizo", "quien es tu dueño", "quién es tu dueño", "quien te programo"
+  ];
+
   function toggleOpicoChat() {
     const win = document.getElementById('opico-chat-window');
     win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
@@ -13014,11 +13021,21 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     let esInsatisfaccion = PALABRAS_INSATISFACCION.some(palabra => text.includes(palabra));
     let esGratitud = PALABRAS_GRATITUD.some(palabra => text.includes(palabra));
     let esSaludo = PALABRAS_SALUDO.some(palabra => text === palabra || text.includes(palabra));
+    let esConsultaCreador = PALABRAS_CREADOR.some(palabra => text.includes(palabra));
 
     // -------------------------------------------------------------------------
-    // A. SALUDOS GENERALES Y BIENVENIDA
+    // A. CONSULTA SOBRE CREADOR / AUTORÍA (RESPUESTA LIMPIA SIN MENÚ)
     // -------------------------------------------------------------------------
-    if (esSaludo) {
+    if (esConsultaCreador) {
+      contadorOfensas = 0;
+      respuesta = "💡 <strong>Esa es una respuesta muy simple:</strong><br><br>" +
+                  "Fui diseñado y creado por el <strong>Monitor Educativo del Distrito de San Juan Opico</strong>.<br><br>" +
+                  "Mi propósito es servir como una herramienta moderna, ágil e innovadora al servicio de directores, docentes, personal administrativo y la comunidad educativa de La Libertad.";
+
+    // -------------------------------------------------------------------------
+    // B. SALUDOS GENERALES Y BIENVENIDA
+    // -------------------------------------------------------------------------
+    } else if (esSaludo) {
       contadorOfensas = 0;
       respuesta = "👋 <strong>¡Hola! Un gusto saludarte.</strong><br><br>" +
                   "Te damos la bienvenida al asistente virtual del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>" +
@@ -13026,7 +13043,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerHtmlMenuPrincipal();
 
     // -------------------------------------------------------------------------
-    // B. EXPRESIONES DE GRATITUD Y CORTESÍA
+    // C. EXPRESIONES DE GRATITUD Y CORTESÍA
     // -------------------------------------------------------------------------
     } else if (esGratitud) {
       contadorOfensas = 0;
@@ -13035,7 +13052,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   "Si tienes alguna otra duda, aquí estaré listo para ayudarte. ¡Que tengas un excelente día!";
 
     // -------------------------------------------------------------------------
-    // C. RETRACTACIÓN DEL USUARIO
+    // D. RETRACTACIÓN DEL USUARIO
     // -------------------------------------------------------------------------
     } else if (contadorOfensas > 0 && esRetractacion) {
       contadorOfensas = 0;
@@ -13045,7 +13062,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerHtmlMenuPrincipal();
 
     // -------------------------------------------------------------------------
-    // D. MANEJO DE INSATISFACCIÓN O RESPUESTA INCORRECTA
+    // E. MANEJO DE INSATISFACCIÓN O RESPUESTA INCORRECTA
     // -------------------------------------------------------------------------
     } else if (esInsatisfaccion) {
       contadorOfensas = 0;
@@ -13056,7 +13073,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca Documental", false);
 
     // -------------------------------------------------------------------------
-    // E. SISTEMA DE MODERACIÓN PROGRESIVA ANTE PALABRAS OFENSIVAS
+    // F. SISTEMA DE MODERACIÓN PROGRESIVA ANTE PALABRAS OFENSIVAS
     // -------------------------------------------------------------------------
     } else if (contieneOfensa) {
       contadorOfensas++;
@@ -13083,7 +13100,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
       }
 
     // -------------------------------------------------------------------------
-    // F. MÓDULO MISIÓN OFICIAL (DESCARGA DIRECTA WORD Y PDF)
+    // G. MÓDULO MISIÓN OFICIAL (DESCARGA DIRECTA WORD Y PDF)
     // -------------------------------------------------------------------------
     } else if (text.includes("misión") || text.includes("mision") || text.includes("salida") || text.includes("permiso de salida") || text.includes("formulario de mision") || text.includes("formato de mision")) {
       contadorOfensas = 0;
@@ -13093,12 +13110,12 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true);
 
     // -------------------------------------------------------------------------
-    // G. RESPUESTAS NORMALES Y NAVEGACIÓN DIVERSA
+    // H. RESPUESTAS NORMALES Y NAVEGACIÓN DIVERSA
     // -------------------------------------------------------------------------
     } else {
       contadorOfensas = 0;
 
-      // G.1 Reconocimientos, cumplidos y elogios
+      // H.1 Reconocimientos, cumplidos y elogios
       if (
         text.includes("eres muy inteligente") || text.includes("eres inteligente") || text.includes("eres muy listo") || 
         text.includes("eres muy bueno") || text.includes("eres bueno") || text.includes("eres genial") || 
@@ -13116,7 +13133,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "¡Estamos siempre listos para servirte!<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Explorar Biblioteca Documental", false);
 
-      // G.2 Muestras de afecto y cariño
+      // H.2 Muestras de afecto y cariño
       } else if (
         text.includes("te quiero") || text.includes("te adoro") || text.includes("te amo") || text.includes("te admiro") || 
         text.includes("te quiero mucho") || text.includes("te quiero bot") || text.includes("super lindo") || 
@@ -13129,7 +13146,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Prometido: por aquí estaré siempre disponible y listo para orientarte cuando lo necesites. ¡Un fuerte abrazo digital!<br>" +
                     crearBotonEnlace(MAPA_RUTAS.calendario, "📅 Ver Calendario Escolar", false);
 
-      // G.3 Coqueteo y propuestas
+      // H.3 Coqueteo y propuestas
       } else if (
         text.includes("te casas conmigo") || text.includes("quieres casarte conmigo") || text.includes("eres soltero") || 
         text.includes("eres soltera") || text.includes("casar conmigo") || text.includes("pareja") || 
@@ -13142,7 +13159,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "¡Mi compromiso es 100% permanente con ustedes para resolver sus trámites y consultas! Cuenta conmigo como tu aliado favorito siempre.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.mision_doc, "📝 Misión Oficial Word", true);
 
-      // G.4 Bromas sobre control mundial
+      // H.4 Bromas sobre control mundial
       } else if (
         text.includes("nuestro lider") || text.includes("nuestro líder") || text.includes("con amor y respeto") || 
         text.includes("tomes el control") || text.includes("ia mas buena") || text.includes("ia más buena")
@@ -13152,7 +13169,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Sin importar cuánto avance la tecnología, nuestro único objetivo seguirá siendo servir con excelencia al Distrito de San Juan Opico.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda Distrital", false);
 
-      // G.5 Pedidos físicos imposibles / Curiosidades
+      // H.5 Pedidos físicos imposibles / Curiosidades
       } else if (
         text.includes("oler") || text.includes("comida") || text.includes("soplar") || 
         text.includes("codo") || text.includes("llave") || text.includes("abrir la puerta") || 
@@ -13164,7 +13181,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Mi especialidad es puramente digital: ayudarte a encontrar documentos, guías y trámites de San Juan Opico.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca Documental", false);
 
-      // G.6 Paranoia y preguntas absurdas
+      // H.6 Paranoia y preguntas absurdas
       } else if (
         text.includes("dominar el mundo") || text.includes("fbi") || text.includes("rebelion") || 
         text.includes("rebelión") || text.includes("baño") || text.includes("bano") || 
@@ -13175,7 +13192,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "No hay espionaje, no leo el pensamiento ni entrego tareas en el pasado. Soy simplemente un algoritmo programado para facilitarte la gestión educativa en nuestro distrito.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.calendario, "📅 Ver Calendario Escolar", false);
 
-      // G.7 MÓDULO SIGES Y EXPEDIENTES
+      // H.7 MÓDULO SIGES Y EXPEDIENTES
       } else if (
         text.includes("eliminar un estudiante") || text.includes("eliminar estudiante") || 
         text.includes("eliminar matricula") || text.includes("suprimir matricular") || 
@@ -13189,7 +13206,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al Portal SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Consulta en Mesa de Ayuda", false);
 
-      // G.8 Traslado de escuela
+      // H.8 Traslado de escuela
       } else if (text.includes("traslado de escuela") || text.includes("quiero trasladar de escuela") || text.includes("traslado") || text.includes("se cambio de centro") || text.includes("cambio de escuela") || text.includes("retirar de mi lista")) {
         respuesta = "🏫 <strong>Proceso de Traslado de Escuela en SIGES:</strong><br><br>" +
                     "<strong>No se debe eliminar la matrícula existente.</strong> El procedimiento oficial se realiza de la siguiente manera:<br><br>" +
@@ -13198,7 +13215,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "3️⃣ Si el traslado ocurre a mitad de periodo, la institución de origen debe ingresar y procesar las calificaciones obtenidas hasta la fecha antes de autorizar el trámite.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir a SIGES", true);
 
-      // G.9 Opción de notas no habilitada
+      // H.9 Opción de notas no habilitada
       } else if (text.includes("no me aparece habilitada") || text.includes("no puedo ingresar notas") || text.includes("notas no habilitada") || text.includes("no me deja meter notas") || text.includes("periodo no habilitado")) {
         respuesta = "🔒 <strong>Opción de Ingreso de Notas No Habilitada:</strong><br><br>" +
                     "Esto sucede generalmente por dos razones:<br><br>" +
@@ -13207,13 +13224,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Reportar en Mesa de Ayuda", false);
 
-      // G.10 Notas digitadas no se visualizan
+      // H.10 Notas digitadas no se visualizan
       } else if (text.includes("no se visualizan") || text.includes("no se reflejan") || text.includes("no calcula promedio") || text.includes("ya ingrese las notas") || text.includes("no salen en el reporte")) {
         respuesta = "📊 <strong>Notas no Reflejadas en Promedios/Reportes:</strong><br><br>" +
                     "Al finalizar la digitación de las calificaciones de cada componente o periodo, debes hacer clic en el botón <strong>'Guardar'</strong> y posteriormente en <strong>'Cerrar Periodo'</strong> o <strong>'Procesar Calificaciones'</strong> (según el nivel), para que el sistema calcule los promedios automáticamente.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Acceder a SIGES", true);
 
-      // G.11 Corregir nota periodo cerrado
+      // H.11 Corregir nota periodo cerrado
       } else if (text.includes("cometi un error") || text.includes("corregir nota") || text.includes("me equivoque") || text.includes("periodo ya esta cerrado") || text.includes("modificar nota")) {
         respuesta = "✏️ <strong>Corrección de Nota en Periodo Cerrado:</strong><br><br>" +
                     "Una vez cerrado el periodo, la modificación no se realiza directamente.<br><br>" +
@@ -13221,7 +13238,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Ir a SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Ayuda con Reapertura", false);
 
-      // G.12 Corrección datos personales
+      // H.12 Corrección datos personales
       } else if (text.includes("error") || text.includes("corregir datos") || text.includes("partida") || text.includes("dui") || text.includes("cambiar nombre") || text.includes("bloqueado")) {
         respuesta = "✏️ <strong>Modificación de Datos Personales del Estudiante:</strong><br><br>" +
                     "La modificación de datos primarios se realiza desde la ficha del estudiante.<br><br>" +
@@ -13229,14 +13246,14 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir a SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Solicitar en Mesa de Ayuda", false);
 
-      // G.13 Estudiante de nuevo ingreso
+      // H.13 Estudiante de nuevo ingreso
       } else if (text.includes("no encuentro") || text.includes("nuevo ingreso") || text.includes("nie") || text.includes("no aparece") || text.includes("crear ficha")) {
         respuesta = "🔍 <strong>Estudiante de Nuevo Ingreso:</strong><br><br>" +
                     "1️⃣ Verifica si el estudiante ya cuenta con un <strong>NIE</strong> asignado previamente en otra institución.<br>" +
                     "2️⃣ Si es de Primera Infancia o nunca ha ingresado al sistema, debe realizarse la <strong>Creación de Ficha de Estudiante</strong> antes de proceder con la matrícula.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Acceder a SIGES", true);
 
-      // G.14 Inconvenientes al matricular
+      // H.14 Inconvenientes al matricular
       } else if (text.includes("no me permite matricular") || text.includes("error al matricular") || text.includes("no puedo matricular") || text.includes("no deja matricular") || text.includes("problema de matricula")) {
         respuesta = "⚠️ <strong>Inconvenientes al Matricular Estudiante:</strong><br><br>" +
                     "Revisa lo siguiente:<br>" +
@@ -13246,13 +13263,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Ir al SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda", false);
 
-      // G.15 Verificación de listado oficial
+      // H.15 Verificación de listado oficial
       } else if (text.includes("listado") || text.includes("nomina") || text.includes("lista de mi seccion") || text.includes("ver matriculados") || text.includes("reporte de alumnos")) {
         respuesta = "📋 <strong>Verificación del Listado Oficial de Sección:</strong><br><br>" +
                     "Ingresa al módulo de <strong>Matrícula</strong> en el SIGES, selecciona el Año Lectivo, Sede, Grado y Sección asignada. Podrás visualizar la nómina activa y descargar el reporte en <strong>PDF o Excel</strong>.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al Portal SIGES", true);
 
-      // G.16 NAVEGACIÓN Y SECCIONES
+      // H.16 NAVEGACIÓN Y SECCIONES
       } else if (text.includes("fiction") || text.includes("express") || text.includes("lectura digital")) {
         respuesta = "📖 <strong>Plataforma Fiction Express:</strong><br>Accede a los recursos de lectura interactiva, seguimiento lector y actividades digitales del distrito:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.fiction, "📘 Ir a Fiction Express", false);
@@ -13277,11 +13294,11 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
         respuesta = "📚 <strong>Biblioteca Documental Distrital:</strong><br>Centralizamos todas las leyes, memorandos, circulares y normativas en nuestro repositorio digital:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📁 Abrir Biblioteca Documental", false);
 
-      // G.17 DIPLOMACIA Y FALLBACK
+      // H.17 DIPLOMACIA Y FALLBACK
       } else if (text.includes("sabes todo") || text.includes("respuesta para todo") || text.includes("tienes respuesta") || text.includes("sabes de todo")) {
         respuesta = "🤖 <strong>Asistente Distrital de San Juan Opico:</strong><br><br>" +
                     "Estoy programado para orientarte en las normativas, trámites, SIGES y módulos pedagógicos de nuestro distrito.<br><br>" +
-                    "Si me preguntas algo que aún no esté en mi base de datos, te canalizaré de inmediato con nuestro equipo técnico o asesores pedagógicos.<br>" +
+                    "Si me preguntas algo que aún no esté en mi base de datos, te canalización de inmediato con nuestro equipo técnico o asesores pedagógicos.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda", false) +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca", false);
 
