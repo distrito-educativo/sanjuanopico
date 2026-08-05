@@ -12955,13 +12955,12 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
      FINALIZA MOTOR LÓGICO Y CONEXIÓN REAL (RESTAURADO)
      + LIMPIADOR DE URL
      ======================================================== -->
-
 <!-- =========================================================================
-     ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN
+     ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN UNIVERSAL SPA
      DISTRITO EDUCATIVO DE SAN JUAN OPICO, LA LIBERTAD
      ========================================================================= -->
 
-<!-- 1. BOTÓN FLOTANTE DE LANZAMIENTO (COMPACTO Y COLOR DORADO INSTITUCIONAL #e5b325) -->
+<!-- 1. BOTÓN FLOTANTE DE LANZAMIENTO -->
 <div id="opico-chat-launcher" onclick="toggleOpicoChat()">
   <span style="font-size: 18px;">💬</span>
   <span style="font-weight: bold; margin-left: 6px;">Asistente Opico</span>
@@ -12982,14 +12981,14 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Primera Infancia"</em>, <em>"Directorio telefónico"</em>, <em>"Misión Oficial"</em>):
     </div>
     
-    <!-- Botones de Acceso Rápido Iniciales (4 PRINCIPALES) -->
+    <!-- Botones de Acceso Rápido Iniciales -->
     <div id="opico-quick-options">
       <button class="opico-opt-btn" onclick="seleccionarOpcion('mision')">📄 Solicitar Misión Oficial</button>
+      <button class="opico-opt-btn" onclick="seleccionarOpcion('primera_infancia')">🧸 Primera Infancia</button>
       <button class="opico-opt-btn" onclick="seleccionarOpcion('biblioteca')">📚 Biblioteca Documental</button>
-      <button class="opico-opt-btn" onclick="seleccionarOpcion('fiction')">📖 Fiction Express</button>
       <button class="opico-opt-btn" onclick="seleccionarOpcion('calendario')">📅 Calendario Escolar</button>
     </div>
   </div>
@@ -13007,8 +13006,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #e5b325; /* Color Dorado Oficial "San Juan Opico" */
-    color: #003366;           /* Texto azul marino de alto contraste */
+    background-color: #e5b325;
+    color: #003366;
     padding: 12px 20px;
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -13147,6 +13146,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     font-size: 11px;
     transition: background-color 0.2s ease;
     cursor: pointer;
+    border: none;
   }
   .opico-link-btn:hover {
     background-color: #002244;
@@ -13157,6 +13157,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
 <script>
   let contadorOfensas = 0;
 
+  // MAPA DE RUTAS Y PDFS DIRECTOS
   const MAPA_RUTAS = {
     mision_doc: "https://docs.google.com/document/d/1Ra1PJ4idnXuYPmKOO8OUU5QmXzCNAlNX/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true",
     mision_pdf: "https://drive.google.com/file/d/1mQStKEP0M1vH6eipVzLtHBTLnppmX3tY/view?usp=drive_link",
@@ -13182,12 +13183,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
 
     fiction: "https://es.fictionexpress.com/",
     calendario: "https://drive.google.com/file/d/1qsxcN5T1FApjkL82XKNQppxRAsp5R3Zk/view?usp=drive_link",
-
-    directorio_telefonico: "#directorio-telefonico",
-    aprendamos: "#aprendamos-a-estudiar",
-    orientaciones: "#orientaciones-pedagogicas",
-    primera_infancia: "#primera-infancia",
-    clima: "#alerta-temprana",
     siges: "https://siges.sv"
   };
 
@@ -13228,6 +13223,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     contadorOfensas = 0;
     const nombres = {
       mision: "Solicitar Misión Oficial",
+      primera_infancia: "Sección Primera Infancia",
       biblioteca: "Consultar Biblioteca Documental",
       fiction: "Información de Fiction Express",
       calendario: "Ver Calendario Escolar"
@@ -13246,20 +13242,64 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     procesarRespuestaBot(texto.toLowerCase());
   }
 
-  // FUNCIÓN PARA NAVEGAR A SECCIONES INTERNAS (SOPORTE TÉCNICO SPA)
-  function irASoporteTecnico() {
-    toggleOpicoChat(); // Cierra el chat
-    const btnSoporte = document.querySelector('[data-target="soporte-tecnico-home"]');
-    if (btnSoporte) {
-      btnSoporte.click();
-    } else {
-      const seccion = document.getElementById('soporte-tecnico-home');
-      if (seccion) {
-        document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
-        seccion.style.display = 'block';
-      }
+  // =========================================================================
+  // MOTOR DE CONMUTACIÓN DE VISTAS UNIVERSAL PARA SAN JUAN OPICO
+  // =========================================================================
+  function irASeccionInterna(targetKey) {
+    // 1. Cerrar chat inmediatamente
+    const chatWin = document.getElementById('opico-chat-window');
+    if (chatWin) chatWin.style.display = 'none';
+
+    let keyLimpia = targetKey.toLowerCase().trim();
+    let baseKey = keyLimpia.replace('-home', '').replace('_', '-');
+    let homeKey = `${baseKey}-home`;
+
+    // 2. BUSCAR EL ELEMENTO EN EL MENÚ LATERAL REAL DE LA PLANTILLA
+    const elementosMenu = Array.from(document.querySelectorAll('.nav-link, .nav-item, [data-target]'));
+    let navElem = elementosMenu.find(el => {
+      let attr = (el.getAttribute('data-target') || '').toLowerCase();
+      let txt = el.textContent.toLowerCase().trim();
+      return attr === homeKey || attr === baseKey || txt.includes(baseKey.replace('-', ' '));
+    });
+
+    if (navElem) {
+      navElem.click();
+      ['mousedown', 'mouseup', 'click'].forEach(evtType => {
+        let evt = new MouseEvent(evtType, { bubbles: true, cancelable: true, view: window });
+        navElem.dispatchEvent(evt);
+      });
     }
+
+    // 3. RESPALDO DIRECTO DE INYECCIÓN/RENDERIZADO DE VISTA
+    setTimeout(() => {
+      // Si existe un objeto global 'pages' donde guardas las plantillas
+      if (typeof window.pages !== 'undefined' && (window.pages[homeKey] || window.pages[baseKey])) {
+        const mainContent = document.getElementById('main-content') || document.querySelector('.main-content') || document.querySelector('main');
+        if (mainContent) {
+          mainContent.innerHTML = window.pages[homeKey] || window.pages[baseKey];
+        }
+      } else {
+        // Conmutación estándar por display de contenedor
+        const contenedores = document.querySelectorAll('.page-section, div[id*="-home"]');
+        if (contenedores.length > 0) {
+          contenedores.forEach(c => c.style.display = 'none');
+          let destino = document.getElementById(homeKey) || document.getElementById(baseKey);
+          if (destino) destino.style.display = 'block';
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
   }
+
+  // DISPARADORES DE SECCIÓN
+  function irADirectorioTelefonico() { irASeccionInterna('directorio-telefonico'); }
+  function irAPrimeraInfancia() { irASeccionInterna('primera-infancia'); }
+  function irASoporteTecnico() { irASeccionInterna('soporte-tecnico'); }
+  function irABibliotecaDocumental() { irASeccionInterna('biblioteca-documental'); }
+  function irANoticias() { irASeccionInterna('noticias'); }
+  function irAOrientacionesPedagogicas() { irASeccionInterna('orientaciones-pedagogicas'); }
+  function irAAprendamosAEstudiar() { irASeccionInterna('aprendamos-a-estudiar'); }
+  function irAAlertaTemprana() { irASeccionInterna('alerta-temprana'); }
 
   function crearBotonAccionLocal(textoBoton, funcionJavascript) {
     return `<button onclick="${funcionJavascript}" class="opico-link-btn">${textoBoton}</button>`;
@@ -13271,7 +13311,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   }
 
   function obtenerNotaBibliotecaGlobal() {
-    return "<br><br>📌 <em>Nota: Si buscas algún otro documento, normativa o circular, puedes ingresar a la <strong>Biblioteca Documental</strong> desde el menú principal del sitio web.</em>";
+    return "<br><br>📌 <em>Nota: Si buscas algún otro documento o normativa, te invitamos a ingresar a nuestra:</em><br>" +
+           crearBotonAccionLocal("📚 Ir a Biblioteca Documental", "irABibliotecaDocumental()");
   }
 
   function obtenerPreguntaSiguiente() {
@@ -13282,8 +13323,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     return "<br><br>📌 <strong>Menú Principal de Opciones:</strong><br>" +
            "<div style='display:flex; flex-direction:column; gap:4px; margin-top:8px;'>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('mision')\">📄 Solicitar Misión Oficial</button>" +
+           "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('primera_infancia')\">🧸 Primera Infancia</button>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('biblioteca')\">📚 Biblioteca Documental</button>" +
-           "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('fiction')\">📖 Fiction Express</button>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('calendario')\">📅 Calendario Escolar</button>" +
            "</div>";
   }
@@ -13309,30 +13350,86 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   "Fui diseñado y creado por el <strong>Monitor Educativo del Distrito de San Juan Opico</strong>.<br><br>" +
                   "Mi propósito es servir como una herramienta moderna, ágil e innovadora al servicio de directores, docentes, personal administrativo y la comunidad educativa de La Libertad.";
 
-    } else if (text === "fiction" || text.includes("fiction express") || text.includes("fictionexpress") || text.includes("plataforma de lectura") || text.includes("lectura digital")) {
+    // -------------------------------------------------------------------------
+    // 1. LEYES Y DOCUMENTOS ESPECÍFICOS (SE EVALÚAN PRIMERO)
+    // -------------------------------------------------------------------------
+    } else if (text.includes("carrera docente") || text.includes("ley de la carrera docente")) {
+      contadorOfensas = 0;
+      respuesta = "📚 <strong>Ley de la Carrera Docente:</strong><br><br>" +
+                  "Aquí tienes el enlace directo para consultar o descargar la Ley de la Carrera Docente vigente en formato PDF:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.ley_carrera_docente, "📕 Descargar Ley Carrera Docente (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    } else if (text.includes("codigo de trabajo") || text.includes("código de trabajo") || text.includes("ley laboral")) {
+      contadorOfensas = 0;
+      respuesta = "⚖️ <strong>Código de Trabajo de El Salvador:</strong><br><br>" +
+                  "Accede al Código de Trabajo oficial vigente a través del siguiente enlace:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.codigo_trabajo, "📕 Descargar Código de Trabajo (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    } else if (text.includes("manual de evaluacion") || text.includes("manual de evaluación") || text.includes("servicio del aprendizaje")) {
+      contadorOfensas = 0;
+      respuesta = "📊 <strong>Manual de Evaluación al Servicio del Aprendizaje:</strong><br><br>" +
+                  "Accede directamente al documento normativo para los procesos de evaluación escolar:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.manual_evaluacion, "📕 Descargar Manual de Evaluación (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    } else if (text.includes("misión") || text.includes("mision") || text.includes("salida") || text.includes("permiso de salida")) {
+      contadorOfensas = 0;
+      respuesta = "📄 <strong>Solicitud de Misión Oficial Distrital:</strong><br><br>" +
+                  "Aquí tienes los formularios oficiales de Misión Oficial:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mision_doc, "📝 Descargar Formato Word (Editable)", true) +
+                  crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // -------------------------------------------------------------------------
+    // 2. NAVEGACIÓN GENERAL A LA BIBLIOTECA DOCUMENTAL
+    // -------------------------------------------------------------------------
+    } else if (
+      text === "biblioteca" || 
+      text === "biblioteca documental" || 
+      text.includes("biblioteca") || 
+      text.includes("documentos") || 
+      text.includes("repositorio")
+    ) {
+      contadorOfensas = 0;
+      respuesta = "📚 <strong>Biblioteca Documental Distrital:</strong><br><br>" +
+                  "Accede a nuestro repositorio central para consultar leyes, normativas, formularios, circulares y documentos vigentes del distrito:<br><br>" +
+                  crearBotonAccionLocal("📚 Ir a Biblioteca Documental", "irABibliotecaDocumental()") +
+                  obtenerPreguntaSiguiente();
+
+    // -------------------------------------------------------------------------
+    // 3. RESTO DE SECCIONES Y MÓDULOS
+    // -------------------------------------------------------------------------
+    } else if (text === "primera_infancia" || text.includes("primera infancia") || text.includes("crecer juntos") || text.includes("nacer con carino") || text.includes("nacer con cariño") || text.includes("parvularia") || text.includes("inicial")) {
+      contadorOfensas = 0;
+      respuesta = "🧸 <strong>Estrategia de Primera Infancia:</strong><br><br>" +
+                  "Conoce los pilares, normativas y nuestra galería interactiva de YouTube Shorts sobre la Ley Crecer Juntos y Nacer con Cariño:<br><br>" +
+                  crearBotonAccionLocal("🧸 Ir a Primera Infancia", "irAPrimeraInfancia()") +
+                  obtenerPreguntaSiguiente();
+
+    } else if (text.includes("noticias") || text.includes("noticia") || text.includes("novedades") || text.includes("boletin") || text.includes("comunicados")) {
+      contadorOfensas = 0;
+      respuesta = "📰 <strong>Noticias y Comunicados Oficiales:</strong><br><br>" +
+                  "Consulta los últimos acontecimientos, anuncios e informaciones relevantes de nuestro distrito educativo:<br><br>" +
+                  crearBotonAccionLocal("📰 Ver Sección de Noticias", "irANoticias()") +
+                  obtenerPreguntaSiguiente();
+
+    } else if (text === "fiction" || text.includes("fiction express") || text.includes("fictionexpress") || text.includes("lectura digital")) {
       contadorOfensas = 0;
       respuesta = "📖 <strong>Plataforma Fiction Express:</strong><br><br>" +
-                  "Accede al portal oficial de Fiction Express para disfrutar de los libros interactivos, recursos lectores y seguimiento para estudiantes y docentes:<br><br>" +
+                  "Accede al portal oficial para disfrutar de los libros interactivos y seguimiento lector:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.fiction, "🌐 Ir a Fiction Express", true) +
                   obtenerPreguntaSiguiente();
 
-    } else if (text === "calendario" || text.includes("calendario escolar") || text.includes("calendario de clases") || text.includes("fechas escolares") || text.includes("cronograma escolar")) {
+    } else if (text === "calendario" || text.includes("calendario escolar") || text.includes("fechas escolares") || text.includes("cronograma escolar")) {
       contadorOfensas = 0;
       respuesta = "📅 <strong>Calendario Escolar Distrital:</strong><br><br>" +
-                  "Puedes consultar y descargar el archivo oficial del Calendario Escolar a través del siguiente enlace:<br><br>" +
+                  "Consulta y descarga el archivo oficial del Calendario Escolar vigente:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.calendario, "🗓️ Ver Calendario Escolar (PDF)", true) +
                   obtenerPreguntaSiguiente();
 
-    } else if (text === "biblioteca" || text.includes("biblioteca documental") || text.includes("repositorio") || text.includes("donde esta la biblioteca") || text.includes("donde encuentro la biblioteca")) {
-      contadorOfensas = 0;
-      respuesta = "📚 <strong>Biblioteca Documental Distrital:</strong><br><br>" +
-                  "Para ingresar a la Biblioteca Documental y consultar todos los archivos, circulares y leyes, sigue estos sencillos pasos:<br><br>" +
-                  "1️⃣ Ve al <strong>Menú Principal</strong> de navegación del sitio web (en el panel lateral izquierdo).<br>" +
-                  "2️⃣ Busca y haz clic en la sección <strong>'Biblioteca Documental'</strong>.<br>" +
-                  "3️⃣ Allí encontrarás todo el catálogo organizado por categorías y listo para su descarga." +
-                  obtenerPreguntaSiguiente();
-
-    } else if (text.includes("computacion") || text.includes("computación") || text.includes("ciencias de la computacion") || text.includes("ciencias de la computación") || text.includes("informatica") || text.includes("informática") || text.includes("computadora")) {
+    } else if (text.includes("computacion") || text.includes("computación") || text.includes("ciencias de la computacion") || text.includes("informatica")) {
       contadorOfensas = 0;
       respuesta = "💻 <strong>Programa de Ciencias de la Computación:</strong><br><br>" +
                   "Accede al sitio del MINEDUCYT dedicado a los contenidos y formación en Ciencias de la Computación:<br><br>" +
@@ -13349,144 +13446,82 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     } else if (esGratitud) {
       contadorOfensas = 0;
       respuesta = "🙏 <strong>¡Con el mayor de los gustos!</strong><br><br>" +
-                  "Es un placer servirte. En el <strong>Distrito Educativo de San Juan Opico</strong> estamos comprometidos en facilitarte la información y los trámites pedagógicos y administrativos que necesites.<br><br>" +
-                  "Si tienes alguna otra duda, aquí estaré listo para ayudarte. ¡Que tengas un excelente día!";
+                  "Es un placer servirte. En el <strong>Distrito Educativo de San Juan Opico</strong> estamos comprometidos en facilitarte la información que necesites.<br><br>" +
+                  "¡Que tengas un excelente día!";
 
     } else if (contadorOfensas > 0 && esRetractacion) {
       contadorOfensas = 0;
       respuesta = "🤝 <strong>¡Excelente! Agradezco tu disposición.</strong><br><br>" +
-                  "Estamos 100% listos para comenzar a trabajar y ayudarte con los procesos, guías y trámites del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>" +
+                  "Estamos 100% listos para comenzar a trabajar y ayudarte.<br><br>" +
                   "¿En qué te podemos apoyar en este momento?" +
                   obtenerHtmlMenuPrincipal();
 
     } else if (esInsatisfaccion) {
       contadorOfensas = 0;
-      respuesta = "🙏 <strong>Lamento mucho la confusión o la respuesta imprecisa.</strong><br><br>" +
-                  "Como sistema automatizado, sigo aprendiendo para brindarte la mejor orientación posible en el portal distrital.<br><br>" +
-                  "Por favor, intenta escribir tu consulta con otras palabras específicas (ej. <em>'ingreso de notas'</em>, <em>'traslado'</em>) o con gusto te derivo con el equipo de soporte técnico:<br>" +
+      respuesta = "🙏 <strong>Lamento mucho la confusión.</strong><br><br>" +
+                  "Por favor, intenta escribir tu consulta con otras palabras o con gusto te derivo con el equipo de soporte técnico:<br>" +
                   crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
 
     } else if (contieneOfensa) {
       contadorOfensas++;
-
       if (contadorOfensas === 1) {
         respuesta = "🛑 <strong>Aviso de Convivencia Digital:</strong><br><br>" +
-                    "Te recuerdo que mi trabajo en este portal es exclusivamente <strong>orientar y guiar en los trámites, normativas y procesos del Distrito Educativo de San Juan Opico</strong>.<br><br>" +
                     "Mantenemos un trato profesional y respetuoso.<br><br>" +
-                    "Si tienes un inconveniente o necesitas asistencia técnica para resolver tu trámite, estoy a tu disposición:<br>" +
+                    "Si necesitas asistencia técnica, con gusto te dirijo a Soporte:<br>" +
                     crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-
       } else if (contadorOfensas === 2) {
         respuesta = "🕊️ <strong>Fomentando un Ambiente de Respeto:</strong><br><br>" +
-                    "Entendemos que un trámite o proceso difícil puede causar frustración, pero te invitamos a continuar con un trato adecuado.<br><br>" +
-                    "Cuéntanos con respeto, ¿cuál es el proceso específico en el que te podemos colaborar hoy?<br>" +
+                    "Cuéntanos con respeto, ¿en qué proceso te podemos colaborar hoy?<br>" +
                     crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-
       } else {
         respuesta = "🤖 <strong>Atención Automática Limitada:</strong><br><br>" +
-                    "Debido al uso reiterado de lenguaje no apropiado, se ha desactivado el procesamiento de texto libre.<br><br>" +
-                    "A partir de este momento, solo responderé mostrando las opciones principales del portal:" +
+                    "Se ha desactivado el procesamiento de texto libre por ofensas reiteradas.<br><br>" +
                     obtenerHtmlMenuPrincipal();
       }
 
     } else if (
       text.includes("telefono") || text.includes("teléfono") || text.includes("numero") || 
-      text.includes("número") || text.includes("celular") || text.includes("contacto telefonico") || 
-      text.includes("contacto telefónico") || text.includes("llamar") || text.includes("pbx") || 
-      text.includes("whatsapp") || text.includes("directorio telefonico") || text.includes("directorio telefónico")
+      text.includes("contacto telefonico") || text.includes("llamar") || text.includes("directorio")
     ) {
       contadorOfensas = 0;
       respuesta = "📞 <strong>Directorio Telefónico Oficial:</strong><br><br>" +
-                  "Para consultar los números telefónicos oficiales de contacto del distrito, dependencias y centros escolares, te invitamos a visitar la sección de <strong>Directorio Telefónico</strong> ubicada en nuestro menú principal:<br><br>" +
-                  crearBotonEnlace(MAPA_RUTAS.directorio_telefonico, "☎️ Ir al Directorio Telefónico", false) +
+                  "Para consultar los números telefónicos oficiales de contacto del distrito y centros escolares, pulsa el botón:<br><br>" +
+                  crearBotonAccionLocal("☎️ Ir al Directorio Telefónico", "irADirectorioTelefonico()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("donde descargo") || text.includes("dónde descargo") || text.includes("donde encuentro el material") || text.includes("como descargar")) {
+    } else if (text.includes("orientacion") || text.includes("orientaciones") || text.includes("lineamientos") || text.includes("planificacion")) {
       contadorOfensas = 0;
-      respuesta = "📂 <strong>Descarga de Materiales y Documentos:</strong><br><br>" +
-                  "Todos los recursos pedagógicos, formularios oficiales, leyes y guías del distrito están disponibles en nuestra <strong>Biblioteca Documental</strong> ingresando desde el menú principal lateral." +
+      respuesta = "📐 <strong>Orientaciones Pedagógicas:</strong><br><br>" +
+                  "Consulta y descarga los lineamientos y criterios pedagógicos oficiales para la labor docente:<br><br>" +
+                  crearBotonAccionLocal("📐 Ver Orientaciones Pedagógicas", "irAOrientacionesPedagogicas()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("tipo de archivos") || text.includes("que archivos hay") || text.includes("formatos") || text.includes("que documentos hay")) {
+    } else if (text.includes("aprendamos") || text.includes("estudiar") || text.includes("refuerzo") || text.includes("tecnicas de estudio")) {
       contadorOfensas = 0;
-      respuesta = "📑 <strong>Tipos de Archivos Disponibles:</strong><br><br>" +
-                  "En el portal del Distrito Educativo puedes encontrar:<br>" +
-                  "• <strong>Formularios editables:</strong> En formato Word (ej. Misiones Oficiales).<br>" +
-                  "• <strong>Leyes y Normativas:</strong> Documentos oficiales en PDF.<br>" +
-                  "• <strong>Guías y Manuales:</strong> Enlaces directos a programas del MINEDUCYT." +
+      respuesta = "✍️ <strong>Estrategia 'Aprendamos a Estudiar':</strong><br><br>" +
+                  "Accede a los módulos de refuerzo y guías académicas especiales:<br><br>" +
+                  crearBotonAccionLocal("✍️ Ir a 'Aprendamos a Estudiar'", "irAAprendamosAEstudiar()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("descargar en pdf") || text.includes("estan en pdf") || text.includes("formato pdf") || text.includes("descarga pdf")) {
+    } else if (text.includes("vulneraciones") || text.includes("incidencias") || text.includes("alerta") || text.includes("reportar")) {
       contadorOfensas = 0;
-      respuesta = "📕 <strong>Documentos en Formato PDF:</strong><br><br>" +
-                  "¡Sí! Todas las leyes, normativas, circulares y reglamentos están optimizados para visualización y descarga directa en formato <strong>PDF</strong> desde la Biblioteca Documental." +
+      respuesta = "🛡️ <strong>Alerta Temprana Escolar:</strong><br><br>" +
+                  "Reporta incidencias, vulneraciones de derechos o alertas de forma directa:<br><br>" +
+                  crearBotonAccionLocal("📋 Ir a Alerta Temprana", "irAAlertaTemprana()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("actualizados") || text.includes("estan actualizados") || text.includes("vigentes") || text.includes("documentos vigentes")) {
-      contadorOfensas = 0;
-      respuesta = "✅ <strong>Vigencia y Actualización Oficial:</strong><br><br>" +
-                  "Todos los documentos, leyes y formularios centralizados en nuestro portal corresponden a las <strong>versiones vigentes emitidas por el MINEDUCYT</strong> y la Dirección Distrital." +
-                  obtenerPreguntaSiguiente();
-
-    } else if (text.includes("periodos de evaluacion") || text.includes("entrega de notas") || text.includes("fechas de asuetos") || text.includes("periodos de evaluación") || text.includes("consultar fechas")) {
-      contadorOfensas = 0;
-      respuesta = "📅 <strong>Calendario Escolar y Fechas Clave:</strong><br><br>" +
-                  "Puedes verificar el cronograma completo de periodos lectivos, registros de notas, asuetos y actividades en nuestro módulo oficial:<br><br>" +
-                  crearBotonEnlace(MAPA_RUTAS.calendario, "🗓️ Ver Calendario Escolar", true) +
-                  obtenerPreguntaSiguiente();
-
-    } else if (text.includes("vulneraciones") || text.includes("vulneracion de derechos") || text.includes("incidencias") || text.includes("reportar caso") || text.includes("reportar vulneracion")) {
-      contadorOfensas = 0;
-      respuesta = "🛡️ <strong>Reporte de Incidencias y Vulneraciones:</strong><br><br>" +
-                  "Las incidencias o vulneraciones de derechos dentro del centro escolar deben reportarse de forma inmediata mediante el sistema de **Alerta Temprana Escolar** o directo a las autoridades correspondientes:<br><br>" +
-                  crearBotonEnlace(MAPA_RUTAS.clima, "📋 Ir a Alerta Temprana Escolar", false) +
-                  obtenerPreguntaSiguiente();
-
-    } else if (text.includes("protocolo") || text.includes("guia protocolaria") || text.includes("guía protocolaria") || text.includes("protocolo de vulneracion")) {
-      contadorOfensas = 0;
-      respuesta = "📘 <strong>Protocolo de Actuación y Protecciones:</strong><br><br>" +
-                  "Sí, el distrito cuenta con la guía protocolaria oficial aprobada por el MINEDUCYT para la atención y actuación ante vulneraciones de derechos en la comunidad educativa. Puedes descargarla en la Biblioteca Documental." +
-                  obtenerPreguntaSiguiente();
-
-    } else if (text.includes("contacto") || text.includes("direccion departamental") || text.includes("dirección departamental") || text.includes("asesores") || text.includes("asesores pedagogicos") || text.includes("mesa de ayuda") || text.includes("directorio") || text.includes("soporte") || text.includes("soporte tecnico") || text.includes("soporte técnico")) {
+    } else if (text.includes("contacto") || text.includes("soporte") || text.includes("mesa de ayuda") || text.includes("ticket") || text.includes("ayuda")) {
       contadorOfensas = 0;
       respuesta = "📞 <strong>Soporte Técnico y Mesa de Ayuda Distrital:</strong><br><br>" +
-                  "Puedes canalizar tus solicitudes de soporte técnico, reporte de fallas o consultas administrativas directamente en nuestra área especializada del portal:<br><br>" +
+                  "Canaliza tus requerimientos de soporte e infraestructura técnica en nuestro módulo especializado:<br><br>" +
                   crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("misión") || text.includes("mision") || text.includes("salida") || text.includes("permiso de salida") || text.includes("formulario de mision") || text.includes("formato de mision")) {
-      contadorOfensas = 0;
-      respuesta = "📄 <strong>Solicitud de Misión Oficial Distrital:</strong><br><br>" +
-                  "Aquí tienes los enlaces oficiales de descarga rápida para el formulario de Misión Oficial del Distrito Educativo de San Juan Opico:<br><br>" +
-                  crearBotonEnlace(MAPA_RUTAS.mision_doc, "📝 Descargar Formato Word (Editable)", true) +
-                  crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true) +
-                  obtenerNotaBibliotecaGlobal();
-
     } else {
       contadorOfensas = 0;
-
-      if (
-        text.includes("eres muy inteligente") || text.includes("eres inteligente") || text.includes("eres muy listo") || 
-        text.includes("eres muy bueno") || text.includes("eres bueno") || text.includes("eres genial") || 
-        text.includes("sos bueno") || text.includes("sos inteligente") || text.includes("sos listo") || 
-        text.includes("eres lo maximo") || text.includes("eres lo máximo") || text.includes("salvar la vida") || 
-        text.includes("salvaste la vida") || text.includes("salvar el trabajo") || text.includes("suban el sueldo") || 
-        text.includes("subir el sueldo") || text.includes("gigabytes") || text.includes("invitar a comer") || 
-        text.includes("pagar una cerveza") || text.includes("lo mejor que me ha pasado") || text.includes("mas inteligente") || 
-        text.includes("más inteligente") || text.includes("eres un genio") || text.includes("redactor") || 
-        text.includes("poeta") || text.includes("respuesta perfecta") || text.includes("10 de 10") || 
-        text.includes("estrella en la frente") || text.includes("excelente servicio")
-      ) {
-        respuesta = "🌟 <strong>¡Muchísimas gracias por tus palabras!</strong><br><br>" +
-                    "Saber que te he ahorrado tiempo y facilitado tu labor nos llena de gran satisfacción. Todo el equipo técnico del <strong>Distrito de San Juan Opico</strong> trabaja para que este portal sea rápido, claro y eficiente.<br><br>" +
-                    "¡Estamos siempre listos para servirte!";
-
-      } else {
-        respuesta = `🤖 No dispongo del detalle exacto sobre "<em>${entrada}</em>" en este momento.<br><br>` +
-                    "Te sugiero explorar las opciones del menú principal o contactar a nuestro equipo de soporte técnico:<br>" +
-                    crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-      }
+      respuesta = `🤖 No dispongo del detalle exacto sobre "<em>${entrada}</em>" en este momento.<br><br>` +
+                  "Te sugiero explorar el menú o consultar con nuestro equipo de soporte técnico:<br>" +
+                  crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
     }
 
     setTimeout(() => {
@@ -13494,10 +13529,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     }, 350);
   }
 </script>
-<!-- =========================================================================
-     FINALIZA ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN
-     DISTRITO EDUCATIVO DE SAN JUAN OPICO, LA LIBERTAD
-     ========================================================================= -->
+
 
 <script>
 function reproducirShort(idContenedor, idVideo) {
