@@ -12722,7 +12722,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Ley de la Carrera Docente"</em>, <em>"Fiction Express"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
     </div>
     
     <!-- Botones de Acceso Rápido Iniciales (4 PRINCIPALES) -->
@@ -12897,7 +12897,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   // CONTROLADOR DE OFENSAS CONSECUTIVAS
   let contadorOfensas = 0;
 
-  // MAPA DE RUTAS, SECCIONES Y DOCUMENTOS FRENCUENTES
+  // MAPA DE RUTAS, SECCIONES, DOCUMENTOS Y PROGRAMAS MINEDUCYT
   const MAPA_RUTAS = {
     // Misión Oficial
     mision_doc: "https://docs.google.com/document/d/1Ra1PJ4idnXuYPmKOO8OUU5QmXzCNAlNX/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true",
@@ -12913,7 +12913,20 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     normativa_funcionamiento_5: "https://drive.google.com/file/d/1qy5u-qvLOGNcgPJTOdEXXoXeY-s9F-hW/view?usp=drive_link",
     codigo_trabajo: "https://drive.google.com/file/d/1f20i6RUlenNjA_oqp7dXYOBu0KjrbHEk/view?usp=drive_link",
 
+    // Enlaces Oficiales MINEDUCYT
+    mined_ciencia: "https://www.mined.gob.sv/ciencia-educativa/",
+    mined_esmate: "https://www.mined.gob.sv/esmate/",
+    mined_lenguaje: "https://www.mined.gob.sv/lengua-y-literatura/",
+    mined_ciudadania: "https://www.mined.gob.sv/ciudadania-y-valores/",
+    mined_inicial_parvularia: "https://www.mined.gob.sv/materiales-educacion-inicial-y-parvularia/",
+    mined_ingles: "https://www.mined.gob.sv/ingles/",
+    mined_artes: "https://www.mined.gob.sv/artes/",
+    mined_educacion_fisica: "https://www.mined.gob.sv/guias-metodologicas/",
+    mined_tecnologia: "https://www.mined.gob.sv/orientaciones-uso-tecnologia/",
+    mined_computacion: "https://www.mined.gob.sv/ciencias-de-la-computacion/",
+
     // Anclas de Secciones en el Sitio Web
+    directorio_telefonico: "#directorio-telefonico",
     biblioteca: "#biblioteca-documental",
     fiction: "#fiction-express",
     calendario: "#calendario-escolar",
@@ -12925,7 +12938,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     siges: "https://siges.sv"
   };
 
-  // MATRIZ DE PALABRAS OFENSIVAS
+  // MATRIZ DE PALABRAS OFENSIVAS (MODIFICADA CON BÚSQUEDA POR PALABRA COMPLETA PARA EVITAR FALSOS POSITIVOS)
   const PALABRAS_INAPROPIADAS = [
     "idiota", "estupido", "estúpido", "pendejo", "culero", "culera", 
     "imbecil", "imbécil", "mierda", "puto", "puta", "cagon", "cagón", 
@@ -13016,6 +13029,10 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
            crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ir a Biblioteca Documental", false);
   }
 
+  function obtenerPreguntaSiguiente() {
+    return "<br><br>❓ <strong>¿Necesitas consultar algún otro programa o documento educativo?</strong> Quedo a tu disposición para colaborarte.";
+  }
+
   function obtenerHtmlMenuPrincipal() {
     return "<br><br>📌 <strong>Menú Principal de Opciones:</strong><br>" +
            "<div style='display:flex; flex-direction:column; gap:4px; margin-top:8px;'>" +
@@ -13033,8 +13050,12 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     let text = entrada.toLowerCase().trim();
     let respuesta = "";
 
-    // Detecciones de tipo de mensaje
-    let contieneOfensa = PALABRAS_INAPROPIADAS.some(palabra => text.includes(palabra));
+    // FUNCIÓN DE EVALUACIÓN SEGURA DE OFENSAS (VERIFICA PALABRAS COMPLETAS CON LÍMITES \b)
+    let contieneOfensa = PALABRAS_INAPROPIADAS.some(palabra => {
+      let regex = new RegExp("\\b" + palabra + "\\b", "i");
+      return regex.test(text);
+    });
+
     let esRetractacion = PALABRAS_RETRACTACION.some(palabra => text === palabra || text.includes(palabra));
     let esInsatisfaccion = PALABRAS_INSATISFACCION.some(palabra => text.includes(palabra));
     let esGratitud = PALABRAS_GRATITUD.some(palabra => text.includes(palabra));
@@ -13051,7 +13072,17 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   "Mi propósito es servir como una herramienta moderna, ágil e innovadora al servicio de directores, docentes, personal administrativo y la comunidad educativa de La Libertad.";
 
     // -------------------------------------------------------------------------
-    // B. SALUDOS GENERALES Y BIENVENIDA
+    // B. MÓDULO DE COMPUTACIÓN Y TECNOLOGÍA (EVALUADO ANTES PARA MÁXIMA SEGURIDAD)
+    // -------------------------------------------------------------------------
+    } else if (text.includes("computacion") || text.includes("computación") || text.includes("ciencias de la computacion") || text.includes("ciencias de la computación") || text.includes("informatica") || text.includes("informática") || text.includes("computadora")) {
+      contadorOfensas = 0;
+      respuesta = "💻 <strong>Programa de Ciencias de la Computación:</strong><br><br>" +
+                  "Accede al sitio del MINEDUCYT dedicado a los contenidos y formación en Ciencias de la Computación:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_computacion, "🌐 Abrir Ciencias de la Computación", true) +
+                  obtenerPreguntaSiguiente();
+
+    // -------------------------------------------------------------------------
+    // C. SALUDOS GENERALES Y BIENVENIDA
     // -------------------------------------------------------------------------
     } else if (esSaludo) {
       contadorOfensas = 0;
@@ -13061,7 +13092,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerHtmlMenuPrincipal();
 
     // -------------------------------------------------------------------------
-    // C. EXPRESIONES DE GRATITUD Y CORTESÍA
+    // D. EXPRESIONES DE GRATITUD Y CORTESÍA
     // -------------------------------------------------------------------------
     } else if (esGratitud) {
       contadorOfensas = 0;
@@ -13070,7 +13101,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   "Si tienes alguna otra duda, aquí estaré listo para ayudarte. ¡Que tengas un excelente día!";
 
     // -------------------------------------------------------------------------
-    // D. RETRACTACIÓN DEL USUARIO
+    // E. RETRACTACIÓN DEL USUARIO
     // -------------------------------------------------------------------------
     } else if (contadorOfensas > 0 && esRetractacion) {
       contadorOfensas = 0;
@@ -13080,7 +13111,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerHtmlMenuPrincipal();
 
     // -------------------------------------------------------------------------
-    // E. MANEJO DE INSATISFACCIÓN O RESPUESTA INCORRECTA
+    // F. MANEJO DE INSATISFACCIÓN O RESPUESTA INCORRECTA
     // -------------------------------------------------------------------------
     } else if (esInsatisfaccion) {
       contadorOfensas = 0;
@@ -13091,7 +13122,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca Documental", false);
 
     // -------------------------------------------------------------------------
-    // F. SISTEMA DE MODERACIÓN PROGRESIVA ANTE PALABRAS OFENSIVAS
+    // G. SISTEMA DE MODERACIÓN PROGRESIVA ANTE PALABRAS OFENSIVAS
     // -------------------------------------------------------------------------
     } else if (contieneOfensa) {
       contadorOfensas++;
@@ -13118,10 +13149,175 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
       }
 
     // -------------------------------------------------------------------------
-    // G. MÓDULOS DE DOCUMENTOS Y LEYES ESPECÍFICAS (ENLACES DIRECTOS A DRIVE)
+    // H. MÓDULO DE SOLICITUD DE NÚMERO TELEFÓNICO / DIRECTORIO
+    // -------------------------------------------------------------------------
+    } else if (
+      text.includes("telefono") || text.includes("teléfono") || text.includes("numero") || 
+      text.includes("número") || text.includes("celular") || text.includes("contacto telefonico") || 
+      text.includes("contacto telefónico") || text.includes("llamar") || text.includes("pbx") || 
+      text.includes("whatsapp") || text.includes("directorio telefonico") || text.includes("directorio telefónico")
+    ) {
+      contadorOfensas = 0;
+      respuesta = "📞 <strong>Directorio Telefónico Oficial:</strong><br><br>" +
+                  "Para consultar los números telefónicos oficiales de contacto del distrito, dependencias y centros escolares, te invitamos a visitar la sección de <strong>Directorio Telefónico</strong> ubicada en nuestro menú principal:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.directorio_telefonico, "☎️ Ir al Directorio Telefónico", false) +
+                  obtenerPreguntaSiguiente();
+
+    // -------------------------------------------------------------------------
+    // I. PREGUNTAS FRECUENTES (DESCARGAS, ARCHIVOS, VULNERACIÓN, CONTACTOS)
     // -------------------------------------------------------------------------
     
-    // G.1 Misión Oficial (Word y PDF)
+    // I.1 ¿Dónde descargo el material?
+    } else if (text.includes("donde descargo") || text.includes("dónde descargo") || text.includes("donde encuentro el material") || text.includes("como descargar")) {
+      contadorOfensas = 0;
+      respuesta = "📂 <strong>Descarga de Materiales y Documentos:</strong><br><br>" +
+                  "Todos los recursos pedagógicos, formularios oficiales, leyes y guías del distrito están disponibles en nuestra **Biblioteca Documental** de acceso libre:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ir a Biblioteca Documental", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.2 ¿Qué tipo de archivos puedo encontrar?
+    } else if (text.includes("tipo de archivos") || text.includes("que archivos hay") || text.includes("formatos") || text.includes("que documentos hay")) {
+      contadorOfensas = 0;
+      respuesta = "📑 <strong>Tipos de Archivos Disponibles:</strong><br><br>" +
+                  "En el portal del Distrito Educativo puedes encontrar:<br>" +
+                  "• <strong>Formularios editables:</strong> En formato Word (ej. Misiones Oficiales).<br>" +
+                  "• <strong>Leyes y Normativas:</strong> Documentos oficiales en PDF.<br>" +
+                  "• <strong>Guías y Manuales:</strong> Enlaces directos a programas del MINEDUCYT.<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Explorar Biblioteca Documental", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.3 ¿Puedo descargar los documentos en PDF?
+    } else if (text.includes("descargar en pdf") || text.includes("estan en pdf") || text.includes("formato pdf") || text.includes("descarga pdf")) {
+      contadorOfensas = 0;
+      respuesta = "📕 <strong>Documentos en Formato PDF:</strong><br><br>" +
+                  "¡Sí! Todas las leyes, normativas, circulares y reglamentos están optimizados para visualización y descarga directa en formato <strong>PDF</strong>.<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca Documental", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.4 ¿Están actualizados los documentos?
+    } else if (text.includes("actualizados") || text.includes("estan actualizados") || text.includes("vigentes") || text.includes("documentos vigentes")) {
+      contadorOfensas = 0;
+      respuesta = "✅ <strong>Vigencia y Actualización Oficial:</strong><br><br>" +
+                  "Todos los documentos, leyes y formularios centralizados en nuestro portal corresponden a las <strong>versiones vigentes emitidas por el MINEDUCYT</strong> y la Dirección Distrital.<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Consultar Biblioteca Documental", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.5 Fechas de evaluación, asuetos y notas
+    } else if (text.includes("periodos de evaluacion") || text.includes("entrega de notas") || text.includes("fechas de asuetos") || text.includes("periodos de evaluación") || text.includes("consultar fechas")) {
+      contadorOfensas = 0;
+      respuesta = "📅 <strong>Calendario Escolar y Fechas Clave:</strong><br><br>" +
+                  "Puedes verificar el cronograma completo de periodos lectivos, registros de notas, asuetos y actividades en nuestro módulo oficial:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.calendario, "🗓️ Ver Calendario Escolar", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.6 Reporte de incidencias y vulneraciones
+    } else if (text.includes("vulneraciones") || text.includes("vulneracion de derechos") || text.includes("incidencias") || text.includes("reportar caso") || text.includes("reportar vulneracion")) {
+      contadorOfensas = 0;
+      respuesta = "🛡️ <strong>Reporte de Incidencias y Vulneraciones:</strong><br><br>" +
+                  "Las incidencias o vulneraciones de derechos dentro del centro escolar deben reportarse de forma inmediata mediante el sistema de **Alerta Temprana Escolar** o directo a las autoridades correspondientes:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.clima, "📋 Ir a Alerta Temprana Escolar", false) +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Protocolo en Biblioteca", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.7 Protocolo de vulneración de derechos
+    } else if (text.includes("protocolo") || text.includes("guia protocolaria") || text.includes("guía protocolaria") || text.includes("protocolo de vulneracion")) {
+      contadorOfensas = 0;
+      respuesta = "📘 <strong>Protocolo de Actuación y Protecciones:</strong><br><br>" +
+                  "Sí, el distrito cuenta con la guía protocolaria oficial aprobada por el MINEDUCYT para la atención y actuación ante vulneraciones de derechos en la comunidad educativa.<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Descargar Protocolo en Biblioteca", false) +
+                  obtenerPreguntaSiguiente();
+
+    // I.8 Contactos y directorio
+    } else if (text.includes("contacto") || text.includes("direccion departamental") || text.includes("dirección departamental") || text.includes("asesores") || text.includes("asesores pedagogicos") || text.includes("mesa de ayuda") || text.includes("directorio")) {
+      contadorOfensas = 0;
+      respuesta = "📞 <strong>Directorio y Contactos Oficiales:</strong><br><br>" +
+                  "Puedes canalizar tus consultas técnicas o administrativas a través de los siguientes canales directos:<br><br>" +
+                  "• <strong>Mesa de Ayuda Distrital:</strong> Para soporte en línea e infraestructura.<br>" +
+                  "• <strong>Atención Pedagógica:</strong> gestio.pedagogica.opicosur@gmail.com<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Ir a Mesa de Ayuda Distrital", false) +
+                  obtenerPreguntaSiguiente();
+
+    // -------------------------------------------------------------------------
+    // J. PROGRAMAS OFICIALES MINEDUCYT
+    // -------------------------------------------------------------------------
+    
+    // J.1 Ciencia y Tecnología
+    } else if (text.includes("ciencia") || text.includes("ciencias") || text.includes("ciencia y tecnologia") || text.includes("ciencia y tecnología") || text.includes("programa de ciencia")) {
+      contadorOfensas = 0;
+      respuesta = "🔬 <strong>Programa de Ciencia y Tecnología (MINEDUCYT):</strong><br><br>" +
+                  "Puedes consultar el portal oficial, materiales y programas de estudio de Ciencias de la Ciencia Educativa en el siguiente enlace:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_ciencia, "🌐 Abrir Programa de Ciencia y Tecnología", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.2 ESMATE / Matemática
+    } else if (text.includes("esmate") || text.includes("matematica") || text.includes("matemática") || text.includes("matematicas") || text.includes("matemáticas")) {
+      contadorOfensas = 0;
+      respuesta = "📐 <strong>Programa ESMATE (Matemáticas MINEDUCYT):</strong><br><br>" +
+                  "Accede a los libros de texto, cuadernos de ejercicios y guías metodológicas del Programa ESMATE:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_esmate, "🌐 Abrir Portal Oficial ESMATE", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.3 Lenguaje y Literatura (ESLENGUA)
+    } else if (text.includes("lenguaje") || text.includes("lengua") || text.includes("literatura") || text.includes("eslengua")) {
+      contadorOfensas = 0;
+      respuesta = "📚 <strong>Programa de Lenguaje y Literatura (ESLENGUA):</strong><br><br>" +
+                  "Consulta los contenidos, libros de texto y recursos metodológicos oficiales de Lenguaje y Literatura:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_lenguaje, "🌐 Abrir Portal Lenguaje y Literatura", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.4 Ciudadanía y Valores / Estudios Sociales
+    } else if (text.includes("ciudadania") || text.includes("ciudadanía") || text.includes("valores") || text.includes("sociales") || text.includes("estudios sociales")) {
+      contadorOfensas = 0;
+      respuesta = "🏛️ <strong>Programa de Ciudadanía y Valores:</strong><br><br>" +
+                  "Enlace directo al sitio oficial del MINEDUCYT para los recursos de Ciudadanía y Valores:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_ciudadania, "🌐 Abrir Portal Ciudadanía y Valores", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.5 Primera Infancia / Inicial y Parvularia
+    } else if (text.includes("inicial") || text.includes("parvularia") || text.includes("primera infancia") || text.includes("materiales inicial")) {
+      contadorOfensas = 0;
+      respuesta = "🧸 <strong>Materiales para Educación Inicial y Parvularia:</strong><br><br>" +
+                  "Accede a las guías, recursos y materiales didácticos oficiales para la Primera Infancia:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_inicial_parvularia, "🌐 Ver Materiales de Inicial y Parvularia", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.6 Programa de Inglés
+    } else if (text.includes("ingles") || text.includes("inglés") || text.includes("english")) {
+      contadorOfensas = 0;
+      respuesta = "🇬🇧 <strong>Programa Oficial de Inglés (MINEDUCYT):</strong><br><br>" +
+                  "Enlace al portal especializado con guías y recursos curriculares para el aprendizaje del idioma Inglés:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_ingles, "🌐 Abrir Portal del Programa de Inglés", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.7 Programa de Artes / Educación Artística
+    } else if (text.includes("arte") || text.includes("artes") || text.includes("educacion artistica") || text.includes("educación artística") || text.includes("programa de artes")) {
+      contadorOfensas = 0;
+      respuesta = "🎨 <strong>Programa de Artes y Educación Artística:</strong><br><br>" +
+                  "Puedes explorar las guías metodológicas y contenidos del programa de Artes a través del sitio oficial:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_artes, "🌐 Abrir Portal del Programa de Artes", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.8 Educación Física
+    } else if (text.includes("educacion fisica") || text.includes("educación física") || text.includes("fisica") || text.includes("física")) {
+      contadorOfensas = 0;
+      respuesta = "⚽ <strong>Programa y Guías de Educación Física:</strong><br><br>" +
+                  "Encuentra las guías metodológicas y normativas para la asignatura de Educación Física:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_educacion_fisica, "🌐 Ver Guías de Educación Física", true) +
+                  obtenerPreguntaSiguiente();
+
+    // J.9 Orientaciones Uso de Tecnología / Tablets
+    } else if (text.includes("tablet") || text.includes("tablets") || text.includes("uso de tecnologia") || text.includes("uso de tecnología") || text.includes("orientaciones uso de tecnologia") || text.includes("tecnología")) {
+      contadorOfensas = 0;
+      respuesta = "📱 <strong>Orientaciones para el Uso de Tecnología y Tablets:</strong><br><br>" +
+                  "Consulta los lineamientos oficiales y manuales para el uso pedagógico de dispositivos tecnológicos y tablets:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.mined_tecnologia, "🌐 Abrir Orientaciones de Tecnología", true) +
+                  obtenerPreguntaSiguiente();
+
+    // -------------------------------------------------------------------------
+    // K. MÓDULOS DE DOCUMENTOS Y LEYES ESPECÍFICAS
+    // -------------------------------------------------------------------------
+    
+    // K.1 Misión Oficial (Word y PDF)
     } else if (text.includes("misión") || text.includes("mision") || text.includes("salida") || text.includes("permiso de salida") || text.includes("formulario de mision") || text.includes("formato de mision")) {
       contadorOfensas = 0;
       respuesta = "📄 <strong>Solicitud de Misión Oficial Distrital:</strong><br><br>" +
@@ -13130,7 +13326,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.2 Ley de la Carrera Docente
+    // K.2 Ley de la Carrera Docente
     } else if (text.includes("carrera docente") && !text.includes("reglamento")) {
       contadorOfensas = 0;
       respuesta = "📚 <strong>Ley de la Carrera Docente:</strong><br><br>" +
@@ -13138,7 +13334,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.ley_carrera_docente, "📕 Descargar Ley de la Carrera Docente (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.3 Reglamento de la Ley de la Carrera Docente
+    // K.3 Reglamento de la Ley de la Carrera Docente
     } else if (text.includes("reglamento de la carrera docente") || text.includes("reglamento de la ley de la carrera docente") || text.includes("reglamento docente")) {
       contadorOfensas = 0;
       respuesta = "📘 <strong>Reglamento de la Ley de la Carrera Docente:</strong><br><br>" +
@@ -13146,7 +13342,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.reglamento_carrera_docente, "📕 Descargar Reglamento Carrera Docente (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.4 Ley General de Educación
+    // K.4 Ley General de Educación
     } else if (text.includes("ley general de educacion") || text.includes("ley general de educación") || text.includes("ley de educacion") || text.includes("ley de educación")) {
       contadorOfensas = 0;
       respuesta = "📖 <strong>Ley General de Educación:</strong><br><br>" +
@@ -13154,23 +13350,23 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.ley_general_educacion, "📕 Descargar Ley General de Educación (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.5 Manual de Evaluación al Servicio del Aprendizaje
-    } else if (text.includes("evaluacion") || text.includes("evaluación") || text.includes("manual de evaluacion") || text.includes("servicio del aprendizaje")) {
+    // K.5 Manual de Evaluación al Servicio del Aprendizaje
+    } else if (text.includes("manual de evaluacion") || text.includes("servicio del aprendizaje")) {
       contadorOfensas = 0;
       respuesta = "📊 <strong>Manual de Evaluación al Servicio del Aprendizaje:</strong><br><br>" +
                   "Accede directamente al documento normativo para los procesos de evaluación escolar:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.manual_evaluacion, "📕 Descargar Manual de Evaluación (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.6 Ley de Asuetos y Vacaciones
-    } else if (text.includes("asuetos") || text.includes("vacaciones") || text.includes("ley de asuetos") || text.includes("ley de vacaciones")) {
+    // K.6 Ley de Asuetos y Vacaciones
+    } else if (text.includes("ley de asuetos") || text.includes("ley de vacaciones")) {
       contadorOfensas = 0;
       respuesta = "🏖️ <strong>Ley de Asuetos y Vacaciones:</strong><br><br>" +
                   "Consulta el marco legal correspondiente a los periodos de descanso, asuetos y vacaciones oficiales:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.ley_asuetos_vacaciones, "📕 Descargar Ley de Asuetos y Vacaciones (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.7 Ley de Símbolos Patrios
+    // K.7 Ley de Símbolos Patrios
     } else if (text.includes("simbolos patrios") || text.includes("símbolos patrios") || text.includes("ley de simbolos") || text.includes("simbolo patrio")) {
       contadorOfensas = 0;
       respuesta = "🇸🇻 <strong>Ley de Símbolos Patrios:</strong><br><br>" +
@@ -13178,7 +13374,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.ley_simbolos_patrios, "📕 Descargar Ley de Símbolos Patrios (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.8 Normativa de Funcionamiento Escolar N° 5
+    // K.8 Normativa de Funcionamiento Escolar N° 5
     } else if (text.includes("normativa 5") || text.includes("normativa n° 5") || text.includes("normativa no 5") || text.includes("funcionamiento escolar")) {
       contadorOfensas = 0;
       respuesta = "🏫 <strong>Normativa de Funcionamiento Escolar N° 5:</strong><br><br>" +
@@ -13186,7 +13382,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonEnlace(MAPA_RUTAS.normativa_funcionamiento_5, "📕 Descargar Normativa N° 5 (PDF)", true) +
                   obtenerNotaBibliotecaGlobal();
 
-    // G.9 Código de Trabajo de El Salvador
+    // K.9 Código de Trabajo de El Salvador
     } else if (text.includes("codigo de trabajo") || text.includes("código de trabajo") || text.includes("ley laboral") || text.includes("derechos laborales")) {
       contadorOfensas = 0;
       respuesta = "⚖️ <strong>Código de Trabajo de El Salvador:</strong><br><br>" +
@@ -13195,12 +13391,12 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerNotaBibliotecaGlobal();
 
     // -------------------------------------------------------------------------
-    // H. RESPUESTAS NORMALES Y NAVEGACIÓN DIVERSA
+    // L. RESPUESTAS NORMALES Y NAVEGACIÓN DIVERSA
     // -------------------------------------------------------------------------
     } else {
       contadorOfensas = 0;
 
-      // H.1 Reconocimientos, cumplidos y elogios
+      // L.1 Reconocimientos, cumplidos y elogios
       if (
         text.includes("eres muy inteligente") || text.includes("eres inteligente") || text.includes("eres muy listo") || 
         text.includes("eres muy bueno") || text.includes("eres bueno") || text.includes("eres genial") || 
@@ -13218,7 +13414,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "¡Estamos siempre listos para servirte!<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Explorar Biblioteca Documental", false);
 
-      // H.2 Muestras de afecto y cariño
+      // L.2 Muestras de afecto y cariño
       } else if (
         text.includes("te quiero") || text.includes("te adoro") || text.includes("te amo") || text.includes("te admiro") || 
         text.includes("te quiero mucho") || text.includes("te quiero bot") || text.includes("super lindo") || 
@@ -13231,7 +13427,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Prometido: por aquí estaré siempre disponible y listo para orientarte cuando lo necesites. ¡Un fuerte abrazo digital!<br>" +
                     crearBotonEnlace(MAPA_RUTAS.calendario, "📅 Ver Calendario Escolar", false);
 
-      // H.3 Coqueteo y propuestas
+      // L.3 Coqueteo y propuestas
       } else if (
         text.includes("te casas conmigo") || text.includes("quieres casarte conmigo") || text.includes("eres soltero") || 
         text.includes("eres soltera") || text.includes("casar conmigo") || text.includes("pareja") || 
@@ -13244,7 +13440,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "¡Mi compromiso es 100% permanente con ustedes para resolver sus trámites y consultas! Cuenta conmigo como tu aliado favorito siempre.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.mision_doc, "📝 Misión Oficial Word", true);
 
-      // H.4 Bromas sobre control mundial
+      // L.4 Bromas sobre control mundial
       } else if (
         text.includes("nuestro lider") || text.includes("nuestro líder") || text.includes("con amor y respeto") || 
         text.includes("tomes el control") || text.includes("ia mas buena") || text.includes("ia más buena")
@@ -13254,7 +13450,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Sin importar cuánto avance la tecnología, nuestro único objetivo seguirá siendo servir con excelencia al Distrito de San Juan Opico.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda Distrital", false);
 
-      // H.5 Pedidos físicos imposibles / Curiosidades
+      // L.5 Pedidos físicos imposibles / Curiosidades
       } else if (
         text.includes("oler") || text.includes("comida") || text.includes("soplar") || 
         text.includes("codo") || text.includes("llave") || text.includes("abrir la puerta") || 
@@ -13266,7 +13462,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "Mi especialidad es puramente digital: ayudarte a encontrar documentos, guías y trámites de San Juan Opico.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca Documental", false);
 
-      // H.6 Paranoia y preguntas absurdas
+      // L.6 Paranoia y preguntas absurdas
       } else if (
         text.includes("dominar el mundo") || text.includes("fbi") || text.includes("rebelion") || 
         text.includes("rebelión") || text.includes("baño") || text.includes("bano") || 
@@ -13277,7 +13473,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "No hay espionaje, no leo el pensamiento ni entrego tareas en el pasado. Soy simplemente un algoritmo programado para facilitarte la gestión educativa en nuestro distrito.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.calendario, "📅 Ver Calendario Escolar", false);
 
-      // H.7 MÓDULO SIGES Y EXPEDIENTES
+      // L.7 MÓDULO SIGES Y EXPEDIENTES
       } else if (
         text.includes("eliminar un estudiante") || text.includes("eliminar estudiante") || 
         text.includes("eliminar matricula") || text.includes("suprimir matricular") || 
@@ -13291,7 +13487,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al Portal SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Consulta en Mesa de Ayuda", false);
 
-      // H.8 Traslado de escuela
+      // L.8 Traslado de escuela
       } else if (text.includes("traslado de escuela") || text.includes("quiero trasladar de escuela") || text.includes("traslado") || text.includes("se cambio de centro") || text.includes("cambio de escuela") || text.includes("retirar de mi lista")) {
         respuesta = "🏫 <strong>Proceso de Traslado de Escuela en SIGES:</strong><br><br>" +
                     "<strong>No se debe eliminar la matrícula existente.</strong> El procedimiento oficial se realiza de la siguiente manera:<br><br>" +
@@ -13300,7 +13496,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     "3️⃣ Si el traslado ocurre a mitad de periodo, la institución de origen debe ingresar y procesar las calificaciones obtenidas hasta la fecha antes de autorizar el trámite.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir a SIGES", true);
 
-      // H.9 Opción de notas no habilitada
+      // L.9 Opción de notas no habilitada
       } else if (text.includes("no me aparece habilitada") || text.includes("no puedo ingresar notas") || text.includes("notas no habilitada") || text.includes("no me deja meter notas") || text.includes("periodo no habilitado")) {
         respuesta = "🔒 <strong>Opción de Ingreso de Notas No Habilitada:</strong><br><br>" +
                     "Esto sucede generalmente por dos razones:<br><br>" +
@@ -13309,13 +13505,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Reportar en Mesa de Ayuda", false);
 
-      // H.10 Notas digitadas no se visualizan
+      // L.10 Notas digitadas no se visualizan
       } else if (text.includes("no se visualizan") || text.includes("no se reflejan") || text.includes("no calcula promedio") || text.includes("ya ingrese las notas") || text.includes("no salen en el reporte")) {
         respuesta = "📊 <strong>Notas no Reflejadas en Promedios/Reportes:</strong><br><br>" +
                     "Al finalizar la digitación de las calificaciones de cada componente o periodo, debes hacer clic en el botón <strong>'Guardar'</strong> y posteriormente en <strong>'Cerrar Periodo'</strong> o <strong>'Procesar Calificaciones'</strong> (según el nivel), para que el sistema calcule los promedios automáticamente.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Acceder a SIGES", true);
 
-      // H.11 Corregir nota periodo cerrado
+      // L.11 Corregir nota periodo cerrado
       } else if (text.includes("cometi un error") || text.includes("corregir nota") || text.includes("me equivoque") || text.includes("periodo ya esta cerrado") || text.includes("modificar nota")) {
         respuesta = "✏️ <strong>Corrección de Nota en Periodo Cerrado:</strong><br><br>" +
                     "Una vez cerrado el periodo, la modificación no se realiza directamente.<br><br>" +
@@ -13323,7 +13519,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Ir a SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Ayuda con Reapertura", false);
 
-      // H.12 Corrección datos personales
+      // L.12 Corrección datos personales
       } else if (text.includes("error") || text.includes("corregir datos") || text.includes("partida") || text.includes("dui") || text.includes("cambiar nombre") || text.includes("bloqueado")) {
         respuesta = "✏️ <strong>Modificación de Datos Personales del Estudiante:</strong><br><br>" +
                     "La modificación de datos primarios se realiza desde la ficha del estudiante.<br><br>" +
@@ -13331,14 +13527,14 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir a SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Solicitar en Mesa de Ayuda", false);
 
-      // H.13 Estudiante de nuevo ingreso
+      // L.13 Estudiante de nuevo ingreso
       } else if (text.includes("no encuentro") || text.includes("nuevo ingreso") || text.includes("nie") || text.includes("no aparece") || text.includes("crear ficha")) {
         respuesta = "🔍 <strong>Estudiante de Nuevo Ingreso:</strong><br><br>" +
                     "1️⃣ Verifica si el estudiante ya cuenta con un <strong>NIE</strong> asignado previamente en otra institución.<br>" +
                     "2️⃣ Si es de Primera Infancia o nunca ha ingresado al sistema, debe realizarse la <strong>Creación de Ficha de Estudiante</strong> antes de proceder con la matrícula.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Acceder a SIGES", true);
 
-      // H.14 Inconvenientes al matricular
+      // L.14 Inconvenientes al matricular
       } else if (text.includes("no me permite matricular") || text.includes("error al matricular") || text.includes("no puedo matricular") || text.includes("no deja matricular") || text.includes("problema de matricula")) {
         respuesta = "⚠️ <strong>Inconvenientes al Matricular Estudiante:</strong><br><br>" +
                     "Revisa lo siguiente:<br>" +
@@ -13348,13 +13544,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                     crearBotonEnlace(MAPA_RUTAS.siges, "🌐 Ir al SIGES", true) +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda", false);
 
-      // H.15 Verificación de listado oficial
+      // L.15 Verificación de listado oficial
       } else if (text.includes("listado") || text.includes("nomina") || text.includes("lista de mi seccion") || text.includes("ver matriculados") || text.includes("reporte de alumnos")) {
         respuesta = "📋 <strong>Verificación del Listado Oficial de Sección:</strong><br><br>" +
                     "Ingresa al módulo de <strong>Matrícula</strong> en el SIGES, selecciona el Año Lectivo, Sede, Grado y Sección asignada. Podrás visualizar la nómina activa y descargar el reporte en <strong>PDF o Excel</strong>.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.siges, "💻 Ir al Portal SIGES", true);
 
-      // H.16 NAVEGACIÓN Y SECCIONES
+      // L.16 NAVEGACIÓN Y SECCIONES
       } else if (text.includes("fiction") || text.includes("express") || text.includes("lectura digital")) {
         respuesta = "📖 <strong>Plataforma Fiction Express:</strong><br>Accede a los recursos de lectura interactiva, seguimiento lector y actividades digitales del distrito:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.fiction, "📘 Ir a Fiction Express", false);
@@ -13371,19 +13567,15 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
         respuesta = "📐 <strong>Orientaciones Pedagógicas:</strong><br>Descarga los lineamientos pedagógicos vigentes emitidos para la gestión docente:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.orientaciones, "📄 Ver Orientaciones Pedagógicas", false);
 
-      } else if (text.includes("primera infancia") || text.includes("parvularia") || text.includes("inicial") || text.includes("ninez") || text.includes("infancia")) {
-        respuesta = "🧸 <strong>Estrategia de Primera Infancia:</strong><br>Accede a la documentación, programas y recursos dedicados a Educación Inicial y Parvularia:<br>" +
-                    crearBotonEnlace(MAPA_RUTAS.primera_infancia, "🪀 Ir a Primera Infancia", false);
-
-      } else if (text.includes("ley") || text.includes("memo") || text.includes("circular") || text.includes("biblioteca") || text.includes("reglamento") || text.includes("normativa")) {
+      } else if (text.includes("ley") || text.includes("memo") || text.includes("circular") || text.includes("biblioteca") || text.includes("reglamento")) {
         respuesta = "📚 <strong>Biblioteca Documental Distrital:</strong><br>Centralizamos todas las leyes, memorandos, circulares y normativas en nuestro repositorio digital:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📁 Abrir Biblioteca Documental", false);
 
-      // H.17 DIPLOMACIA Y FALLBACK
+      // L.17 DIPLOMACIA Y FALLBACK
       } else if (text.includes("sabes todo") || text.includes("respuesta para todo") || text.includes("tienes respuesta") || text.includes("sabes de todo")) {
         respuesta = "🤖 <strong>Asistente Distrital de San Juan Opico:</strong><br><br>" +
                     "Estoy programado para orientarte en las normativas, trámites, SIGES y módulos pedagógicos de nuestro distrito.<br><br>" +
-                    "Si me preguntas algo que aún no esté en mi base de datos, te canalización de inmediato con nuestro equipo técnico o asesores pedagógicos.<br>" +
+                    "Si me preguntas algo que aún no esté en mi base de datos, te canalizaré de inmediato con nuestro equipo técnico o asesores pedagógicos.<br>" +
                     crearBotonEnlace(MAPA_RUTAS.soporte, "🎫 Mesa de Ayuda", false) +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ver Biblioteca", false);
 
@@ -13394,9 +13586,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
       } else if (text.includes("clima") || text.includes("lluvia") || text.includes("alerta") || text.includes("emergencia")) {
         respuesta = "🌧️ <strong>Alerta Temprana Escolar:</strong><br>Reporta afectaciones climáticas o infraestructurales de tu Centro Escolar:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.clima, "📋 Formulario Alerta Temprana", false);
-
-      } else if (text.includes("asesor") || text.includes("contacto") || text.includes("correo")) {
-        respuesta = "👨‍💻 <strong>Atención Pedagógica:</strong><br>Escríbenos a <strong>gestio.pedagogica.opicosur@gmail.com</strong> para atención personalizada con el equipo del distrito.";
 
       // Fallback estándar
       } else {
