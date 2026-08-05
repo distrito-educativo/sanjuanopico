@@ -12722,7 +12722,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Eliminar matrícula"</em>, <em>"Fiction Express"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Ley de la Carrera Docente"</em>, <em>"Fiction Express"</em>):
     </div>
     
     <!-- Botones de Acceso Rápido Iniciales (4 PRINCIPALES) -->
@@ -12897,10 +12897,23 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   // CONTROLADOR DE OFENSAS CONSECUTIVAS
   let contadorOfensas = 0;
 
-  // MAPA DE RUTAS Y ENLACES DIRECTOS
+  // MAPA DE RUTAS, SECCIONES Y DOCUMENTOS FRENCUENTES
   const MAPA_RUTAS = {
+    // Misión Oficial
     mision_doc: "https://docs.google.com/document/d/1Ra1PJ4idnXuYPmKOO8OUU5QmXzCNAlNX/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true",
     mision_pdf: "https://drive.google.com/file/d/1mQStKEP0M1vH6eipVzLtHBTLnppmX3tY/view?usp=drive_link",
+    
+    // Documentos Frecuentes
+    ley_carrera_docente: "https://drive.google.com/file/d/1pkA5nPRG4UtOwnO81laB_eV-WfEnncwr/view?usp=drive_link",
+    ley_general_educacion: "https://drive.google.com/file/d/1BYRL67cvtqDfgYTPrGlrOgqjlS0Jfaah/view?usp=drive_link",
+    manual_evaluacion: "https://drive.google.com/file/d/1AsFTioq8lAUTb07mPwKLJhlEOU1CtbLH/view?usp=drive_link",
+    reglamento_carrera_docente: "https://drive.google.com/file/d/13wp9aCUos-ZCJhzzann_w-8n_64uPOu2/view?usp=drive_link",
+    ley_asuetos_vacaciones: "https://drive.google.com/file/d/1arabPAxu0suamYLhfIiV_yG1YPho8ArP/view?usp=drive_link",
+    ley_simbolos_patrios: "https://drive.google.com/file/d/1XSUuZbFhzt-HhbcM1sMwzIQJGMgbnKoJ/view?usp=drive_link",
+    normativa_funcionamiento_5: "https://drive.google.com/file/d/1qy5u-qvLOGNcgPJTOdEXXoXeY-s9F-hW/view?usp=drive_link",
+    codigo_trabajo: "https://drive.google.com/file/d/1f20i6RUlenNjA_oqp7dXYOBu0KjrbHEk/view?usp=drive_link",
+
+    // Anclas de Secciones en el Sitio Web
     biblioteca: "#biblioteca-documental",
     fiction: "#fiction-express",
     calendario: "#calendario-escolar",
@@ -12972,7 +12985,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   }
 
   function seleccionarOpcion(clave) {
-    contadorOfensas = 0; // Reinicia contador al hacer clic en un botón válido
+    contadorOfensas = 0;
     const nombres = {
       mision: "Solicitar Misión Oficial",
       biblioteca: "Consultar Biblioteca Documental",
@@ -12996,6 +13009,11 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   function crearBotonEnlace(url, textoBoton, enNuevaPestana = true) {
     const target = enNuevaPestana ? '_blank' : '_parent';
     return `<a href="${url}" target="${target}" class="opico-link-btn">${textoBoton}</a>`;
+  }
+
+  function obtenerNotaBibliotecaGlobal() {
+    return "<br><br>📌 <em>Nota: Si buscas algún otro documento, normativa o circular, te invitamos a explorar nuestra Biblioteca Documental:</em><br>" +
+           crearBotonEnlace(MAPA_RUTAS.biblioteca, "📚 Ir a Biblioteca Documental", false);
   }
 
   function obtenerHtmlMenuPrincipal() {
@@ -13024,7 +13042,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     let esConsultaCreador = PALABRAS_CREADOR.some(palabra => text.includes(palabra));
 
     // -------------------------------------------------------------------------
-    // A. CONSULTA SOBRE CREADOR / AUTORÍA (RESPUESTA LIMPIA SIN MENÚ)
+    // A. CONSULTA SOBRE CREADOR / AUTORÍA
     // -------------------------------------------------------------------------
     if (esConsultaCreador) {
       contadorOfensas = 0;
@@ -13100,14 +13118,81 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
       }
 
     // -------------------------------------------------------------------------
-    // G. MÓDULO MISIÓN OFICIAL (DESCARGA DIRECTA WORD Y PDF)
+    // G. MÓDULOS DE DOCUMENTOS Y LEYES ESPECÍFICAS (ENLACES DIRECTOS A DRIVE)
     // -------------------------------------------------------------------------
+    
+    // G.1 Misión Oficial (Word y PDF)
     } else if (text.includes("misión") || text.includes("mision") || text.includes("salida") || text.includes("permiso de salida") || text.includes("formulario de mision") || text.includes("formato de mision")) {
       contadorOfensas = 0;
       respuesta = "📄 <strong>Solicitud de Misión Oficial Distrital:</strong><br><br>" +
                   "Aquí tienes los enlaces oficiales de descarga rápida para el formulario de Misión Oficial del Distrito Educativo de San Juan Opico:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.mision_doc, "📝 Descargar Formato Word (Editable)", true) +
-                  crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true);
+                  crearBotonEnlace(MAPA_RUTAS.mision_pdf, "📕 Descargar Formato PDF", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.2 Ley de la Carrera Docente
+    } else if (text.includes("carrera docente") && !text.includes("reglamento")) {
+      contadorOfensas = 0;
+      respuesta = "📚 <strong>Ley de la Carrera Docente:</strong><br><br>" +
+                  "Aquí tienes el enlace directo para consultar o descargar la Ley de la Carrera Docente vigente:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.ley_carrera_docente, "📕 Descargar Ley de la Carrera Docente (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.3 Reglamento de la Ley de la Carrera Docente
+    } else if (text.includes("reglamento de la carrera docente") || text.includes("reglamento de la ley de la carrera docente") || text.includes("reglamento docente")) {
+      contadorOfensas = 0;
+      respuesta = "📘 <strong>Reglamento de la Ley de la Carrera Docente:</strong><br><br>" +
+                  "Puedes consultar y descargar el Reglamento oficial a través del siguiente enlace:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.reglamento_carrera_docente, "📕 Descargar Reglamento Carrera Docente (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.4 Ley General de Educación
+    } else if (text.includes("ley general de educacion") || text.includes("ley general de educación") || text.includes("ley de educacion") || text.includes("ley de educación")) {
+      contadorOfensas = 0;
+      respuesta = "📖 <strong>Ley General de Educación:</strong><br><br>" +
+                  "Aquí tienes el enlace directo para visualizar o descargar el documento completo:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.ley_general_educacion, "📕 Descargar Ley General de Educación (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.5 Manual de Evaluación al Servicio del Aprendizaje
+    } else if (text.includes("evaluacion") || text.includes("evaluación") || text.includes("manual de evaluacion") || text.includes("servicio del aprendizaje")) {
+      contadorOfensas = 0;
+      respuesta = "📊 <strong>Manual de Evaluación al Servicio del Aprendizaje:</strong><br><br>" +
+                  "Accede directamente al documento normativo para los procesos de evaluación escolar:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.manual_evaluacion, "📕 Descargar Manual de Evaluación (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.6 Ley de Asuetos y Vacaciones
+    } else if (text.includes("asuetos") || text.includes("vacaciones") || text.includes("ley de asuetos") || text.includes("ley de vacaciones")) {
+      contadorOfensas = 0;
+      respuesta = "🏖️ <strong>Ley de Asuetos y Vacaciones:</strong><br><br>" +
+                  "Consulta el marco legal correspondiente a los periodos de descanso, asuetos y vacaciones oficiales:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.ley_asuetos_vacaciones, "📕 Descargar Ley de Asuetos y Vacaciones (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.7 Ley de Símbolos Patrios
+    } else if (text.includes("simbolos patrios") || text.includes("símbolos patrios") || text.includes("ley de simbolos") || text.includes("simbolo patrio")) {
+      contadorOfensas = 0;
+      respuesta = "🇸🇻 <strong>Ley de Símbolos Patrios:</strong><br><br>" +
+                  "Enlace directo para consultar la Ley reguladora de los Símbolos Patrios de El Salvador:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.ley_simbolos_patrios, "📕 Descargar Ley de Símbolos Patrios (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.8 Normativa de Funcionamiento Escolar N° 5
+    } else if (text.includes("normativa 5") || text.includes("normativa n° 5") || text.includes("normativa no 5") || text.includes("funcionamiento escolar")) {
+      contadorOfensas = 0;
+      respuesta = "🏫 <strong>Normativa de Funcionamiento Escolar N° 5:</strong><br><br>" +
+                  "Enlace directo de descarga para la Normativa de Funcionamiento Escolar vigente:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.normativa_funcionamiento_5, "📕 Descargar Normativa N° 5 (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
+    // G.9 Código de Trabajo de El Salvador
+    } else if (text.includes("codigo de trabajo") || text.includes("código de trabajo") || text.includes("ley laboral") || text.includes("derechos laborales")) {
+      contadorOfensas = 0;
+      respuesta = "⚖️ <strong>Código de Trabajo de El Salvador:</strong><br><br>" +
+                  "Accede al Código de Trabajo oficial vigente a través del siguiente enlace:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.codigo_trabajo, "📕 Descargar Código de Trabajo (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
 
     // -------------------------------------------------------------------------
     // H. RESPUESTAS NORMALES Y NAVEGACIÓN DIVERSA
@@ -13290,7 +13375,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
         respuesta = "🧸 <strong>Estrategia de Primera Infancia:</strong><br>Accede a la documentación, programas y recursos dedicados a Educación Inicial y Parvularia:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.primera_infancia, "🪀 Ir a Primera Infancia", false);
 
-      } else if (text.includes("ley") || text.includes("memo") || text.includes("circular") || text.includes("biblioteca") || text.includes("reglamento") || text.includes("carrera docente")) {
+      } else if (text.includes("ley") || text.includes("memo") || text.includes("circular") || text.includes("biblioteca") || text.includes("reglamento") || text.includes("normativa")) {
         respuesta = "📚 <strong>Biblioteca Documental Distrital:</strong><br>Centralizamos todas las leyes, memorandos, circulares y normativas en nuestro repositorio digital:<br>" +
                     crearBotonEnlace(MAPA_RUTAS.biblioteca, "📁 Abrir Biblioteca Documental", false);
 
