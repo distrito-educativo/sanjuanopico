@@ -12955,8 +12955,9 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
      FINALIZA MOTOR LÓGICO Y CONEXIÓN REAL (RESTAURADO)
      + LIMPIADOR DE URL
      ======================================================== -->
+
 <!-- =========================================================================
-     ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN UNIVERSAL SPA
+     ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN SPA
      DISTRITO EDUCATIVO DE SAN JUAN OPICO, LA LIBERTAD
      ========================================================================= -->
 
@@ -12981,14 +12982,14 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Primera Infancia"</em>, <em>"Directorio telefónico"</em>, <em>"Misión Oficial"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
     </div>
     
     <!-- Botones de Acceso Rápido Iniciales -->
     <div id="opico-quick-options">
       <button class="opico-opt-btn" onclick="seleccionarOpcion('mision')">📄 Solicitar Misión Oficial</button>
-      <button class="opico-opt-btn" onclick="seleccionarOpcion('primera_infancia')">🧸 Primera Infancia</button>
       <button class="opico-opt-btn" onclick="seleccionarOpcion('biblioteca')">📚 Biblioteca Documental</button>
+      <button class="opico-opt-btn" onclick="seleccionarOpcion('fiction')">📖 Fiction Express</button>
       <button class="opico-opt-btn" onclick="seleccionarOpcion('calendario')">📅 Calendario Escolar</button>
     </div>
   </div>
@@ -13006,8 +13007,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #e5b325;
-    color: #003366;
+    background-color: #e5b325; /* Color Dorado Oficial "San Juan Opico" */
+    color: #003366;           /* Texto azul marino de alto contraste */
     padding: 12px 20px;
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -13157,7 +13158,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
 <script>
   let contadorOfensas = 0;
 
-  // MAPA DE RUTAS Y PDFS DIRECTOS
   const MAPA_RUTAS = {
     mision_doc: "https://docs.google.com/document/d/1Ra1PJ4idnXuYPmKOO8OUU5QmXzCNAlNX/edit?usp=drive_link&ouid=114427763563163743614&rtpof=true&sd=true",
     mision_pdf: "https://drive.google.com/file/d/1mQStKEP0M1vH6eipVzLtHBTLnppmX3tY/view?usp=drive_link",
@@ -13182,7 +13182,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     mined_computacion: "https://www.mined.gob.sv/ciencias-de-la-computacion/",
 
     fiction: "https://es.fictionexpress.com/",
-    calendario: "https://drive.google.com/file/d/1qsxcN5T1FApjkL82XKNQppxRAsp5R3Zk/view?usp=drive_link",
     siges: "https://siges.sv"
   };
 
@@ -13223,7 +13222,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     contadorOfensas = 0;
     const nombres = {
       mision: "Solicitar Misión Oficial",
-      primera_infancia: "Sección Primera Infancia",
       biblioteca: "Consultar Biblioteca Documental",
       fiction: "Información de Fiction Express",
       calendario: "Ver Calendario Escolar"
@@ -13243,63 +13241,42 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   }
 
   // =========================================================================
-  // MOTOR DE CONMUTACIÓN DE VISTAS UNIVERSAL PARA SAN JUAN OPICO
+  // SISTEMA DE NAVEGACIÓN DINÁMICA SPA PARA SECCIONES INTERNAS DEL SITIO WEB
   // =========================================================================
-  function irASeccionInterna(targetKey) {
-    // 1. Cerrar chat inmediatamente
-    const chatWin = document.getElementById('opico-chat-window');
-    if (chatWin) chatWin.style.display = 'none';
+  function irASeccionInterna(targetName, alternativeId) {
+    toggleOpicoChat(); // Minimiza el asistente
+    
+    // 1. Intenta disparar el evento del enlace del menú lateral
+    const linkMenu = document.querySelector(`.nav-link[data-target="${targetName}"]`) || 
+                     document.querySelector(`[data-target="${targetName}"]`) ||
+                     document.querySelector(`[data-target="${alternativeId}"]`) ||
+                     Array.from(document.querySelectorAll('.nav-link')).find(el => 
+                       el.textContent.toLowerCase().includes(targetName.replace('-home', '').replace('-', ' '))
+                     );
 
-    let keyLimpia = targetKey.toLowerCase().trim();
-    let baseKey = keyLimpia.replace('-home', '').replace('_', '-');
-    let homeKey = `${baseKey}-home`;
-
-    // 2. BUSCAR EL ELEMENTO EN EL MENÚ LATERAL REAL DE LA PLANTILLA
-    const elementosMenu = Array.from(document.querySelectorAll('.nav-link, .nav-item, [data-target]'));
-    let navElem = elementosMenu.find(el => {
-      let attr = (el.getAttribute('data-target') || '').toLowerCase();
-      let txt = el.textContent.toLowerCase().trim();
-      return attr === homeKey || attr === baseKey || txt.includes(baseKey.replace('-', ' '));
-    });
-
-    if (navElem) {
-      navElem.click();
-      ['mousedown', 'mouseup', 'click'].forEach(evtType => {
-        let evt = new MouseEvent(evtType, { bubbles: true, cancelable: true, view: window });
-        navElem.dispatchEvent(evt);
-      });
-    }
-
-    // 3. RESPALDO DIRECTO DE INYECCIÓN/RENDERIZADO DE VISTA
-    setTimeout(() => {
-      // Si existe un objeto global 'pages' donde guardas las plantillas
-      if (typeof window.pages !== 'undefined' && (window.pages[homeKey] || window.pages[baseKey])) {
-        const mainContent = document.getElementById('main-content') || document.querySelector('.main-content') || document.querySelector('main');
-        if (mainContent) {
-          mainContent.innerHTML = window.pages[homeKey] || window.pages[baseKey];
-        }
-      } else {
-        // Conmutación estándar por display de contenedor
-        const contenedores = document.querySelectorAll('.page-section, div[id*="-home"]');
-        if (contenedores.length > 0) {
-          contenedores.forEach(c => c.style.display = 'none');
-          let destino = document.getElementById(homeKey) || document.getElementById(baseKey);
-          if (destino) destino.style.display = 'block';
-        }
+    if (linkMenu) {
+      linkMenu.click();
+    } else {
+      // 2. Respaldo de visibilidad directa si la plantilla conmuta por clases/ids
+      const secciones = document.querySelectorAll('.page-section');
+      secciones.forEach(sec => sec.style.display = 'none');
+      
+      const seccionDestino = document.getElementById(targetName) || document.getElementById(alternativeId);
+      if (seccionDestino) {
+        seccionDestino.style.display = 'block';
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50);
+    }
   }
 
-  // DISPARADORES DE SECCIÓN
-  function irADirectorioTelefonico() { irASeccionInterna('directorio-telefonico'); }
-  function irAPrimeraInfancia() { irASeccionInterna('primera-infancia'); }
-  function irASoporteTecnico() { irASeccionInterna('soporte-tecnico'); }
-  function irABibliotecaDocumental() { irASeccionInterna('biblioteca-documental'); }
-  function irANoticias() { irASeccionInterna('noticias'); }
-  function irAOrientacionesPedagogicas() { irASeccionInterna('orientaciones-pedagogicas'); }
-  function irAAprendamosAEstudiar() { irASeccionInterna('aprendamos-a-estudiar'); }
-  function irAAlertaTemprana() { irASeccionInterna('alerta-temprana'); }
+  // ACCESOS DIRECTOS ADAPTADOS A LAS CLAVES DEL MENÚ LATERAL
+  function irASoporteTecnico() { irASeccionInterna('soporte-home', 'soporte-tecnico'); }
+  function irABibliotecaDocumental() { irASeccionInterna('biblioteca-home', 'biblioteca-documental'); }
+  function irADirectorioTelefonico() { irASeccionInterna('directorio-home', 'directorio-telefonico'); }
+  function irAPrimeraInfancia() { irASeccionInterna('primera-infancia-home', 'primera-infancia'); }
+  function irANoticias() { irASeccionInterna('noticias-home', 'noticias'); }
+  function irAOrientacionesPedagogicas() { irASeccionInterna('orientaciones-home', 'orientaciones-pedagogicas'); }
+  function irAAprendamosAEstudiar() { irASeccionInterna('aprendamos-home', 'aprendamos-a-estudiar'); }
+  function irACalendarioEscolar() { irASeccionInterna('calendario-home', 'calendario-escolar'); }
 
   function crearBotonAccionLocal(textoBoton, funcionJavascript) {
     return `<button onclick="${funcionJavascript}" class="opico-link-btn">${textoBoton}</button>`;
@@ -13311,7 +13288,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   }
 
   function obtenerNotaBibliotecaGlobal() {
-    return "<br><br>📌 <em>Nota: Si buscas algún otro documento o normativa, te invitamos a ingresar a nuestra:</em><br>" +
+    return "<br><br>📌 <em>Nota: Si buscas algún otro documento o normativa, te invitamos a explorar nuestra:</em><br>" +
            crearBotonAccionLocal("📚 Ir a Biblioteca Documental", "irABibliotecaDocumental()");
   }
 
@@ -13323,8 +13300,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     return "<br><br>📌 <strong>Menú Principal de Opciones:</strong><br>" +
            "<div style='display:flex; flex-direction:column; gap:4px; margin-top:8px;'>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('mision')\">📄 Solicitar Misión Oficial</button>" +
-           "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('primera_infancia')\">🧸 Primera Infancia</button>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('biblioteca')\">📚 Biblioteca Documental</button>" +
+           "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('fiction')\">📖 Fiction Express</button>" +
            "<button class='opico-opt-btn' onclick=\"seleccionarOpcion('calendario')\">📅 Calendario Escolar</button>" +
            "</div>";
   }
@@ -13399,9 +13376,22 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerPreguntaSiguiente();
 
     // -------------------------------------------------------------------------
-    // 3. RESTO DE SECCIONES Y MÓDULOS
+    // 3. SECCIONES Y MÓDULOS DE NAVEGACIÓN SPA
     // -------------------------------------------------------------------------
-    } else if (text === "primera_infancia" || text.includes("primera infancia") || text.includes("crecer juntos") || text.includes("nacer con carino") || text.includes("nacer con cariño") || text.includes("parvularia") || text.includes("inicial")) {
+    } else if (
+      text.includes("telefono") || text.includes("teléfono") || text.includes("numero") || 
+      text.includes("número") || text.includes("celular") || text.includes("contacto telefonico") || 
+      text.includes("contacto telefónico") || text.includes("llamar") || text.includes("pbx") || 
+      text.includes("whatsapp") || text.includes("directorio telefonico") || text.includes("directorio telefónico") ||
+      text.includes("directorio")
+    ) {
+      contadorOfensas = 0;
+      respuesta = "📞 <strong>Directorio Telefónico Oficial:</strong><br><br>" +
+                  "Para consultar los números telefónicos oficiales de contacto del distrito, dependencias y centros escolares, pulsa el siguiente botón:<br><br>" +
+                  crearBotonAccionLocal("☎️ Ir al Directorio Telefónico", "irADirectorioTelefonico()") +
+                  obtenerPreguntaSiguiente();
+
+    } else if (text.includes("primera infancia") || text.includes("crecer juntos") || text.includes("nacer con carino") || text.includes("nacer con cariño") || text.includes("parvularia") || text.includes("inicial")) {
       contadorOfensas = 0;
       respuesta = "🧸 <strong>Estrategia de Primera Infancia:</strong><br><br>" +
                   "Conoce los pilares, normativas y nuestra galería interactiva de YouTube Shorts sobre la Ley Crecer Juntos y Nacer con Cariño:<br><br>" +
@@ -13418,15 +13408,15 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     } else if (text === "fiction" || text.includes("fiction express") || text.includes("fictionexpress") || text.includes("lectura digital")) {
       contadorOfensas = 0;
       respuesta = "📖 <strong>Plataforma Fiction Express:</strong><br><br>" +
-                  "Accede al portal oficial para disfrutar de los libros interactivos y seguimiento lector:<br><br>" +
+                  "Accede al portal oficial de Fiction Express para disfrutar de los libros interactivos, recursos lectores y seguimiento para estudiantes y docentes:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.fiction, "🌐 Ir a Fiction Express", true) +
                   obtenerPreguntaSiguiente();
 
-    } else if (text === "calendario" || text.includes("calendario escolar") || text.includes("fechas escolares") || text.includes("cronograma escolar")) {
+    } else if (text === "calendario" || text.includes("calendario escolar") || text.includes("calendario de clases") || text.includes("fechas escolares") || text.includes("cronograma escolar")) {
       contadorOfensas = 0;
       respuesta = "📅 <strong>Calendario Escolar Distrital:</strong><br><br>" +
-                  "Consulta y descarga el archivo oficial del Calendario Escolar vigente:<br><br>" +
-                  crearBotonEnlace(MAPA_RUTAS.calendario, "🗓️ Ver Calendario Escolar (PDF)", true) +
+                  "Puedes consultar el cronograma oficial de actividades, asuetos y periodos lectivos directamente en nuestro portal:<br><br>" +
+                  crearBotonAccionLocal("📅 Ir al Calendario Escolar", "irACalendarioEscolar()") +
                   obtenerPreguntaSiguiente();
 
     } else if (text.includes("computacion") || text.includes("computación") || text.includes("ciencias de la computacion") || text.includes("informatica")) {
@@ -13434,59 +13424,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
       respuesta = "💻 <strong>Programa de Ciencias de la Computación:</strong><br><br>" +
                   "Accede al sitio del MINEDUCYT dedicado a los contenidos y formación en Ciencias de la Computación:<br><br>" +
                   crearBotonEnlace(MAPA_RUTAS.mined_computacion, "🌐 Abrir Ciencias de la Computación", true) +
-                  obtenerPreguntaSiguiente();
-
-    } else if (esSaludo) {
-      contadorOfensas = 0;
-      respuesta = "👋 <strong>¡Hola! Un gusto saludarte.</strong><br><br>" +
-                  "Te damos la bienvenida al asistente virtual del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>" +
-                  "¿En qué trámite, normativa o consulta del portal te podemos apoyar hoy?" +
-                  obtenerHtmlMenuPrincipal();
-
-    } else if (esGratitud) {
-      contadorOfensas = 0;
-      respuesta = "🙏 <strong>¡Con el mayor de los gustos!</strong><br><br>" +
-                  "Es un placer servirte. En el <strong>Distrito Educativo de San Juan Opico</strong> estamos comprometidos en facilitarte la información que necesites.<br><br>" +
-                  "¡Que tengas un excelente día!";
-
-    } else if (contadorOfensas > 0 && esRetractacion) {
-      contadorOfensas = 0;
-      respuesta = "🤝 <strong>¡Excelente! Agradezco tu disposición.</strong><br><br>" +
-                  "Estamos 100% listos para comenzar a trabajar y ayudarte.<br><br>" +
-                  "¿En qué te podemos apoyar en este momento?" +
-                  obtenerHtmlMenuPrincipal();
-
-    } else if (esInsatisfaccion) {
-      contadorOfensas = 0;
-      respuesta = "🙏 <strong>Lamento mucho la confusión.</strong><br><br>" +
-                  "Por favor, intenta escribir tu consulta con otras palabras o con gusto te derivo con el equipo de soporte técnico:<br>" +
-                  crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-
-    } else if (contieneOfensa) {
-      contadorOfensas++;
-      if (contadorOfensas === 1) {
-        respuesta = "🛑 <strong>Aviso de Convivencia Digital:</strong><br><br>" +
-                    "Mantenemos un trato profesional y respetuoso.<br><br>" +
-                    "Si necesitas asistencia técnica, con gusto te dirijo a Soporte:<br>" +
-                    crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-      } else if (contadorOfensas === 2) {
-        respuesta = "🕊️ <strong>Fomentando un Ambiente de Respeto:</strong><br><br>" +
-                    "Cuéntanos con respeto, ¿en qué proceso te podemos colaborar hoy?<br>" +
-                    crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
-      } else {
-        respuesta = "🤖 <strong>Atención Automática Limitada:</strong><br><br>" +
-                    "Se ha desactivado el procesamiento de texto libre por ofensas reiteradas.<br><br>" +
-                    obtenerHtmlMenuPrincipal();
-      }
-
-    } else if (
-      text.includes("telefono") || text.includes("teléfono") || text.includes("numero") || 
-      text.includes("contacto telefonico") || text.includes("llamar") || text.includes("directorio")
-    ) {
-      contadorOfensas = 0;
-      respuesta = "📞 <strong>Directorio Telefónico Oficial:</strong><br><br>" +
-                  "Para consultar los números telefónicos oficiales de contacto del distrito y centros escolares, pulsa el botón:<br><br>" +
-                  crearBotonAccionLocal("☎️ Ir al Directorio Telefónico", "irADirectorioTelefonico()") +
                   obtenerPreguntaSiguiente();
 
     } else if (text.includes("orientacion") || text.includes("orientaciones") || text.includes("lineamientos") || text.includes("planificacion")) {
@@ -13503,24 +13440,67 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   crearBotonAccionLocal("✍️ Ir a 'Aprendamos a Estudiar'", "irAAprendamosAEstudiar()") +
                   obtenerPreguntaSiguiente();
 
-    } else if (text.includes("vulneraciones") || text.includes("incidencias") || text.includes("alerta") || text.includes("reportar")) {
+    } else if (esSaludo) {
       contadorOfensas = 0;
-      respuesta = "🛡️ <strong>Alerta Temprana Escolar:</strong><br><br>" +
-                  "Reporta incidencias, vulneraciones de derechos o alertas de forma directa:<br><br>" +
-                  crearBotonAccionLocal("📋 Ir a Alerta Temprana", "irAAlertaTemprana()") +
-                  obtenerPreguntaSiguiente();
+      respuesta = "👋 <strong>¡Hola! Un gusto saludarte.</strong><br><br>" +
+                  "Te damos la bienvenida al asistente virtual del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>" +
+                  "¿En qué trámite, normativa o consulta del portal te podemos apoyar hoy?" +
+                  obtenerHtmlMenuPrincipal();
 
-    } else if (text.includes("contacto") || text.includes("soporte") || text.includes("mesa de ayuda") || text.includes("ticket") || text.includes("ayuda")) {
+    } else if (esGratitud) {
+      contadorOfensas = 0;
+      respuesta = "🙏 <strong>¡Con el mayor de los gustos!</strong><br><br>" +
+                  "Es un placer servirte. En el <strong>Distrito Educativo de San Juan Opico</strong> estamos comprometidos en facilitarte la información y los trámites pedagógicos y administrativos que necesites.<br><br>" +
+                  "Si tienes alguna otra duda, aquí estaré listo para ayudarte. ¡Que tengas un excelente día!";
+
+    } else if (contadorOfensas > 0 && esRetractacion) {
+      contadorOfensas = 0;
+      respuesta = "🤝 <strong>¡Excelente! Agradezco tu disposición.</strong><br><br>" +
+                  "Estamos 100% listos para comenzar a trabajar y ayudarte con los procesos, guías y trámites del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>" +
+                  "¿En qué te podemos apoyar en este momento?" +
+                  obtenerHtmlMenuPrincipal();
+
+    } else if (esInsatisfaccion) {
+      contadorOfensas = 0;
+      respuesta = "🙏 <strong>Lamento mucho la confusión o la respuesta imprecisa.</strong><br><br>" +
+                  "Como sistema automatizado, sigo aprendiendo para brindarte la mejor orientación posible en el portal distrital.<br><br>" +
+                  "Por favor, intenta escribir tu consulta con otras palabras específicas o con gusto te derivo con el equipo de soporte técnico:<br>" +
+                  crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
+
+    } else if (contieneOfensa) {
+      contadorOfensas++;
+
+      if (contadorOfensas === 1) {
+        respuesta = "🛑 <strong>Aviso de Convivencia Digital:</strong><br><br>" +
+                    "Te recuerdo que mi trabajo en este portal es exclusivamente orientar y guiar en los trámites, normativas y procesos del Distrito Educativo de San Juan Opico.<br><br>" +
+                    "Mantenemos un trato profesional y respetuoso.<br><br>" +
+                    "Si tienes un inconveniente o necesitas asistencia técnica, estoy a tu disposición:<br>" +
+                    crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
+
+      } else if (contadorOfensas === 2) {
+        respuesta = "🕊️ <strong>Fomentando un Ambiente de Respeto:</strong><br><br>" +
+                    "Entendemos que un trámite o proceso difícil puede causar frustración, pero te invitamos a continuar con un trato adecuado.<br><br>" +
+                    "Cuéntanos con respeto, ¿cuál es el proceso específico en el que te podemos colaborar hoy?<br>" +
+                    crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
+
+      } else {
+        respuesta = "🤖 <strong>Atención Automática Limitada:</strong><br><br>" +
+                    "Debido al uso reiterado de lenguaje no apropiado, se ha desactivado el procesamiento de texto libre.<br><br>" +
+                    "A partir de este momento, solo responderé mostrando las opciones principales del portal:" +
+                    obtenerHtmlMenuPrincipal();
+      }
+
+    } else if (text.includes("contacto") || text.includes("direccion departamental") || text.includes("dirección departamental") || text.includes("asesores") || text.includes("asesores pedagogicos") || text.includes("mesa de ayuda") || text.includes("soporte") || text.includes("soporte tecnico") || text.includes("soporte técnico")) {
       contadorOfensas = 0;
       respuesta = "📞 <strong>Soporte Técnico y Mesa de Ayuda Distrital:</strong><br><br>" +
-                  "Canaliza tus requerimientos de soporte e infraestructura técnica en nuestro módulo especializado:<br><br>" +
+                  "Puedes canalizar tus solicitudes de soporte técnico, reporte de fallas o consultas administrativas directamente en nuestra área especializada del portal:<br><br>" +
                   crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()") +
                   obtenerPreguntaSiguiente();
 
     } else {
       contadorOfensas = 0;
       respuesta = `🤖 No dispongo del detalle exacto sobre "<em>${entrada}</em>" en este momento.<br><br>` +
-                  "Te sugiero explorar el menú o consultar con nuestro equipo de soporte técnico:<br>" +
+                  "Te sugiero explorar las opciones del menú principal o contactar a nuestro equipo de soporte técnico:<br>" +
                   crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()");
     }
 
@@ -13529,7 +13509,9 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     }, 350);
   }
 </script>
-
+<!-- =========================================================================
+     FINALIZA ASISTENTE VIRTUAL OFICIAL Y SISTEMA DE NAVEGACIÓN SPA
+     ========================================================================= -->
 
 <script>
 function reproducirShort(idContenedor, idVideo) {
