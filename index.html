@@ -11384,12 +11384,731 @@ Se envía convocatoria con tiempo de antelación para su respectiva organizació
                     <span style="color: #cbd5e1; margin-top: 15px; font-size: 1rem;">Haz clic fuera del video para cerrar</span>
                 </div>
             `,
-            
-            'derechos-ninez': `<div class="page-header"><h1>Protección Niñez</h1><p>Módulo en construcción...</p></div>`,
-            
-            'derechos-mujer': `<div class="page-header"><h1>Unidad de la Mujer</h1><p>Módulo en construcción...</p></div>`
-        };
+'derechos-ninez': `
+<!-- =========================================================================
+     MÓDULO: PROTECCIÓN NIÑEZ - DISTRITO EDUCATIVO DE SAN JUAN OPICO
+     SUBPÁGINA DENTRO DE DERECHOS HUMANOS
+     ========================================================================= -->
+<div id="proteccion-ninez-module" class="proteccion-container">
 
+  <!-- 1. ENCABEZADO COLORIDO E INSTITUCIONAL -->
+  <header class="pn-hero">
+    <div class="pn-hero-overlay">
+      <span class="pn-tag">Distrito San Juan Opico • La Libertad</span>
+      <h1>🛡️ Protección Integral de la Niñez y Adolescencia</h1>
+      <p>Garantizando un entorno escolar seguro, inclusivo y libre de violencia, fundamentado en el marco legal de El Salvador.</p>
+    </div>
+  </header>
+
+  <!-- 2. TARJETAS DE PILARES FUNDAMENTALES DE LA NIÑEZ -->
+  <section class="pn-pilares">
+    <div class="pn-card border-blue">
+      <div class="pn-icon">👶</div>
+      <h3>Desarrollo Integral</h3>
+      <p>Atención prioritaria desde la Primera Infancia promoviendo el crecimiento físico, cognitivo y socioemocional.</p>
+    </div>
+
+    <div class="pn-card border-orange">
+      <div class="pn-icon">🏫</div>
+      <h3>Entornos Seguros</h3>
+      <p>Espacios educativos libres de acoso, discriminación y cualquier forma de vulneración a sus derechos.</p>
+    </div>
+
+    <div class="pn-card border-green">
+      <div class="pn-icon">🤝</div>
+      <h3>Participación Activa</h3>
+      <p>Reconocimiento de niñas, niños y adolescentes como sujetos de derecho con voz activa en la comunidad.</p>
+    </div>
+
+    <div class="pn-card border-purple">
+      <div class="pn-icon">⚖️</div>
+      <h3>Interés Superior</h3>
+      <p>Principio rector en todas las decisiones pedagógicas, administrativas y disciplinarias del distrito.</p>
+    </div>
+  </section>
+
+  <!-- 3. REPOSITORIO DE DOCUMENTOS LEGALES Y MARCO NORMATIVO -->
+  <section class="pn-docs-section">
+    <h2>📜 Marco Legal y Documentos Fundamentales</h2>
+    <p class="pn-subtitle">Consulta y descarga los marcos jurídicos vigentes que respaldan la protección de nuestra niñez en El Salvador.</p>
+
+    <div class="pn-docs-grid">
+      <!-- Documento 1 -->
+      <div class="pn-doc-card">
+        <div class="pn-doc-header bg-yellow">
+          <span class="pn-doc-type">Ley Nacional</span>
+          <h4>Ley Crecer Juntos</h4>
+        </div>
+        <div class="pn-doc-body">
+          <p>Para la Protección Integral de la Primera Infancia, Niñez y Adolescencia en El Salvador.</p>
+          <a href="https://drive.google.com/file/d/1VxpLveur7hFsjsfQ6ndgtOh-Ud-iWFd9/view?usp=drive_link" target="_blank" class="pn-btn-doc">📕 Descargar Ley (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Documento 2 -->
+      <div class="pn-doc-card">
+        <div class="pn-doc-header bg-blue">
+          <span class="pn-doc-type">Normativa Internacional</span>
+          <h4>Convención sobre los Derechos del Niño</h4>
+        </div>
+        <div class="pn-doc-body">
+          <p>Tratado internacional de las Naciones Unidas que reconoce los derechos de la niñez.</p>
+          <a href="https://www.unicef.org/elsalvador/media/1211/file/CDN.pdf" target="_blank" class="pn-btn-doc">📕 Descargar Convención (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Documento 3 -->
+      <div class="pn-doc-card">
+        <div class="pn-doc-header bg-green">
+          <span class="pn-doc-type">Ley de Salud y Maternidad</span>
+          <h4>Ley Nacer con Cariño</h4>
+        </div>
+        <div class="pn-doc-body">
+          <p>Ley para un parto respetado y cuidado afectivo desde la etapa prenatal y perinatal.</p>
+          <a href="https://drive.google.com/file/d/1A058Ht6yDW94OsfXuTuWEmFC3zvxCJ8M/view?usp=drive_link" target="_blank" class="pn-btn-doc">📕 Descargar Ley (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Documento 4 -->
+      <div class="pn-doc-card">
+        <div class="pn-doc-header bg-purple">
+          <span class="pn-doc-type">Protocolo Escolar</span>
+          <h4>Protocolo de Actuación MINEDUCYT</h4>
+        </div>
+        <div class="pn-doc-body">
+          <p>Lineamientos oficiales para la detección y atención de vulneraciones en el entorno escolar.</p>
+
+          <!-- Se conecta directamente a la sección de Alerta Temprana Escolar -->
+          <button onclick="irAAlertaTemprana()" class="pn-btn-doc btn-local">📋 Ir a Alerta Temprana</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BANNER DE ACTUACIÓN INMEDIATA PARA DOCENTES -->
+  <section class="pn-alert-banner">
+    <div class="pn-alert-content">
+      <h3>🚨 ¿Detectaste una amenaza o vulneración de derechos?</h3>
+      <p>Como personal docente o administrativo, la Ley establece la responsabilidad de activar de inmediato las alertas institucionales y dar aviso a CONAPINA, Juntas de Protección o el MINEDUCYT.</p>
+    </div>
+    <div class="pn-alert-action">
+      <button onclick="irASoporteTecnico()" class="pn-btn-alert">🎫 Solicitar Apoyo Distrital</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- 5. ESTILOS VISUALES DEDICADOS (CSS) -->
+<style>
+  .proteccion-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HERO BANNER COLORIDO */
+  .pn-hero {
+    background: linear-gradient(135deg, #003366 0%, #1e5799 50%, #e5b325 100%);
+    border-radius: 16px;
+    color: white;
+    padding: 35px 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pn-hero-overlay {
+    position: relative;
+    z-index: 2;
+  }
+
+  .pn-tag {
+    background-color: #e5b325;
+    color: #003366;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .pn-hero h1 {
+    font-size: 26px;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+  }
+
+  .pn-hero p {
+    font-size: 15px;
+    margin: 0;
+    max-width: 800px;
+    opacity: 0.95;
+    line-height: 1.5;
+  }
+
+  /* PILARES FUNDAMENTALES */
+  .pn-pilares {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
+  .pn-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-top: 5px solid #003366;
+  }
+
+  .pn-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  .border-blue { border-top-color: #007bff; }
+  .border-orange { border-top-color: #ff7043; }
+  .border-green { border-top-color: #2ee59d; }
+  .border-purple { border-top-color: #9c27b0; }
+
+  .pn-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+  .pn-card h3 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #003366;
+  }
+
+  .pn-card p {
+    font-size: 13px;
+    color: #6c757d;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* DOCUMENTOS BÁSICOS */
+  .pn-docs-section h2 {
+    font-size: 20px;
+    color: #003366;
+    margin-bottom: 5px;
+  }
+
+  .pn-subtitle {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+
+  .pn-docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+
+  .pn-doc-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e9ecef;
+  }
+
+  .pn-doc-header {
+    padding: 15px;
+    color: white;
+  }
+
+  .bg-yellow { background-color: #d4a21d; color: #003366; }
+  .bg-blue { background-color: #003366; }
+  .bg-green { background-color: #1e7e34; }
+  .bg-purple { background-color: #6f42c1; }
+
+  .pn-doc-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .pn-doc-header h4 {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .pn-doc-body {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .pn-doc-body p {
+    font-size: 12px;
+    color: #495057;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+  }
+
+  .pn-btn-doc {
+    display: block;
+    text-align: center;
+    background-color: #003366;
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pn-btn-doc:hover {
+    background-color: #002244;
+  }
+
+  .btn-local {
+    background-color: #e5b325;
+    color: #003366 !important;
+  }
+
+  .btn-local:hover {
+    background-color: #d4a21d;
+  }
+
+  /* BANNER DE ALERTA */
+  .pn-alert-banner {
+    background-color: #fff3cd;
+    border-left: 6px solid #ffc107;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .pn-alert-content h3 {
+    margin: 0 0 6px 0;
+    color: #856404;
+    font-size: 16px;
+  }
+
+  .pn-alert-content p {
+    margin: 0;
+    color: #856404;
+    font-size: 13px;
+    max-width: 750px;
+    line-height: 1.4;
+  }
+
+  .pn-btn-alert {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .pn-btn-alert:hover {
+    background-color: #bd2130;
+  }
+</style>
+<!-- =========================================================================
+     FIN MÓDULO: PROTECCIÓN NIÑEZ - DISTRITO EDUCATIVO DE SAN JUAN OPICO
+     SUBPÁGINA DENTRO DE DERECHOS HUMANOS
+     ========================================================================= -->
+`,
+   
+'derechos-mujer': `
+<!-- =========================================================================
+     MÓDULO: UNIDAD DE LA MUJER - DISTRITO EDUCATIVO DE SAN JUAN OPICO
+     SUBPÁGINA DENTRO DE DERECHOS HUMANOS
+     ========================================================================= -->
+<div id="unidad-mujer-module" class="mujer-container">
+
+  <!-- 1. ENCABEZADO VIBRANTE E INSTITUCIONAL -->
+  <header class="um-hero">
+    <div class="um-hero-overlay">
+      <span class="um-tag">Distrito San Juan Opico • Derechos Humanos</span>
+      <h1>💜 Unidad de Género y Protección a la Mujer</h1>
+      <p>Promoviendo la igualdad, equidad, libre desarrollo y ambientes laborales y escolares libres de violencia para todas las mujeres de nuestra comunidad educativa.</p>
+    </div>
+  </header>
+
+  <!-- 2. EJES ESTRATÉGICOS DE ATENCIÓN -->
+  <section class="um-ejes">
+    <div class="um-card border-purple">
+      <div class="um-icon">🛡️</div>
+      <h3>Prevención de Violencia</h3>
+      <p>Sensibilización y formación continua en centros escolares para erradicar cualquier tipo de violencia hacia la mujer.</p>
+    </div>
+
+    <div class="um-card border-pink">
+      <div class="um-icon">⚖️</div>
+      <h3>Igualdad y Equidad</h3>
+      <p>Impulso de políticas institucionales que garanticen las mismas oportunidades de liderazgo, desarrollo y trato justo.</p>
+    </div>
+
+    <div class="um-card border-blue">
+      <div class="um-icon">🕊️</div>
+      <h3>Atención y Orientación</h3>
+      <p>Acompañamiento, escucha activa y canalización oportuna ante casos de acoso o vulneración de derechos.</p>
+    </div>
+
+    <div class="um-card border-gold">
+      <div class="um-icon">👩‍🏫</div>
+      <h3>Empoderamiento Docente</h3>
+      <p>Talleres y espacios de crecimiento profesional para el personal femenino administrativo y docente del distrito.</p>
+    </div>
+  </section>
+
+  <!-- 3. REPOSITORIO DE MARCOS LEGALES Y DOCUMENTOS -->
+  <section class="um-docs-section">
+    <h2>📖 Leyes y Normativas de Protección a la Mujer</h2>
+    <p class="um-subtitle">Consulta y descarga los instrumentos jurídicos vigente en El Salvador para la garantía de sus derechos.</p>
+
+    <div class="um-docs-grid">
+      <!-- Ley LEIV -->
+      <div class="um-doc-card">
+        <div class="um-doc-header bg-purple">
+          <span class="um-doc-type">Ley Especial</span>
+          <h4>Ley LEIV</h4>
+        </div>
+        <div class="um-doc-body">
+          <p>Ley Especial Integral para una Vida Libre de Violencia para las Mujeres en El Salvador.</p>
+          <a href="https://drive.google.com/file/d/1CEerGF0CvBHYuskiWi4nmwcyKsJB0yMO/view?usp=drive_link" target="_blank" class="um-btn-doc">📕 Descargar Ley (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Ley de Igualdad y Equidad -->
+      <div class="um-doc-card">
+        <div class="um-doc-header bg-pink">
+          <span class="um-doc-type">Marco de Igualdad</span>
+          <h4>Ley de Igualdad y Equidad</h4>
+        </div>
+        <div class="um-doc-body">
+          <p>Ley para la Igualdad, Equidad y Erradicación de la Discriminación contra las Mujeres.</p>
+          <a href="https://drive.google.com/file/d/1SexOa-mL_wrExwSseX3FT5spVkLys2rG/view?usp=drive_link" target="_blank" class="um-btn-doc">📕 Descargar Ley (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Código de Trabajo (Derechos Laborales) -->
+      <div class="um-doc-card">
+        <div class="um-doc-header bg-blue">
+          <span class="um-doc-type">Derechos Laborales</span>
+          <h4>Protección Maternidad y Empleo</h4>
+        </div>
+        <div class="um-doc-body">
+          <p>Normativas sobre fueros de maternidad, periodos de lactancia y no discriminación laboral.</p>
+          <a href="https://drive.google.com/file/d/1f20i6RUlenNjA_oqp7dXYOBu0KjrbHEk/view?usp=drive_link" target="_blank" class="um-btn-doc">📕 Descargar Código (PDF)</a>
+        </div>
+      </div>
+
+      <!-- Ruta de Atención Distrital -->
+      <div class="um-doc-card">
+        <div class="um-doc-header bg-gold">
+          <span class="um-doc-type">Atención Interna</span>
+          <h4>Ruta de Denuncia y Protocolo</h4>
+        </div>
+        <div class="um-doc-body">
+          <p>Protocolos de actuación distrital ante situaciones de acoso o discriminación en el trabajo o escuela.</p>
+          <button onclick="irABibliotecaDocumental()" class="um-btn-doc btn-local">📚 Ver en Biblioteca</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BANNER DE ORIENTACIÓN Y ASISTENCIA CONFIDENCIAL -->
+  <section class="um-help-banner">
+    <div class="um-help-content">
+      <h3>🌸 ¿Necesitas orientación o reportar una vulneración?</h3>
+      <p>Ofrecemos un canal de consulta seguro y confidencial para docentes, personal administrativo y estudiantes. No estás sola, nuestro equipo distrital está listo para apoyarte.</p>
+    </div>
+    <div class="um-help-action">
+      <button onclick="irASoporteTecnico()" class="um-btn-help">🎫 Asistencia y Orientación</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- 5. ESTILOS VISUALES DEDICADOS (CSS) -->
+<style>
+  .mujer-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HERO BANNER PURPURA INSTITUCIONAL */
+  .um-hero {
+    background: linear-gradient(135deg, #4a154b 0%, #6f42c1 50%, #003366 100%);
+    border-radius: 16px;
+    color: white;
+    padding: 35px 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .um-hero-overlay {
+    position: relative;
+    z-index: 2;
+  }
+
+  .um-tag {
+    background-color: #e5b325;
+    color: #003366;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .um-hero h1 {
+    font-size: 26px;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+  }
+
+  .um-hero p {
+    font-size: 15px;
+    margin: 0;
+    max-width: 800px;
+    opacity: 0.95;
+    line-height: 1.5;
+  }
+
+  /* EJES ESTRATÉGICOS */
+  .um-ejes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
+  .um-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-top: 5px solid #6f42c1;
+  }
+
+  .um-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  .border-purple { border-top-color: #6f42c1; }
+  .border-pink { border-top-color: #e83e8c; }
+  .border-blue { border-top-color: #003366; }
+  .border-gold { border-top-color: #e5b325; }
+
+  .um-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+  .um-card h3 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #4a154b;
+  }
+
+  .um-card p {
+    font-size: 13px;
+    color: #6c757d;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* DOCUMENTOS */
+  .um-docs-section h2 {
+    font-size: 20px;
+    color: #4a154b;
+    margin-bottom: 5px;
+  }
+
+  .um-subtitle {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+
+  .um-docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+
+  .um-doc-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e9ecef;
+  }
+
+  .um-doc-header {
+    padding: 15px;
+    color: white;
+  }
+
+  .bg-purple { background-color: #6f42c1; }
+  .bg-pink { background-color: #d63384; }
+  .bg-blue { background-color: #003366; }
+  .bg-gold { background-color: #d4a21d; color: #003366; }
+
+  .um-doc-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .um-doc-header h4 {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .um-doc-body {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .um-doc-body p {
+    font-size: 12px;
+    color: #495057;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+  }
+
+  .um-btn-doc {
+    display: block;
+    text-align: center;
+    background-color: #6f42c1;
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .um-btn-doc:hover {
+    background-color: #593196;
+  }
+
+  .btn-local {
+    background-color: #003366;
+    color: #ffffff !important;
+  }
+
+  .btn-local:hover {
+    background-color: #002244;
+  }
+
+  /* BANNER DE AYUDA */
+  .um-help-banner {
+    background-color: #f3ebf9;
+    border-left: 6px solid #6f42c1;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .um-help-content h3 {
+    margin: 0 0 6px 0;
+    color: #4a154b;
+    font-size: 16px;
+  }
+
+  .um-help-content p {
+    margin: 0;
+    color: #5a2a68;
+    font-size: 13px;
+    max-width: 750px;
+    line-height: 1.4;
+  }
+
+  .um-btn-help {
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .um-btn-help:hover {
+    background-color: #5a32a3;
+  }
+</style>
+<!-- =========================================================================
+    FIN MÓDULO: UNIDAD DE LA MUJER - DISTRITO EDUCATIVO DE SAN JUAN OPICO
+     SUBPÁGINA DENTRO DE DERECHOS HUMANOS
+     ========================================================================= -->
+`,
+
+        };
         const genericTemplate = (title) => `
             <div class="page-header">
                 <h1>${title}</h1>
