@@ -9,8 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     
+<!-- Enlace oficial a tu hoja de estilos externa -->
+    <link rel="stylesheet" href="estilos.css">    
 
-    <style>
+<style>
         /* --- CONFIGURACIÓN GENERAL Y VARIABLES --- */
         :root {
             --sidebar-width: 280px;
@@ -13701,7 +13703,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Reglamento de cortesía"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
     </div>
     
     <!-- Botones de Acceso Rápido Iniciales -->
@@ -13888,6 +13890,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     ley_simbolos_patrios: "https://drive.google.com/file/d/1XSUuZbFhzt-HhbcM1sMwzIQJGMgbnKoJ/view?usp=drive_link",
     normativa_funcionamiento_5: "https://drive.google.com/file/d/1qy5u-qvLOGNcgPJTOdEXXoXeY-s9F-hW/view?usp=drive_link",
     codigo_trabajo: "https://drive.google.com/file/d/1f20i6RUlenNjA_oqp7dXYOBu0KjrbHEk/view?usp=drive_link",
+    reglamento_cortesia: "https://drive.google.com/file/d/11ImFwGoig8yeSUZS1MzXRtMnGHzyKBqN/view?usp=drive_link",
 
     mined_ciencia: "https://www.mined.gob.sv/ciencia-educativa/",
     mined_esmate: "https://www.mined.gob.sv/esmate/",
@@ -14049,6 +14052,13 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     // -------------------------------------------------------------------------
     // 1. LEYES Y DOCUMENTOS ESPECÍFICOS (SE EVALÚAN PRIMERO)
     // -------------------------------------------------------------------------
+    } else if (text.includes("cortesia") || text.includes("cortesía") || text.includes("demeritos") || text.includes("deméritos") || text.includes("promocion de la cortesia") || text.includes("promoción de la cortesía")) {
+      contadorOfensas = 0;
+      respuesta = "🤝 <strong>Reglamento para la Promoción de la Cortesía Escolar:</strong><br><br>" +
+                  "Aquí tienes el enlace directo para consultar o descargar el Reglamento oficial (Acuerdo 15-1359) en formato PDF:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.reglamento_cortesia, "📕 Descargar Reglamento de Cortesía (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
     } else if (text.includes("carrera docente") || text.includes("ley de la carrera docente")) {
       contadorOfensas = 0;
       respuesta = "📚 <strong>Ley de la Carrera Docente:</strong><br><br>" +
