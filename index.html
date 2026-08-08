@@ -13921,6 +13921,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   const PALABRAS_GRATITUD = ["gracias", "muchas gracias", "muy amable"];
   const PALABRAS_SALUDO = ["hola", "buenos dias", "buenos días", "buenas tardes", "buenas noches", "hola que tal", "hola qué tal", "saludos", "que tal", "qué tal", "buenas"];
   const PALABRAS_CREADOR = ["quien te creo", "quién te creó", "quien te creó", "quien te creo", "quien es tu creador", "quién es tu creador", "quien te diseño", "quién te diseñó", "quien te hizo", "quién te hizo", "quien es tu dueño", "quién es tu dueño", "quien te programo"];
+  const PALABRAS_AFECTO = ["te quiero", "te amo", "te aprecio", "me caes bien", "eres genial", "te estimo", "te adoro", "me gustas", "bonito bot", "excelente bot", "sos genial", "sos el mejor", "sos la mejor", "te quiero mucho"];
 
   function toggleOpicoChat() {
     const win = document.getElementById('opico-chat-window');
@@ -14042,12 +14043,20 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     let esGratitud = PALABRAS_GRATITUD.some(palabra => text.includes(palabra));
     let esSaludo = PALABRAS_SALUDO.some(palabra => text === palabra || text.includes(palabra));
     let esConsultaCreador = PALABRAS_CREADOR.some(palabra => text.includes(palabra));
+    let esManifestacionAfecto = PALABRAS_AFECTO.some(palabra => text.includes(palabra));
 
     if (esConsultaCreador) {
       contadorOfensas = 0;
       respuesta = "💡 <strong>Esa es una respuesta muy simple:</strong><br><br>" +
                   "Fui diseñado y creado por el <strong>Monitor Educativo del Distrito de San Juan Opico</strong>.<br><br>" +
                   "Mi propósito es servir como una herramienta moderna, ágil e innovadora al servicio de directores, docentes, personal administrativo y la comunidad educativa de La Libertad.";
+
+    } else if (esManifestacionAfecto) {
+      contadorOfensas = 0;
+      respuesta = "💙 <strong>¡Muchas gracias por tus amables palabras!</strong><br><br>" +
+                  "En el <strong>Distrito Educativo de San Juan Opico</strong> trabajamos con mucha dedicación y cariño para apoyarte en tus labores pedagógicas y administrativas.<br><br>" +
+                  "¡Es un verdadero gusto colaborarte siempre!" +
+                  obtenerPreguntaSiguiente();
 
     // -------------------------------------------------------------------------
     // 1. LEYES Y DOCUMENTOS ESPECÍFICOS (SE EVALÚAN PRIMERO)
