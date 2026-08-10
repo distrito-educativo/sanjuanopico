@@ -13709,7 +13709,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   <div id="opico-chat-body">
     <div class="opico-msg opico-msg-bot">
       👋 ¡Hola! Bienvenido al portal del <strong>Distrito Educativo de San Juan Opico</strong>.<br><br>
-      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Misión Oficial"</em>, <em>"Reglamento de cortesía"</em>, <em>"Programa de Computación"</em>, <em>"Directorio telefónico"</em>):
+      ¿En qué podemos ayudarte hoy? Selecciona una opción o escribe tu consulta (ej. <em>"Normativa 5"</em>, <em>"Reglamento de cortesía"</em>, <em>"Misión Oficial"</em>):
     </div>
     
     <!-- Botones de Acceso Rápido Iniciales -->
@@ -13734,8 +13734,8 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #e5b325; /* Color Dorado Oficial "San Juan Opico" */
-    color: #003366;           /* Texto azul marino de alto contraste */
+    background-color: #e5b325;
+    color: #003366;
     padding: 12px 20px;
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -13975,7 +13975,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
   function irASeccionInterna(targetName, alternativeId) {
     toggleOpicoChat(); // Minimiza el asistente
     
-    // 1. Intenta disparar el evento del enlace del menú lateral
     const linkMenu = document.querySelector(`.nav-link[data-target="${targetName}"]`) || 
                      document.querySelector(`[data-target="${targetName}"]`) ||
                      document.querySelector(`[data-target="${alternativeId}"]`) ||
@@ -13986,7 +13985,6 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     if (linkMenu) {
       linkMenu.click();
     } else {
-      // 2. Respaldo de visibilidad directa si la plantilla conmuta por clases/ids
       const secciones = document.querySelectorAll('.page-section');
       secciones.forEach(sec => sec.style.display = 'none');
       
@@ -14065,8 +14063,21 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
                   obtenerPreguntaSiguiente();
 
     // -------------------------------------------------------------------------
-    // 1. LEYES Y DOCUMENTOS ESPECÍFICOS (SE EVALÚAN PRIMERO)
+    // 1. LEYES Y DOCUMENTOS ESPECÍFICOS (INCLUYENDO NORMATIVA 5 CON MÚLTIPLES COINCIDENCIAS)
     // -------------------------------------------------------------------------
+    } else if (
+      text.includes("normativa 5") || text.includes("normativa cinco") || 
+      text.includes("normativa de funcionamiento 5") || text.includes("normativa de funcionamiento cinco") ||
+      text.includes("funcionamiento 5") || text.includes("funcionamiento cinco") ||
+      text.includes("documento 5") || text.includes("documento cinco") ||
+      text.includes("normativa institucional")
+    ) {
+      contadorOfensas = 0;
+      respuesta = "📋 <strong>Normativa Institucional (Documento 5 / Funcionamiento):</strong><br><br>" +
+                  "Aquí tienes el enlace directo para consultar o descargar la Normativa de Funcionamiento e institucional en formato PDF:<br><br>" +
+                  crearBotonEnlace(MAPA_RUTAS.normativa_funcionamiento_5, "📕 Descargar Normativa de Funcionamiento 5 (PDF)", true) +
+                  obtenerNotaBibliotecaGlobal();
+
     } else if (text.includes("cortesia") || text.includes("cortesía") || text.includes("demeritos") || text.includes("deméritos") || text.includes("promocion de la cortesia") || text.includes("promoción de la cortesía")) {
       contadorOfensas = 0;
       respuesta = "🤝 <strong>Reglamento para la Promoción de la Cortesía Escolar:</strong><br><br>" +
@@ -14237,7 +14248,7 @@ window.addEventListener('hashchange', mantenerUrlInmaculada);
     } else if (text.includes("contacto") || text.includes("direccion departamental") || text.includes("dirección departamental") || text.includes("asesores") || text.includes("asesores pedagogicos") || text.includes("mesa de ayuda") || text.includes("soporte") || text.includes("soporte tecnico") || text.includes("soporte técnico")) {
       contadorOfensas = 0;
       respuesta = "📞 <strong>Soporte Técnico y Mesa de Ayuda Distrital:</strong><br><br>" +
-                  "Puedes canalizar tus solicitudes de soporte técnico, reporte de fallas o consultas administrativas directamente en nuestra área especializada del portal:<br><br>" +
+                  "Puedes canalizar tus solicitudes de soporte técnico, reporte de fallas o consultas administrativas directamente en nossa área especializada del portal:<br><br>" +
                   crearBotonAccionLocal("🎫 Ir a Soporte Técnico", "irASoporteTecnico()") +
                   obtenerPreguntaSiguiente();
 
