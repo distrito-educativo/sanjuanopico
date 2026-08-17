@@ -1037,9 +1037,36 @@
                        2. ESTILOS DE LA SECCIÓN PREMIUM (NOTICIAS Y RECURSOS)
                        ======================================================== */
                     :root { --accent-gold: #d4af37; --text-dark: #1a1a1a; --text-muted: #4a4a4a; --text-light: #ffffff; --glass-bg: rgba(15, 23, 42, 0.75); --glass-border: rgba(255, 255, 255, 0.15); }
-                    .premium-container { max-width: 1200px; margin: 20px auto 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; animation: fadeIn 0.5s ease; }
-                    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
-                    .premium-card { position: relative; height: 280px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); display: flex; align-items: flex-end; padding: 12px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+/* ========================================================
+   REAJUSTE DE ANCHO Y ALINEACIÓN DE TARJETAS DESTACADAS
+   ======================================================== */
+.premium-container { 
+    width: 100%; 
+    max-width: 100%; /* Permite ocupar todo el ancho disponible del área de trabajo */
+    margin: 25px 0; /* Mantiene la simetría y distancia con los elementos superior e inferior */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    animation: fadeIn 0.5s ease; 
+}
+
+.gallery-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Espaciado uniforme entre cada una de las 4 tarjetas */
+    width: 100%;
+}
+
+.premium-card { 
+    position: relative; 
+    height: 300px; /* Un toque más de altura proporcional al nuevo ancho */
+    border-radius: 16px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); 
+    display: flex; 
+    align-items: flex-end; 
+    padding: 12px; 
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
                     .premium-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 65%, transparent 100%); z-index: 1; transition: opacity 0.4s ease; }
                     .premium-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background-color: var(--accent-gold); z-index: 3; transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                     .premium-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); }
@@ -1499,10 +1526,86 @@
 
 <!-- INICIO DE SECCIÓN DE NOTICIAS -->
 <div>
+    <!-- ========================================== -->
+    <!-- NOTICIA DESTACADA (NUEVA): FORMACIÓN DE FORMADORES Y EVALUACIÓN DE IMPACTO -->
+    <!-- ========================================== -->
+    <div class="featured-article-container">
+        <div class="article-header">
+            <span class="article-tag" style="background-color: #0A2540; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Transformación Educativa</span>
+            <h2 class="article-title">Consolidación Ética en San Juan Opico: Formación Docente en Ciudadanía y Evaluación de Impacto de la Campaña de Valores</h2>
+        </div>
+        
+        <div class="article-body">
+            <p><strong>El Distrito Educativo de San Juan Opico continúa marcando un hito en la reconstrucción del tejido social, fortaleciendo las competencias pedagógicas de sus educadores y consolidando entornos escolares caracterizados por la paz, el respeto y la convivencia armónica.</strong></p>
+            
+            <p>En una jornada de trabajo de alto nivel, se desarrolló el proceso de <strong>"Formación de Formadores"</strong> dirigido a docentes especialistas de la asignatura de <em>Ciudadanía y Valores</em>. Este equipo de educadores asumirá el liderazgo estratégico para replicar y dinamizar en la zona sur de nuestro distrito las dos potentes campañas complementarias: <strong>"Unidos por los Derechos Humanos"</strong> y <strong>"Un Mundo Libre de Drogas"</strong>. Esta intervención directa dotará a la juventud estudiantil de herramientas éticas y de pensamiento crítico para la toma de decisiones responsables.</p>
+            
+            <!-- CARRUSEL NATIVO INTEGRADO (8 IMÁGENES CON AUTOPLAY) -->
+            <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
+                <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <div class="carousel-slides">
+                        <img src="https://i.postimg.cc/m2LwGcV2/Img-01.png" class="formadores-slide" alt="Formación 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; z-index: 2; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/kXJcdVwM/Img-02.png" class="formadores-slide" alt="Formación 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/DyvgKW5w/Img-03.png" class="formadores-slide" alt="Formación 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/3J8BHy98/Img-04.png" class="formadores-slide" alt="Formación 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/SNgGQytx/Img-05.png" class="formadores-slide" alt="Formación 5" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/P5NQPBB8/Img-06.png" class="formadores-slide" alt="Formación 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/y8WykwwZ/Img-07.png" class="formadores-slide" alt="Formación 7" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/3JtZrKbF/Img-08.png" class="formadores-slide" alt="Formación 8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                    </div>
+                    
+                    <!-- Motor Automático Invisible (Temporizador de 2.5 segundos) -->
+                    <img src="trigger_invisible_formadores.jpg" style="display:none;" onerror="if(window.timerFormadores) clearInterval(window.timerFormadores); window.timerFormadores = setInterval(function(){ var btn = document.getElementById('btn-next-formadores'); if(btn) btn.click(); }, 2500); this.remove();">
 
-    <!-- ========================================== -->
-    <!-- NOTICIA DESTACADA (NUEVA): EMPOWER EL SALVADOR Y VICEPRESIDENCIA -->
-    <!-- ========================================== -->
+                    <!-- Botones de navegación aislados -->
+                    <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.formadores-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
+                    <button id="btn-next-formadores" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.formadores-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
+                </div>
+                <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Jornada de capacitación a docentes de la zona sur del distrito.</p>
+            </div>
+            <!-- FIN CARRUSEL FORMADORES -->
+
+            <h3 class="article-subtitle">Impacto Cuantitativo: Reducción de Deméritos Escolares</h3>
+            <p>De forma paralela al despliegue técnico, las autoridades distritales presentaron una rigurosa evaluación de los resultados obtenidos tras la implementación de la campaña basada en los 21 preceptos de sentido común de la obra <em>"El Camino a la Felicidad"</em>.</p>
+
+            <p>Los datos estadísticos recopilados reflejan un logro trascendental: una <strong>disminución significativa en el registro de deméritos escolares</strong> en los centros educativos participantes. Al fundamentar su día a día en normas claras de convivencia y cortesía, la población estudiantil ha mostrado un cambio actitudinal cuantitativo, demostrando mayor autorregulación, respeto hacia sus pares y sentido de pertenencia comunitaria.</p>
+
+            <h3 class="article-subtitle">Hacia una Cultura de Paz Sostenible</h3>
+            <p>La interiorización de estos principios éticos demuestra que cuando la educación trasciende la instrucción teórica y toca el carácter del ser humano, las aulas se transforman en auténticos territorios de paz. Los estudiantes de San Juan Opico no solo han aprendido la norma, sino que han comprendido la importancia de construir una sociedad civilizada que florece en ambientes de sana convivencia.</p>
+
+            <div class="quote-block" style="border-left-color: #0A2540; clear: both;">
+                <p class="quote-text">"La reducción comprobada en los índices de conducta demuestra que dotar a los jóvenes de principios éticos transversales transforma las escuelas. Con el despliegue de las campañas de Derechos Humanos y Prevención de Adicciones, garantizamos un modelo integral que prepara a la juventud para contribuir activamente al desarrollo de El Salvador."</p>
+            </div>
+
+            <p>Reiteramos nuestro reconocimiento al cuerpo docente y directivo de la zona sur de San Juan Opico por su vocación y compromiso con la excelencia educativa, garantizando que cada niña, niño y adolescente crezca en un entorno seguro, motivador y lleno de oportunidades.</p>
+
+            <!-- SECCIÓN BOTONES DE REDES SOCIALES -->
+            <div style="margin-top: 35px; padding-top: 25px; border-top: 1px dashed #cbd5e1; text-align: center; clear: both;">
+                <p style="font-weight: bold; color: #0A2540; margin-bottom: 15px; font-size: 1.1rem;">¡Sigue de cerca las iniciativas de Empower El Salvador!</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                    <!-- Botón Facebook -->
+                    <a href="https://www.facebook.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background-color: #1877F2; color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                        Facebook
+                    </a>
+                    
+                    <!-- Botón Instagram -->
+                    <a href="https://www.instagram.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        @empowerelsalvador
+                    </a>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 17 de Agosto de 2026</p>
+        </div>
+    </div>
+    <!-- FIN NOTICIA DESTACADA NUEVA -->
+
+    <!-- SEPARADOR VISUAL -->
+    <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
+
+    <!-- NOTICIA ANTERIOR 1: EMPOWER EL SALVADOR Y VICEPRESIDENCIA -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0A2540; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Gestión Estratégica</span>
@@ -1526,23 +1629,20 @@
                         <img src="https://i.postimg.cc/J7xZbH42/Reunion-Vice-Presidencia-img6.png" class="empower-slide" alt="Reunión 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
                     </div>
                     
-                    <!-- Motor Automático Invisible -->
                     <img src="trigger_invisible_empower.jpg" style="display:none;" onerror="if(window.timerEmpower) clearInterval(window.timerEmpower); window.timerEmpower = setInterval(function(){ var btn = document.getElementById('btn-next-empower'); if(btn) btn.click(); }, 2500); this.remove();">
 
-                    <!-- Botones de navegación aislados -->
                     <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.empower-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
                     <button id="btn-next-empower" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.empower-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
                 </div>
                 <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Encuentro con autoridades para la expansión del proyecto.</p>
             </div>
-            <!-- FIN CARRUSEL EMPOWER -->
 
-           <h3 class="article-subtitle">Respaldo desde la Vicepresidencia</h3>
-<p>Esta exitosa propuesta de formación integral cuenta con el respaldo y el impulso directo desde la Vicepresidencia de la República, consolidándose como un pilar fundamental en la estrategia nacional de prevención y desarrollo juvenil. El <strong>Vicepresidente, Dr. Félix Ulloa</strong>, se reunió previamente con la Directora Ejecutiva de Empower El Salvador para evaluar de primera mano los notables avances en materia de implementación territorial.</p>
+            <h3 class="article-subtitle">Respaldo desde la Vicepresidencia</h3>
+            <p>Esta exitosa propuesta de formación integral cuenta con el respaldo y el impulso directo desde la Vicepresidencia de la República, consolidándose como un pilar fundamental en la estrategia nacional de prevención y desarrollo juvenil. El <strong>Vicepresidente, Dr. Félix Ulloa</strong>, se reunió previamente con la Directora Ejecutiva de Empower El Salvador para evaluar de primera mano los notables avances en materia de implementación territorial.</p>
 
-<p>Durante dicho encuentro, se presentaron evidencias tangibles y datos estadísticos cuantitativos que reflejan la gran cobertura y eficacia de la campaña en nuestras escuelas. Más allá de las cifras, se destacó el impacto cualitativo que estos programas han generado directamente en las aulas: una visible mejora en la convivencia escolar, el fomento de una cultura de paz y el empoderamiento de los estudiantes mediante herramientas éticas para su toma de decisiones cotidianas.</p>
+            <p>Durante dicho encuentro, se presentaron evidencias tangibles y datos estadísticos cuantitativos que reflejan la gran cobertura y eficacia de la campaña en nuestras escuelas. Más allá de las cifras, se destacó el impacto cualitativo que estos programas han generado directamente en las aulas: una visible mejora en la convivencia escolar, el fomento de una cultura de paz y el empoderamiento de los estudiantes mediante herramientas éticas para su toma de decisiones cotidianas.</p>
 
-<p>Este nivel de apoyo institucional reafirma que el arduo trabajo realizado por la comunidad educativa en el departamento de La Libertad, y muy especialmente en nuestro distrito de San Juan Opico, está sirviendo como un modelo de éxito comprobado. La visión compartida entre el Estado y Empower El Salvador es clara: garantizar que esta transformación positiva se expanda, convirtiéndose en un estándar de calidad humana para todos los jóvenes a nivel nacional.</p>
+            <p>Este nivel de apoyo institucional reafirma que el arduo trabajo realizado por la comunidad educativa en el departamento de La Libertad, y muy especialmente en nuestro distrito de San Juan Opico, está sirviendo como un modelo de éxito comprobado. La visión compartida entre el Estado y Empower El Salvador es clara: garantizar que esta transformación positiva se expanda, convirtiéndose en un estándar de calidad humana para todos los jóvenes a nivel nacional.</p>
             
             <div class="quote-block" style="border-left-color: #0ea5e9; clear: both;">
                 <p class="quote-text">"Los resultados obtenidos en el departamento de La Libertad y en nuestro distrito de San Juan Opico son la prueba irrefutable de que la inversión en la juventud transforma comunidades. Ahora, el propósito es ampliar este beneficio y extender la formación integral a los jóvenes de todo el país."</p>
@@ -1550,17 +1650,13 @@
             
             <p>Como distrito educativo, celebramos estos avances que reafirman el compromiso de las instituciones del Estado y de las organizaciones aliadas para garantizar un futuro lleno de oportunidades, habilidades y valores para la nueva generación de salvadoreños.</p>
 
-            <!-- SECCIÓN BOTONES DE REDES SOCIALES -->
             <div style="margin-top: 35px; padding-top: 25px; border-top: 1px dashed #cbd5e1; text-align: center; clear: both;">
                 <p style="font-weight: bold; color: #0A2540; margin-bottom: 15px; font-size: 1.1rem;">¡Sigue de cerca las iniciativas de Empower El Salvador!</p>
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
-                    <!-- Botón Facebook -->
                     <a href="https://www.facebook.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background-color: #1877F2; color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
                         Facebook
                     </a>
-                    
-                    <!-- Botón Instagram -->
                     <a href="https://www.instagram.com/empowerelsalvador" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                         @empowerelsalvador
@@ -1571,12 +1667,11 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 28 de Julio de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA DESTACADA -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 1 : GALA HOTEL BARCELÓ -->
+    <!-- NOTICIA 2: GALA HOTEL BARCELÓ -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0f172a; color: #eab308; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Gala de Premiación</span>
@@ -1601,16 +1696,13 @@
                         <img src="https://i.postimg.cc/L8K6pZ95/img-2.png" class="gala-slide" alt="Gala 7" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
                     </div>
                     
-                    <!-- Motor Automático Invisible (Temporizador de 2 segundos) -->
                     <img src="trigger_invisible_gala.jpg" style="display:none;" onerror="if(window.timerGala) clearInterval(window.timerGala); window.timerGala = setInterval(function(){ var btn = document.getElementById('btn-next-gala'); if(btn) btn.click(); }, 2000); this.remove();">
 
-                    <!-- Botones con lógica aislada -->
                     <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.gala-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
                     <button id="btn-next-gala" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.gala-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
                 </div>
                 <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Hotel Barceló, San Salvador - Ceremonia de premiación departamental.</p>
             </div>
-            <!-- FIN CARRUSEL GALA -->
 
             <p>La ceremonia congregó a directores y docentes de las instituciones educativas más sobresalientes del departamento de La Libertad. El acto fue presidido por autoridades de primer nivel, contando con la participación del <strong>Licdo. Juan Carlos Arteaga Mena</strong>, Director Departamental y pilar fundamental en el desarrollo educativo de la región, así como el invaluable acompañamiento de la <strong>Licda. Yaneth Bran</strong>, Gobernadora por el departamento de La Libertad.</p>
             
@@ -1634,12 +1726,11 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 22 de julio de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 1 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 2: CLAUSURA CAMPAÑA DE VALORES TECPÁN -->
+    <!-- NOTICIA 3: CLAUSURA CAMPAÑA DE VALORES TECPÁN -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #eab308; color: #112942; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Evento Distrital</span>
@@ -1651,7 +1742,6 @@
             
             <p>Tras dos meses y medio de intensa labor formativa, el <strong>Instituto Nacional de Tecpán</strong> y el <strong>Complejo Educativo Soldado Oscar Antonio Ortiz Reyes</strong> se vistieron de gala para celebrar la clausura oficial de la campaña de valores basada en los preceptos del libro <em>"El Camino a la Felicidad"</em>. Esta iniciativa, implementada a través de la plataforma de la fundación <strong>Empower El Salvador</strong>, marca un hito en la educación integral de nuestra juventud.</p>
             
-            <!-- CARRUSEL INTEGRADO E INDEPENDIENTE (CON AUTOPLAY) -->
             <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
                 <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
                     <div class="carousel-slides">
@@ -1663,16 +1753,13 @@
                         <img src="https://i.postimg.cc/Kz2qs4Gd/Clausura-7.png" class="clausura-slide" alt="Clausura 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
                     </div>
                     
-                    <!-- Motor Automático Invisible (Temporizador de 2 segundos) -->
                     <img src="trigger_invisible.jpg" style="display:none;" onerror="if(window.timerClausura) clearInterval(window.timerClausura); window.timerClausura = setInterval(function(){ var btn = document.getElementById('btn-next-clausura'); if(btn) btn.click(); }, 2000); this.remove();">
 
-                    <!-- Botones con lógica aislada -->
                     <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.clausura-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
                     <button id="btn-next-clausura" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.clausura-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
                 </div>
                 <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Acto oficial de clausura en San Juan Opico.</p>
             </div>
-            <!-- FIN CARRUSEL -->
 
             <p>El evento de cierre contó con la participación de invitados de honor, destacando la presencia de la <strong>Ing. Nelly Rodríguez</strong>, representante de Empower El Salvador; la <strong>Licda. Yaneth Bran</strong>, Gobernadora por el departamento de La Libertad, y una distinguida comisión de delegados que brindaron su total respaldo y acompañamiento a la celebración.</p>
             
@@ -1694,12 +1781,11 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 20 de julio de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 2 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 3: FORMACIÓN CIUDADANA -->
+    <!-- NOTICIA 4: FORMACIÓN CIUDADANA -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1749,12 +1835,10 @@
         </div>
     </div>
 
-    <!-- FIN NOTICIA 3 -->
-
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 4: PRIMERA INFANCIA -->
+    <!-- NOTICIA 5: PRIMERA INFANCIA -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1776,13 +1860,11 @@
             
             <p>Hoy celebramos la disposición y el entusiasmo de las docentes participantes. Al fortalecer sus competencias técnicas, aseguramos que el salto hacia la innovación pedagógica sea una realidad tangible.</p>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 4 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/jjwfSBJh/Taller-innovacion-en-la-practica-docente.png" alt="Taller Primera Infancia 1" class="floating-img">
                 <img src="https://i.postimg.cc/Pr0pF27H/Taller-innovacion-en-la-practica-docente-2.png" alt="Taller Primera Infancia 2" class="floating-img">
                 <img src="https://i.postimg.cc/SK29xHzr/Taller-innovacion-en-la-practica-docente-3.png" alt="Taller Primera Infancia 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 4 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/18Bg2m2AOzGOS4KeRH0LwmYRWgzZ9TC1M?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1791,12 +1873,11 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 15 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 4 -->
 
     <!-- SEPARADOR VISUAL -->
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
-    <!-- NOTICIA 5: CAMPAÑA VALORES SOCIALES -->
+    <!-- NOTICIA 6: CAMPAÑA VALORES SOCIALES -->
     <div class="featured-article-container">
         <div class="article-header">
             <span class="article-tag" style="background-color: #0ea5e9; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Actualidad Educativa</span>
@@ -1842,13 +1923,11 @@
                 <li class="reason-item"><strong>Prevención:</strong> Un joven formado en valores es un ciudadano con pensamiento crítico, menos propenso a conductas de riesgo y más orientado al desarrollo comunitario.</li>
             </ul>
             
-            <!-- INICIO GALERÍA DE IMÁGENES NOTICIA 5 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
                 <img src="https://i.postimg.cc/vBy523c8/Taller-valores-1.png" alt="Formación Sociales 1" class="floating-img">
                 <img src="https://i.postimg.cc/WbzgyDbK/Taller-valores-2.png" alt="Formación Sociales 2" class="floating-img">
                 <img src="https://i.postimg.cc/RVw44dFV/Taller-valores.png" alt="Formación Sociales 3" class="floating-img">
             </div>
-            <!-- FIN GALERÍA DE IMÁGENES NOTICIA 5 -->
 
             <div style="margin-top: 25px; text-align: center;">
                 <a href="https://drive.google.com/drive/folders/1yOPQx8dDi0oCBo5_owksfgkQgnR6TgDm?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
@@ -1857,7 +1936,7 @@
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 08 de mayo de 2026</p>
         </div>
     </div>
-    <!-- FIN NOTICIA 5 -->
+    <!-- FIN NOTICIA 6 -->
 
 </div>
 <!-- FIN DE SECCIÓN DE NOTICIAS -->
