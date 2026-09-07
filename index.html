@@ -1531,7 +1531,69 @@
 <div>
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 1 (6 SEP 2026): DESFILE DE PRIMERA INFANCIA                        -->
+    <!-- NOTICIA 1 (7 SEP 2026): RECORRIDO DE LA ANTORCHA CENTROAMERICANA           -->
+    <!-- ========================================================================== -->
+    <div class="featured-article-container">
+        <div class="article-header">
+            <span class="article-tag" style="background-color: #0284c7; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Civismo y Libertad</span>
+            <h2 class="article-title">El fuego de la libertad ilumina San Juan Opico: Emotivo recorrido de la Antorcha Centroamericana de la Paz y la Libertad</h2>
+        </div>
+        
+        <div class="article-body">
+            <p><strong>En un ambiente impregnado de fervor patrio, orgullo cívico y confraternidad, el distrito de San Juan Opico recibió la Antorcha Centroamericana de la Paz y la Libertad, símbolo vivo de la unidad de los pueblos de la región.</strong></p>
+            
+            <p>Este 7 de septiembre, atletas destacados, estudiantes y delegaciones de diversas instituciones públicas y privadas, Centros Escolares y Colegios de nuestro distrito portaron con honor la flama sagrada. El recorrido inició en el <strong>Instituto Nacional de Tecpán</strong> y transcurrió por las principales vías hasta culminar con jubiloso fervor en el <strong>Centro Escolar Caserío Villa La Esperanza</strong>.</p>
+            
+            <!-- CARRUSEL NATIVO INTEGRADO (ANTORCHA CENTROAMERICANA) -->
+            <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
+                <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <div class="carousel-slides">
+                        <img src="https://i.postimg.cc/7ZBK0S7v/Img-01.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; z-index: 2; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/y8fLc094/Img-03.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/2SH0hnvN/Img-07.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 3" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/T3ktgnmX/Img-11.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/GmMXGvYR/Img-12.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 5" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/HkS6Xb5p/Img-16.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 6" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/VNdDR593/Img-17.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 7" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/8CjtHsdx/Img-18.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                        <img src="https://i.postimg.cc/3wdnBWCh/Img-19.png" class="antorcha-slide" alt="Recorrido Antorcha Centroamericana 9" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; transition: opacity 0.5s ease;">
+                    </div>
+                    
+                    <!-- Motor Automático Invisible (Temporizador de 2 segundos) -->
+                    <img src="trigger_invisible_antorcha.jpg" style="display:none;" onerror="if(window.timerAntorcha) clearInterval(window.timerAntorcha); window.timerAntorcha = setInterval(function(){ var btn = document.getElementById('btn-next-antorcha'); if(btn) btn.click(); }, 2000); this.remove();">
+
+                    <!-- Botones de navegación aislados -->
+                    <button class="carousel-btn prev-btn" onclick="var s=this.parentElement.querySelectorAll('.antorcha-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c-1+s.length)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10094;</button>
+                    <button id="btn-next-antorcha" class="carousel-btn next-btn" onclick="var s=this.parentElement.querySelectorAll('.antorcha-slide'); var c=0; for(var i=0;i<s.length;i++){if(s[i].style.opacity=='1'){c=i; s[i].style.opacity='0'; s[i].style.zIndex='1';}} c=(c+1)%s.length; s[c].style.opacity='1'; s[c].style.zIndex='2';">&#10095;</button>
+                </div>
+                <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px; font-style: italic;">Paso de la Antorcha Centroamericana por San Juan Opico.</p>
+            </div>
+
+            <h3 class="article-subtitle">Un Legado Histórico de Fraternidad e Independencia</h3>
+            <p>La tradición de la Antorcha de la Paz y la Libertad se remonta a 1964, instaurada como un homenaje perpetuo al histórico viaje que realizaron los jinetes y mensajeros en septiembre de 1821. Aquellos patriotas llevaron a galope desde Guatemala hasta Costa Rica la trascendental noticia de la firma del Acta de Independencia de Centroamérica.</p>
+
+            <p>Desde entonces, cada septiembre, la antorcha cruza por tierra las fronteras de Guatemala, El Salvador, Honduras, Nicaragua y Costa Rica, recorriendo más de 1,300 kilómetros de manos de miles de jóvenes estudiantes y atletas. Su fuego ardiente no solo recuerda la gesta libertadora de nuestros próceres, sino que ratifica la vigencia de la fraternidad, la paz y la soberanía entre las naciones hermanas.</p>
+
+            <h3 class="article-subtitle">Unidos por la Educación y los Valores Patrios</h3>
+            <p>El paso de la llama cívica por San Juan Opico reafirma el compromiso de la comunidad educativa local con los valores democráticos, la disciplina deportiva y el amor a la patria. Las calles se engalanaron con banderas y aplausos de los vecinos que presenciaron el relevo de cada atleta, demostrando que en el departamento de La Libertad la flama de la libertad sigue viva en el corazón de nuestra juventud.</p>
+            
+            <div class="quote-block" style="border-left-color: #0284c7; clear: both;">
+                <p class="quote-text">"La Antorcha Centroamericana no solo traslada fuego, sino la luz de la memoria histórica, la unidad de nuestros pueblos y la firme esperanza de un futuro de paz para las nuevas generaciones."</p>
+            </div>
+            
+            <div style="margin-top: 25px; text-align: center;">
+                <a href="https://drive.google.com/drive/folders/1a679i83VrbEn_oVt_0GSw41LIyeei2Un?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 7 de Septiembre de 2026</p>
+        </div>
+    </div>
+
+    <!-- SEPARADOR VISUAL -->
+    <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
+
+    <!-- ========================================================================== -->
+    <!-- NOTICIA 2 (6 SEP 2026): DESFILE DE PRIMERA INFANCIA                        -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1577,7 +1639,7 @@
             </div>
             
             <div style="margin-top: 25px; text-align: center;">
-                <a href="https://drive.google.com/drive/folders/1JHpu_4Ly2_qE03xr6uFCD6jUszD3Q6T0?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
+                <a href="https://drive.google.com/drive/folders/1a679i83VrbEn_oVt_0GSw41LIyeei2Un?usp=drive_link" target="_blank" style="background-color: #112942; color: #ffffff; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📸 Accede a las imágenes HAZ CLICK AQUÍ</a>
             </div>
 
             <p style="margin-top: 30px; font-style: italic; color: #64748b; font-size: 0.95rem; text-align: right;">📅 6 de Septiembre de 2026</p>
@@ -1588,7 +1650,7 @@
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 2 (28 AGO 2026): PROYECTOS CULTURALES EN ESPACIOS PÚBLICOS         -->
+    <!-- NOTICIA 3 (28 AGO 2026): PROYECTOS CULTURALES EN ESPACIOS PÚBLICOS         -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1668,7 +1730,7 @@
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 3 (17 AGO 2026): FORMACIÓN DE FORMADORES Y EVALUACIÓN DE IMPACTO   -->
+    <!-- NOTICIA 4 (17 AGO 2026): FORMACIÓN DE FORMADORES Y EVALUACIÓN DE IMPACTO   -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1742,7 +1804,7 @@
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 4 (28 JUL 2026): EMPOWER EL SALVADOR Y VICEPRESIDENCIA             -->
+    <!-- NOTICIA 5 (28 JUL 2026): EMPOWER EL SALVADOR Y VICEPRESIDENCIA             -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1810,7 +1872,7 @@
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 5 (22 JUL 2026): GALA HOTEL BARCELÓ                                -->
+    <!-- NOTICIA 6 (22 JUL 2026): GALA HOTEL BARCELÓ                                -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1871,7 +1933,7 @@
     <hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 40px 0;">
 
     <!-- ========================================================================== -->
-    <!-- NOTICIA 6 (20 JUL 2026): CLAUSURA CAMPAÑA DE VALORES TECPÁN               -->
+    <!-- NOTICIA 7 (20 JUL 2026): CLAUSURA CAMPAÑA DE VALORES TECPÁN               -->
     <!-- ========================================================================== -->
     <div class="featured-article-container">
         <div class="article-header">
@@ -1883,7 +1945,7 @@
             <p><strong>El Distrito Escolar LL-12 de San Juan Opico culmina con éxito un esfuerzo sin precedentes por la reconstrucción del tejido social.</strong></p>
             
             <p>Tras dos meses y medio de intensa labor formativa, el <strong>Instituto Nacional de Tecpán</strong> y el <strong>Complejo Educativo Soldado Oscar Antonio Ortiz Reyes</strong> se vistieron de gala para celebrar la clausura oficial de la campaña de valores basada en los preceptos del libro <em>"El Camino a la Felicidad"</em>. Esta iniciativa, implementada a través de la plataforma de la fundación <strong>Empower El Salvador</strong>, marca un hito en la educación integral de nuestra juventud.</p>
-            
+
             <div style="float: right; width: 45%; max-width: 500px; margin: 0 0 20px 30px;">
                 <div class="carousel" style="height: 380px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
                     <div class="carousel-slides">
