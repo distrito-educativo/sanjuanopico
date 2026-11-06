@@ -9250,12 +9250,10 @@
                     <p>Contactos oficiales y de emergencia para la gestión administrativa y salvaguarda de la comunidad educativa del distrito.</p>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- BARRA DE BÚSQUEDA INTELIGENTE              -->
-                <!-- ========================================== -->
+                <!-- BARRA DE BÚSQUEDA INTELIGENTE -->
                 <div class="dir-search-box">
                     <span class="dir-search-icon">🔍</span>
-                    <input type="text" class="dir-search-input" placeholder="Escribe para buscar (Ej. Bomberos, Cruz Roja, CONAPINA)..." onkeyup="if(window.filtrarDirectorio) window.filtrarDirectorio(this.value)">
+                    <input type="text" class="dir-search-input" placeholder="Escribe para buscar (Ej. Miguel Muñoz, Pagaduría, Escalafón, 911)..." onkeyup="if(window.filtrarDirectorio) window.filtrarDirectorio(this.value)">
                 </div>
 
                 <!-- Motor JS Inyectado -->
@@ -9289,12 +9287,10 @@
                     <a href="#dir-emergencias">🚨 Emergencias</a>
                     <a href="#dir-institucional">🏢 DDE La Libertad</a>
                     <a href="#dir-instituciones">🏛️ Otras Instituciones</a>
-                    <a href="javascript:void(0);" onclick="document.getElementById('dir-soporte').scrollIntoView({behavior: 'smooth'}); return false;" class="nav-link">
-    <i class="icono-soporte"></i> Soporte Técnico
-</a>
+                    <a href="#dir-soporte">💻 Soporte y Prestaciones</a>
                 </div>
 
-               <!-- ========================================== -->
+                <!-- ========================================== -->
                 <!-- 1. DIRECTORIO DE EMERGENCIAS (Tema Rojo)   -->
                 <!-- ========================================== -->
                 <div id="dir-emergencias" class="dir-category-box" style="border-left: 5px solid #dc2626; background-color: #fef2f2;">
@@ -9335,221 +9331,283 @@
                     </div>
                 </div>
 
-               <!-- ========================================== -->
-<!-- 2. DIRECTORIO INSTITUCIONAL DDE (Azul)     -->
-<!-- ========================================== -->
-<div id="dir-institucional" class="dir-category-box" style="border-left: 5px solid #0ea5e9; background-color: #f8fafc;">
-    <h3 class="dir-category-title" style="color: #0369a1; border-bottom-color: #e0f2fe;">
-        🏢 Dirección Departamental de Educación
-    </h3>
-    <p class="dir-category-desc">Líneas de atención de la sede departamental de La Libertad y sus respectivas unidades operativas.</p>
-    
-    <div class="dir-grid">
-        <!-- Contactos Existentes -->
-        <a href="tel:22284044" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏢</div>
-            <div class="dir-text">DDE La Libertad (Despacho)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2228-4044</span></div>
-        </a>
-        <a href="tel:22297862" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧑‍🏫</div>
-            <div class="dir-text">Unidad de Desarrollo Humano<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-7862</span></div>
-        </a>
-        <a href="tel:22297626" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💰</div>
-            <div class="dir-text">Unidad de Pagaduría<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-7626</span></div>
-        </a>
+                <!-- ========================================== -->
+                <!-- 2. DIRECTORIO INSTITUCIONAL DDE (Azul)     -->
+                <!-- ========================================== -->
+                <div id="dir-institucional" class="dir-category-box" style="border-left: 5px solid #0ea5e9; background-color: #f8fafc;">
+                    <h3 class="dir-category-title" style="color: #0369a1; border-bottom-color: #e0f2fe;">
+                        🏢 Dirección Departamental de Educación (DDE La Libertad)
+                    </h3>
+                    <p class="dir-category-desc">Líneas de atención de la sede departamental de La Libertad, jefaturas y técnicos de unidades operativas.</p>
+                    
+                    <div class="dir-grid">
+                        <!-- Líneas Generales Institucionales -->
+                        <a href="tel:22284044" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏢</div>
+                            <div class="dir-text">DDE La Libertad (Despacho)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2228-4044</span></div>
+                        </a>
+                        <a href="tel:22294104" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📞</div>
+                            <div class="dir-text">Recepción Principal<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-4104</span></div>
+                        </a>
 
-        <!-- Nuevos Contactos Integrados -->
-        <a href="tel:22294104" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📞</div>
-            <div class="dir-text">Recepción<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-4104</span></div>
-        </a>
-        <a href="tel:22283244" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🤝</div>
-            <div class="dir-text">Oficina de Atención Ciudadana<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2228-3244</span></div>
-        </a>
-        <a href="tel:22881885" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">⚖️</div>
-            <div class="dir-text">Junta de la Carrera Docente<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2288-1885</span></div>
-        </a>
-        <a href="tel:22297871" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🛠️</div>
-            <div class="dir-text">Asistencia Técnica<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-7871</span></div>
-        </a>
-        <a href="tel:22889346" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏫</div>
-            <div class="dir-text">Organismo de Administración Escolar<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">7070-9464 / 2288-9346</span></div>
-        </a>
-        <a href="tel:22284433" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📁</div>
-            <div class="dir-text">Administración<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2228-4433</span></div>
-        </a>
-        <a href="tel:22298752" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📜</div>
-            <div class="dir-text">Acreditación<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-8752</span></div>
-        </a>
-        <a href="tel:22294106" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💻</div>
-            <div class="dir-text">Coordinación Informática<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-4106</span></div>
-        </a>
-        <a href="tel:22294105" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
-            <div class="dir-text">Liquidaciones<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-4105</span></div>
-        </a>
-        <a href="tel:22297867" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📊</div>
-            <div class="dir-text">Planificación<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-7867</span></div>
-        </a>
-        <a href="tel:22283981" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🎒</div>
-            <div class="dir-text">Paquetes Escolares y PASE<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2228-3981</span></div>
-        </a>
-        <a href="tel:22880086" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📤</div>
-            <div class="dir-text">Egresos<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2288-0086</span></div>
-        </a>
-        <a href="tel:22297866" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📦</div>
-            <div class="dir-text">Centro Logístico Departamental<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2229-7866</span></div>
-        </a>
-        
-        <!-- Próximamente -->
-        <a href="#" class="dir-link" style="border-left-color: #94a3b8; opacity: 0.7;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">📂</div>
-            <div class="dir-text">Unidad de Registro Escalafonario<br><span style="color: #64748b; font-size: 0.9rem; font-style: italic;">Próximamente</span></div>
-        </a>
-    </div>
-</div>
+                        <!-- Contactos por Nombre, Cargo y Teléfono de la Unidad -->
+                        <a href="tel:70709830" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
+                            <div class="dir-text">Miguel Muñoz Argueta<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Liquidaciones</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9830</span></div>
+                        </a>
+                        <a href="tel:70709102" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💼</div>
+                            <div class="dir-text">Blanca Ofelia Sibrián de Alas<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Jefatura de Administración y Finanzas</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9102</span></div>
+                        </a>
+                        <a href="tel:70709075" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🎨</div>
+                            <div class="dir-text">Ana Margarita Rivera de Quijano<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coord. Arte, Deporte e Interculturalidad / Planificadora</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9075 / 2229-7867</span></div>
+                        </a>
+                        <a href="tel:70709196" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
+                            <div class="dir-text">Sagrario Lissette Ayala de Clavel<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Liquidaciones</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9196</span></div>
+                        </a>
+                        <a href="tel:70709239" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧑‍🏫</div>
+                            <div class="dir-text">Julio Alexander Castro Chávez<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Desarrollo Humano</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9239</span></div>
+                        </a>
+                        <a href="tel:70709692" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💰</div>
+                            <div class="dir-text">Hugo Alexander Alfaro Vaquero<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Pagaduría</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9692</span></div>
+                        </a>
+                        <a href="tel:70709693" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💰</div>
+                            <div class="dir-text">Sonia Marisol Méndez López<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Pagaduría</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9693 / 2229-7626</span></div>
+                        </a>
+                        <a href="tel:70709727" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🖥️</div>
+                            <div class="dir-text">William Alexander Ramos Molina<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico SIRH</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9727</span></div>
+                        </a>
+                        <a href="tel:70709704" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧑‍🏫</div>
+                            <div class="dir-text">Roque Giovanni Guillén Flores<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Desarrollo Humano</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9704</span></div>
+                        </a>
+                        <a href="tel:70709185" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
+                            <div class="dir-text">Andrés Salvador Villavicencio<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Liquidaciones</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9185 / 2229-4105</span></div>
+                        </a>
+                        <a href="tel:70709202" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">⚖️</div>
+                            <div class="dir-text">Regina Magdalena Estrada Arana<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Secretaria Junta de la Carrera Docente</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9202 / 2288-1885</span></div>
+                        </a>
+                        <a href="tel:70709763" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📋</div>
+                            <div class="dir-text">Nely Carolina Landaverde Guzmán<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Encargada de Movimiento de Personal</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9763</span></div>
+                        </a>
+                        <a href="tel:72589840" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🤝</div>
+                            <div class="dir-text">Álvaro Darío Lara Chávez<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Referente Oficina de Atención Ciudadana</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7258-9840 / 2228-3244</span></div>
+                        </a>
+                        <a href="tel:75703082" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📊</div>
+                            <div class="dir-text">Nelson Alfredo Martínez Hernández<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coordinador de Programas y Proyectos</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7570-3082</span></div>
+                        </a>
+                        <a href="tel:70709416" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧑‍🏫</div>
+                            <div class="dir-text">Salvador Edmundo Morales Hernández<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coordinador de Desarrollo Humano</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9416 / 2229-7862</span></div>
+                        </a>
+                        <a href="tel:70709758" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏢</div>
+                            <div class="dir-text">Delmy Margarita Ayala de Valle<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Asistente de Dirección</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9758</span></div>
+                        </a>
+                        <a href="tel:70709051" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💻</div>
+                            <div class="dir-text">Walter Alberto Calderón Madrid<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Acreditador Departamental y Coord. Informática</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9051 / 2229-4106</span></div>
+                        </a>
+                        <a href="tel:70709436" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📁</div>
+                            <div class="dir-text">Yolanda Carranza Durán<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Administración</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9436 / 2228-4433</span></div>
+                        </a>
+                        <a href="tel:70709511" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📦</div>
+                            <div class="dir-text">Ileana Margarita Morales de Robles<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Encargada de Activo Fijo</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9511</span></div>
+                        </a>
+                        <a href="tel:70709438" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🚗</div>
+                            <div class="dir-text">Willian Otoniel Portal Guillén<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Motorista</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9438</span></div>
+                        </a>
+                        <a href="tel:70714282" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🚚</div>
+                            <div class="dir-text">José Franklin Mena<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coordinador Logístico</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7071-4282</span></div>
+                        </a>
+                        <a href="tel:70709417" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
+                            <div class="dir-text">Melvi Martínez Mendoza<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coordinador de Liquidaciones y Presupuesto</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9417</span></div>
+                        </a>
+                        <a href="tel:70709443" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📜</div>
+                            <div class="dir-text">Armando Giovanni Favian Mejía<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico Modalidades Flexibles, Informática y Acreditación</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9443 / 2229-8752</span></div>
+                        </a>
+                        <a href="tel:75076627" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🚗</div>
+                            <div class="dir-text">Elmer Ernesto Chávez Majano<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Motorista</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7507-6627</span></div>
+                        </a>
+                        <a href="tel:70709412" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📂</div>
+                            <div class="dir-text">Rina Isabel Ramírez Conrrado<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Encargada Unidad de Escalafón Docente</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9412</span></div>
+                        </a>
+                        <a href="tel:70709415" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏥</div>
+                            <div class="dir-text">Linda Bellyni Ramos Hernández<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Encargada Unidad de Incapacidades y Licencias</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9415</span></div>
+                        </a>
+                        <a href="tel:70709420" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📦</div>
+                            <div class="dir-text">Adán Neftalí Linarez García<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Coordinador Archivo e Insumos Logísticos</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9420 / 2229-7866</span></div>
+                        </a>
+                        <a href="tel:70709428" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏗️</div>
+                            <div class="dir-text">Patricia Lizzete Acevedo Maravilla<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Encargada Infraestructura y Egresos</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9428 / 2288-0086</span></div>
+                        </a>
+                        <a href="tel:70709444" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🎒</div>
+                            <div class="dir-text">Douglas Marcos Antonio Cader Valencia<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Paquete Escolar</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9444 / 2228-3981</span></div>
+                        </a>
+                        <a href="tel:70709448" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧑‍🏫</div>
+                            <div class="dir-text">Eugenia Dubón Dubón<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Asistente de Coordinación de Desarrollo Humano</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9448</span></div>
+                        </a>
+                        <a href="tel:70709461" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">📜</div>
+                            <div class="dir-text">Melvi Yaneth Alvarado Rivas<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Elaboración de Acuerdos y Refrendaria</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9461</span></div>
+                        </a>
+                        <a href="tel:70709464" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏫</div>
+                            <div class="dir-text">Mónica Aimé Pérez de Peña<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico Organismos Administración Escolar</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9464 / 2288-9346</span></div>
+                        </a>
+                        <a href="tel:70709499" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">💰</div>
+                            <div class="dir-text">Emelina del Carmen Arriaza Menjívar de Tobar<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Técnico de Pagaduría</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7070-9499 / 2229-7626</span></div>
+                        </a>
+                        <a href="tel:75076521" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🧾</div>
+                            <div class="dir-text">Nancy Carolina Merino<br><span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Asistente de Liquidación y Presupuesto</span><br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">7507-6521</span></div>
+                        </a>
+                    </div>
+                </div>
 
                 <!-- ========================================== -->
-<!-- 3. OTRAS INSTITUCIONES (Gris/Multicolor)   -->
-<!-- ========================================== -->
-<div id="dir-instituciones" class="dir-category-box" style="border-left: 5px solid #475569;">
-    <h3 class="dir-category-title" style="color: #334155;">
-        🏛️ Directorio de Instituciones
-    </h3>
-    <p class="dir-category-desc">Otras carteras de estado, salvaguarda de derechos, municipalidad y proveedores de servicios.</p>
-    
-    <div class="dir-grid">
-        <!-- Protección, Salud y Educación -->
-        <a href="tel:119" class="dir-link" style="border-left-color: #8b5cf6;">
-            <div class="dir-icon" style="background: #ede9fe; color: #8b5cf6;">👶</div>
-            <div class="dir-text">CONAPINA (Niñez y Adolescencia)<br><span style="color: #8b5cf6; font-size: 1.1rem; font-weight: 800;">119</span></div>
-        </a>
-        <a href="tel:126" class="dir-link" style="border-left-color: #ec4899;">
-            <div class="dir-icon" style="background: #fce7f3; color: #ec4899;">👩</div>
-            <div class="dir-text">ISDEMU (Atención a la Mujer)<br><span style="color: #ec4899; font-size: 1rem; font-weight: 700;">126 <span style="font-size: 0.85rem; font-weight: normal; color:#64748b;">| WA: 7854-9521</span></span></div>
-        </a>
-        <a href="tel:22222008" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏫</div>
-            <div class="dir-text">MINEDUCYT (Central)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2222-2008</span></div>
-        </a>
-        <a href="tel:25932600" class="dir-link" style="border-left-color: #0ea5e9;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🎓</div>
-            <div class="dir-text">EDUCAMEN<br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">2593-2600 / 2592-2000</span></div>
-        </a>
-        <a href="tel:24131268" class="dir-link" style="border-left-color: #2563eb;">
-            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">🏥</div>
-            <div class="dir-text">Ministerio de Salud<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">2413-1268</span></div>
-        </a>
-        <a href="tel:25204300" class="dir-link" style="border-left-color: #475569;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🤝</div>
-            <div class="dir-text">Procuraduría (PDDH)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2520-4300</span></div>
-        </a>
-        <a href="tel:25937000" class="dir-link" style="border-left-color: #475569;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">⚖️</div>
-            <div class="dir-text">Fiscalía General (FGR)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2593-7000</span></div>
-        </a>
-        <a href="tel:25298600" class="dir-link" style="border-left-color: #475569;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🔬</div>
-            <div class="dir-text">Medicina Legal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2529-8600</span></div>
-        </a>
-        <a href="tel:24874800" class="dir-link" style="border-left-color: #475569;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🏛️</div>
-            <div class="dir-text">Alcaldía Municipal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2347-2525 / 2331-3001</span></div>
-        </a>
-        
-        <!-- Infraestructura y Medio Ambiente -->
-        <a href="tel:22644999" class="dir-link" style="border-left-color: #f59e0b;">
-            <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚧</div>
-            <div class="dir-text">FOVIAL (Emergencia en Vías)<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2264-4999</span></div>
-        </a>
-        <a href="tel:25283000" class="dir-link" style="border-left-color: #64748b;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🏗️</div>
-            <div class="dir-text">Obras Públicas (MOP)<br><span style="color: #64748b; font-size: 1rem; font-weight: 700;">2528-3000</span></div>
-        </a>
-        <a href="tel:21326276" class="dir-link" style="border-left-color: #16a34a;">
-            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌳</div>
-            <div class="dir-text">Medio Ambiente (MARN)<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2132-6276</span></div>
-        </a>
-        <a href="tel:21329478" class="dir-link" style="border-left-color: #16a34a;">
-            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌦️</div>
-            <div class="dir-text">SNET<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2132-9478</span></div>
-        </a>
-        <a href="tel:22101700" class="dir-link" style="border-left-color: #16a34a;">
-            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌾</div>
-            <div class="dir-text">Ministerio Agricultura<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2210-1700</span></div>
-        </a>
-        
-        <!-- Servicios Básicos -->
-        <a href="tel:25069000" class="dir-link" style="border-left-color: #eab308;">
-            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">⚡</div>
-            <div class="dir-text">AES El Salvador<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2506-9000</span></div>
-        </a>
-        <a href="tel:22335600" class="dir-link" style="border-left-color: #eab308;">
-            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">💡</div>
-            <div class="dir-text">DELSUR<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2233-5600</span></div>
-        </a>
-        <a href="tel:915" class="dir-link" style="border-left-color: #0284c7;">
-            <div class="dir-icon" style="background: #e0f2fe; color: #0284c7;">💧</div>
-            <div class="dir-text">ANDA (Agua)<br><span style="color: #0284c7; font-size: 1rem; font-weight: 700;">915</span></div>
-        </a>
-        <a href="tel:22574444" class="dir-link" style="border-left-color: #475569;">
-            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">📡</div>
-            <div class="dir-text">SIGET<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2257-4444</span></div>
-        </a>
-    </div>
-</div>
+                <!-- 3. OTRAS INSTITUCIONES (Gris/Multicolor)   -->
+                <!-- ========================================== -->
+                <div id="dir-instituciones" class="dir-category-box" style="border-left: 5px solid #475569;">
+                    <h3 class="dir-category-title" style="color: #334155;">
+                        🏛️ Directorio de Instituciones
+                    </h3>
+                    <p class="dir-category-desc">Otras carteras de estado, salvaguarda de derechos, municipalidad y proveedores de servicios.</p>
+                    
+                    <div class="dir-grid">
+                        <a href="tel:119" class="dir-link" style="border-left-color: #8b5cf6;">
+                            <div class="dir-icon" style="background: #ede9fe; color: #8b5cf6;">👶</div>
+                            <div class="dir-text">CONAPINA (Niñez y Adolescencia)<br><span style="color: #8b5cf6; font-size: 1.1rem; font-weight: 800;">119</span></div>
+                        </a>
+                        <a href="tel:126" class="dir-link" style="border-left-color: #ec4899;">
+                            <div class="dir-icon" style="background: #fce7f3; color: #ec4899;">👩</div>
+                            <div class="dir-text">ISDEMU (Atención a la Mujer)<br><span style="color: #ec4899; font-size: 1rem; font-weight: 700;">126 <span style="font-size: 0.85rem; font-weight: normal; color:#64748b;">| WA: 7854-9521</span></span></div>
+                        </a>
+                        <a href="tel:22222008" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🏫</div>
+                            <div class="dir-text">MINEDUCYT (Central)<br><span style="color: #0ea5e9; font-size: 1rem; font-weight: 700;">2222-2008</span></div>
+                        </a>
+                        <a href="tel:25932600" class="dir-link" style="border-left-color: #0ea5e9;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0ea5e9;">🎓</div>
+                            <div class="dir-text">EDUCAMEN<br><span style="color: #0ea5e9; font-size: 0.95rem; font-weight: 700;">2593-2600 / 2592-2000</span></div>
+                        </a>
+                        <a href="tel:24131268" class="dir-link" style="border-left-color: #2563eb;">
+                            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">🏥</div>
+                            <div class="dir-text">Ministerio de Salud<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">2413-1268</span></div>
+                        </a>
+                        <a href="tel:25204300" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🤝</div>
+                            <div class="dir-text">Procuraduría (PDDH)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2520-4300</span></div>
+                        </a>
+                        <a href="tel:25937000" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">⚖️</div>
+                            <div class="dir-text">Fiscalía General (FGR)<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2593-7000</span></div>
+                        </a>
+                        <a href="tel:25298600" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🔬</div>
+                            <div class="dir-text">Medicina Legal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2529-8600</span></div>
+                        </a>
+                        <a href="tel:24874800" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">🏛️</div>
+                            <div class="dir-text">Alcaldía Municipal<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2347-2525 / 2331-3001</span></div>
+                        </a>
+                        <a href="tel:22644999" class="dir-link" style="border-left-color: #f59e0b;">
+                            <div class="dir-icon" style="background: #fef3c7; color: #d97706;">🚧</div>
+                            <div class="dir-text">FOVIAL (Emergencia en Vías)<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">2264-4999</span></div>
+                        </a>
+                        <a href="tel:25283000" class="dir-link" style="border-left-color: #64748b;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🏗️</div>
+                            <div class="dir-text">Obras Públicas (MOP)<br><span style="color: #64748b; font-size: 1rem; font-weight: 700;">2528-3000</span></div>
+                        </a>
+                        <a href="tel:21326276" class="dir-link" style="border-left-color: #16a34a;">
+                            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌳</div>
+                            <div class="dir-text">Medio Ambiente (MARN)<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2132-6276</span></div>
+                        </a>
+                        <a href="tel:21329478" class="dir-link" style="border-left-color: #16a34a;">
+                            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌦️</div>
+                            <div class="dir-text">SNET<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2132-9478</span></div>
+                        </a>
+                        <a href="tel:22101700" class="dir-link" style="border-left-color: #16a34a;">
+                            <div class="dir-icon" style="background: #dcfce7; color: #16a34a;">🌾</div>
+                            <div class="dir-text">Ministerio Agricultura<br><span style="color: #16a34a; font-size: 1rem; font-weight: 700;">2210-1700</span></div>
+                        </a>
+                        <a href="tel:25069000" class="dir-link" style="border-left-color: #eab308;">
+                            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">⚡</div>
+                            <div class="dir-text">AES El Salvador<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2506-9000</span></div>
+                        </a>
+                        <a href="tel:22335600" class="dir-link" style="border-left-color: #eab308;">
+                            <div class="dir-icon" style="background: #fef9c3; color: #ca8a04;">💡</div>
+                            <div class="dir-text">DELSUR<br><span style="color: #ca8a04; font-size: 1rem; font-weight: 700;">2233-5600</span></div>
+                        </a>
+                        <a href="tel:915" class="dir-link" style="border-left-color: #0284c7;">
+                            <div class="dir-icon" style="background: #e0f2fe; color: #0284c7;">💧</div>
+                            <div class="dir-text">ANDA (Agua)<br><span style="color: #0284c7; font-size: 1rem; font-weight: 700;">915</span></div>
+                        </a>
+                        <a href="tel:22574444" class="dir-link" style="border-left-color: #475569;">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #475569;">📡</div>
+                            <div class="dir-text">SIGET<br><span style="color: #475569; font-size: 1rem; font-weight: 700;">2257-4444</span></div>
+                        </a>
+                    </div>
+                </div>
 
                 <!-- ========================================== -->
-<!-- 4. SOPORTE TÉCNICO Y PRESTACIONES (Oro)    -->
-<!-- ========================================== -->
-<div id="dir-soporte" class="dir-category-box" style="border-left: 5px solid #d97706;">
-    <h3 class="dir-category-title" style="color: #b45309;">
-        💻 Soporte Técnico y Prestaciones
-    </h3>
-    <p class="dir-category-desc">Asistencia para plataformas educativas, conectividad y servicios de salud magisterial.</p>
-    
-    <div class="dir-grid">
-        <!-- BLOQUE DE SALUD Y PRESTACIONES (Azul) -->
-        <a href="tel:127" class="dir-link" style="border-left-color: #2563eb;">
-            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">🏥</div>
-            <div class="dir-text">ISSS (Seguro Social)<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">127</span></div>
-        </a>
-        
-        <a href="tel:22399280" class="dir-link" style="border-left-color: #2563eb;">
-            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">⚕️</div>
-            <div class="dir-text">ISBM (Bienestar Magisterial)<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">2239-9280</span></div>
-        </a>
-
-        <!-- BLOQUE DE TECNOLOGÍA Y SISTEMAS (Naranja/Oro) -->
-        <a href="tel:75917444" class="dir-link" style="border-left-color: #d97706;">
-            <div class="dir-icon" style="background: #fff7ed; color: #d97706;">🖥️</div>
-            <div class="dir-text">Mesa de Ayuda SIGES<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">7591-7444</span></div>
-        </a>
-        
-        <a href="tel:70709889" class="dir-link" style="border-left-color: #d97706;">
-            <div class="dir-icon" style="background: #fff7ed; color: #d97706;">💻</div>
-            <div class="dir-text">Programa ENLACES CON LA EDUCACIÓN<br><span style="color: #d97706; font-size: 0.95rem; font-weight: 700;">2290-0600 / 7070-9889</span></div>
-        </a>
-
-        <!-- OPCIÓN DE FALLO DE INTERNET (Gris/Pendiente) -->
-        <a href="#" class="dir-link" style="border-left-color: #94a3b8; opacity: 0.8; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🌐</div>
-            <div class="dir-text">Reporte fallo de internet<br><span style="color: #64748b; font-size: 0.9rem; font-style: italic;">Próximamente / Formulario</span></div>
-        </a>
-    </div>
-</div>
+                <!-- 4. SOPORTE TÉCNICO Y PRESTACIONES (Oro)    -->
+                <!-- ========================================== -->
+                <div id="dir-soporte" class="dir-category-box" style="border-left: 5px solid #d97706;">
+                    <h3 class="dir-category-title" style="color: #b45309;">
+                        💻 Soporte Técnico y Prestaciones
+                    </h3>
+                    <p class="dir-category-desc">Asistencia para plataformas educativas, conectividad y servicios de salud magisterial.</p>
+                    
+                    <div class="dir-grid">
+                        <a href="tel:127" class="dir-link" style="border-left-color: #2563eb;">
+                            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">🏥</div>
+                            <div class="dir-text">ISSS (Seguro Social)<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">127</span></div>
+                        </a>
+                        <a href="tel:22399280" class="dir-link" style="border-left-color: #2563eb;">
+                            <div class="dir-icon" style="background: #eff6ff; color: #2563eb;">⚕️</div>
+                            <div class="dir-text">ISBM (Bienestar Magisterial)<br><span style="color: #2563eb; font-size: 1rem; font-weight: 700;">2239-9280</span></div>
+                        </a>
+                        <a href="tel:75917444" class="dir-link" style="border-left-color: #d97706;">
+                            <div class="dir-icon" style="background: #fff7ed; color: #d97706;">🖥️</div>
+                            <div class="dir-text">Mesa de Ayuda SIGES<br><span style="color: #d97706; font-size: 1rem; font-weight: 700;">7591-7444</span></div>
+                        </a>
+                        <a href="tel:70709889" class="dir-link" style="border-left-color: #d97706;">
+                            <div class="dir-icon" style="background: #fff7ed; color: #d97706;">💻</div>
+                            <div class="dir-text">Programa ENLACES CON LA EDUCACIÓN<br><span style="color: #d97706; font-size: 0.95rem; font-weight: 700;">2290-0600 / 7070-9889</span></div>
+                        </a>
+                        <a href="#" class="dir-link" style="border-left-color: #94a3b8; opacity: 0.8; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                            <div class="dir-icon" style="background: #f1f5f9; color: #64748b;">🌐</div>
+                            <div class="dir-text">Reporte fallo de internet<br><span style="color: #64748b; font-size: 0.9rem; font-style: italic;">Próximamente / Formulario</span></div>
+                        </a>
+                    </div>
+                </div>
             `,
             'workspace-home': `<div class="page-header"><h1>Formación Google WorkSpace</h1></div>`,
             'workspace-gemini': `<div class="page-header"><h1>Google Gemini en la Educación</h1></div>`,
