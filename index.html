@@ -10254,10 +10254,10 @@
         })();
 
         window.normalizarEstadoDoc = function(estado) {
-            var val = (estado || "pendiente").toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            var val = (estado || "pendiente").toLowerCase().trim();
             if (val === "validado") return "validado";
             if (val === "entregado") return "entregado";
-            if (val === "revision" || val === "en revision") return "revision";
+            if (val === "revision" || val === "revisión" || val === "en revision" || val === "en revisión") return "revision";
             return "pendiente";
         };
 
@@ -10269,15 +10269,17 @@
                 if (est === "revision")  return '<span class="estado-pill est-revision">🔍 En revisión</span>';
                 return '<span class="estado-pill est-pendiente">⏳ Pendiente</span>';
             }
-            return '<select class="ctrl-select-estado sel-' + est + '" onchange="window.cambiarEstadoCeldaDoc(' + index + ', \'' + campo + '\', this)">' +
-                '<option value="pendiente"' + (est === 'pendiente' ? ' selected' : '') + '>⏳ Pendiente</option>' +
-                '<option value="entregado"' + (est === 'entregado' ? ' selected' : '') + '>📨 Entregado</option>' +
-                '<option value="revision"'  + (est === 'revision'  ? ' selected' : '') + '>🔍 En revisión</option>' +
-                '<option value="validado"'  + (est === 'validado'  ? ' selected' : '') + '>✅ Validado</option>' +
+            return '<select class="ctrl-select-estado sel-' + est + '" data-idx="' + index + '" data-campo="' + campo + '" onchange="window.cambiarEstadoCeldaDoc(this)">' +
+                '<option value="pendiente"' + (est === "pendiente" ? " selected" : "") + '>⏳ Pendiente</option>' +
+                '<option value="entregado"' + (est === "entregado" ? " selected" : "") + '>📨 Entregado</option>' +
+                '<option value="revision"'  + (est === "revision"  ? " selected" : "") + '>🔍 En revisión</option>' +
+                '<option value="validado"'  + (est === "validado"  ? " selected" : "") + '>✅ Validado</option>' +
             '</select>';
         };
 
-        window.cambiarEstadoCeldaDoc = function(index, campo, selectEl) {
+        window.cambiarEstadoCeldaDoc = function(selectEl) {
+            var index = parseInt(selectEl.getAttribute("data-idx"), 10);
+            var campo = selectEl.getAttribute("data-campo");
             var nuevoValor = selectEl.value;
             window.datosControlDocumentos[index][campo] = nuevoValor;
             selectEl.className = "ctrl-select-estado sel-" + nuevoValor;
