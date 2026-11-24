@@ -9898,23 +9898,18 @@
                 </div>
             </div>
             <div style="padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-                
                 <a href="https://docs.google.com/document/d/1nnDylHCfxfZ7EH28NkXdAUAEAdd8D3Zj/export?format=docx" download referrerpolicy="no-referrer" style="display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #334155; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.backgroundColor='#f5f3ff'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='transparent'">
                     <span style="color: #2563eb; font-size: 1.3rem;">📥</span> Archivo 1 (.docx)
                 </a>
-                
                 <a href="https://docs.google.com/document/d/1sIwnqVcJgiW7k6WmBi8-HTKWU_mVOgXI/export?format=docx" download referrerpolicy="no-referrer" style="display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #334155; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.backgroundColor='#f5f3ff'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='transparent'">
                     <span style="color: #2563eb; font-size: 1.3rem;">📥</span> Archivo 2 (.docx)
                 </a>
-                
                 <a href="https://docs.google.com/document/d/1KrvJ8mZ46KYxEP3KzjqwX6kyYZh3U8eQ/export?format=docx" download referrerpolicy="no-referrer" style="display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #334155; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.backgroundColor='#f5f3ff'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='transparent'">
                     <span style="color: #2563eb; font-size: 1.3rem;">📥</span> Archivo 3 (.docx)
                 </a>
-                
                 <a href="https://docs.google.com/document/d/1XDZAtop_vJEYf1Eb9E34QjDiF-I28JZz/export?format=docx" download referrerpolicy="no-referrer" style="display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #334155; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.backgroundColor='#f5f3ff'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='transparent'">
                     <span style="color: #2563eb; font-size: 1.3rem;">📥</span> Archivo 4 (.docx)
                 </a>
-                
             </div>
         </div>
 
@@ -9973,6 +9968,8 @@
             align-items: center;
             gap: 6px;
         }
+        .btn-ctrl-pdf { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .btn-ctrl-pdf:hover { background: #fecaca; }
         .btn-ctrl-sync { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
         .btn-ctrl-sync:hover { background: #bae6fd; }
         .btn-ctrl-lock { background: #0A2540; color: #ffffff; }
@@ -10126,9 +10123,6 @@
             border-radius: 99px;
             transition: width 0.3s ease;
         }
-        @media print {
-            .ctrl-table-wrap { max-height: none !important; overflow: visible !important; }
-        }
     </style>
 
     <div class="ctrl-doc-anexo">
@@ -10138,6 +10132,9 @@
                 <p>Monitoreo del uso y entrega oficial de plantillas por institución educativa (27 centros educativos).</p>
             </div>
             <div class="ctrl-doc-actions">
+                <button type="button" id="btn-pdf-validacion" class="btn-ctrl btn-ctrl-pdf" onclick="if(window.exportarInformePDFDocumentos) window.exportarInformePDFDocumentos();">
+                    📄 Exportar Informe PDF
+                </button>
                 <button type="button" id="btn-sync-validacion" class="btn-ctrl btn-ctrl-sync" onclick="if(window.sincronizarControlDocumentos) window.sincronizarControlDocumentos(false);">
                     🔄 Actualizar Datos
                 </button>
@@ -10437,6 +10434,161 @@
                     if (btn && !silencioso) { btn.innerText = "🔄 Actualizar Datos"; btn.disabled = false; }
                     if (!silencioso) alert("⚠️ No se pudo conectar con Google Sheets. Se muestran los datos locales.");
                 });
+        };
+
+        window.exportarInformePDFDocumentos = function() {
+            var lista = window.datosControlDocumentos || [];
+            var total = lista.length;
+            var stats = {
+                pea2027:    { validado: 0, entregado: 0, revision: 0, pendiente: 0 },
+                ppe:        { validado: 0, entregado: 0, revision: 0, pendiente: 0 },
+                planta2027: { validado: 0, entregado: 0, revision: 0, pendiente: 0 },
+                consejo:    { validado: 0, entregado: 0, revision: 0, pendiente: 0 }
+            };
+
+            function badgePdf(est) {
+                var e = window.normalizarEstadoDoc(est);
+                if (e === "validado")  return '<span class="b-val">Validado</span>';
+                if (e === "entregado") return '<span class="b-ent">Entregado</span>';
+                if (e === "revision")  return '<span class="b-rev">En revisión</span>';
+                return '<span class="b-pen">Pendiente</span>';
+            }
+
+            var filasHtml = "";
+            var totalValidadosGlobal = 0;
+
+            for (var i = 0; i < lista.length; i++) {
+                var item = lista[i];
+                var ePea     = window.normalizarEstadoDoc(item.pea2027);
+                var ePpe     = window.normalizarEstadoDoc(item.ppe);
+                var ePlanta  = window.normalizarEstadoDoc(item.planta2027);
+                var eConsejo = window.normalizarEstadoDoc(item.consejo);
+
+                stats.pea2027[ePea]++;
+                stats.ppe[ePpe]++;
+                stats.planta2027[ePlanta]++;
+                stats.consejo[eConsejo]++;
+
+                var valCe = (ePea === "validado" ? 1 : 0) + (ePpe === "validado" ? 1 : 0) + (ePlanta === "validado" ? 1 : 0) + (eConsejo === "validado" ? 1 : 0);
+                totalValidadosGlobal += valCe;
+                var pctCe = Math.round((valCe / 4) * 100);
+
+                filasHtml += '<tr>' +
+                    '<td class="c-num">' + (i + 1) + '</td>' +
+                    '<td class="c-cod">' + item.codigo + '</td>' +
+                    '<td class="c-ce"><strong>' + item.nombre + '</strong><br><span class="c-dir">Dir.: ' + item.director + '</span></td>' +
+                    '<td class="c-est">' + badgePdf(ePea) + '</td>' +
+                    '<td class="c-est">' + badgePdf(ePpe) + '</td>' +
+                    '<td class="c-est">' + badgePdf(ePlanta) + '</td>' +
+                    '<td class="c-est">' + badgePdf(eConsejo) + '</td>' +
+                    '<td class="c-pct"><strong>' + pctCe + '%</strong></td>' +
+                '</tr>';
+            }
+
+            var pctGlobal = total > 0 ? Math.round((totalValidadosGlobal / (total * 4)) * 100) : 0;
+            var ahora = new Date();
+            var fechaTexto = ahora.toLocaleDateString("es-SV", { year: "numeric", month: "long", day: "numeric" });
+            var horaTexto  = ahora.toLocaleTimeString("es-SV", { hour: "2-digit", minute: "2-digit" });
+
+            var ventana = window.open("", "_blank", "width=1050,height=800");
+            if (!ventana) {
+                alert("⚠️ El navegador bloqueó la ventana emergente del informe. Permite las ventanas emergentes para este portal e inténtalo de nuevo.");
+                return;
+            }
+
+            var htmlInforme = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">' +
+                '<title>Informe_Control_Documental_2027_San_Juan_Opico</title>' +
+                '<style>' +
+                '@page { size: letter portrait; margin: 12mm; }' +
+                'body { font-family: "Segoe UI", Arial, sans-serif; color: #0f172a; margin: 0; padding: 18px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
+                '.no-print { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }' +
+                '.hdr { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #0A2540; padding-bottom: 12px; margin-bottom: 14px; gap: 15px; }' +
+                '.hdr-titles { flex: 1; text-align: center; }' +
+                '.hdr-titles h1 { margin: 0; font-size: 15px; color: #0A2540; text-transform: uppercase; letter-spacing: 0.4px; }' +
+                '.hdr-titles h2 { margin: 3px 0; font-size: 13px; color: #1e3a8a; font-weight: 700; }' +
+                '.hdr-titles p { margin: 2px 0 0 0; font-size: 11px; color: #475569; }' +
+                '.meta-bar { display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; font-size: 11px; margin-bottom: 14px; }' +
+                '.resumen-tbl { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 11px; }' +
+                '.resumen-tbl th { background: #1e293b; color: #ffffff; padding: 6px 8px; text-align: center; border: 1px solid #cbd5e1; }' +
+                '.resumen-tbl td { padding: 6px 8px; text-align: center; border: 1px solid #cbd5e1; font-weight: 600; }' +
+                '.main-tbl { width: 100%; border-collapse: collapse; font-size: 10.5px; }' +
+                '.main-tbl th { background: #0A2540; color: #ffffff; padding: 7px 6px; border: 1px solid #0A2540; text-transform: uppercase; font-size: 9.5px; }' +
+                '.main-tbl td { padding: 5px 6px; border: 1px solid #cbd5e1; vertical-align: middle; }' +
+                '.main-tbl tr:nth-child(even) { background: #f8fafc; }' +
+                '.c-num { text-align: center; width: 24px; color: #475569; }' +
+                '.c-cod { text-align: center; width: 46px; font-weight: 800; color: #0A2540; }' +
+                '.c-ce { text-align: left; }' +
+                '.c-dir { font-size: 9px; color: #64748b; }' +
+                '.c-est { text-align: center; width: 78px; }' +
+                '.c-pct { text-align: center; width: 44px; color: #0A2540; }' +
+                '.b-val { display: inline-block; padding: 2px 7px; border-radius: 10px; background: #dcfce7; color: #166534; border: 1px solid #86efac; font-weight: 700; font-size: 9.5px; }' +
+                '.b-ent { display: inline-block; padding: 2px 7px; border-radius: 10px; background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; font-weight: 700; font-size: 9.5px; }' +
+                '.b-rev { display: inline-block; padding: 2px 7px; border-radius: 10px; background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-weight: 700; font-size: 9.5px; }' +
+                '.b-pen { display: inline-block; padding: 2px 7px; border-radius: 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; font-weight: 700; font-size: 9.5px; }' +
+                '.firmas { margin-top: 34px; display: flex; justify-content: space-around; text-align: center; font-size: 11px; page-break-inside: avoid; }' +
+                '.firma-box { width: 260px; border-top: 1px solid #334155; padding-top: 6px; }' +
+                '@media print { .no-print { display: none !important; } body { padding: 0; } }' +
+                '</style></head><body>' +
+                '<div class="no-print">' +
+                    '<span style="font-size:13px;font-weight:600;color:#1e293b;">Vista previa oficial del informe distrital (Elige <strong>Guardar como PDF</strong> en el destino de impresión).</span>' +
+                    '<div style="display:flex;gap:8px;">' +
+                        '<button onclick="window.print()" style="background:#0A2540;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Guardar PDF / Imprimir</button>' +
+                        '<button onclick="window.close()" style="background:#e2e8f0;color:#334155;border:none;padding:8px 14px;border-radius:6px;font-weight:bold;cursor:pointer;">Cerrar</button>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="hdr">' +
+                    '<img src="Logo_mineducyt.jpg" alt="MINEDUCYT" style="height:54px;object-fit:contain;" onerror="this.remove()">' +
+                    '<div class="hdr-titles">' +
+                        '<h1>Ministerio de Educación, Ciencia y Tecnología</h1>' +
+                        '<h2>Distrito Educativo San Juan Opico — Monitoreo Distrital</h2>' +
+                        '<p>Informe Oficial de Revisión y Validación Documental (Año Lectivo 2027)</p>' +
+                    '</div>' +
+                    '<div style="width:54px;"></div>' +
+                '</div>' +
+                '<div class="meta-bar">' +
+                    '<span><strong>Fecha de emisión:</strong> ' + fechaTexto + ' (' + horaTexto + ')</span>' +
+                    '<span><strong>Total Centros Educativos:</strong> ' + total + '</span>' +
+                    '<span><strong>Cumplimiento Validado Global:</strong> ' + pctGlobal + '%</span>' +
+                '</div>' +
+                '<table class="resumen-tbl">' +
+                    '<thead><tr>' +
+                        '<th style="text-align:left;">Documento Monitoreado (2027)</th>' +
+                        '<th>✅ Validados</th>' +
+                        '<th>📨 Entregados</th>' +
+                        '<th>🔍 En Revisión</th>' +
+                        '<th>⏳ Pendientes</th>' +
+                        '<th>% Validado</th>' +
+                    '</tr></thead>' +
+                    '<tbody>' +
+                        '<tr><td style="text-align:left;">1. Plan Escolar Anual (PEA 2027)</td><td style="color:#166534;">' + stats.pea2027.validado + '</td><td>' + stats.pea2027.entregado + '</td><td>' + stats.pea2027.revision + '</td><td>' + stats.pea2027.pendiente + '</td><td>' + Math.round((stats.pea2027.validado / total) * 100) + '%</td></tr>' +
+                        '<tr><td style="text-align:left;">2. Plan de Protección Escolar (PPE)</td><td style="color:#166534;">' + stats.ppe.validado + '</td><td>' + stats.ppe.entregado + '</td><td>' + stats.ppe.revision + '</td><td>' + stats.ppe.pendiente + '</td><td>' + Math.round((stats.ppe.validado / total) * 100) + '%</td></tr>' +
+                        '<tr><td style="text-align:left;">3. Planta Docente 2027</td><td style="color:#166534;">' + stats.planta2027.validado + '</td><td>' + stats.planta2027.entregado + '</td><td>' + stats.planta2027.revision + '</td><td>' + stats.planta2027.pendiente + '</td><td>' + Math.round((stats.planta2027.validado / total) * 100) + '%</td></tr>' +
+                        '<tr><td style="text-align:left;">4. Presidente de Consejo Estudiantil</td><td style="color:#166534;">' + stats.consejo.validado + '</td><td>' + stats.consejo.entregado + '</td><td>' + stats.consejo.revision + '</td><td>' + stats.consejo.pendiente + '</td><td>' + Math.round((stats.consejo.validado / total) * 100) + '%</td></tr>' +
+                    '</tbody>' +
+                '</table>' +
+                '<table class="main-tbl">' +
+                    '<thead><tr>' +
+                        '<th>#</th>' +
+                        '<th>Código</th>' +
+                        '<th style="text-align:left;">Institución Educativa</th>' +
+                        '<th>PEA 2027</th>' +
+                        '<th>Plan Protección</th>' +
+                        '<th>Planta Docente</th>' +
+                        '<th>Consejo Est.</th>' +
+                        '<th>Avance</th>' +
+                    '</tr></thead>' +
+                    '<tbody>' + filasHtml + '</tbody>' +
+                '</table>' +
+                '<div class="firmas">' +
+                    '<div class="firma-box"><strong>Monitoreo y Gestión Distrital</strong><br>Distrito Educativo San Juan Opico</div>' +
+                    '<div class="firma-box"><strong>Sello y Vo. Bo. Coordinación</strong><br>Dirección Departamental de Educación</div>' +
+                '</div>' +
+                '<scr' + 'ipt>window.onload = function() { setTimeout(function() { window.print(); }, 350); };</scr' + 'ipt>' +
+                '</body></html>';
+
+            ventana.document.open();
+            ventana.document.write(htmlInforme);
+            ventana.document.close();
         };
 
         window.renderizarControlDocumentos();
