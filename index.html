@@ -9832,7 +9832,7 @@
             </div>
         </div>
 
-        <!-- 2. Documento Individual: Formato PEA -->
+        <!-- 2. Documento Individual: Formato PEA 2027 -->
         <div style="background: #ffffff; border: 1px solid #ddd6fe; border-radius: 10px; overflow: hidden; transition: all 0.3s; box-shadow: 0 4px 6px rgba(139, 92, 246, 0.05); display: flex; flex-direction: column; justify-content: space-between;">
             <div style="padding: 15px 20px; border-bottom: 1px solid #f5f3ff; display: flex; align-items: center; gap: 15px;">
                 <div style="font-size: 1.5rem; background: #ede9fe; color: #8b5cf6; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0;">📅</div>
@@ -9919,6 +9919,528 @@
         </div>
 
     </div>
+
+    <!-- ========================================================================= -->
+    <!-- ANEXO INTEGRADO: CONTROL DE REVISIÓN Y VALIDACIÓN DE PLANTILLAS 2027     -->
+    <!-- ========================================================================= -->
+    <style>
+        .ctrl-doc-anexo {
+            background: #ffffff;
+            border: 1px solid #ddd6fe;
+            border-top: 4px solid #0A2540;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 28px;
+            box-shadow: 0 4px 15px rgba(10, 37, 64, 0.05);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .ctrl-doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+        .ctrl-doc-header h4 {
+            margin: 0;
+            color: #0A2540;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+        .ctrl-doc-header p {
+            margin: 4px 0 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .ctrl-doc-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-ctrl {
+            border: none;
+            padding: 9px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-ctrl-sync { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .btn-ctrl-sync:hover { background: #bae6fd; }
+        .btn-ctrl-lock { background: #0A2540; color: #ffffff; }
+        .btn-ctrl-lock:hover { background: #1c3d5a; }
+        .btn-ctrl-save { background: #16a34a; color: #ffffff; box-shadow: 0 3px 8px rgba(22, 163, 74, 0.25); }
+        .btn-ctrl-save:hover { background: #15803d; }
+        .btn-ctrl-close { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .btn-ctrl-close:hover { background: #e2e8f0; }
+
+        .ctrl-auth-bar {
+            display: none;
+            background: #f8fafc;
+            border: 1px dashed #94a3b8;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .ctrl-auth-bar input {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            width: 220px;
+            background: #ffffff;
+        }
+        .ctrl-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .ctrl-kpi-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #0A2540;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+        }
+        .ctrl-kpi-card.kpi-gold { border-top-color: #D4AF37; }
+        .ctrl-kpi-card.kpi-blue { border-top-color: #0284c7; }
+        .ctrl-kpi-card.kpi-green { border-top-color: #16a34a; }
+        .ctrl-kpi-card.kpi-purple { border-top-color: #7c3aed; }
+        .ctrl-kpi-num {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #0A2540;
+            line-height: 1.2;
+        }
+        .ctrl-kpi-lbl {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #475569;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+        .ctrl-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            max-height: 580px;
+            overflow-y: auto;
+        }
+        .ctrl-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 920px;
+            font-size: 0.88rem;
+        }
+        .ctrl-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: #0A2540;
+            color: #ffffff;
+            padding: 12px 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .ctrl-table thead th:nth-child(1),
+        .ctrl-table thead th:nth-child(2) {
+            text-align: left;
+        }
+        .ctrl-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s;
+        }
+        .ctrl-table tbody tr:nth-child(even) { background: #f8fafc; }
+        .ctrl-table tbody tr:hover { background: #f1f5f9; }
+        .ctrl-table td {
+            padding: 10px;
+            vertical-align: middle;
+        }
+        .ce-nombre-cell {
+            display: block;
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 0.89rem;
+        }
+        .ce-director-sub {
+            display: block;
+            font-size: 0.77rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+        .estado-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .est-validado  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .est-entregado { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+        .est-revision  { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+        .est-pendiente { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+        .ctrl-select-estado {
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 0.81rem;
+            font-weight: 700;
+            border: 1px solid #94a3b8;
+            cursor: pointer;
+            width: 142px;
+        }
+        .ctrl-select-estado.sel-validado  { background: #dcfce7; color: #166534; border-color: #22c55e; }
+        .ctrl-select-estado.sel-entregado { background: #e0f2fe; color: #075985; border-color: #0284c7; }
+        .ctrl-select-estado.sel-revision  { background: #fef3c7; color: #92400e; border-color: #f59e0b; }
+        .ctrl-select-estado.sel-pendiente { background: #f8fafc; color: #334155; border-color: #94a3b8; }
+
+        .barra-avance-bg {
+            width: 82px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 0 auto 3px auto;
+        }
+        .barra-avance-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.3s ease;
+        }
+        @media print {
+            .ctrl-table-wrap { max-height: none !important; overflow: visible !important; }
+        }
+    </style>
+
+    <div class="ctrl-doc-anexo">
+        <div class="ctrl-doc-header">
+            <div>
+                <h4>📊 Cuadro de Control de Revisión y Validación Documental (2027)</h4>
+                <p>Monitoreo del uso y entrega oficial de plantillas por institución educativa (27 centros educativos).</p>
+            </div>
+            <div class="ctrl-doc-actions">
+                <button type="button" id="btn-sync-validacion" class="btn-ctrl btn-ctrl-sync" onclick="if(window.sincronizarControlDocumentos) window.sincronizarControlDocumentos(false);">
+                    🔄 Actualizar Datos
+                </button>
+                <button type="button" id="btn-abrir-edicion-doc" class="btn-ctrl btn-ctrl-lock" onclick="if(window.mostrarBarraClaveDoc) window.mostrarBarraClaveDoc();">
+                    🔒 Modo Edición
+                </button>
+                <button type="button" id="btn-guardar-edicion-doc" class="btn-ctrl btn-ctrl-save" style="display: none;" onclick="if(window.guardarControlDocumentos) window.guardarControlDocumentos();">
+                    💾 Guardar Cambios
+                </button>
+                <button type="button" id="btn-cerrar-edicion-doc" class="btn-ctrl btn-ctrl-close" style="display: none;" onclick="if(window.bloquearEdicionDoc) window.bloquearEdicionDoc();">
+                    🔓 Salir de Edición
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de contraseña maestra -->
+        <div id="ctrl-doc-auth-bar" class="ctrl-auth-bar">
+            <div style="font-size: 0.9rem; color: #1e293b; font-weight: 600;">
+                🔐 Contraseña maestra para habilitar edición en línea:
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="password" id="pass-control-doc" placeholder="Ingrese contraseña" onkeypress="if(event.key==='Enter'){ event.preventDefault(); if(window.desbloquearEdicionDoc) window.desbloquearEdicionDoc(); }">
+                <button type="button" class="btn-ctrl btn-ctrl-lock" onclick="if(window.desbloquearEdicionDoc) window.desbloquearEdicionDoc();">Desbloquear</button>
+                <button type="button" class="btn-ctrl btn-ctrl-close" onclick="document.getElementById('ctrl-doc-auth-bar').style.display='none'">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Tarjetas de resumen -->
+        <div class="ctrl-kpi-grid">
+            <div class="ctrl-kpi-card">
+                <div class="ctrl-kpi-num" id="kpi-val-total">27</div>
+                <div class="ctrl-kpi-lbl">Instituciones</div>
+            </div>
+            <div class="ctrl-kpi-card kpi-gold">
+                <div class="ctrl-kpi-num" id="kpi-val-pea">0 / 27</div>
+                <div class="ctrl-kpi-lbl">PEA 2027</div>
+            </div>
+            <div class="ctrl-kpi-card kpi-blue">
+                <div class="ctrl-kpi-num" id="kpi-val-ppe">0 / 27</div>
+                <div class="ctrl-kpi-lbl">Plan Protección Escolar</div>
+            </div>
+            <div class="ctrl-kpi-card kpi-green">
+                <div class="ctrl-kpi-num" id="kpi-val-planta">0 / 27</div>
+                <div class="ctrl-kpi-lbl">Planta Docente 2027</div>
+            </div>
+            <div class="ctrl-kpi-card kpi-purple">
+                <div class="ctrl-kpi-num" id="kpi-val-consejo">0 / 27</div>
+                <div class="ctrl-kpi-lbl">Pres. Consejo Estudiantil</div>
+            </div>
+        </div>
+
+        <!-- Tabla de las 27 Instituciones sin filtros -->
+        <div class="ctrl-table-wrap">
+            <table class="ctrl-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Código</th>
+                        <th>Institución Educativa</th>
+                        <th style="width: 162px;">PEA 2027</th>
+                        <th style="width: 162px;">Plan de Protección Escolar</th>
+                        <th style="width: 162px;">Planta Docente 2027</th>
+                        <th style="width: 162px;">Presidente de Consejo Estudiantil</th>
+                        <th style="width: 100px;">Avance</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-control-validacion"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Motor autoejecutable al cargar el módulo en el DOM -->
+    <textarea id="ctrl-docs-engine-src" style="display:none;">
+        window.modoEdicionDocumentos = false;
+
+        window.padronBaseDocumentos = [
+            { codigo: "10130", nombre: "CENTRO ESCOLAR HACIENDA CHANMICO", director: "MARCOS ELMER ORELLANA LONE", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11031", nombre: "CENTRO ESCOLAR CANTÓN SAN JOSÉ LA CEIBA", director: "DIRECTOR(A) AUTORIZADO(A)", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11073", nombre: "CENTRO ESCOLAR DISTRITO SAN JUAN OPICO (11073)", director: "DIRECTOR(A) AUTORIZADO(A)", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11190", nombre: "CENTRO ESCOLAR CANTÓN EL MATAZANO", director: "CARLOS HUMBERTO AREVALO RUIZ", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11204", nombre: "COMPLEJO EDUCATIVO SOLDADO OSCAR ANTONIO ORTÍZ REYES", director: "JUAN PABLO OLIVARES CLAVEL", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11212", nombre: "ESCUELA DE EDUCACIÓN PARVULARIA HACIENDA CHANMICO", director: "XIOMARA GUADALUPE CACERES DE LEMUS", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11213", nombre: "ESCUELA DE EDUCACIÓN PARVULARIA HACIENDA SAN ANDRÉS", director: "ROSA ESTER YANES DE PEÑA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11214", nombre: "CENTRO ESCOLAR CANTÓN SITIO DEL NIÑO", director: "ROBERTO ANTONIO GUIROLA ERROA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11215", nombre: "CENTRO ESCOLAR LA NUEVA ESPERANZA", director: "CESAR ROLANDO ORTIZ", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11216", nombre: "CENTRO ESCOLAR CANTÓN JABALINCITO", director: "ELENA ROSIBEL VALDIZÓN", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11217", nombre: "CENTRO ESCOLAR CANTÓN LAS DELICIAS", director: "RAUL AMILCAR LANDAVERDE MEJIA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11232", nombre: "CENTRO ESCOLAR CANTÓN CHANMICO", director: "ERMELINDA ARACELY GARCIA MORAN", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11233", nombre: "COMPLEJO EDUCATIVO JUAN ERNESTO DE BEDOUT", director: "DIRECTOR(A) AUTORIZADO(A)", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11239", nombre: "CENTRO ESCOLAR CANTÓN AGUA ESCONDIDA", director: "JULIAN EDGARDO GALDAMEZ PACHECO", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "11241", nombre: "CENTRO ESCOLAR CASTO VALLADARES", director: "CLAUDIA EVELYN MENDOZA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "12624", nombre: "ESCUELA DE EDUCACIÓN PARVULARIA CANTÓN CHANMICO", director: "RINA ELIZABETH MARTINEZ", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "14800", nombre: "INSTITUTO NACIONAL DE SAN JUAN OPICO", director: "ALEJANDRA DANIELA ABREGO CARCAMO", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "14869", nombre: "INSTITUTO NACIONAL TECPÁN", director: "ISSA LORENA PERDOMO PEREZ", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "60121", nombre: "CENTRO ESCOLAR CASERÍO NUEVO CONSUMIDERO, CANTÓN CHANMICO", director: "CLIDE RUTH LOPEZ DE CLAVEL", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "60127", nombre: "CENTRO ESCOLAR CASERÍO VILLA LA ESPERANZA, CANTÓN CHANMICO", director: "MIRNA CRISTELA MENA VALENCIA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68008", nombre: "CENTRO ESCOLAR CASERÍO COMUNIDAD TECPÁN, CANTÓN SITIO DEL NIÑO", director: "AURA LILI CORTEZ DE QUIJADA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68110", nombre: "CENTRO ESCOLAR CASERÍO EL CAMBIO, CANTÓN CHANMICO", director: "OSCAR AMILCAR FLORES ARGUETA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68111", nombre: "CENTRO ESCOLAR CASERÍO EL JABALINCITO", director: "LAURA CECILIA MENA", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68114", nombre: "CENTRO ESCOLAR CANTÓN EL JABALINÓN", director: "BLANCA LIDIA PENADO GAITAN", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68122", nombre: "CENTRO ESCOLAR CASERÍO AGUA ZARCA, CANTÓN SITIO DEL NIÑO", director: "ROSA MARIA URIAS CHICAS", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68123", nombre: "CENTRO ESCOLAR CANTÓN SITIO GRANDE", director: "DANIEL OMAR MELGAR RODRIGUEZ", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" },
+            { codigo: "68126", nombre: "CENTRO ESCOLAR CASERÍO COLONIA EL MILAGRO", director: "DIRECTOR(A) AUTORIZADO(A)", pea2027: "pendiente", ppe: "pendiente", planta2027: "pendiente", consejo: "pendiente" }
+        ];
+
+        window.datosControlDocumentos = (function() {
+            try {
+                var guardado = localStorage.getItem("opico_control_docs_2027");
+                if (guardado) {
+                    var parsed = JSON.parse(guardado);
+                    if (Array.isArray(parsed) && parsed.length === 27) return parsed;
+                }
+            } catch (e) {}
+            return JSON.parse(JSON.stringify(window.padronBaseDocumentos));
+        })();
+
+        window.normalizarEstadoDoc = function(estado) {
+            var val = (estado || "pendiente").toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (val === "validado") return "validado";
+            if (val === "entregado") return "entregado";
+            if (val === "revision" || val === "en revision") return "revision";
+            return "pendiente";
+        };
+
+        window.renderizarCeldaDocumento = function(index, campo, estadoActual) {
+            var est = window.normalizarEstadoDoc(estadoActual);
+            if (!window.modoEdicionDocumentos) {
+                if (est === "validado")  return '<span class="estado-pill est-validado">✅ Validado</span>';
+                if (est === "entregado") return '<span class="estado-pill est-entregado">📨 Entregado</span>';
+                if (est === "revision")  return '<span class="estado-pill est-revision">🔍 En revisión</span>';
+                return '<span class="estado-pill est-pendiente">⏳ Pendiente</span>';
+            }
+            return '<select class="ctrl-select-estado sel-' + est + '" onchange="window.cambiarEstadoCeldaDoc(' + index + ', \'' + campo + '\', this)">' +
+                '<option value="pendiente"' + (est === 'pendiente' ? ' selected' : '') + '>⏳ Pendiente</option>' +
+                '<option value="entregado"' + (est === 'entregado' ? ' selected' : '') + '>📨 Entregado</option>' +
+                '<option value="revision"'  + (est === 'revision'  ? ' selected' : '') + '>🔍 En revisión</option>' +
+                '<option value="validado"'  + (est === 'validado'  ? ' selected' : '') + '>✅ Validado</option>' +
+            '</select>';
+        };
+
+        window.cambiarEstadoCeldaDoc = function(index, campo, selectEl) {
+            var nuevoValor = selectEl.value;
+            window.datosControlDocumentos[index][campo] = nuevoValor;
+            selectEl.className = "ctrl-select-estado sel-" + nuevoValor;
+            try { localStorage.setItem("opico_control_docs_2027", JSON.stringify(window.datosControlDocumentos)); } catch (e) {}
+            window.actualizarKpisYAvanceDoc();
+        };
+
+        window.actualizarKpisYAvanceDoc = function() {
+            var lista = window.datosControlDocumentos;
+            var total = lista.length;
+            var cPea = 0, cPpe = 0, cPlanta = 0, cConsejo = 0;
+
+            for (var idx = 0; idx < lista.length; idx++) {
+                var item = lista[idx];
+                var ePea     = window.normalizarEstadoDoc(item.pea2027);
+                var ePpe     = window.normalizarEstadoDoc(item.ppe);
+                var ePlanta  = window.normalizarEstadoDoc(item.planta2027);
+                var eConsejo = window.normalizarEstadoDoc(item.consejo);
+
+                if (ePea === "validado") cPea++;
+                if (ePpe === "validado") cPpe++;
+                if (ePlanta === "validado") cPlanta++;
+                if (eConsejo === "validado") cConsejo++;
+
+                var validados = (ePea === "validado" ? 1 : 0) + (ePpe === "validado" ? 1 : 0) + (ePlanta === "validado" ? 1 : 0) + (eConsejo === "validado" ? 1 : 0);
+                var pct = Math.round((validados / 4) * 100);
+                var celdaAvance = document.getElementById("avance-ce-" + idx);
+                if (celdaAvance) {
+                    var color = pct === 100 ? "#16a34a" : (pct >= 50 ? "#0284c7" : "#f59e0b");
+                    celdaAvance.innerHTML = '<div class="barra-avance-bg"><div class="barra-avance-fill" style="width:' + pct + '%; background:' + color + ';"></div></div><small style="font-weight:700; color:#334155;">' + pct + '%</small>';
+                }
+            }
+
+            if (document.getElementById("kpi-val-total"))   document.getElementById("kpi-val-total").innerText = total;
+            if (document.getElementById("kpi-val-pea"))     document.getElementById("kpi-val-pea").innerText = cPea + " / " + total;
+            if (document.getElementById("kpi-val-ppe"))     document.getElementById("kpi-val-ppe").innerText = cPpe + " / " + total;
+            if (document.getElementById("kpi-val-planta"))  document.getElementById("kpi-val-planta").innerText = cPlanta + " / " + total;
+            if (document.getElementById("kpi-val-consejo")) document.getElementById("kpi-val-consejo").innerText = cConsejo + " / " + total;
+        };
+
+        window.renderizarControlDocumentos = function() {
+            var tbody = document.getElementById("tbody-control-validacion");
+            if (!tbody) return;
+
+            tbody.innerHTML = "";
+            for (var index = 0; index < window.datosControlDocumentos.length; index++) {
+                var item = window.datosControlDocumentos[index];
+                var tr = document.createElement("tr");
+                tr.innerHTML =
+                    '<td style="font-weight: 800; color: #0A2540;">' + item.codigo + '</td>' +
+                    '<td><span class="ce-nombre-cell">' + item.nombre + '</span><span class="ce-director-sub">Dir.: ' + item.director + '</span></td>' +
+                    '<td style="text-align: center;">' + window.renderizarCeldaDocumento(index, "pea2027", item.pea2027) + '</td>' +
+                    '<td style="text-align: center;">' + window.renderizarCeldaDocumento(index, "ppe", item.ppe) + '</td>' +
+                    '<td style="text-align: center;">' + window.renderizarCeldaDocumento(index, "planta2027", item.planta2027) + '</td>' +
+                    '<td style="text-align: center;">' + window.renderizarCeldaDocumento(index, "consejo", item.consejo) + '</td>' +
+                    '<td style="text-align: center;" id="avance-ce-' + index + '"></td>';
+                tbody.appendChild(tr);
+            }
+            window.actualizarKpisYAvanceDoc();
+        };
+
+        window.mostrarBarraClaveDoc = function() {
+            var bar = document.getElementById("ctrl-doc-auth-bar");
+            var inp = document.getElementById("pass-control-doc");
+            if (bar) {
+                bar.style.display = "flex";
+                if (inp) { inp.value = ""; inp.focus(); }
+            }
+        };
+
+        window.desbloquearEdicionDoc = function() {
+            var clave = (document.getElementById("pass-control-doc") ? document.getElementById("pass-control-doc").value : "").trim();
+            if (clave === "Monitor2026*") {
+                window.modoEdicionDocumentos = true;
+                document.getElementById("ctrl-doc-auth-bar").style.display = "none";
+                document.getElementById("btn-abrir-edicion-doc").style.display = "none";
+                document.getElementById("btn-guardar-edicion-doc").style.display = "inline-flex";
+                document.getElementById("btn-cerrar-edicion-doc").style.display = "inline-flex";
+                window.renderizarControlDocumentos();
+            } else {
+                alert("❌ Contraseña maestra incorrecta.");
+                if (document.getElementById("pass-control-doc")) document.getElementById("pass-control-doc").value = "";
+            }
+        };
+
+        window.bloquearEdicionDoc = function() {
+            window.modoEdicionDocumentos = false;
+            document.getElementById("btn-abrir-edicion-doc").style.display = "inline-flex";
+            document.getElementById("btn-guardar-edicion-doc").style.display = "none";
+            document.getElementById("btn-cerrar-edicion-doc").style.display = "none";
+            window.renderizarControlDocumentos();
+        };
+
+        window.guardarControlDocumentos = function() {
+            var btn = document.getElementById("btn-guardar-edicion-doc");
+            if (btn) { btn.innerText = "⏳ Guardando..."; btn.disabled = true; }
+
+            try { localStorage.setItem("opico_control_docs_2027", JSON.stringify(window.datosControlDocumentos)); } catch (e) {}
+
+            if (typeof URL_API_GOOGLE === "undefined" || !URL_API_GOOGLE) {
+                if (btn) { btn.innerText = "💾 Guardar Cambios"; btn.disabled = false; }
+                alert("✅ Cambios guardados localmente en este navegador.");
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append("tipoFormulario", "guardar_validacion");
+            formData.append("datos_validacion", JSON.stringify(window.datosControlDocumentos));
+
+            fetch(URL_API_GOOGLE, { method: "POST", body: formData, mode: "no-cors" })
+                .then(function() {
+                    if (btn) { btn.innerText = "💾 Guardar Cambios"; btn.disabled = false; }
+                    alert("✅ Estados documentales guardados y sincronizados.");
+                })
+                .catch(function() {
+                    if (btn) { btn.innerText = "💾 Guardar Cambios"; btn.disabled = false; }
+                    alert("⚠️ Se guardó localmente, pero hubo un problema de conexión con la nube.");
+                });
+        };
+
+        window.sincronizarControlDocumentos = function(silencioso) {
+            if (typeof URL_API_GOOGLE === "undefined" || !URL_API_GOOGLE) return;
+            var btn = document.getElementById("btn-sync-validacion");
+            if (btn && !silencioso) { btn.innerText = "⏳ Sincronizando..."; btn.disabled = true; }
+
+            fetch(URL_API_GOOGLE + "?accion=cargar_validacion", { method: "GET" })
+                .then(function(res) { return res.json(); })
+                .then(function(resp) {
+                    if (btn && !silencioso) { btn.innerText = "🔄 Actualizar Datos"; btn.disabled = false; }
+                    if (resp.status === "success" && Array.isArray(resp.data) && resp.data.length > 0) {
+                        var mapaNube = {};
+                        resp.data.forEach(function(r) { mapaNube[String(r.codigo).trim()] = r; });
+
+                        window.datosControlDocumentos = window.padronBaseDocumentos.map(function(base) {
+                            var nube = mapaNube[base.codigo];
+                            return nube ? {
+                                codigo: base.codigo,
+                                nombre: base.nombre,
+                                director: base.director,
+                                pea2027: nube.pea2027 || "pendiente",
+                                ppe: nube.ppe || "pendiente",
+                                planta2027: nube.planta2027 || "pendiente",
+                                consejo: nube.consejo || "pendiente"
+                            } : base;
+                        });
+
+                        try { localStorage.setItem("opico_control_docs_2027", JSON.stringify(window.datosControlDocumentos)); } catch (e) {}
+                        window.renderizarControlDocumentos();
+                        if (!silencioso) alert("✅ Cuadro de control actualizado desde Google Sheets.");
+                    } else if (!silencioso) {
+                        alert("ℹ️ Aún no hay registros previos en Google Sheets; se muestran los datos locales.");
+                    }
+                })
+                .catch(function() {
+                    if (btn && !silencioso) { btn.innerText = "🔄 Actualizar Datos"; btn.disabled = false; }
+                    if (!silencioso) alert("⚠️ No se pudo conectar con Google Sheets. Se muestran los datos locales.");
+                });
+        };
+
+        window.renderizarControlDocumentos();
+        window.sincronizarControlDocumentos(true);
+    </textarea>
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" style="display:none;" onload="try{(new Function(document.getElementById('ctrl-docs-engine-src').value))();}catch(e){console.error(e);}">
 </div>
 <!-- FIN REPOSITORIO DE FORMATOS Y PLANTILLAS -->
 
